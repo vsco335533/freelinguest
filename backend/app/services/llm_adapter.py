@@ -762,6 +762,7 @@ class LLMAdapter:
         *,
         request_timeout: float = REQUEST_TIMEOUT,
         sdk_max_retries: int | None = None,
+        json_mode: bool = False,
     ):
         if self.provider == "anthropic":
             if request_timeout != REQUEST_TIMEOUT:
@@ -783,6 +784,10 @@ class LLMAdapter:
         # pass stream_options so the final chunk includes token usage.
         # Defensively build kwargs to stay compatible with older SDK versions.
         extra: dict = {}
+        if json_mode and self.provider == "ollama" and not stream:
+            extra["response_format"] = {"type": "json_object"}
+            extra["temperature"] = 0.2
+            extra["max_tokens"] = 4096
         if stream:
             extra["stream_options"] = {"include_usage": True}
         if tools:
@@ -895,7 +900,12 @@ class LLMAdapter:
 
         async def request(request_messages: list[dict]) -> str:
             if deadline is None:
-                return await self._call_with_retry(self._do_chat, request_messages, False)
+                return await self._call_with_retry(
+                    self._do_chat,
+                    request_messages,
+                    False,
+                    json_mode=self.provider == "ollama",
+                )
             remaining = deadline - asyncio.get_running_loop().time()
             if remaining <= 0:
                 raise LLMTimeoutError("Structured generation deadline reached")
@@ -903,6 +913,7 @@ class LLMAdapter:
                 self._do_chat,
                 request_messages,
                 False,
+                json_mode=self.provider == "ollama",
                 max_retries=0,
                 request_timeout=remaining,
                 sdk_max_retries=0,

@@ -3,9 +3,23 @@ import type { NextConfig } from 'next'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
+const allowedDevOrigins = (process.env.NEXT_PUBLIC_DEV_ORIGINS ?? '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
+  .flatMap((origin) => {
+    try {
+      const url = new URL(origin)
+      return [origin, url.hostname]
+    } catch {
+      return [origin]
+    }
+  })
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: 'standalone',
+  allowedDevOrigins,
   typescript: {
     tsconfigPath: 'tsconfig.build.json',
   },

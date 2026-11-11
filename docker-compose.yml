@@ -33,6 +33,8 @@ services:
     pull_policy: always
     container_name: freelingo-backend
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: >
       sh -c "cd /tmp && PYTHONPATH=/app alembic -c /app/alembic.ini upgrade head && cd /app && uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers ${UVICORN_WORKERS:-4}"
     volumes:
@@ -144,7 +146,7 @@ services:
   # CPU-only host: use :cpu-latest and remove the 'deploy' block.
   # See: https://github.com/remsky/Kokoro-FastAPI
   kokoro:
-    image: ghcr.io/remsky/kokoro-fastapi-gpu:latest-cu128
+    image: ghcr.io/remsky/kokoro-fastapi-gpu:latest
     container_name: freelingo-kokoro
     restart: unless-stopped
     environment:
@@ -164,16 +166,9 @@ services:
   # CPU-only host:     replace image tag with onerahmet/openai-whisper-asr-webservice:latest
   #                    set ASR_MODEL=base or small, and remove the entire 'deploy' block.
   whisper:
-    image: onerahmet/openai-whisper-asr-webservice:latest-gpu
+    image: onerahmet/openai-whisper-asr-webservice:latest
     container_name: freelingo-whisper
     restart: unless-stopped
     environment:
       - ASR_MODEL=${STT_MODEL:-large-v3-turbo}
       - ASR_ENGINE=${STT_ENGINE:-faster_whisper}
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
