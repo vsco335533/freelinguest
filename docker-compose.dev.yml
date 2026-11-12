@@ -139,11 +139,29 @@ services:
       - /app/node_modules
     environment:
       BACKEND_URL: http://backend:8000
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
       NEXT_PUBLIC_DEV_ORIGINS: ${NEXT_PUBLIC_DEV_ORIGINS:-}
       NEXT_PUBLIC_UMAMI_SCRIPT_URL: ${NEXT_PUBLIC_UMAMI_SCRIPT_URL:-}
       NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${NEXT_PUBLIC_UMAMI_WEBSITE_ID:-}
-    ports:
-      - "3000:3000"
     depends_on:
       - backend
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: freelingo-caddy
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - frontend
+      - backend
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: freelingo-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --url http://caddy:80
+    depends_on:
+      - caddy

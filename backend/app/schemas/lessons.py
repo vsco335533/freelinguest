@@ -67,6 +67,7 @@ class LessonResponse(BaseModel):
     cefr_level: str
     week_number: int
     day_number: int
+    unit_id: str | None = None
     content: dict
     is_completed: bool
     completed_at: datetime | None = None

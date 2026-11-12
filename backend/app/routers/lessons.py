@@ -158,6 +158,60 @@ _ANSWER_FEEDBACK: dict[str, dict[str, str]] = {
         "good_pronunciation": "Dobar izgovor!",
         "target_phrase": "Ciljani izraz bio je: {answer}",
     },
+    "hi": {
+        "correct": "सही!",
+        "correct_answer": "सही उत्तर है: {answer}",
+        "free_write_unavailable": (
+            "इस समय लिखित उत्तर का मूल्यांकन नहीं किया जा सका।"
+        ),
+        "good_pronunciation": "अच्छा उच्चारण!",
+        "target_phrase": "लक्षित वाक्यांश था: {answer}",
+    },
+    "te": {
+        "correct": "సరైనది!",
+        "correct_answer": "సరైన సమాధానం: {answer}",
+        "free_write_unavailable": (
+            "ఈ సమయంలో రాత సమాధానాన్ని మూల్యాంకనం చేయలేకపోయాము."
+        ),
+        "good_pronunciation": "మంచి ఉచ్చారణ!",
+        "target_phrase": "లక్ష్య వాక్యం ఇది: {answer}",
+    },
+    "ta": {
+        "correct": "சரி!",
+        "correct_answer": "சரியான பதில்: {answer}",
+        "free_write_unavailable": (
+            "இந்த நேரத்தில் எழுத்துப் பதிலை மதிப்பீடு செய்ய முடியவில்லை."
+        ),
+        "good_pronunciation": "நல்ல உச்சரிப்பு!",
+        "target_phrase": "இலக்கு சொற்றொடர் இதுவாக இருந்தது: {answer}",
+    },
+    "ml": {
+        "correct": "ശരിയാണ്!",
+        "correct_answer": "ശരിയായ ഉത്തരം: {answer}",
+        "free_write_unavailable": (
+            "ഈ സമയത്ത് എഴുതിയ ഉത്തരം വിലയിരുത്താൻ കഴിഞ്ഞില്ല."
+        ),
+        "good_pronunciation": "നല്ല ഉച്ചാരണം!",
+        "target_phrase": "ലക്ഷ്യ വാക്യം ഇതായിരുന്നു: {answer}",
+    },
+    "or": {
+        "correct": "ଠିକ୍!",
+        "correct_answer": "ସଠିକ୍ ଉତ୍ତର ହେଉଛି: {answer}",
+        "free_write_unavailable": (
+            "ଏହି ସମୟରେ ଲିଖିତ ଉତ୍ତରର ମୂଲ୍ୟାଙ୍କନ କରାଯାଇପାରିଲା ନାହିଁ।"
+        ),
+        "good_pronunciation": "ଭଲ ଉଚ୍ଚାରଣ!",
+        "target_phrase": "ଲକ୍ଷ୍ୟ ବାକ୍ୟାଂଶ ଥିଲା: {answer}",
+    },
+    "kn": {
+        "correct": "ಸರಿ!",
+        "correct_answer": "ಸರಿಯಾದ ಉತ್ತರ: {answer}",
+        "free_write_unavailable": (
+            "ಈ ಸಮಯದಲ್ಲಿ ಲಿಖಿತ ಉತ್ತರವನ್ನು ಮೌಲ್ಯಮಾಪನ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
+        ),
+        "good_pronunciation": "ಉತ್ತಮ ಉಚ್ಚಾರಣೆ!",
+        "target_phrase": "ಗುರಿ ವಾಕ್ಯವು ಇದಾಗಿತ್ತು: {answer}",
+    },
 }
 
 

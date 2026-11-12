@@ -26,6 +26,12 @@ SUPPORTED_LANGUAGES = {
     "ru",  # Russian
     "sv",  # Swedish
     "tr",  # Turkish
+    "hi",  # Hindi
+    "te",  # Telugu
+    "ta",  # Tamil
+    "ml",  # Malayalam
+    "or",  # Odia
+    "kn",  # Kannada
 }
 
 
