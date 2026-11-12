@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <rect width="900" height="200" fill="#FF9933"/>
+  <rect y="200" width="900" height="200" fill="#FFFFFF"/>
+  <rect y="400" width="900" height="200" fill="#138808"/>
+  <!-- Ashoka Chakra -->
+  <g transform="translate(450, 300)">
+    <circle r="85" fill="none" stroke="#000080" stroke-width="8"/>
+    <circle r="16" fill="#000080"/>
+    <!-- 24 spokes -->
+    <path d="M0,0 L0,-85 M0,0 L0,85 M0,0 L-85,0 M0,0 L85,0
+             M0,0 L60,-60 M0,0 L-60,-60 M0,0 L60,60 M0,0 L-60,60
+             M0,0 L22,-82 M0,0 L-22,-82 M0,0 L22,82 M0,0 L-22,82
+             M0,0 L82,-22 M0,0 L-82,-22 M0,0 L82,22 M0,0 L-82,22
+             M0,0 L42.5,-73.6 M0,0 L-42.5,-73.6 M0,0 L42.5,73.6 M0,0 L-42.5,73.6
+             M0,0 L73.6,-42.5 M0,0 L-73.6,-42.5 M0,0 L73.6,42.5 M0,0 L-73.6,42.5"
+          stroke="#000080" stroke-width="3"/>
+  </g>
+</svg>
+

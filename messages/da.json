@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Tilgængelig i skyen uden installation eller på din egen server.",
       "compare": "Sammenlign muligheder",
-      "accounts": "Hver installation har sine egne konti og fremskridt. Hovedknappen åbner denne installation; FreeLingo Cloud-linket åbner den officielle tjeneste.",
-      "title": "To måder at bruge FreeLingo på",
+      "accounts": "Hver installation har sine egne konti og fremskridt. Hovedknappen åbner denne installation; Linguist Cloud-linket åbner den officielle tjeneste.",
+      "title": "To måder at bruge Linguist på",
       "cloud": {
         "title": "Cloud · Vi står for driften",
-        "description": "Lær i browseren med FreeLingos administrerede tjeneste.",
+        "description": "Lær i browseren med Linguists administrerede tjeneste.",
         "setup": "Hosting, vedligeholdelse og opdateringer er inkluderet.",
         "access": "AI og tale er inkluderet inden for din plans forbrugsgrænser.",
         "cost": "Start gratis, og vælg Premium for at øve mere.",
-        "cta": "Åbn FreeLingo Cloud"
+        "cta": "Åbn Linguist Cloud"
       },
       "selfHosted": {
         "title": "Egen server · Du står for driften",
-        "description": "Installér FreeLingo på din infrastruktur, og vælg dine AI- og taleudbydere.",
+        "description": "Installér Linguist på din infrastruktur, og vælg dine AI- og taleudbydere.",
         "setup": "Kontrollér installation, konfiguration og datalagring.",
         "access": "Fri og gratis software under AGPL-3.0.",
         "cost": "Du betaler for infrastruktur, vedligeholdelse og eventuelle udbyderomkostninger.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Hvad er forskellen på cloud og egen server?",
-        "answer": "FreeLingo Cloud er den administrerede tjeneste på freelingo.app: opret en konto, og lær uden at administrere en server. Med egen server installerer og vedligeholder du FreeLingo på din infrastruktur og konfigurerer AI- og taletjenester. De tilgængelige funktioner afhænger af din konfiguration."
+        "answer": "Linguist Cloud er den administrerede tjeneste på freelingo.app: opret en konto, og lær uden at administrere en server. Med egen server installerer og vedligeholder du Linguist på din infrastruktur og konfigurerer AI- og taletjenester. De tilgængelige funktioner afhænger af din konfiguration."
       },
       "free": {
         "question": "Kan jeg starte gratis? Skal jeg bruge et kort?",
         "answer": "Tilmelding kræver ikke kort. Hvis installationen tilbyder indledende Premium-adgang, starter den ved tilmelding; derefter fortsætter du gratis med grænser, hvis du ikke tegner abonnement. Det betalte abonnement begynder ved købet, medmindre planen udtrykkeligt tilbyder ekstra prøvedage. Denne prøveperiode er adskilt fra den indledende periode og kræver en betalingsmetode."
       },
       "hosting": {
-        "question": "Hvad skal jeg bruge for selv at hoste FreeLingo?",
+        "question": "Hvad skal jeg bruge for selv at hoste Linguist?",
         "answer": "Du skal bruge en server, Docker Compose og konfigurerede AI- og taletjenester. Du står for installation, opdateringer og sikkerhedskopier. AGPL-3.0-softwaren er gratis; infrastruktur og eksterne udbydere kan koste penge. Hardwarekrav og understøttede talesprog afhænger af de valgte udbydere."
       },
       "data": {
         "question": "Hvor gemmes og behandles mine data?",
-        "answer": "I Cloud administrerer FreeLingo-teamet lagringen og sender AI- og taleindhold til tjenestens udbydere til behandling. På egen server styrer du lagring og udbydere: eksterne AI- eller taletjenester modtager det relevante indhold. Egen server betyder ikke automatisk, at al behandling er lokal."
+        "answer": "I Cloud administrerer Linguist-teamet lagringen og sender AI- og taleindhold til tjenestens udbydere til behandling. På egen server styrer du lagring og udbydere: eksterne AI- eller taletjenester modtager det relevante indhold. Egen server betyder ikke automatisk, at al behandling er lokal."
       },
       "languages": {
         "question": "Hvilke sprog kan jeg lære?",
@@ -61,10 +61,10 @@
     "heroSub": "En vej til at lære sprog: lektioner på dit niveau, øvelser og spil til at styrke din viden og stemmesamtaler med din AI-læringsmakker.",
     "startFree": "Begynd at lære gratis",
     "freeNote": "Intet betalingskort kræves. Gratis adgang har forbrugsgrænser; du kan få mere med Premium.",
-    "seoTitle": "FreeLingo: lær sprog med en plan og Lingu",
+    "seoTitle": "Linguist: lær sprog med en plan og Lingu",
     "seoDescription": "Lær sprog fra A1 til C2 med en personlig studieplan, øvelser og spil. Brug det, du lærer, i samtaler med Lingu, din AI-vejleder.",
     "journey": {
-      "title": "Sådan fungerer FreeLingo",
+      "title": "Sådan fungerer Linguist",
       "learnTitle": "Lær i dit eget tempo",
       "learnDesc": "Find dit niveau med en vurdering, og start en plan, der passer til dig. Gå frem lektion for lektion med et struktureret pensum fra A1 til C2.",
       "practiceTitle": "Øv dig og styrk din viden",
@@ -123,7 +123,7 @@
     "start": "Start",
     "retry": "Prøv igen",
     "or": "eller",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "dage",
     "logout": "Log ud",
     "logoutConfirmTitle": "Log ud",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Noter om fraser",
     "nativeHelpStudyTips": "Studietips",
     "nativeHelpWordNotes": "Noter om ord",
-    "nativeHelpPractice": "Øvelse"
+    "nativeHelpPractice": "Øvelse",
+    "aiTutor": "AI-vejleder",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "utilg.",
+    "baseLanguageSelect": "Bassprog",
+    "loaderLearn": "LÆR.",
+    "loaderSpeak": "TAL.",
+    "loaderRead": "LÆS.",
+    "loaderWrite": "SKRIV",
+    "lessonTitlePattern": "{title} - Lektion {n}",
+    "completionTestTitle": "Afsluttende prøve for niveau {level}",
+    "unitTitles": {
+      "a1-unit-1": "Identitet og hilsner",
+      "a1-unit-2": "Min verden",
+      "a1-unit-3": "Dagligdag",
+      "a1-unit-4": "Steder og placering",
+      "a1-unit-5": "Handlinger lige nu",
+      "a1-unit-6": "I går",
+      "a1-unit-7": "Evner og ønsker",
+      "a1-unit-8": "A1-konsolidering",
+      "a2-unit-1": "Uregelmæssige verber og fortidsfortællinger",
+      "a2-unit-2": "Planer og fremtid",
+      "a2-unit-3": "Sammenligninger",
+      "a2-unit-4": "Evne og tilladelse",
+      "a2-unit-5": "Mængde og indkøb",
+      "a2-unit-6": "Sundhed og krop",
+      "a2-unit-7": "Rejser og transport",
+      "a2-unit-8": "A2-konsolidering",
+      "b1-unit-1": "Aspekter af Present Perfect",
+      "b1-unit-2": "Nul-, første og anden betingelsessætning",
+      "b1-unit-3": "Passiv form",
+      "b1-unit-4": "Relativsætninger, bindeord og phrasal verbs",
+      "b1-unit-5": "Modalverber, råd og spørgsmålstags",
+      "b1-unit-6": "Indirekte tale",
+      "b1-unit-7": "Past Perfect, ønsker og fortrydelser",
+      "b1-unit-8": "B1-konsolidering",
+      "b2-unit-1": "Fortællinger i datid og rækkefølge",
+      "b2-unit-2": "Avancerede ønsker: Wish + Would/Could",
+      "b2-unit-3": "Betingelsessætninger 2 og 3",
+      "b2-unit-4": "Kausativ Have/Get, modal passiv og passive infinitiver",
+      "b2-unit-5": "Gerundier, infinitiver og phrasal verbs",
+      "b2-unit-6": "Indirekte tale og perfektum af modalverber",
+      "b2-unit-7": "Indrømmelse, kontrast og akademisk diskurs",
+      "b2-unit-8": "B2-konsolidering",
+      "c1-unit-1": "Blandede betingelsessætninger og spekulation",
+      "c1-unit-2": "Participiumskonstruktioner",
+      "c1-unit-3": "Gardering og formelt register",
+      "c1-unit-4": "Fremhævelse: inversion og sætningskløvning",
+      "c1-unit-5": "Ellipse, substitution og tekstsammenhæng",
+      "c1-unit-6": "Avancerede relativsætninger, kritisk tænkning og phrasal verbs",
+      "c1-unit-7": "Argumentation og retorik",
+      "c1-unit-8": "C1-konsolidering",
+      "c2-unit-1": "Diskursmarkører og tekstsammenhæng",
+      "c2-unit-2": "Nominalisering og akademisk stil",
+      "c2-unit-3": "Idiomatisk og billedligt sprog",
+      "c2-unit-4": "Fremrykning, emfase og stilmidler",
+      "c2-unit-5": "Kritisk læsning og akademisk skrivning",
+      "c2-unit-6": "Britisk pragmatik og talesprogsstil",
+      "c2-unit-7": "Retoriske virkemidler og avanceret tekststruktur",
+      "c2-unit-8": "C2-konsolidering"
+    }
   },
   "detective": {
     "title": "Fejldetektiv",
@@ -466,7 +528,7 @@
     "cardProductReview": "Produktanmeldelse",
     "cardLegalDocuments": "Juridiske dokumenter",
     "sectionReview": "Anmeldelse",
-    "reviewDescription": "Fortæl om din oplevelse med FreeLingo. Hvis du redigerer en anmeldelse, som allerede er godkendt, skal den vurderes igen, før den vises offentligt.",
+    "reviewDescription": "Fortæl om din oplevelse med Linguist. Hvis du redigerer en anmeldelse, som allerede er godkendt, skal den vurderes igen, før den vises offentligt.",
     "reviewPending": "Afventer godkendelse",
     "reviewUpdate": "Opdater",
     "reviewSaved": "Anmeldelsen er gemt.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Brugervilkår",
-      "seoDescription": "Læs FreeLingos vilkår om konti, tilladt brug, gratis adgang og abonnementer på platformen til sprogindlæring.",
+      "seoDescription": "Læs Linguists vilkår om konti, tilladt brug, gratis adgang og abonnementer på platformen til sprogindlæring.",
       "updated": "Senest opdateret: august 2026",
-      "s1Title": "1. Om FreeLingo",
-      "s1Body": "FreeLingo er en open source-platform til sprogindlæring med AI, som kan bruges på to måder: (1) ved selvhosting, hvor du kører tjenesten på din egen infrastruktur uden omkostninger, og (2) som en hostet tjeneste drevet af FreeLingo-teamet med et gratis abonnement og betalte abonnementer. Ved at bruge tjenesten på en af disse måder accepterer du disse brugervilkår.",
+      "s1Title": "1. Om Linguist",
+      "s1Body": "Linguist er en open source-platform til sprogindlæring med AI, som kan bruges på to måder: (1) ved selvhosting, hvor du kører tjenesten på din egen infrastruktur uden omkostninger, og (2) som en hostet tjeneste drevet af Linguist-teamet med et gratis abonnement og betalte abonnementer. Ved at bruge tjenesten på en af disse måder accepterer du disse brugervilkår.",
       "s2Title": "2. Tilladt brug",
-      "s2Intro": "Du må kun bruge FreeLingo til personlig sprogindlæring. Du accepterer ikke at:",
+      "s2Intro": "Du må kun bruge Linguist til personlig sprogindlæring. Du accepterer ikke at:",
       "s2i1": "Forsøge at få uautoriseret adgang til nogen del af systemet.",
       "s2i2": "Uploade skadeligt indhold eller forsøge at forstyrre tjenesten.",
       "s2i3": "Dele dine loginoplysninger med tredjeparter.",
       "s2i4": "Bruge automatiserede scripts eller bots til at misbruge AI-lærerens funktioner.",
       "s3Title": "3. Brugerkonti",
-      "s3Body": "Du skal være mindst 16 år for at oprette en konto og bruge FreeLingo. Ved at registrere dig bekræfter du, at du opfylder alderskravet. Hvis vi bliver opmærksomme på, at en konto tilhører en person under 16 år, sletter vi den og alle tilknyttede data uden varsel. Du er ansvarlig for at holde dine loginoplysninger fortrolige og for al aktivitet på din konto. Instansens operatør – dig selv ved selvhosting eller FreeLingo-teamet for den hostede tjeneste – kan suspendere eller lukke konti, som overtræder disse vilkår.",
+      "s3Body": "Du skal være mindst 16 år for at oprette en konto og bruge Linguist. Ved at registrere dig bekræfter du, at du opfylder alderskravet. Hvis vi bliver opmærksomme på, at en konto tilhører en person under 16 år, sletter vi den og alle tilknyttede data uden varsel. Du er ansvarlig for at holde dine loginoplysninger fortrolige og for al aktivitet på din konto. Instansens operatør – dig selv ved selvhosting eller Linguist-teamet for den hostede tjeneste – kan suspendere eller lukke konti, som overtræder disse vilkår.",
       "s4Title": "4. Indhold og AI-interaktioner",
-      "s4Body": "Samtaler med AI-læreren gemmes i databasen, så du kan fortsætte din læring. I den hostede tjeneste behandles AI-chat og stemmefunktioner via OpenAI's API, og dit indhold er underlagt OpenAI's brugspolitikker. AI kan give upræcise svar – brug altid din egen dømmekraft. FreeLingo er ikke ansvarlig for indhold genereret af de underliggende sprogmodeller. Indhold genereret af AI-læreren (øvelser, rettelser, forklaringer og andet materiale) tilhører dig til personlig brug. FreeLingo gør ikke krav på ejerskab over dine samtaler eller det indhold, der genereres på baggrund af dem.",
+      "s4Body": "Samtaler med AI-læreren gemmes i databasen, så du kan fortsætte din læring. I den hostede tjeneste behandles AI-chat og stemmefunktioner via OpenAI's API, og dit indhold er underlagt OpenAI's brugspolitikker. AI kan give upræcise svar – brug altid din egen dømmekraft. Linguist er ikke ansvarlig for indhold genereret af de underliggende sprogmodeller. Indhold genereret af AI-læreren (øvelser, rettelser, forklaringer og andet materiale) tilhører dig til personlig brug. Linguist gør ikke krav på ejerskab over dine samtaler eller det indhold, der genereres på baggrund af dem.",
       "s5Title": "5. Tjenestens former",
-      "s5Body": "Selvhostede installationer er gratis, og operatøren har fuld kontrol over sine data og sin infrastruktur. Den hostede tjeneste, som drives af FreeLingo-teamet, tilbyder et gratis abonnement med forbrugsgrænser og betalte abonnementer med ubegrænset adgang, enten månedligt eller årligt. Det gratis abonnement omfatter en prøveperiode på syv dage med fuld adgang (uden krav om betalingsmetode) og derefter begrænsede daglige kvoter for lektioner og AI-chat samt ugentlige kvoter for lytteøvelser, læseøvelser og stemmesamtaler. Betalte abonnementer fjerner alle forbrugsgrænser for disse funktioner. I den hostede tjeneste opbevares dine data på servere drevet af FreeLingo-teamet. Dine aktuelle forbrugsgrænser vises på din oversigt.",
+      "s5Body": "Selvhostede installationer er gratis, og operatøren har fuld kontrol over sine data og sin infrastruktur. Den hostede tjeneste, som drives af Linguist-teamet, tilbyder et gratis abonnement med forbrugsgrænser og betalte abonnementer med ubegrænset adgang, enten månedligt eller årligt. Det gratis abonnement omfatter en prøveperiode på syv dage med fuld adgang (uden krav om betalingsmetode) og derefter begrænsede daglige kvoter for lektioner og AI-chat samt ugentlige kvoter for lytteøvelser, læseøvelser og stemmesamtaler. Betalte abonnementer fjerner alle forbrugsgrænser for disse funktioner. I den hostede tjeneste opbevares dine data på servere drevet af Linguist-teamet. Dine aktuelle forbrugsgrænser vises på din oversigt.",
       "s6Title": "6. Abonnement og betaling",
       "s6Body": "Det gratis abonnement giver begrænset adgang til AI-funktioner med en prøveperiode på syv dage med fuld adgang for nye brugere (uden krav om betalingsmetode). Betalte abonnementer tilbydes månedligt eller årligt og fornyes automatisk, medmindre de opsiges inden da. Du kan til enhver tid opsige dit abonnement under Indstillinger; opsigelsen træder i kraft ved udgangen af den aktuelle periode. Operatøren kan også stoppe fornyelser eller abonnementer, hvis tjenesten ændres eller lukkes. Hvis tjenesten ophører, før en betalt periode slutter, gælder enhver tilbagebetaling, som forbrugerlovgivningen kræver. Fortrydelsesret og gældende priser vises og håndteres i overensstemmelse med gældende lovgivning.",
       "s7Title": "7. Tilgængelighed",
-      "s7Body": "Den hostede tjeneste leveres uden garanti for kontinuitet eller tilgængelighed. Operatøren kan til enhver tid ændre, suspendere eller lukke den af tekniske, økonomiske eller andre årsager. Planlagte lukninger annonceres via appen eller e-mail, når det er rimeligt muligt. Efter den annoncerede dato kan konti og driftsdata blive slettet uden mulighed for gendannelse. FreeLingo tilbyder ingen sikkerhedskopieringstjeneste eller automatisk eksportfunktion.",
+      "s7Body": "Den hostede tjeneste leveres uden garanti for kontinuitet eller tilgængelighed. Operatøren kan til enhver tid ændre, suspendere eller lukke den af tekniske, økonomiske eller andre årsager. Planlagte lukninger annonceres via appen eller e-mail, når det er rimeligt muligt. Efter den annoncerede dato kan konti og driftsdata blive slettet uden mulighed for gendannelse. Linguist tilbyder ingen sikkerhedskopieringstjeneste eller automatisk eksportfunktion.",
       "s8Title": "8. Ansvarsbegrænsning",
-      "s8Body": "FreeLingo og dets bidragydere er ikke ansvarlige for direkte, indirekte, hændelige eller følgeskader, der opstår som følge af din brug af eller manglende mulighed for at bruge tjenesten. I det omfang gældende lovgivning tillader det, kan det samlede ansvar ikke overstige det beløb, du har betalt i de tre måneder før kravet. Du accepterer at holde FreeLingo og dets bidragydere skadesløse for krav, skader eller udgifter fra tredjeparter, der opstår som følge af din brug af tjenesten i strid med disse vilkår.",
+      "s8Body": "Linguist og dets bidragydere er ikke ansvarlige for direkte, indirekte, hændelige eller følgeskader, der opstår som følge af din brug af eller manglende mulighed for at bruge tjenesten. I det omfang gældende lovgivning tillader det, kan det samlede ansvar ikke overstige det beløb, du har betalt i de tre måneder før kravet. Du accepterer at holde Linguist og dets bidragydere skadesløse for krav, skader eller udgifter fra tredjeparter, der opstår som følge af din brug af tjenesten i strid med disse vilkår.",
       "s9Title": "9. Lovvalg",
       "s9Body": "Disse vilkår er underlagt spansk lovgivning. Tvister, der udspringer af vilkårene, er underlagt de spanske domstoles enekompetence, medmindre ufravigelige forbrugerbeskyttelsesregler i dit bopælsland bestemmer andet.",
       "s10Title": "10. Ændringer i vilkårene",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Privatlivspolitik",
       "linkBack": "Tilbage til registrering",
       "linkBackSettings": "Tilbage til Indstillinger",
-      "linkContact": "Hvis du har spørgsmål om vilkårene, kan du bruge kontaktformularen på freelingo.app, så længe den er tilgængelig, eller kontaktvejen angivet i FreeLingos GitHub-arkiv."
+      "linkContact": "Hvis du har spørgsmål om vilkårene, kan du bruge kontaktformularen på freelingo.app, så længe den er tilgængelig, eller kontaktvejen angivet i Linguists GitHub-arkiv."
     },
     "privacy": {
       "pageTitle": "Privatlivspolitik",
-      "seoDescription": "Læs, hvordan FreeLingo behandler personoplysninger, browserlagring og anonym statistik, og hvordan du kan udøve dine privatlivsrettigheder.",
+      "seoDescription": "Læs, hvordan Linguist behandler personoplysninger, browserlagring og anonym statistik, og hvordan du kan udøve dine privatlivsrettigheder.",
       "updated": "Senest opdateret: 10. oktober 2026",
       "s1Title": "1. Overblik",
-      "s1Body": "FreeLingo tilbydes som en selvhostet app og som en hostet tjeneste. Ved selvhosting opbevares alle data udelukkende på operatørens server, og FreeLingo-projektets ophavspersoner har ikke adgang til dem. For den hostede tjeneste er FreeLingo-teamet dataansvarlig, og denne politik beskriver, hvordan dine personoplysninger indsamles, bruges og beskyttes.",
+      "s1Body": "Linguist tilbydes som en selvhostet app og som en hostet tjeneste. Ved selvhosting opbevares alle data udelukkende på operatørens server, og Linguist-projektets ophavspersoner har ikke adgang til dem. For den hostede tjeneste er Linguist-teamet dataansvarlig, og denne politik beskriver, hvordan dine personoplysninger indsamles, bruges og beskyttes.",
       "s2Title": "2. Oplysninger, vi indsamler",
-      "s2Intro": "FreeLingo henvender sig ikke til børn under 16 år. Vi indsamler ikke bevidst personoplysninger fra personer under 16 år. Hvis du er under 16 år, må du ikke oprette en konto eller angive personoplysninger. Når du opretter en konto og bruger FreeLingo, gemmes følgende oplysninger:",
+      "s2Intro": "Linguist henvender sig ikke til børn under 16 år. Vi indsamler ikke bevidst personoplysninger fra personer under 16 år. Hvis du er under 16 år, må du ikke oprette en konto eller angive personoplysninger. Når du opretter en konto og bruger Linguist, gemmes følgende oplysninger:",
       "s2i1": "Brugernavn, visningsnavn og e-mailadresse.",
       "s2i2": "Hashet adgangskode (bcrypt – din adgangskode i klartekst gemmes aldrig).",
       "s2i3": "Valg af modersmål og læringsindstillinger.",
@@ -532,7 +594,7 @@
       "s2i9": "Globale kontohukommelser og præferencer, som AI-læreren lærer under samtaler, eller som du selv tilføjer for at tilpasse fremtidige interaktioner på tværs af læringssprog.",
       "s2i10": "Funktionsforslag, fejlrapporter, kommentarer og stemmer, som du indsender via feedbacktavlen. Kun dit brugernavn vises offentligt; alle brugere kan se offentliggjorte forslag og rapporter.",
       "s3Title": "3. Sådan bruger vi dine oplysninger",
-      "s3Intro": "Dine oplysninger bruges udelukkende til at give dig FreeLingos læringsoplevelse:",
+      "s3Intro": "Dine oplysninger bruges udelukkende til at give dig Linguists læringsoplevelse:",
       "s3i1": "Til at bekræfte din identitet og opretholde din session.",
       "s3i2": "Til at tilpasse din læringsplan og dine samtaler med læreren.",
       "s3i3": "Til at følge dine læringsfremskridt over tid.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Eksterne AI-tjenester",
       "s4Body": "I den hostede tjeneste leveres AI-chat, talesyntese (TTS) og transskription af tale (STT) via OpenAI's API. Indholdet af dine samtaler og lyd sendes til OpenAI til behandling i henhold til OpenAI's privatlivspolitik (openai.com/privacy). Betalinger håndteres af Stripe, Inc. (USA); Stripe behandler betalingsoplysninger direkte, og vi gemmer ikke kortoplysninger på vores servere – dine transaktionsoplysninger er omfattet af Stripes privatlivspolitik (stripe.com/privacy). Ved selvhosting vælger operatøren AI-udbyder; som standard bruges en lokal Ollama-instans, og ingen data forlader serveren.",
       "s5Title": "5. Cookies, lokal lagring og analyse",
-      "s5Body": "FreeLingo bruger tekniske cookies og præferencecookies: refresh_token (httpOnly, som standard 30 dage) til at opretholde din session samt NEXT_LOCALE og LOCALE_DETECTED (op til et år) til at huske og administrere grænsefladens sprog. Browserens lokale lagring gemmer også grænseflade- og stemmepræferencer samt status for meddelelser og vejledninger, mens sessionslagring sikrer midlertidig kontinuitet i funktioner. Lokale værdier gemmes, indtil appen eller du sletter dem; sessionsværdier fjernes efter brug eller når fanen lukkes. I den hostede tjeneste bruger vi Umami, et open source-analyseværktøj, som vi selv hoster på samme infrastruktur som FreeLingo, til at få anonyme, aggregerede statistikker om tjenestens brug og drift og forbedre læringsoplevelsen. Analysen bruger tekniske brugsdata, bruger ikke cookies, er ikke knyttet til konti og bruges hverken til individuelle profiler eller reklame. Analysedata sælges, overdrages eller deles ikke med tredjeparter. Umami-statistikker slettes ikke automatisk og opbevares, indtil de fjernes manuelt. Ved selvhostede installationer er instansens operatør ansvarlig for analysekonfigurationen. Cookiemeddelelsen er informativ; når den lukkes, gemmes kun, at den er lukket.",
+      "s5Body": "Linguist bruger tekniske cookies og præferencecookies: refresh_token (httpOnly, som standard 30 dage) til at opretholde din session samt NEXT_LOCALE og LOCALE_DETECTED (op til et år) til at huske og administrere grænsefladens sprog. Browserens lokale lagring gemmer også grænseflade- og stemmepræferencer samt status for meddelelser og vejledninger, mens sessionslagring sikrer midlertidig kontinuitet i funktioner. Lokale værdier gemmes, indtil appen eller du sletter dem; sessionsværdier fjernes efter brug eller når fanen lukkes. I den hostede tjeneste bruger vi Umami, et open source-analyseværktøj, som vi selv hoster på samme infrastruktur som Linguist, til at få anonyme, aggregerede statistikker om tjenestens brug og drift og forbedre læringsoplevelsen. Analysen bruger tekniske brugsdata, bruger ikke cookies, er ikke knyttet til konti og bruges hverken til individuelle profiler eller reklame. Analysedata sælges, overdrages eller deles ikke med tredjeparter. Umami-statistikker slettes ikke automatisk og opbevares, indtil de fjernes manuelt. Ved selvhostede installationer er instansens operatør ansvarlig for analysekonfigurationen. Cookiemeddelelsen er informativ; når den lukkes, gemmes kun, at den er lukket.",
       "s6Title": "6. Dine rettigheder (GDPR)",
-      "s6Body": "Hvis du befinder dig i Det Europæiske Økonomiske Samarbejdsområde, har du efter GDPR ret til indsigt, berigtigelse, sletning, indsigelse og dataportabilitet. Du kan selv slette din konto under Indstillinger. Andre anmodninger behandles manuelt via kontakten i afsnit 8; FreeLingo tilbyder ikke et automatisk eksportværktøj. Vi behandler personoplysninger for at levere tjenesten (GDPR artikel 6, stk. 1, litra b). OpenAI og Stripe kan behandle oplysninger i USA under de sikkerhedsforanstaltninger, der gælder for internationale overførsler. Du kan klage til den spanske databeskyttelsesmyndighed (aepd.es) eller din lokale tilsynsmyndighed.",
+      "s6Body": "Hvis du befinder dig i Det Europæiske Økonomiske Samarbejdsområde, har du efter GDPR ret til indsigt, berigtigelse, sletning, indsigelse og dataportabilitet. Du kan selv slette din konto under Indstillinger. Andre anmodninger behandles manuelt via kontakten i afsnit 8; Linguist tilbyder ikke et automatisk eksportværktøj. Vi behandler personoplysninger for at levere tjenesten (GDPR artikel 6, stk. 1, litra b). OpenAI og Stripe kan behandle oplysninger i USA under de sikkerhedsforanstaltninger, der gælder for internationale overførsler. Du kan klage til den spanske databeskyttelsesmyndighed (aepd.es) eller din lokale tilsynsmyndighed.",
       "s7Title": "7. Opbevaring og sletning af oplysninger",
-      "s7Body": "Driftsdata gemmes, så længe din konto findes, og den hostede tjeneste er aktiv. Du kan slette hukommelser, sprog eller hele din konto under Indstillinger. Operatøren kan også slette alle konti og oplysninger, hvis tjenesten lukkes, efter et rimeligt varsel, når det er muligt. Sletning kan ikke fortrydes. Når systemer og kopier under operatørens kontrol er slettet, opbevarer FreeLingo ingen personoplysninger. Stripe kan opbevare betalings- og transaktionsoplysninger i henhold til sine egne regler og lovmæssige forpligtelser.",
+      "s7Body": "Driftsdata gemmes, så længe din konto findes, og den hostede tjeneste er aktiv. Du kan slette hukommelser, sprog eller hele din konto under Indstillinger. Operatøren kan også slette alle konti og oplysninger, hvis tjenesten lukkes, efter et rimeligt varsel, når det er muligt. Sletning kan ikke fortrydes. Når systemer og kopier under operatørens kontrol er slettet, opbevarer Linguist ingen personoplysninger. Stripe kan opbevare betalings- og transaktionsoplysninger i henhold til sine egne regler og lovmæssige forpligtelser.",
       "s8Title": "8. Kontakt",
-      "s8Body": "Hvis du har spørgsmål om privatliv i den hostede tjeneste, kan du bruge kontaktformularen på freelingo.app, så længe den er tilgængelig. Efter en lukning kan du bruge kontaktvejen angivet i FreeLingos GitHub-arkiv, men du må ikke skrive personoplysninger i offentlige issues. Ved selvhosting skal du kontakte instansens administrator.",
+      "s8Body": "Hvis du har spørgsmål om privatliv i den hostede tjeneste, kan du bruge kontaktformularen på freelingo.app, så længe den er tilgængelig. Efter en lukning kan du bruge kontaktvejen angivet i Linguists GitHub-arkiv, men du må ikke skrive personoplysninger i offentlige issues. Ved selvhosting skal du kontakte instansens administrator.",
       "s9Title": "9. Ugyldige bestemmelser",
       "s9Body": "Hvis en bestemmelse i denne politik viser sig at være ugyldig eller ikke kan håndhæves, begrænses eller fjernes den i mindst muligt omfang, og de øvrige bestemmelser gælder fortsat fuldt ud.",
       "linkTerms": "Brugervilkår",
@@ -802,7 +864,8 @@
     "noPlanLabel": "KOM I GANG",
     "noPlanTitle": "Opret din læringsplan",
     "noPlanDesc": "Tag en kort niveauvurdering for at finde dit niveau og få et personligt læringsforløb.",
-    "noPlanHint": "Tager cirka 10 minutter"
+    "noPlanHint": "Tager cirka 10 minutter",
+    "loadFailed": "Kunne ikke indlæse studieplanen"
   },
   "lesson": {
     "loading": "Indlæser lektion...",
@@ -1275,7 +1338,13 @@
         "sv": "Svensk",
         "da": "Dansk",
         "fi": "Finsk",
-        "hr": "Kroatisk"
+        "hr": "Kroatisk",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamil",
+        "ml": "Malayalam",
+        "or": "Odia",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Brug flashcards til at træne ordforråd ved siden af",
     "workflowStep6": "Øv frie samtaler med Lingu",
     "q_language": "Hvilket sprog kommer jeg til at lære?",
-    "a_language": "FreeLingo understøtter i øjeblikket flere sprog ({languages}), og vi tilføjer flere med tiden. Når et nyt sprog bliver tilgængeligt, finder du det under Indstillinger → Mine sprog – tilføj det, og begynd at lære med det samme.",
+    "a_language": "Linguist understøtter i øjeblikket flere sprog ({languages}), og vi tilføjer flere med tiden. Når et nyt sprog bliver tilgængeligt, finder du det under Indstillinger → Mine sprog – tilføj det, og begynd at lære med det samme.",
     "q_assessment": "Hvad er niveauvurderingen?",
     "a_assessment": "En adaptiv test med højst 15 spørgsmål fra en spørgsmålsbank for dit studiesprog. Den dækker grammatik, ordforråd og læseforståelse fra A1 til C2. Resultatet anslår dit CEFR-niveau og viser styrker og øveområder; du kan ændre det foreslåede niveau, før du opretter planen.",
     "q_studyPlan": "Hvad er læringsplanen, og hvordan opretter jeg en?",
@@ -1311,7 +1380,7 @@
     "a_listening": "Under <strong>Lytning</strong> forbereder Lingu lytteøvelser, der passer til dit CEFR-niveau. Lyt, og svar derefter på fem forståelsesspørgsmål. Når du sender dine svar, får du din score (0–5), XP, de rigtige svar og hele transskriptionen. Du kan oprette nye øvelser, når du vil.",
     "q_reading": "Hvordan fungerer læseøvelser?",
     "a_reading": "Under <strong>Læsning</strong> oprettes tekster på dit CEFR-niveau – beskeder, e-mails, artikler, blogindlæg og mere. Læs teksten, og besvar fem multiple choice-spørgsmål. Når du sender dine svar, får du din score (0–5) og XP. Du kan oprette nye øvelser, når du vil.",
-    "q_providers": "Hvilke AI-udbydere understøtter FreeLingo?",
+    "q_providers": "Hvilke AI-udbydere understøtter Linguist?",
     "a_providers_intro": "Konfigureres i <code>.env</code> med <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Lokal og gratis. Kræver, at Ollama kører på værtsmaskinen. Anbefalet model: gemma4:e4b. Kan være langsom uden GPU.",
     "provider_openai": "OpenAI-tjeneste med den model, administratoren har valgt. Kræver OPENAI_API_KEY og kan medføre forbrugsomkostninger.",
@@ -1424,7 +1493,10 @@
       "Weekendplaner",
       "Arbejde og karrieremål",
       "At arbejde hjemmefra"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Optag",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Lektioner",
     "flashcardsLabel": "Flashcards",
     "viewDetails": "Se detaljer",
-    "supportedLanguages": "Tilgængelige sprog"
+    "supportedLanguages": "Tilgængelige sprog",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Svensk",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Gratis prøveperiode",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Start med {days} gratis dage",
-    "trialTitleTrialUsed": "Aktivér FreeLingo Premium",
+    "trialTitleTrialUsed": "Aktivér Linguist Premium",
     "trialDesc": "Få fuld adgang til Lingu, stemmeøvelser, lytning og læsning inden din første betaling.",
     "trialDescTrialUsed": "Vælg et abonnement for at låse op for Lingu, stemmeøvelser, lytning og læsning.",
     "trialCtaMonthly": "Prøv gratis, derefter €{price}/måned",
@@ -1576,7 +1658,7 @@
     "audioError": "Lyden kunne ikke afspilles. Du kan prøve igen.",
     "step1": {
       "label": "Velkommen",
-      "title": "Velkommen til FreeLingo",
+      "title": "Velkommen til Linguist",
       "desc": "Hej! Jeg er Lingu, din makker i sprogindlæring. Lad mig vise dig, hvordan vi kan lære sammen."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Fortsæt med at øve gennem spil",
     "paywallGamesDesc": "Din gratis spilkvote er opbrugt, eller spil kræver Premium. Du kan fortsætte eksisterende spil.",
     "paywallLabel": "Premium påkrævet",
-    "paywallTitle": "Lås op for FreeLingo Premium",
+    "paywallTitle": "Lås op for Linguist Premium",
     "paywallDesc": "Begynd din gratis prøveperiode på {days} dage, og lås op for alle Premium-øvelser før din første betaling.",
     "paywallDescTrialUsed": "Lås op for alle Premium-øvelser, og gennemgå beløbet, før du bekræfter.",
     "paywallChatTitle": "Øv dig med Lingu uden grænser",
@@ -1636,7 +1718,7 @@
     "planYearly": "Mest for pengene · €{price}/år · 2 måneder gratis →",
     "checkoutError": "Betalingen kunne ikke startes. Prøv igen.",
     "pricingTitle": "Planer og priser",
-    "pricingContext": "Disse planer gælder denne installation. Egen hosting kræver ikke et FreeLingo Cloud-abonnement; administratoren indstiller adgang og grænser.",
+    "pricingContext": "Disse planer gælder denne installation. Egen hosting kræver ikke et Linguist Cloud-abonnement; administratoren indstiller adgang og grænser.",
     "pricingDesc": "Ekstra prøveperiode ved abonnement: {days} dage · kort påkrævet · derefter gælder planens pris",
     "pricingDescTrialUsed": "Betalt måneds- eller årsabonnement fra købstidspunktet. Opsig når som helst.",
     "planMonthlyName": "Månedligt",
@@ -1668,7 +1750,7 @@
       "l5": "7 dages prøveperiode med fuld adgang"
     },
     "successLabel": "Betaling bekræftet",
-    "successTitle": "Velkommen til FreeLingo Premium!",
+    "successTitle": "Velkommen til Linguist Premium!",
     "successDesc": "Dit abonnement er nu aktivt. Få ubegrænset adgang til alle funktioner.",
     "successCheckingLabel": "Bekræfter abonnement",
     "successCheckingTitle": "Kontrollerer dit abonnement",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "En mere smidig oplevelse",
-      "desc": "Vi har også rettet mindre fejl og forbedret nogle detaljer, så du får endnu mere glæde af din daglige læring med FreeLingo."
+      "desc": "Vi har også rettet mindre fejl og forbedret nogle detaljer, så du får endnu mere glæde af din daglige læring med Linguist."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Vi kunne ikke kontrollere status for din anmeldelse. Prøv igen senere.",
     "ratingRequiredError": "Vælg en bedømmelse, før du sender.",
     "saveError": "Vi kunne ikke gemme din anmeldelse. Prøv igen.",
-    "eyebrow": "Anmeld FreeLingo",
+    "eyebrow": "Anmeld Linguist",
     "title": "Hvordan var din oplevelse?",
     "closeLabel": "Luk anmeldelsesvinduet",
     "checking": "Kontrollerer anmeldelsesstatus...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Historier fra brugerne",
     "title": "Læring føles mere virkelig, når du selv fortæller om den",
-    "subtitle": "Anmeldelser fra brugere, der allerede øver sig med Lingu på FreeLingo.",
+    "subtitle": "Anmeldelser fra brugere, der allerede øver sig med Lingu på Linguist.",
     "averageLabel": "{average}/5 · {count, plural, one {# bedømmelse} other {# bedømmelser}}",
     "ratingCount": "{count, plural, one {# bedømmelse} other {# bedømmelser}}",
     "carouselLabel": "Anmeldelser fra studerende",
@@ -1960,7 +2042,7 @@
     "readLess": "Vis mindre",
     "learningLanguage": "Lærer {language}",
     "starsLabel": "{rating} ud af 5 stjerner",
-    "ratingOnly": "Bekræftet FreeLingo-bedømmelse."
+    "ratingOnly": "Bekræftet Linguist-bedømmelse."
   },
   "adminReviews": {
     "title": "Anmeldelser",

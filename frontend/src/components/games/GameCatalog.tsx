@@ -19,7 +19,7 @@ import {
 } from '@/lib/detective'
 
 const button =
-  'border-fl-border hover:border-fl-border-2 text-fl-fg border px-4 py-2 text-sm disabled:opacity-40'
+  'neu-button text-fl-fg inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold disabled:opacity-40'
 
 export function GameCatalog({
   gameType,
@@ -147,16 +147,16 @@ export function GameCatalog({
       <Link href="/games" className="text-fl-muted-2 text-sm">
         ← {common('back')}
       </Link>
-      <header className="border-fl-border bg-fl-surface space-y-3 border p-6">
-        <h1 className="text-fl-fg text-lg font-semibold">{game('title')}</h1>
-        <p className="text-fl-muted-2 text-sm leading-relaxed">
+      <header className="neu-glass-card space-y-3 rounded-2xl p-6">
+        <h1 className="text-fl-fg text-lg font-bold">{game('title')}</h1>
+        <p className="text-fl-muted-2 text-sm leading-relaxed font-medium">
           {game('rules')}
         </p>
-        <p className="text-fl-muted-2 text-sm leading-relaxed">
+        <p className="text-fl-muted-2 text-sm leading-relaxed font-medium">
           {gameType === 'vocabulary-pairs' ? game('xpRules') : t('xpRules')}
         </p>
         {catalog && (
-          <p className="text-fl-muted-2 text-sm">
+          <p className="text-fl-muted-2 text-sm font-semibold">
             {tTarget(catalog.target_language)} · {catalog.level}
           </p>
         )}
@@ -170,7 +170,7 @@ export function GameCatalog({
         </div>
       )}
       {noPlan && (
-        <div className="border-fl-border space-y-4 border p-6">
+        <div className="glass-card space-y-4 rounded-2xl p-6">
           <p>{common('noActivePlan')}</p>
           <Link href="/assessment" className={button}>
             {t('assessment')}
@@ -186,11 +186,11 @@ export function GameCatalog({
           {(paywall || (catalog.limited && catalog.quota.remaining === 0)) && (
             <PaywallBanner feature="games" />
           )}
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-3">
             {(['review', 'prepare', 'free'] as const).map((mode) => (
               <section
                 key={mode}
-                className="border-fl-border bg-fl-surface flex flex-col gap-3 border p-5"
+                className="neu-card flex flex-col gap-3 rounded-2xl p-5"
               >
                 <h2 className="font-semibold">{t(mode)}</h2>
                 <p className="text-fl-muted-2 flex-1 text-sm">
@@ -231,7 +231,7 @@ export function GameCatalog({
               <Link
                 key={session.id}
                 href={`/games/${gamePath}/${session.id}`}
-                className="border-fl-border bg-fl-surface hover:border-fl-border-2 flex flex-wrap justify-between gap-3 border p-4 text-sm"
+                className="glass-card flex flex-wrap justify-between gap-3 rounded-2xl p-4 text-sm font-medium"
               >
                 <span>
                   {t(session.mode)} · {session.level} ·{' '}
@@ -242,7 +242,7 @@ export function GameCatalog({
                 <span>
                   {t(session.status)}
                   {session.status === 'completed'
-                    ? ` · ${session.xp_earned} XP`
+                    ? ` · ${session.xp_earned} ${common('xpUnit')}`
                     : ''}
                 </span>
               </Link>

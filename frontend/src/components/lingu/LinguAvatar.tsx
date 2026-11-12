@@ -23,7 +23,7 @@ function Placeholder({ onReady }: { onReady?: () => void }) {
 
   return (
     <Image
-      src="/logo.png"
+      src="/linguist-mark.svg"
       alt=""
       fill
       sizes="(min-width: 768px) 280px, 180px"

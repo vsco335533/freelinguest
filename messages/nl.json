@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Beschikbaar in de cloud, zonder installatie, of zelf gehost op je server.",
       "compare": "Opties vergelijken",
-      "accounts": "Elke installatie heeft eigen accounts en voortgang. De hoofdknop opent deze installatie; de FreeLingo Cloud-link opent de officiële dienst.",
-      "title": "Twee manieren om FreeLingo te gebruiken",
+      "accounts": "Elke installatie heeft eigen accounts en voortgang. De hoofdknop opent deze installatie; de Linguist Cloud-link opent de officiële dienst.",
+      "title": "Twee manieren om Linguist te gebruiken",
       "cloud": {
         "title": "Cloud · Wij beheren het",
-        "description": "Leer in je browser met de beheerde dienst van FreeLingo.",
+        "description": "Leer in je browser met de beheerde dienst van Linguist.",
         "setup": "Hosting, onderhoud en updates inbegrepen.",
         "access": "AI en spraak inbegrepen binnen de gebruikslimieten van je plan.",
         "cost": "Begin gratis en kies Premium als je meer wilt oefenen.",
-        "cta": "FreeLingo Cloud openen"
+        "cta": "Linguist Cloud openen"
       },
       "selfHosted": {
         "title": "Zelf gehost · Jij beheert het",
-        "description": "Installeer FreeLingo op je eigen infrastructuur en kies je AI- en spraakproviders.",
+        "description": "Installeer Linguist op je eigen infrastructuur en kies je AI- en spraakproviders.",
         "setup": "Beheer installatie, instellingen en gegevensopslag.",
         "access": "Gratis opensourcesoftware onder AGPL-3.0.",
         "cost": "Infrastructuur, onderhoud en eventuele providerkosten betaal je zelf.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Wat is het verschil tussen cloud en zelf hosten?",
-        "answer": "FreeLingo Cloud is de beheerde dienst op freelingo.app: maak een account en leer zonder een server te beheren. Bij zelf hosten installeer en onderhoud je FreeLingo op je eigen infrastructuur en stel je AI- en spraakdiensten in. De beschikbare functies hangen af van je configuratie."
+        "answer": "Linguist Cloud is de beheerde dienst op freelingo.app: maak een account en leer zonder een server te beheren. Bij zelf hosten installeer en onderhoud je Linguist op je eigen infrastructuur en stel je AI- en spraakdiensten in. De beschikbare functies hangen af van je configuratie."
       },
       "free": {
         "question": "Kan ik gratis beginnen? Heb ik een betaalkaart nodig?",
         "answer": "Registratie vereist geen betaalkaart. Als de installatie een eerste periode Premium aanbiedt, start die bij registratie; daarna blijf je gratis met gebruikslimieten als je geen abonnement neemt. Een betaald abonnement begint bij het afsluiten, tenzij het plan uitdrukkelijk extra proefdagen biedt. Die abonnementsproef staat los van de eerste periode en vereist een betaalmethode."
       },
       "hosting": {
-        "question": "Wat heb ik nodig om FreeLingo zelf te hosten?",
+        "question": "Wat heb ik nodig om Linguist zelf te hosten?",
         "answer": "Je hebt een server, Docker Compose en ingestelde AI- en spraakdiensten nodig. Je regelt installatie, updates en back-ups. De AGPL-3.0-software is gratis; infrastructuur en externe providers kunnen geld kosten. Hardwarevereisten en ondersteunde spraaktalen hangen af van de gekozen providers."
       },
       "data": {
         "question": "Waar worden mijn gegevens opgeslagen en verwerkt?",
-        "answer": "In Cloud beheert het FreeLingo-team de opslag en stuurt het AI- en spraakinhoud naar de dienstverleners voor verwerking. Bij zelf hosten bepaal je de opslag en providers: externe AI- of spraakdiensten ontvangen de betreffende inhoud. Zelf hosten betekent niet automatisch dat alle verwerking lokaal is."
+        "answer": "In Cloud beheert het Linguist-team de opslag en stuurt het AI- en spraakinhoud naar de dienstverleners voor verwerking. Bij zelf hosten bepaal je de opslag en providers: externe AI- of spraakdiensten ontvangen de betreffende inhoud. Zelf hosten betekent niet automatisch dat alle verwerking lokaal is."
       },
       "languages": {
         "question": "Welke talen kan ik leren?",
@@ -61,10 +61,10 @@
     "heroSub": "Een pad om talen te leren: lessen op jouw niveau, oefeningen en spellen om je kennis te versterken en gesproken gesprekken met je AI-leerpartner.",
     "startFree": "Begin gratis met leren",
     "freeNote": "Geen betaalkaart nodig. Gratis toegang heeft gebruikslimieten; met Premium kun je meer doen.",
-    "seoTitle": "FreeLingo: leer talen met een plan en Lingu",
+    "seoTitle": "Linguist: leer talen met een plan en Lingu",
     "seoDescription": "Leer talen van A1 tot C2 met een persoonlijk leerplan, oefeningen en spellen. Pas het geleerde toe in gesprekken met Lingu, je AI-tutor.",
     "journey": {
-      "title": "Zo werkt FreeLingo",
+      "title": "Zo werkt Linguist",
       "learnTitle": "Leer in je eigen tempo",
       "learnDesc": "Ontdek je niveau met een niveautest en begin met een plan dat bij je past. Ga les voor les vooruit met een gestructureerd leerprogramma van A1 tot C2.",
       "practiceTitle": "Oefen en versterk je kennis",
@@ -123,7 +123,7 @@
     "start": "Starten",
     "retry": "Opnieuw proberen",
     "or": "of",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "dagen",
     "logout": "Uitloggen",
     "logoutConfirmTitle": "Uitloggen",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Zinsnotities",
     "nativeHelpStudyTips": "Studietips",
     "nativeHelpWordNotes": "Woordnotities",
-    "nativeHelpPractice": "Oefening"
+    "nativeHelpPractice": "Oefening",
+    "aiTutor": "AI-tutor",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "n.v.t.",
+    "baseLanguageSelect": "Basistaal",
+    "loaderLearn": "LEER.",
+    "loaderSpeak": "SPREEK.",
+    "loaderRead": "LEES.",
+    "loaderWrite": "SCHRIJF",
+    "lessonTitlePattern": "{title} - Les {n}",
+    "completionTestTitle": "Eindtoets niveau {level}",
+    "unitTitles": {
+      "a1-unit-1": "Identiteit & begroetingen",
+      "a1-unit-2": "Mijn wereld",
+      "a1-unit-3": "Dagelijks leven",
+      "a1-unit-4": "Plaatsen & locatie",
+      "a1-unit-5": "Acties op dit moment",
+      "a1-unit-6": "Gisteren",
+      "a1-unit-7": "Vaardigheden & wensen",
+      "a1-unit-8": "A1-consolidatie",
+      "a2-unit-1": "Onregelmatige werkwoorden & verleden verhalen",
+      "a2-unit-2": "Plannen & toekomst",
+      "a2-unit-3": "Vergelijkingen",
+      "a2-unit-4": "Vaardigheid & toestemming",
+      "a2-unit-5": "Hoeveelheid & winkelen",
+      "a2-unit-6": "Gezondheid & lichaam",
+      "a2-unit-7": "Reizen & vervoer",
+      "a2-unit-8": "A2-consolidatie",
+      "b1-unit-1": "Aspecten van de Present Perfect",
+      "b1-unit-2": "Nulde, eerste en tweede voorwaardelijke wijs",
+      "b1-unit-3": "Lijdende vorm",
+      "b1-unit-4": "Betrekkelijke bijzinnen, verbindingswoorden & phrasal verbs",
+      "b1-unit-5": "Modale werkwoorden, advies & question tags",
+      "b1-unit-6": "Indirecte rede",
+      "b1-unit-7": "Past Perfect, wensen & spijt",
+      "b1-unit-8": "B1-consolidatie",
+      "b2-unit-1": "Verleden verhalen & volgorde",
+      "b2-unit-2": "Gevorderde wensen: Wish + Would/Could",
+      "b2-unit-3": "Voorwaardelijke wijs 2 & 3",
+      "b2-unit-4": "Causatief Have/Get, modaal passief & passieve infinitieven",
+      "b2-unit-5": "Gerundia, infinitieven & phrasal verbs",
+      "b2-unit-6": "Indirecte rede & modale voltooid tegenwoordige tijd",
+      "b2-unit-7": "Concessie, contrast & academisch discours",
+      "b2-unit-8": "B2-consolidatie",
+      "c1-unit-1": "Gemengde voorwaardelijke zinnen & speculatie",
+      "c1-unit-2": "Deelwoordzinnen",
+      "c1-unit-3": "Afzwakking & formeel register",
+      "c1-unit-4": "Nadruk: inversie & kloofzinnen",
+      "c1-unit-5": "Ellips, substitutie & tekstsamenhang",
+      "c1-unit-6": "Gevorderde betrekkelijke bijzinnen, kritisch denken & phrasal verbs",
+      "c1-unit-7": "Argumentatie & retorica",
+      "c1-unit-8": "C1-consolidatie",
+      "c2-unit-1": "Discoursmarkeerders & tekstsamenhang",
+      "c2-unit-2": "Nominalisatie & academische stijl",
+      "c2-unit-3": "Idiomatische & figuurlijke taal",
+      "c2-unit-4": "Vooropplaatsing, nadruk & stijlfiguren",
+      "c2-unit-5": "Kritisch lezen & academisch schrijven",
+      "c2-unit-6": "Britse pragmatiek & spreekstijl",
+      "c2-unit-7": "Retorische middelen & geavanceerde tekststructuur",
+      "c2-unit-8": "C2-consolidatie"
+    }
   },
   "detective": {
     "title": "Foutendetective",
@@ -466,7 +528,7 @@
     "cardProductReview": "Productreview",
     "cardLegalDocuments": "Juridische documenten",
     "sectionReview": "Review",
-    "reviewDescription": "Deel je ervaring met FreeLingo. Als je een al goedgekeurde review bewerkt, gaat die opnieuw ter beoordeling voordat hij openbaar verschijnt.",
+    "reviewDescription": "Deel je ervaring met Linguist. Als je een al goedgekeurde review bewerkt, gaat die opnieuw ter beoordeling voordat hij openbaar verschijnt.",
     "reviewPending": "Wacht op goedkeuring",
     "reviewUpdate": "Bijwerken",
     "reviewSaved": "Review opgeslagen.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Gebruiksvoorwaarden",
-      "seoDescription": "Lees de voorwaarden van FreeLingo over accounts, toegestaan gebruik, gratis toegang en abonnementen op het platform voor het leren van talen.",
+      "seoDescription": "Lees de voorwaarden van Linguist over accounts, toegestaan gebruik, gratis toegang en abonnementen op het platform voor het leren van talen.",
       "updated": "Laatst bijgewerkt: augustus 2026",
-      "s1Title": "1. Over FreeLingo",
-      "s1Body": "FreeLingo is een open-source AI-gestuurd taalleerleerplatform dat beschikbaar is in twee modi: (1) zelf gehost, waarbij je het op je eigen infrastructuur uitvoert zonder kosten, en (2) als een gehoste service die wordt beheerd door het FreeLingo-team, met een gratis abonnement en betaalde abonnementen. Door deze service in een van beide modi te gebruiken, ga je akkoord met deze Gebruiksvoorwaarden.",
+      "s1Title": "1. Over Linguist",
+      "s1Body": "Linguist is een open-source AI-gestuurd taalleerleerplatform dat beschikbaar is in twee modi: (1) zelf gehost, waarbij je het op je eigen infrastructuur uitvoert zonder kosten, en (2) als een gehoste service die wordt beheerd door het Linguist-team, met een gratis abonnement en betaalde abonnementen. Door deze service in een van beide modi te gebruiken, ga je akkoord met deze Gebruiksvoorwaarden.",
       "s2Title": "2. Toegestaan gebruik",
-      "s2Intro": "Je mag FreeLingo uitsluitend gebruiken voor persoonlijke taaleerlerdoeleinden. Je stemt ermee in om niet:",
+      "s2Intro": "Je mag Linguist uitsluitend gebruiken voor persoonlijke taaleerlerdoeleinden. Je stemt ermee in om niet:",
       "s2i1": "Te proberen ongeautoriseerde toegang te krijgen tot een deel van het systeem.",
       "s2i2": "Kwaadaardige inhoud te uploaden of de service te verstoren.",
       "s2i3": "Je inloggegevens te delen met derden.",
       "s2i4": "Geautomatiseerde scripts of bots te gebruiken om de AI-tutorfuncties te misbruiken.",
       "s3Title": "3. Gebruikersaccounts",
-      "s3Body": "Je moet minimaal 16 jaar oud zijn om een account aan te maken en FreeLingo te gebruiken. Door je te registreren, bevestig je dat je aan deze leeftijdseis voldoet. Als we ontdekken dat een account toebehoort aan een persoon jonger dan 16 jaar, verwijderen we het account en alle bijbehorende gegevens zonder kennisgeving. Je bent verantwoordelijk voor het vertrouwelijk houden van je inloggegevens en voor alle activiteit op je account.",
+      "s3Body": "Je moet minimaal 16 jaar oud zijn om een account aan te maken en Linguist te gebruiken. Door je te registreren, bevestig je dat je aan deze leeftijdseis voldoet. Als we ontdekken dat een account toebehoort aan een persoon jonger dan 16 jaar, verwijderen we het account en alle bijbehorende gegevens zonder kennisgeving. Je bent verantwoordelijk voor het vertrouwelijk houden van je inloggegevens en voor alle activiteit op je account.",
       "s4Title": "4. Inhoud en AI-interacties",
-      "s4Body": "Gesprekken met de AI-tutor worden opgeslagen in de database voor leercontinuïteit. In de gehoste service worden AI-chat en spraakfuncties verwerkt via de API van OpenAI en is je inhoud onderworpen aan het gebruiksbeleid van OpenAI. De AI kan onjuiste antwoorden geven — gebruik altijd je eigen oordeel. FreeLingo is niet verantwoordelijk voor inhoud gegenereerd door onderliggende taalmodellen. De door de AI-tutor gegenereerde inhoud (oefeningen, correcties, uitleg en ander materiaal) is van jou voor persoonlijk gebruik. FreeLingo maakt geen aanspraak op eigendom van je gesprekken of de daaruit gegenereerde inhoud.",
+      "s4Body": "Gesprekken met de AI-tutor worden opgeslagen in de database voor leercontinuïteit. In de gehoste service worden AI-chat en spraakfuncties verwerkt via de API van OpenAI en is je inhoud onderworpen aan het gebruiksbeleid van OpenAI. De AI kan onjuiste antwoorden geven — gebruik altijd je eigen oordeel. Linguist is niet verantwoordelijk voor inhoud gegenereerd door onderliggende taalmodellen. De door de AI-tutor gegenereerde inhoud (oefeningen, correcties, uitleg en ander materiaal) is van jou voor persoonlijk gebruik. Linguist maakt geen aanspraak op eigendom van je gesprekken of de daaruit gegenereerde inhoud.",
       "s5Title": "5. Servicemodi",
-      "s5Body": "Zelf gehoste implementaties zijn gratis en de operator behoudt volledige controle over zijn gegevens en infrastructuur. De gehoste service die wordt beheerd door het FreeLingo-team biedt een gratis abonnement met gebruikslimieten en betaalde abonnementen voor onbeperkte toegang, beschikbaar op maandelijkse of jaarlijkse basis. Het gratis abonnement omvat een proefperiode van 7 dagen met volledige toegang (geen betaalmethode vereist) en daarna beperkte dagelijkse quota voor lessen en AI-chat, plus wekelijkse quota voor luisteroefeningen, leesoefeningen en spraakgesprekken. Betaalde abonnementen verwijderen alle gebruikslimieten op deze functies. In de gehoste service worden je gegevens opgeslagen op servers beheerd door het FreeLingo-team. De huidige gebruikslimieten voor je account zijn beschikbaar op je dashboard.",
+      "s5Body": "Zelf gehoste implementaties zijn gratis en de operator behoudt volledige controle over zijn gegevens en infrastructuur. De gehoste service die wordt beheerd door het Linguist-team biedt een gratis abonnement met gebruikslimieten en betaalde abonnementen voor onbeperkte toegang, beschikbaar op maandelijkse of jaarlijkse basis. Het gratis abonnement omvat een proefperiode van 7 dagen met volledige toegang (geen betaalmethode vereist) en daarna beperkte dagelijkse quota voor lessen en AI-chat, plus wekelijkse quota voor luisteroefeningen, leesoefeningen en spraakgesprekken. Betaalde abonnementen verwijderen alle gebruikslimieten op deze functies. In de gehoste service worden je gegevens opgeslagen op servers beheerd door het Linguist-team. De huidige gebruikslimieten voor je account zijn beschikbaar op je dashboard.",
       "s6Title": "6. Abonnement en facturering",
       "s6Body": "Het gratis abonnement biedt beperkte toegang tot AI-functies met een volledige proefperiode van 7 dagen voor nieuwe gebruikers. Betaalde abonnementen zijn maandelijks of jaarlijks en worden automatisch verlengd tenzij ze vooraf worden opgezegd. Je kunt via Instellingen opzeggen aan het einde van de lopende periode. De operator kan verlengingen of abonnementen ook beëindigen als de service wordt gewijzigd of gesloten. Eindigt de service vóór een betaalde periode, dan geldt de terugbetaling die het consumentenrecht vereist.",
       "s7Title": "7. Beschikbaarheid",
-      "s7Body": "De gehoste service wordt zonder garanties voor continuïteit of beschikbaarheid aangeboden. De operator kan deze op elk moment om technische, financiële of andere redenen wijzigen, opschorten of sluiten. Geplande sluitingen worden waar redelijk mogelijk via de applicatie of e-mail aangekondigd. Daarna kunnen accounts en operationele gegevens zonder herstel worden verwijderd. FreeLingo biedt geen back-upservice of automatische exporttool.",
+      "s7Body": "De gehoste service wordt zonder garanties voor continuïteit of beschikbaarheid aangeboden. De operator kan deze op elk moment om technische, financiële of andere redenen wijzigen, opschorten of sluiten. Geplande sluitingen worden waar redelijk mogelijk via de applicatie of e-mail aangekondigd. Daarna kunnen accounts en operationele gegevens zonder herstel worden verwijderd. Linguist biedt geen back-upservice of automatische exporttool.",
       "s8Title": "8. Beperking van aansprakelijkheid",
-      "s8Body": "FreeLingo en zijn bijdragers zijn niet aansprakelijk voor directe, indirecte, incidentele of gevolgschade die voortvloeit uit je gebruik van of onvermogen om deze service te gebruiken. Je vrijwaart FreeLingo en zijn bijdragers van alle aanspraken, schade of kosten van derden die voortvloeien uit jouw gebruik van de dienst in strijd met deze voorwaarden.",
+      "s8Body": "Linguist en zijn bijdragers zijn niet aansprakelijk voor directe, indirecte, incidentele of gevolgschade die voortvloeit uit je gebruik van of onvermogen om deze service te gebruiken. Je vrijwaart Linguist en zijn bijdragers van alle aanspraken, schade of kosten van derden die voortvloeien uit jouw gebruik van de dienst in strijd met deze voorwaarden.",
       "s9Title": "9. Toepasselijk recht",
       "s9Body": "Deze voorwaarden worden beheerst door het recht van Spanje. Eventuele geschillen die voortvloeien uit deze voorwaarden zijn onderworpen aan de exclusieve jurisdictie van de rechtbanken van Spanje.",
       "s10Title": "10. Wijzigingen in deze voorwaarden",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Privacybeleid",
       "linkBack": "Terug naar registratie",
       "linkBackSettings": "Terug naar instellingen",
-      "linkContact": "Gebruik voor vragen het formulier op freelingo.app zolang dit beschikbaar is, of het contactkanaal in de GitHub-repository van FreeLingo."
+      "linkContact": "Gebruik voor vragen het formulier op freelingo.app zolang dit beschikbaar is, of het contactkanaal in de GitHub-repository van Linguist."
     },
     "privacy": {
       "pageTitle": "Privacybeleid",
-      "seoDescription": "Lees hoe FreeLingo omgaat met persoonsgegevens, browseropslag en anonieme statistieken en hoe je je privacyrechten kunt uitoefenen.",
+      "seoDescription": "Lees hoe Linguist omgaat met persoonsgegevens, browseropslag en anonieme statistieken en hoe je je privacyrechten kunt uitoefenen.",
       "updated": "Laatst bijgewerkt: 10 oktober 2026",
       "s1Title": "1. Overzicht",
-      "s1Body": "FreeLingo is beschikbaar als zelf gehoste applicatie en als gehoste service. Voor zelf gehoste implementaties worden alle gegevens uitsluitend opgeslagen op de server van de operator en hebben de auteurs van het FreeLingo-project er geen toegang toe.",
+      "s1Body": "Linguist is beschikbaar als zelf gehoste applicatie en als gehoste service. Voor zelf gehoste implementaties worden alle gegevens uitsluitend opgeslagen op de server van de operator en hebben de auteurs van het Linguist-project er geen toegang toe.",
       "s2Title": "2. Gegevens die we verzamelen",
-      "s2Intro": "FreeLingo is niet gericht op kinderen onder de 16 jaar. Wanneer je een account aanmaakt en FreeLingo gebruikt, worden de volgende gegevens opgeslagen:",
+      "s2Intro": "Linguist is niet gericht op kinderen onder de 16 jaar. Wanneer je een account aanmaakt en Linguist gebruikt, worden de volgende gegevens opgeslagen:",
       "s2i1": "Gebruikersnaam, weergavenaam en e-mailadres.",
       "s2i2": "Gehasht wachtwoord (bcrypt — je wachtwoord in platte tekst wordt nooit opgeslagen).",
       "s2i3": "Taalvoorkeur en leerinstellingen.",
@@ -532,7 +594,7 @@
       "s2i9": "Wereldwijde accountherinneringen en voorkeuren die de AI-tutor tijdens gesprekken leert of die je handmatig toevoegt om interacties in al je leertalen te personaliseren.",
       "s2i10": "Functieverzoeken, bugmeldingen, opmerkingen en stemmen die je indient via het feedbackbord. Alleen je gebruikersnaam wordt openbaar getoond; alle gebruikers kunnen gepubliceerde suggesties en meldingen bekijken.",
       "s3Title": "3. Hoe we je gegevens gebruiken",
-      "s3Intro": "Je gegevens worden uitsluitend gebruikt om de FreeLingo-leerervaring te bieden:",
+      "s3Intro": "Je gegevens worden uitsluitend gebruikt om de Linguist-leerervaring te bieden:",
       "s3i1": "Authenticatie en sessiebeheer.",
       "s3i2": "Personalisatie van je studieplan en tutorinteracties.",
       "s3i3": "Bijhouden van je leervoortgang in de loop van de tijd.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Externe AI-diensten",
       "s4Body": "In de gehoste service worden AI-chat, spraaksynthese (TTS) en spraaktranscriptie (STT) aangeboden via de API van OpenAI. Je gespreksinhoud en audio worden naar OpenAI gestuurd voor verwerking, conform het privacybeleid van OpenAI (openai.com/privacy). Betalingsverwerking wordt uitgevoerd door Stripe, Inc. (VS); Stripe verwerkt betalingsgegevens rechtstreeks en wij slaan geen betaalkaartnummers op onze servers op — je transactiegegevens vallen onder het privacybeleid van Stripe (stripe.com/privacy). Voor zelf gehoste implementaties kiest de operator de AI-provider; standaard wordt een lokale Ollama-instantie gebruikt en verlaat er geen data de server.",
       "s5Title": "5. Cookies, lokale opslag en statistische analyse",
-      "s5Body": "FreeLingo gebruikt technische cookies en voorkeurscookies: refresh_token (httpOnly, standaard 30 dagen) om je sessie te behouden, en NEXT_LOCALE en LOCALE_DETECTED (maximaal één jaar) om de interfacetaal te onthouden en te beheren. Lokale browseropslag bewaart ook interface- en stemvoorkeuren en de status van meldingen en rondleidingen; sessieopslag zorgt voor tijdelijke continuïteit van functies. Lokale waarden blijven bewaard totdat de applicatie of jij ze verwijdert; sessiewaarden worden na gebruik of bij het sluiten van het tabblad verwijderd. In de gehoste service gebruiken we Umami, een open-source analysetool die we zelf op dezelfde infrastructuur als FreeLingo hosten, voor anonieme, geaggregeerde statistieken over het gebruik en de werking van de service en om de leerervaring te verbeteren. Deze analyse gebruikt technische gebruiksgegevens, gebruikt geen cookies, is niet aan accounts gekoppeld en dient niet om individuele profielen te maken of voor reclame. Analysegegevens worden niet verkocht, overgedragen of gedeeld met derden. Umami-statistieken worden niet automatisch verwijderd en blijven bewaard totdat ze handmatig worden verwijderd. Bij zelf gehoste installaties is de beheerder van de instantie verantwoordelijk voor de analyseconfiguratie. De cookiemelding is informatief; sluiten slaat alleen op dat de melding is gesloten.",
+      "s5Body": "Linguist gebruikt technische cookies en voorkeurscookies: refresh_token (httpOnly, standaard 30 dagen) om je sessie te behouden, en NEXT_LOCALE en LOCALE_DETECTED (maximaal één jaar) om de interfacetaal te onthouden en te beheren. Lokale browseropslag bewaart ook interface- en stemvoorkeuren en de status van meldingen en rondleidingen; sessieopslag zorgt voor tijdelijke continuïteit van functies. Lokale waarden blijven bewaard totdat de applicatie of jij ze verwijdert; sessiewaarden worden na gebruik of bij het sluiten van het tabblad verwijderd. In de gehoste service gebruiken we Umami, een open-source analysetool die we zelf op dezelfde infrastructuur als Linguist hosten, voor anonieme, geaggregeerde statistieken over het gebruik en de werking van de service en om de leerervaring te verbeteren. Deze analyse gebruikt technische gebruiksgegevens, gebruikt geen cookies, is niet aan accounts gekoppeld en dient niet om individuele profielen te maken of voor reclame. Analysegegevens worden niet verkocht, overgedragen of gedeeld met derden. Umami-statistieken worden niet automatisch verwijderd en blijven bewaard totdat ze handmatig worden verwijderd. Bij zelf gehoste installaties is de beheerder van de instantie verantwoordelijk voor de analyseconfiguratie. De cookiemelding is informatief; sluiten slaat alleen op dat de melding is gesloten.",
       "s6Title": "6. Jouw rechten (AVG)",
-      "s6Body": "In de Europese Economische Ruimte heb je AVG-rechten op inzage, correctie, verwijdering, bezwaar en overdraagbaarheid. Je kunt je account verwijderen via Instellingen. Andere verzoeken worden handmatig afgehandeld via het contact in sectie 8; FreeLingo biedt geen automatische exporttool. Gegevens worden verwerkt om de service te leveren (Art. 6(1)(b) AVG). OpenAI en Stripe kunnen gegevens in de VS verwerken onder de toepasselijke waarborgen voor internationale doorgiften. Je kunt een klacht indienen bij de bevoegde toezichthouder.",
+      "s6Body": "In de Europese Economische Ruimte heb je AVG-rechten op inzage, correctie, verwijdering, bezwaar en overdraagbaarheid. Je kunt je account verwijderen via Instellingen. Andere verzoeken worden handmatig afgehandeld via het contact in sectie 8; Linguist biedt geen automatische exporttool. Gegevens worden verwerkt om de service te leveren (Art. 6(1)(b) AVG). OpenAI en Stripe kunnen gegevens in de VS verwerken onder de toepasselijke waarborgen voor internationale doorgiften. Je kunt een klacht indienen bij de bevoegde toezichthouder.",
       "s7Title": "7. Bewaring en verwijdering van gegevens",
-      "s7Body": "Operationele gegevens worden bewaard zolang je account bestaat en de gehoste service actief is. Je kunt herinneringen, talen of je volledige account via Instellingen verwijderen. Bij sluiting kan de operator na een redelijk mogelijke kennisgeving alle accounts en gegevens verwijderen. Verwijdering is onomkeerbaar. Na verwijdering van de systemen en kopieën onder beheer van de operator bewaart FreeLingo geen persoonsgegevens. Stripe kan betalings- en transactiegegevens bewaren volgens het eigen beleid en wettelijke verplichtingen.",
+      "s7Body": "Operationele gegevens worden bewaard zolang je account bestaat en de gehoste service actief is. Je kunt herinneringen, talen of je volledige account via Instellingen verwijderen. Bij sluiting kan de operator na een redelijk mogelijke kennisgeving alle accounts en gegevens verwijderen. Verwijdering is onomkeerbaar. Na verwijdering van de systemen en kopieën onder beheer van de operator bewaart Linguist geen persoonsgegevens. Stripe kan betalings- en transactiegegevens bewaren volgens het eigen beleid en wettelijke verplichtingen.",
       "s8Title": "8. Contact",
-      "s8Body": "Gebruik voor privacyvragen over de gehoste service het formulier op freelingo.app zolang dit beschikbaar is. Gebruik na sluiting het contactkanaal in de GitHub-repository van FreeLingo en plaats geen persoonsgegevens in openbare issues. Neem bij zelfhosting contact op met de beheerder van die instantie.",
+      "s8Body": "Gebruik voor privacyvragen over de gehoste service het formulier op freelingo.app zolang dit beschikbaar is. Gebruik na sluiting het contactkanaal in de GitHub-repository van Linguist en plaats geen persoonsgegevens in openbare issues. Neem bij zelfhosting contact op met de beheerder van die instantie.",
       "s9Title": "9. Scheidbaarheid",
       "s9Body": "Indien een bepaling van dit beleid ongeldig of niet-afdwingbaar wordt verklaard, wordt die bepaling in de minimaal noodzakelijke mate beperkt en blijven de overige bepalingen van kracht.",
       "linkTerms": "Gebruiksvoorwaarden",
@@ -802,7 +864,8 @@
     "noPlanLabel": "BEGINNEN",
     "noPlanTitle": "Maak je studieplan",
     "noPlanDesc": "Doe een snelle evaluatie om je niveau te ontdekken en een persoonlijk leertraject te krijgen.",
-    "noPlanHint": "Duurt ongeveer 10 minuten"
+    "noPlanHint": "Duurt ongeveer 10 minuten",
+    "loadFailed": "Laden van studieplan mislukt"
   },
   "lesson": {
     "loading": "Les laden...",
@@ -1275,7 +1338,13 @@
         "sv": "Zweeds",
         "da": "Deens",
         "fi": "Fins",
-        "hr": "Kroatisch"
+        "hr": "Kroatisch",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamil",
+        "ml": "Malayalam",
+        "or": "Odia",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Gebruik flashcards om woordenschat parallel te trainen",
     "workflowStep6": "Oefen vrije gesprekken met Lingu",
     "q_language": "Welke taal leer ik?",
-    "a_language": "FreeLingo ondersteunt momenteel meerdere talen ({languages}) en we zullen er in de loop van de tijd meer toevoegen. Wanneer een nieuwe taal beschikbaar is, vind je deze in Instellingen → Mijn talen — voeg hem toe en begin meteen met leren.",
+    "a_language": "Linguist ondersteunt momenteel meerdere talen ({languages}) en we zullen er in de loop van de tijd meer toevoegen. Wanneer een nieuwe taal beschikbaar is, vind je deze in Instellingen → Mijn talen — voeg hem toe en begin meteen met leren.",
     "q_assessment": "Wat is de Beoordeling?",
     "a_assessment": "Een adaptieve quiz met maximaal 15 vragen uit een vragenbank voor je leertaal. De quiz behandelt grammatica, woordenschat en leesbegrip van A1 tot C2. Het resultaat schat je CEFR-niveau in en toont sterke punten en oefenpunten; je kunt het voorgestelde niveau aanpassen voordat je het plan maakt.",
     "q_studyPlan": "Wat is het Studieplan en hoe genereer ik er een?",
@@ -1311,7 +1380,7 @@
     "a_listening": "In <strong>Listening</strong> bereidt Lingu luisteroefeningen voor die passen bij jouw CEFR-niveau. Luister naar de audio en beantwoord 5 begripsvragen. Na het insturen krijg je je score (0–5), XP, de juiste antwoorden en de volledige transcriptie. Je kunt op aanvraag nieuwe oefeningen genereren.",
     "q_reading": "Hoe werken de leesoefeningen?",
     "a_reading": "De <strong>Reading</strong>-sectie genereert teksten op jouw CEFR-niveau — mededelingen, e-mails, artikelen, blogposts en meer. Lees de tekst en beantwoord 5 multiple-choice vragen. Na het insturen krijg je je score (0–5) en XP. Nieuwe oefeningen kunnen op aanvraag worden gegenereerd.",
-    "q_providers": "Welke AI-providers ondersteunt FreeLingo?",
+    "q_providers": "Welke AI-providers ondersteunt Linguist?",
     "a_providers_intro": "Configureerbaar in <code>.env</code> via <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Lokaal, gratis. Vereist Ollama op de host. Aanbevolen model: gemma4:e4b.",
     "provider_openai": "OpenAI-dienst met het door de beheerder ingestelde model. Vereist OPENAI_API_KEY en kan gebruikskosten met zich meebrengen.",
@@ -1424,7 +1493,10 @@
       "Weekendplannen",
       "Werk en carrièredoelen",
       "Thuiswerken"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Opnemen",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Lessen",
     "flashcardsLabel": "Flashcards",
     "viewDetails": "Details bekijken",
-    "supportedLanguages": "Beschikbare talen"
+    "supportedLanguages": "Beschikbare talen",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Zweeds",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Gratis proberen",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Begin met {days} dagen gratis",
-    "trialTitleTrialUsed": "Activeer FreeLingo Premium",
+    "trialTitleTrialUsed": "Activeer Linguist Premium",
     "trialDesc": "Krijg toegang tot Lingu, spraakoefening, luisteren en lezen vóór je eerste betaling.",
     "trialDescTrialUsed": "Kies een plan om Lingu, spraakoefening, listening en reading te ontgrendelen.",
     "trialCtaMonthly": "Gratis proberen, daarna €{price}/maand",
@@ -1576,7 +1658,7 @@
     "audioError": "De audio kon niet worden afgespeeld. Probeer het opnieuw.",
     "step1": {
       "label": "Welkom",
-      "title": "Welkom bij FreeLingo",
+      "title": "Welkom bij Linguist",
       "desc": "Hoi! Ik ben Lingu, je maatje bij het leren van talen. Ik laat je zien hoe we samen kunnen leren."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Blijf oefenen met spellen",
     "paywallGamesDesc": "Je gratis speltegoed is op of spellen vereisen Premium. Bestaande spellen kun je hervatten.",
     "paywallLabel": "Premium vereist",
-    "paywallTitle": "Ontgrendel FreeLingo Premium",
+    "paywallTitle": "Ontgrendel Linguist Premium",
     "paywallDesc": "Start je gratis proefperiode van {days} dagen en ontgrendel alle Premium-oefenmodi vóór je eerste betaling.",
     "paywallDescTrialUsed": "Ontgrendel alle Premium-oefenmodi en controleer het bedrag voordat je bevestigt.",
     "paywallChatTitle": "Oefen zonder limiet met Lingu",
@@ -1636,7 +1718,7 @@
     "planYearly": "Beste waarde · €{price}/jaar · 2 maanden gratis →",
     "checkoutError": "Betaling kon niet worden gestart. Probeer opnieuw.",
     "pricingTitle": "Plannen en prijzen",
-    "pricingContext": "Deze plannen gelden voor deze installatie. Zelf hosten vereist geen FreeLingo Cloud-abonnement; de beheerder stelt toegang en limieten in.",
+    "pricingContext": "Deze plannen gelden voor deze installatie. Zelf hosten vereist geen Linguist Cloud-abonnement; de beheerder stelt toegang en limieten in.",
     "pricingDesc": "Extra proefperiode bij afsluiten: {days} dagen · betaalkaart vereist · daarna geldt de prijs van het plan",
     "pricingDescTrialUsed": "Maandelijks of jaarlijks betaald abonnement vanaf afsluiten. Altijd opzegbaar.",
     "planMonthlyName": "Maandelijks",
@@ -1668,7 +1750,7 @@
       "l5": "7 dagen volledige toegang"
     },
     "successLabel": "Betaling bevestigd",
-    "successTitle": "Welkom bij FreeLingo Premium!",
+    "successTitle": "Welkom bij Linguist Premium!",
     "successDesc": "Je abonnement is nu actief. Geniet van onbeperkte toegang tot alle functies.",
     "successCheckingLabel": "Abonnement bevestigen",
     "successCheckingTitle": "Je abonnement controleren",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "Een soepelere ervaring",
-      "desc": "We hebben ook kleine fouten opgelost en een paar details verbeterd, zodat je elke dag met nog meer plezier leert met FreeLingo."
+      "desc": "We hebben ook kleine fouten opgelost en een paar details verbeterd, zodat je elke dag met nog meer plezier leert met Linguist."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "We konden je beoordelingsstatus niet controleren. Probeer het later opnieuw.",
     "ratingRequiredError": "Kies een beoordeling voordat je verzendt.",
     "saveError": "We konden je beoordeling niet opslaan. Probeer het opnieuw.",
-    "eyebrow": "Beoordeel FreeLingo",
+    "eyebrow": "Beoordeel Linguist",
     "title": "Hoe was je ervaring?",
     "closeLabel": "Beoordelingsprompt sluiten",
     "checking": "Beoordelingsstatus controleren...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Verhalen van cursisten",
     "title": "Leren voelt echter wanneer je het zelf vertelt",
-    "subtitle": "Beoordelingen van studenten die al met Lingu oefenen op FreeLingo.",
+    "subtitle": "Beoordelingen van studenten die al met Lingu oefenen op Linguist.",
     "averageLabel": "{average}/5 · {count, plural, one {# beoordeling} other {# beoordelingen}}",
     "ratingCount": "{count, plural, one {# beoordeling} other {# beoordelingen}}",
     "carouselLabel": "Beoordelingen van studenten",
@@ -1960,7 +2042,7 @@
     "readLess": "Minder lezen",
     "learningLanguage": "Leert {language}",
     "starsLabel": "{rating} van 5 sterren",
-    "ratingOnly": "Geverifieerde FreeLingo-beoordeling."
+    "ratingOnly": "Geverifieerde Linguist-beoordeling."
   },
   "adminReviews": {
     "title": "Beoordelingen",

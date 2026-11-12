@@ -22,16 +22,16 @@ export default function TargetLanguageSelector({
   ).sort((a, b) => t(a.code).localeCompare(t(b.code)))
 
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2.5">
       {filtered.map((lang) => (
         <button
           key={lang.code}
           type="button"
           onClick={() => onChange(lang.code)}
-          className={`flex items-center gap-2 border px-3 py-3 text-left font-mono text-xs tracking-widest uppercase transition-colors ${
+          className={`flex items-center gap-2 rounded-xl px-3.5 py-3 text-left font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
             value === lang.code
-              ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-              : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+              ? 'neu-button-primary'
+              : 'neu-button text-fl-fg'
           }`}
         >
           <Image
@@ -39,7 +39,7 @@ export default function TargetLanguageSelector({
             alt={lang.code}
             width={20}
             height={16}
-            className="object-cover"
+            className="rounded-sm object-cover"
           />
           {t(lang.code)}
         </button>

@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Kurulum gerektirmeyen bulut hizmetiyle veya kendi sunucunuzda kullanın.",
       "compare": "Seçenekleri karşılaştırın",
-      "accounts": "Her kurulumun hesapları ve ilerlemesi ayrıdır. Ana düğme bu kurulumu açar; FreeLingo Cloud bağlantısı resmî hizmeti açar.",
-      "title": "FreeLingo'yu kullanmanın iki yolu",
+      "accounts": "Her kurulumun hesapları ve ilerlemesi ayrıdır. Ana düğme bu kurulumu açar; Linguist Cloud bağlantısı resmî hizmeti açar.",
+      "title": "Linguist'yu kullanmanın iki yolu",
       "cloud": {
         "title": "Cloud · Biz yönetiyoruz",
-        "description": "FreeLingo'nun yönetilen hizmetiyle tarayıcınızdan öğrenin.",
+        "description": "Linguist'nun yönetilen hizmetiyle tarayıcınızdan öğrenin.",
         "setup": "Barındırma, bakım ve güncellemeler dahildir.",
         "access": "Yapay zekâ ve ses, planınızın kullanım sınırları içinde dahildir.",
         "cost": "Ücretsiz planla başlayın, daha fazla pratik için Premium'a geçin.",
-        "cta": "FreeLingo Cloud'a erişin"
+        "cta": "Linguist Cloud'a erişin"
       },
       "selfHosted": {
         "title": "Kendi sunucunuz · Siz yönetiyorsunuz",
-        "description": "FreeLingo'yu kendi altyapınıza kurun, yapay zekâ ve ses sağlayıcılarınızı seçin.",
+        "description": "Linguist'yu kendi altyapınıza kurun, yapay zekâ ve ses sağlayıcılarınızı seçin.",
         "setup": "Kurulumu, yapılandırmayı ve veri depolamayı kontrol edin.",
         "access": "AGPL-3.0 lisanslı, ücretsiz ve açık kaynaklı yazılım.",
         "cost": "Altyapı, bakım ve olası sağlayıcı maliyetleri size aittir.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Bulut ile kendi sunucumda barındırma arasındaki fark nedir?",
-        "answer": "FreeLingo Cloud, freelingo.app üzerindeki yönetilen hizmettir: hesap oluşturun ve sunucu yönetmeden öğrenin. Kendi sunucunuzda barındırırken FreeLingo'yu altyapınıza kurar, bakımını yapar, yapay zekâ ve ses hizmetlerini yapılandırırsınız. Kullanılabilir özellikler yapılandırmanıza bağlıdır."
+        "answer": "Linguist Cloud, freelingo.app üzerindeki yönetilen hizmettir: hesap oluşturun ve sunucu yönetmeden öğrenin. Kendi sunucunuzda barındırırken Linguist'yu altyapınıza kurar, bakımını yapar, yapay zekâ ve ses hizmetlerini yapılandırırsınız. Kullanılabilir özellikler yapılandırmanıza bağlıdır."
       },
       "free": {
         "question": "Ücretsiz başlayabilir miyim? Kart gerekiyor mu?",
         "answer": "Kayıt için kart gerekmez. Kurulum başlangıç Premium erişimi sunuyorsa kayıtla başlar; abone olmazsanız ardından kullanım sınırlarıyla ücretsiz devam edersiniz. Plan açıkça ek deneme günleri sunmadıkça ücretli abonelik satın alındığında başlar. Bu abonelik denemesi başlangıç döneminden ayrıdır ve ödeme yöntemi gerektirir."
       },
       "hosting": {
-        "question": "FreeLingo'yu kendim barındırmak için ne gerekiyor?",
+        "question": "Linguist'yu kendim barındırmak için ne gerekiyor?",
         "answer": "Bir sunucu, Docker Compose ve yapılandırılmış yapay zekâ ile ses hizmetleri gerekir. Kurulum, güncellemeler ve yedeklemeler sizin sorumluluğunuzdadır. AGPL-3.0 yazılımı ücretsizdir; altyapı ve harici sağlayıcılar ücretli olabilir. Donanım gereksinimleri ve desteklenen ses dilleri seçtiğiniz sağlayıcılara bağlıdır."
       },
       "data": {
         "question": "Verilerim nerede saklanıyor ve işleniyor?",
-        "answer": "Cloud'da FreeLingo ekibi depolamayı yönetir ve yapay zekâ ile ses içeriklerini işlenmek üzere hizmet sağlayıcılarına gönderir. Kendi sunucunuzda depolamayı ve sağlayıcıları siz seçersiniz: harici yapay zekâ veya ses hizmetleri ilgili içerikleri alır. Kendi sunucunuzda barındırma, tüm işlemlerin yerel olduğu anlamına gelmez."
+        "answer": "Cloud'da Linguist ekibi depolamayı yönetir ve yapay zekâ ile ses içeriklerini işlenmek üzere hizmet sağlayıcılarına gönderir. Kendi sunucunuzda depolamayı ve sağlayıcıları siz seçersiniz: harici yapay zekâ veya ses hizmetleri ilgili içerikleri alır. Kendi sunucunuzda barındırma, tüm işlemlerin yerel olduğu anlamına gelmez."
       },
       "languages": {
         "question": "Hangi dilleri öğrenebilirim?",
@@ -61,10 +61,10 @@
     "heroSub": "Dil öğrenmek için bir yol: seviyenize uygun dersler, öğrendiklerinizi pekiştiren alıştırmalar ve oyunlar, yapay zekâ öğrenme arkadaşınızla sesli konuşmalar.",
     "startFree": "Ücretsiz öğrenmeye başlayın",
     "freeNote": "Kart gerekmez. Ücretsiz erişimde kullanım sınırları vardır; Premium ile daha fazlasına erişebilirsiniz.",
-    "seoTitle": "FreeLingo: bir plan ve Lingu ile dil öğrenin",
+    "seoTitle": "Linguist: bir plan ve Lingu ile dil öğrenin",
     "seoDescription": "Kişisel çalışma planı, alıştırmalar ve oyunlarla A1'den C2'ye dil öğrenin. Öğrendiklerinizi yapay zekâ eğitmeniniz Lingu ile konuşarak kullanın.",
     "journey": {
-      "title": "FreeLingo nasıl çalışır?",
+      "title": "Linguist nasıl çalışır?",
       "learnTitle": "Kendi hızınızda öğrenin",
       "learnDesc": "Bir değerlendirmeyle seviyenizi keşfedin ve size uygun bir plana başlayın. A1’den C2’ye yapılandırılmış bir müfredatla ders ders ilerleyin.",
       "practiceTitle": "Pratik yapın ve pekiştirin",
@@ -123,7 +123,7 @@
     "start": "Başla",
     "retry": "Tekrar dene",
     "or": "veya",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "gün",
     "logout": "Çıkış yap",
     "logoutConfirmTitle": "Çıkış Yap",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "İfade notları",
     "nativeHelpStudyTips": "Çalışma ipuçları",
     "nativeHelpWordNotes": "Kelime notları",
-    "nativeHelpPractice": "Pratik"
+    "nativeHelpPractice": "Pratik",
+    "aiTutor": "Yapay Zekâ Eğitmeni",
+    "minutesShort": "{minutes} dk",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "yok",
+    "baseLanguageSelect": "Ana dil",
+    "loaderLearn": "ÖĞREN.",
+    "loaderSpeak": "KONUŞ.",
+    "loaderRead": "OKU.",
+    "loaderWrite": "YAZ",
+    "lessonTitlePattern": "{title} - Ders {n}",
+    "completionTestTitle": "Seviye {level} Bitirme Testi",
+    "unitTitles": {
+      "a1-unit-1": "Kimlik ve Selamlaşma",
+      "a1-unit-2": "Benim Dünyam",
+      "a1-unit-3": "Günlük Yaşam",
+      "a1-unit-4": "Yerler ve Konum",
+      "a1-unit-5": "Şu Anda Yapılan Eylemler",
+      "a1-unit-6": "Dün",
+      "a1-unit-7": "Yetenekler ve İstekler",
+      "a1-unit-8": "A1 Pekiştirme",
+      "a2-unit-1": "Düzensiz Fiiller ve Geçmiş Anlatıları",
+      "a2-unit-2": "Planlar ve Gelecek",
+      "a2-unit-3": "Karşılaştırmalar",
+      "a2-unit-4": "Yetenek ve İzin",
+      "a2-unit-5": "Miktar ve Alışveriş",
+      "a2-unit-6": "Sağlık ve Vücut",
+      "a2-unit-7": "Seyahat ve Ulaşım",
+      "a2-unit-8": "A2 Pekiştirme",
+      "b1-unit-1": "Present Perfect Kullanımları",
+      "b1-unit-2": "Sıfır, Birinci ve İkinci Koşul Cümleleri",
+      "b1-unit-3": "Edilgen Çatı",
+      "b1-unit-4": "İlgi Cümlecikleri, Bağlaçlar ve Deyimsel Fiiller",
+      "b1-unit-5": "Kipler, Tavsiye ve Eklenti Soruları",
+      "b1-unit-6": "Dolaylı Anlatım",
+      "b1-unit-7": "Past Perfect, Dilekler ve Pişmanlıklar",
+      "b1-unit-8": "B1 Pekiştirme",
+      "b2-unit-1": "Geçmiş Anlatıları ve Sıralama",
+      "b2-unit-2": "İleri Dilek Yapıları: Wish + Would/Could",
+      "b2-unit-3": "Koşul Cümleleri 2 ve 3",
+      "b2-unit-4": "Ettirgen Have/Get, Kipli Edilgen ve Edilgen Mastarlar",
+      "b2-unit-5": "Ulaçlar, Mastarlar ve Deyimsel Fiiller",
+      "b2-unit-6": "Dolaylı Anlatım ve Geçmiş Kipler",
+      "b2-unit-7": "Ödün, Karşıtlık ve Akademik Söylem",
+      "b2-unit-8": "B2 Pekiştirme",
+      "c1-unit-1": "Karma Koşul Cümleleri ve Varsayım",
+      "c1-unit-2": "Ortaç Cümlecikleri",
+      "c1-unit-3": "Yumuşatma ve Resmî Üslup",
+      "c1-unit-4": "Vurgu: Devrik Yapı ve Bölünmüş Cümleler",
+      "c1-unit-5": "Eksilti, Yerine Koyma ve Metin Tutarlılığı",
+      "c1-unit-6": "İleri İlgi Cümlecikleri, Eleştirel Düşünme ve Deyimsel Fiiller",
+      "c1-unit-7": "Tartışma ve Retorik",
+      "c1-unit-8": "C1 Pekiştirme",
+      "c2-unit-1": "Söylem Belirleyiciler ve Metin Bütünlüğü",
+      "c2-unit-2": "Adlaştırma ve Akademik Üslup",
+      "c2-unit-3": "Deyimsel ve Mecazlı Dil",
+      "c2-unit-4": "Öne Alma, Vurgu ve Üslup Araçları",
+      "c2-unit-5": "Eleştirel Okuma ve Akademik Yazma",
+      "c2-unit-6": "İngiliz Pragmatiği ve Konuşma Üslubu",
+      "c2-unit-7": "Retorik Sanatlar ve İleri Metin Yapısı",
+      "c2-unit-8": "C2 Pekiştirme"
+    }
   },
   "detective": {
     "title": "Hata Dedektifi",
@@ -466,7 +528,7 @@
     "cardProductReview": "Ürün yorumu",
     "cardLegalDocuments": "Yasal belgeler",
     "sectionReview": "Yorum",
-    "reviewDescription": "FreeLingo deneyiminizi paylaşın. Onaylanmış bir yorumu düzenlerseniz, herkese açık olarak görünmeden önce tekrar incelemeye gönderilir.",
+    "reviewDescription": "Linguist deneyiminizi paylaşın. Onaylanmış bir yorumu düzenlerseniz, herkese açık olarak görünmeden önce tekrar incelemeye gönderilir.",
     "reviewPending": "Onay bekliyor",
     "reviewUpdate": "Güncelle",
     "reviewSaved": "Yorum kaydedildi.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Hizmet Koşulları",
-      "seoDescription": "FreeLingo dil öğrenme platformunun hesaplar, kabul edilebilir kullanım, ücretsiz erişim ve aboneliklerle ilgili hizmet koşullarını okuyun.",
+      "seoDescription": "Linguist dil öğrenme platformunun hesaplar, kabul edilebilir kullanım, ücretsiz erişim ve aboneliklerle ilgili hizmet koşullarını okuyun.",
       "updated": "Son güncelleme: Ağustos 2026",
-      "s1Title": "1. FreeLingo Hakkında",
-      "s1Body": "FreeLingo, iki şekilde kullanılabilen, yapay zekâ destekli açık kaynaklı bir dil öğrenme platformudur: (1) kendi altyapınızda ücretsiz olarak çalıştırdığınız, kendi kendine barındırılan kurulum ve (2) FreeLingo ekibi tarafından işletilen, ücretsiz plan ve ücretli abonelikler sunan barındırılan hizmet. Bu hizmeti her iki şekilde de kullanarak bu Hizmet Koşulları'nı kabul etmiş olursunuz.",
+      "s1Title": "1. Linguist Hakkında",
+      "s1Body": "Linguist, iki şekilde kullanılabilen, yapay zekâ destekli açık kaynaklı bir dil öğrenme platformudur: (1) kendi altyapınızda ücretsiz olarak çalıştırdığınız, kendi kendine barındırılan kurulum ve (2) Linguist ekibi tarafından işletilen, ücretsiz plan ve ücretli abonelikler sunan barındırılan hizmet. Bu hizmeti her iki şekilde de kullanarak bu Hizmet Koşulları'nı kabul etmiş olursunuz.",
       "s2Title": "2. Kabul Edilebilir Kullanım",
-      "s2Intro": "FreeLingo'yu yalnızca kişisel dil öğrenimi amacıyla kullanabilirsiniz. Aşağıdakileri yapmamayı kabul edersiniz:",
+      "s2Intro": "Linguist'yu yalnızca kişisel dil öğrenimi amacıyla kullanabilirsiniz. Aşağıdakileri yapmamayı kabul edersiniz:",
       "s2i1": "Sistemin herhangi bir bölümüne yetkisiz erişim sağlamaya çalışmak.",
       "s2i2": "Kötü amaçlı içerik yüklemek veya hizmeti aksatmaya çalışmak.",
       "s2i3": "Hesap bilgilerinizi üçüncü taraflarla paylaşmak.",
       "s2i4": "Yapay zekâ eğitmenlik özelliklerini kötüye kullanmak için otomatik betikler veya botlar kullanmak.",
       "s3Title": "3. Kullanıcı Hesapları",
-      "s3Body": "Hesap oluşturmak ve FreeLingo'yu kullanmak için en az 16 yaşında olmalısınız. Kaydolarak bu yaş şartını karşıladığınızı onaylarsınız. Bir hesabın 16 yaşından küçük birine ait olduğunu fark edersek, hesabı ve ilişkili tüm verileri bildirimde bulunmadan sileriz. Hesap bilgilerinizin gizliliğini korumaktan ve hesabınız altında gerçekleşen tüm etkinliklerden siz sorumlusunuz. Kurulumun işletmecisi — kendi kendine barındırılan kurulumlarda siz, barındırılan hizmette FreeLingo ekibi — bu koşulları ihlal eden hesapları askıya alabilir veya kapatabilir.",
+      "s3Body": "Hesap oluşturmak ve Linguist'yu kullanmak için en az 16 yaşında olmalısınız. Kaydolarak bu yaş şartını karşıladığınızı onaylarsınız. Bir hesabın 16 yaşından küçük birine ait olduğunu fark edersek, hesabı ve ilişkili tüm verileri bildirimde bulunmadan sileriz. Hesap bilgilerinizin gizliliğini korumaktan ve hesabınız altında gerçekleşen tüm etkinliklerden siz sorumlusunuz. Kurulumun işletmecisi — kendi kendine barındırılan kurulumlarda siz, barındırılan hizmette Linguist ekibi — bu koşulları ihlal eden hesapları askıya alabilir veya kapatabilir.",
       "s4Title": "4. İçerik ve Yapay Zekâ Etkileşimleri",
-      "s4Body": "Yapay zekâ eğitmeniyle yaptığınız konuşmalar, öğrenmenin sürekliliği için veritabanında saklanır. Barındırılan hizmette yapay zekâ sohbet ve ses özellikleri OpenAI API'si üzerinden işlenir ve içeriğiniz OpenAI'nin kullanım politikalarına tabidir. Yapay zekâ hatalı yanıtlar üretebilir — her zaman kendi muhakemenizi kullanın. FreeLingo, altta yatan dil modellerinin ürettiği içerikten sorumlu değildir. Yapay zekâ eğitmeninin ürettiği içerik (alıştırmalar, düzeltmeler, açıklamalar ve diğer materyaller) kişisel kullanımınız için size aittir. FreeLingo, konuşmalarınız veya bunlardan üretilen içerik üzerinde mülkiyet iddia etmez.",
+      "s4Body": "Yapay zekâ eğitmeniyle yaptığınız konuşmalar, öğrenmenin sürekliliği için veritabanında saklanır. Barındırılan hizmette yapay zekâ sohbet ve ses özellikleri OpenAI API'si üzerinden işlenir ve içeriğiniz OpenAI'nin kullanım politikalarına tabidir. Yapay zekâ hatalı yanıtlar üretebilir — her zaman kendi muhakemenizi kullanın. Linguist, altta yatan dil modellerinin ürettiği içerikten sorumlu değildir. Yapay zekâ eğitmeninin ürettiği içerik (alıştırmalar, düzeltmeler, açıklamalar ve diğer materyaller) kişisel kullanımınız için size aittir. Linguist, konuşmalarınız veya bunlardan üretilen içerik üzerinde mülkiyet iddia etmez.",
       "s5Title": "5. Hizmet Şekilleri",
-      "s5Body": "Kendi kendine barındırılan kurulumlar ücretsizdir ve işletmeci, verileri ile altyapısı üzerinde tam denetime sahiptir. FreeLingo ekibinin işlettiği barındırılan hizmet, kullanım sınırları olan ücretsiz bir plan ile sınırsız erişim sağlayan, aylık veya yıllık olarak alınabilen ücretli abonelikler sunar. Ücretsiz plan, 7 günlük tam erişimli bir deneme süresi (ödeme yöntemi gerekmez) ve ardından dersler ile yapay zekâ sohbeti için sınırlı günlük kotaların yanı sıra dinleme alıştırmaları, okuma alıştırmaları ve sesli konuşmalar için haftalık kotalar içerir. Ücretli abonelikler bu özelliklerdeki tüm kullanım sınırlarını kaldırır. Barındırılan hizmette verileriniz FreeLingo ekibinin işlettiği sunucularda saklanır. Hesabınız için geçerli kullanım sınırlarını panonuzda görebilirsiniz.",
+      "s5Body": "Kendi kendine barındırılan kurulumlar ücretsizdir ve işletmeci, verileri ile altyapısı üzerinde tam denetime sahiptir. Linguist ekibinin işlettiği barındırılan hizmet, kullanım sınırları olan ücretsiz bir plan ile sınırsız erişim sağlayan, aylık veya yıllık olarak alınabilen ücretli abonelikler sunar. Ücretsiz plan, 7 günlük tam erişimli bir deneme süresi (ödeme yöntemi gerekmez) ve ardından dersler ile yapay zekâ sohbeti için sınırlı günlük kotaların yanı sıra dinleme alıştırmaları, okuma alıştırmaları ve sesli konuşmalar için haftalık kotalar içerir. Ücretli abonelikler bu özelliklerdeki tüm kullanım sınırlarını kaldırır. Barındırılan hizmette verileriniz Linguist ekibinin işlettiği sunucularda saklanır. Hesabınız için geçerli kullanım sınırlarını panonuzda görebilirsiniz.",
       "s6Title": "6. Abonelik ve Faturalandırma",
       "s6Body": "Ücretsiz plan, yeni kullanıcılar için 7 günlük tam erişimli bir deneme süresiyle (ödeme yöntemi gerekmez) yapay zekâ özelliklerine sınırlı erişim sağlar. Ücretli abonelikler aylık veya yıllık olarak sunulur ve önceden iptal edilmedikçe otomatik olarak yenilenir. Aboneliğinizi istediğiniz zaman Ayarlar'dan iptal edebilirsiniz; iptal, mevcut dönemin sonunda geçerli olur. İşletmeci de hizmetin değiştirilmesi veya kapatılması durumunda yenilemeleri veya abonelikleri iptal edebilir. Hizmet, ücreti ödenmiş bir dönem bitmeden sona ererse, tüketici mevzuatının gerektirdiği her türlü iade uygulanır. Cayma hakları ve geçerli fiyatlar, yürürlükteki mevzuata uygun olarak gösterilir ve işlenir.",
       "s7Title": "7. Erişilebilirlik",
-      "s7Body": "Barındırılan hizmet, süreklilik veya erişilebilirlik garantisi olmaksızın sunulur. İşletmeci, teknik, mali veya başka herhangi bir nedenle hizmeti istediği zaman değiştirebilir, askıya alabilir veya kapatabilir. Makul ölçüde mümkün olduğunda, planlanan kapanışlar uygulama üzerinden veya e-postayla duyurulur. Duyurulan tarihten sonra hesaplar ve operasyonel veriler geri getirilemeyecek şekilde silinebilir. FreeLingo bir yedekleme hizmeti veya otomatik dışa aktarma aracı sunmaz.",
+      "s7Body": "Barındırılan hizmet, süreklilik veya erişilebilirlik garantisi olmaksızın sunulur. İşletmeci, teknik, mali veya başka herhangi bir nedenle hizmeti istediği zaman değiştirebilir, askıya alabilir veya kapatabilir. Makul ölçüde mümkün olduğunda, planlanan kapanışlar uygulama üzerinden veya e-postayla duyurulur. Duyurulan tarihten sonra hesaplar ve operasyonel veriler geri getirilemeyecek şekilde silinebilir. Linguist bir yedekleme hizmeti veya otomatik dışa aktarma aracı sunmaz.",
       "s8Title": "8. Sorumluluğun Sınırlandırılması",
-      "s8Body": "FreeLingo ve katkıda bulunanları, bu hizmeti kullanmanızdan veya kullanamamanızdan doğan hiçbir doğrudan, dolaylı, arızi veya sonuç olarak ortaya çıkan zarardan sorumlu değildir. Yürürlükteki mevzuatın izin verdiği en geniş ölçüde, toplam sorumluluk, talepten önceki üç ay içinde ödediğiniz tutarı aşamaz. Hizmeti bu koşulları ihlal ederek kullanmanızdan doğan üçüncü taraf taleplerine, zararlara veya masraflara karşı FreeLingo'yu ve katkıda bulunanlarını tazmin etmeyi ve zarardan ari tutmayı kabul edersiniz.",
+      "s8Body": "Linguist ve katkıda bulunanları, bu hizmeti kullanmanızdan veya kullanamamanızdan doğan hiçbir doğrudan, dolaylı, arızi veya sonuç olarak ortaya çıkan zarardan sorumlu değildir. Yürürlükteki mevzuatın izin verdiği en geniş ölçüde, toplam sorumluluk, talepten önceki üç ay içinde ödediğiniz tutarı aşamaz. Hizmeti bu koşulları ihlal ederek kullanmanızdan doğan üçüncü taraf taleplerine, zararlara veya masraflara karşı Linguist'yu ve katkıda bulunanlarını tazmin etmeyi ve zarardan ari tutmayı kabul edersiniz.",
       "s9Title": "9. Uygulanacak Hukuk",
       "s9Body": "Bu koşullar İspanya kanunlarına tabidir. İkamet ettiğiniz ülkedeki emredici tüketici koruma mevzuatı aksini öngörmedikçe, bu koşullardan doğan uyuşmazlıklarda münhasıran İspanya mahkemeleri yetkilidir.",
       "s10Title": "10. Bu Koşullardaki Değişiklikler",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Gizlilik Politikası",
       "linkBack": "Kayda Dön",
       "linkBackSettings": "Ayarlara Dön",
-      "linkContact": "Bu koşullarla ilgili sorularınız için, erişilebilir olduğu sürece freelingo.app adresindeki iletişim formunu veya FreeLingo GitHub deposunda yayımlanan iletişim kanalını kullanın."
+      "linkContact": "Bu koşullarla ilgili sorularınız için, erişilebilir olduğu sürece freelingo.app adresindeki iletişim formunu veya Linguist GitHub deposunda yayımlanan iletişim kanalını kullanın."
     },
     "privacy": {
       "pageTitle": "Gizlilik Politikası",
-      "seoDescription": "FreeLingo'nun kişisel verileri, tarayıcı depolamasını ve anonim istatistikleri nasıl işlediğini ve gizlilik haklarınızı nasıl kullanacağınızı öğrenin.",
+      "seoDescription": "Linguist'nun kişisel verileri, tarayıcı depolamasını ve anonim istatistikleri nasıl işlediğini ve gizlilik haklarınızı nasıl kullanacağınızı öğrenin.",
       "updated": "Son güncelleme: 10 Ekim 2026",
       "s1Title": "1. Genel Bakış",
-      "s1Body": "FreeLingo, kendi kendine barındırılan bir uygulama ve barındırılan bir hizmet olarak kullanılabilir. Kendi kendine barındırılan kurulumlarda tüm veriler yalnızca işletmecinin sunucusunda saklanır ve FreeLingo proje yazarlarının bu verilere erişimi yoktur. Barındırılan hizmette veri sorumlusu FreeLingo ekibidir ve bu politika, kişisel verilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklar.",
+      "s1Body": "Linguist, kendi kendine barındırılan bir uygulama ve barındırılan bir hizmet olarak kullanılabilir. Kendi kendine barındırılan kurulumlarda tüm veriler yalnızca işletmecinin sunucusunda saklanır ve Linguist proje yazarlarının bu verilere erişimi yoktur. Barındırılan hizmette veri sorumlusu Linguist ekibidir ve bu politika, kişisel verilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklar.",
       "s2Title": "2. Topladığımız Veriler",
-      "s2Intro": "FreeLingo 16 yaşından küçük çocuklara yönelik değildir. 16 yaşından küçük kimseden bilerek kişisel veri toplamayız. 16 yaşından küçükseniz hesap oluşturmayın ve kişisel veri paylaşmayın. Bir hesap oluşturup FreeLingo'yu kullandığınızda aşağıdaki veriler saklanır:",
+      "s2Intro": "Linguist 16 yaşından küçük çocuklara yönelik değildir. 16 yaşından küçük kimseden bilerek kişisel veri toplamayız. 16 yaşından küçükseniz hesap oluşturmayın ve kişisel veri paylaşmayın. Bir hesap oluşturup Linguist'yu kullandığınızda aşağıdaki veriler saklanır:",
       "s2i1": "Kullanıcı adı, görünen ad ve e-posta adresi.",
       "s2i2": "Özetlenmiş (hash) parola (bcrypt — parolanız hiçbir zaman düz metin olarak saklanmaz).",
       "s2i3": "Ana dil tercihi ve öğrenme ayarları.",
@@ -532,7 +594,7 @@
       "s2i9": "Yapay zekâ eğitmeninin konuşmalar sırasında öğrendiği veya öğrendiğiniz diller genelinde gelecekteki etkileşimleri kişiselleştirmek için sizin elle eklediğiniz genel hesap anıları ve tercihleri.",
       "s2i10": "Geri bildirim panosu üzerinden gönderdiğiniz özellik istekleri, hata bildirimleri, yorumlar ve oylar. Herkese açık olarak yalnızca kullanıcı adınız gösterilir; yayımlanan öneri ve bildirimleri tüm kullanıcılar görebilir.",
       "s3Title": "3. Verilerinizi Nasıl Kullanıyoruz",
-      "s3Intro": "Verileriniz yalnızca FreeLingo öğrenme deneyimini sunmak için kullanılır:",
+      "s3Intro": "Verileriniz yalnızca Linguist öğrenme deneyimini sunmak için kullanılır:",
       "s3i1": "Kimliğinizi doğrulamak ve oturumunuzu sürdürmek.",
       "s3i2": "Çalışma planınızı ve eğitmen etkileşimlerinizi kişiselleştirmek.",
       "s3i3": "Öğrenme ilerlemenizi zaman içinde takip etmek.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Harici Yapay Zekâ Hizmetleri",
       "s4Body": "Barındırılan hizmette yapay zekâ sohbeti, ses sentezi (TTS) ve ses deşifresi (STT) OpenAI API'si üzerinden sağlanır. Konuşma içeriğiniz ve ses kayıtlarınız işlenmek üzere OpenAI'ye gönderilir ve OpenAI Gizlilik Politikası'na (openai.com/privacy) tabidir. Ödeme işlemleri Stripe, Inc. (ABD) tarafından yürütülür; Stripe ödeme verilerini doğrudan işler ve biz kart bilgilerini sunucularımızda saklamayız — işlem verileriniz Stripe Gizlilik Politikası'na (stripe.com/privacy) tabidir. Kendi kendine barındırılan kurulumlarda yapay zekâ sağlayıcısını işletmeci seçer; varsayılan olarak yerel bir Ollama kurulumu kullanılır ve hiçbir veri sunucudan çıkmaz.",
       "s5Title": "5. Çerezler, Yerel Depolama ve Analiz",
-      "s5Body": "FreeLingo teknik ve tercih çerezleri kullanır: oturumunuzu sürdürmek için refresh_token (httpOnly, varsayılan olarak 30 gün), arayüz dilini hatırlamak ve yönetmek için NEXT_LOCALE ve LOCALE_DETECTED (bir yıla kadar). Tarayıcının yerel depolaması ayrıca arayüz ve ses tercihleri ile bildirim ve kılavuzların durumunu saklar; oturum depolaması ise işlevlerin geçici sürekliliğini sağlar. Yerel değerler uygulama veya siz tarafından silinene kadar kalır; oturum değerleri kullanıldıktan sonra veya sekme kapatıldığında silinir. Barındırılan hizmette, hizmetin kullanımı ve işleyişi hakkında anonim ve toplu istatistikler elde etmek ve öğrenme deneyimini iyileştirmek için FreeLingo ile aynı altyapıda kendi bünyemizde barındırdığımız açık kaynaklı analiz aracı Umami'yi kullanırız. Bu analiz teknik kullanım verilerinden yararlanır, çerez kullanmaz, hesaplarla ilişkilendirilmez ve bireysel profiller oluşturmak veya reklam amacıyla kullanılmaz. Analiz verileri üçüncü taraflara satılmaz, devredilmez veya onlarla paylaşılmaz. Umami istatistikleri otomatik olarak silinmez ve elle silinene kadar saklanır. Kendi kendine barındırılan kurulumlarda analiz yapılandırmasından ilgili kurulumun işletmecisi sorumludur. Çerez bildirimi bilgilendirme amaçlıdır; kapatılması yalnızca kapatıldığını kaydeder.",
+      "s5Body": "Linguist teknik ve tercih çerezleri kullanır: oturumunuzu sürdürmek için refresh_token (httpOnly, varsayılan olarak 30 gün), arayüz dilini hatırlamak ve yönetmek için NEXT_LOCALE ve LOCALE_DETECTED (bir yıla kadar). Tarayıcının yerel depolaması ayrıca arayüz ve ses tercihleri ile bildirim ve kılavuzların durumunu saklar; oturum depolaması ise işlevlerin geçici sürekliliğini sağlar. Yerel değerler uygulama veya siz tarafından silinene kadar kalır; oturum değerleri kullanıldıktan sonra veya sekme kapatıldığında silinir. Barındırılan hizmette, hizmetin kullanımı ve işleyişi hakkında anonim ve toplu istatistikler elde etmek ve öğrenme deneyimini iyileştirmek için Linguist ile aynı altyapıda kendi bünyemizde barındırdığımız açık kaynaklı analiz aracı Umami'yi kullanırız. Bu analiz teknik kullanım verilerinden yararlanır, çerez kullanmaz, hesaplarla ilişkilendirilmez ve bireysel profiller oluşturmak veya reklam amacıyla kullanılmaz. Analiz verileri üçüncü taraflara satılmaz, devredilmez veya onlarla paylaşılmaz. Umami istatistikleri otomatik olarak silinmez ve elle silinene kadar saklanır. Kendi kendine barındırılan kurulumlarda analiz yapılandırmasından ilgili kurulumun işletmecisi sorumludur. Çerez bildirimi bilgilendirme amaçlıdır; kapatılması yalnızca kapatıldığını kaydeder.",
       "s6Title": "6. Haklarınız (GDPR)",
-      "s6Body": "Avrupa Ekonomik Alanı'ndaysanız GDPR kapsamında erişim, düzeltme, silme, itiraz ve veri taşınabilirliği haklarına sahipsiniz. Hesabınızı doğrudan Ayarlar'dan silebilirsiniz. Diğer talepler 8. bölümdeki iletişim kanalı üzerinden elle işlenir; FreeLingo otomatik bir dışa aktarma aracı sunmaz. Verileri hizmeti sunmak için işleriz (GDPR md. 6(1)(b)). OpenAI ve Stripe, uluslararası aktarımlar için geçerli güvenceler kapsamında verileri ABD'de işleyebilir. İspanya Veri Koruma Kurumu'na (aepd.es) veya bulunduğunuz yerdeki denetim makamına şikâyette bulunabilirsiniz.",
+      "s6Body": "Avrupa Ekonomik Alanı'ndaysanız GDPR kapsamında erişim, düzeltme, silme, itiraz ve veri taşınabilirliği haklarına sahipsiniz. Hesabınızı doğrudan Ayarlar'dan silebilirsiniz. Diğer talepler 8. bölümdeki iletişim kanalı üzerinden elle işlenir; Linguist otomatik bir dışa aktarma aracı sunmaz. Verileri hizmeti sunmak için işleriz (GDPR md. 6(1)(b)). OpenAI ve Stripe, uluslararası aktarımlar için geçerli güvenceler kapsamında verileri ABD'de işleyebilir. İspanya Veri Koruma Kurumu'na (aepd.es) veya bulunduğunuz yerdeki denetim makamına şikâyette bulunabilirsiniz.",
       "s7Title": "7. Verilerin Saklanması ve Silinmesi",
-      "s7Body": "Operasyonel veriler, hesabınız var olduğu ve barındırılan hizmet faaliyette olduğu sürece saklanır. Anılarınızı, dillerinizi veya hesabınızın tamamını Ayarlar'dan silebilirsiniz. İşletmeci, hizmeti kapatırken mümkün olan makul bildirimi yaptıktan sonra tüm hesapları ve verilerini de silebilir. Silme işlemi geri alınamaz. İşletmecinin denetimindeki sistemler ve kopyalar silindikten sonra FreeLingo kişisel veri saklamaz. Stripe, ödeme ve işlem bilgilerini kendi politikası ve yasal yükümlülükleri çerçevesinde saklayabilir.",
+      "s7Body": "Operasyonel veriler, hesabınız var olduğu ve barındırılan hizmet faaliyette olduğu sürece saklanır. Anılarınızı, dillerinizi veya hesabınızın tamamını Ayarlar'dan silebilirsiniz. İşletmeci, hizmeti kapatırken mümkün olan makul bildirimi yaptıktan sonra tüm hesapları ve verilerini de silebilir. Silme işlemi geri alınamaz. İşletmecinin denetimindeki sistemler ve kopyalar silindikten sonra Linguist kişisel veri saklamaz. Stripe, ödeme ve işlem bilgilerini kendi politikası ve yasal yükümlülükleri çerçevesinde saklayabilir.",
       "s8Title": "8. İletişim",
-      "s8Body": "Barındırılan hizmetle ilgili gizlilik sorularınız için, erişilebilir olduğu sürece freelingo.app adresindeki iletişim formunu kullanın. Hizmet kapandıktan sonra FreeLingo GitHub deposunda yayımlanan iletişim kanalını kullanın ve herkese açık issue'larda kişisel veri paylaşmayın. Kendi kendine barındırılan kurulumlar için ilgili kurulumun yöneticisiyle iletişime geçin.",
+      "s8Body": "Barındırılan hizmetle ilgili gizlilik sorularınız için, erişilebilir olduğu sürece freelingo.app adresindeki iletişim formunu kullanın. Hizmet kapandıktan sonra Linguist GitHub deposunda yayımlanan iletişim kanalını kullanın ve herkese açık issue'larda kişisel veri paylaşmayın. Kendi kendine barındırılan kurulumlar için ilgili kurulumun yöneticisiyle iletişime geçin.",
       "s9Title": "9. Bölünebilirlik",
       "s9Body": "Bu politikanın herhangi bir hükmü geçersiz veya uygulanamaz bulunursa, söz konusu hüküm gereken en az ölçüde sınırlandırılır ve diğer hükümler tüm geçerliliğiyle yürürlükte kalır.",
       "linkTerms": "Hizmet Koşulları",
@@ -802,7 +864,8 @@
     "noPlanLabel": "BAŞLAYIN",
     "noPlanTitle": "Çalışma planınızı oluşturun",
     "noPlanDesc": "Seviyenizi keşfetmek ve size özel bir öğrenme yolu edinmek için kısa bir seviye tespitine girin.",
-    "noPlanHint": "Yaklaşık 10 dakika sürer"
+    "noPlanHint": "Yaklaşık 10 dakika sürer",
+    "loadFailed": "Çalışma planı yüklenemedi"
   },
   "lesson": {
     "loading": "Ders yükleniyor...",
@@ -1275,7 +1338,13 @@
         "sv": "İsveççe",
         "da": "Danca",
         "fi": "Fince",
-        "hr": "Hırvatça"
+        "hr": "Hırvatça",
+        "hi": "Hintçe",
+        "te": "Telugu",
+        "ta": "Tamilce",
+        "ml": "Malayalam",
+        "or": "Odia",
+        "kn": "Kannadaca"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Kelime bilginizi geliştirmek için paralel olarak Bilgi Kartlarını kullanın",
     "workflowStep6": "Lingu ile serbest konuşma pratiği yapın",
     "q_language": "Hangi dili öğreneceğim?",
-    "a_language": "FreeLingo şu anda birçok dili destekliyor ({languages}) ve zamanla yenilerini eklemeye devam edeceğiz. Yeni bir dil kullanıma sunulduğunda onu Ayarlar → Dillerim bölümünde bulacaksınız — ekleyin ve hemen öğrenmeye başlayın.",
+    "a_language": "Linguist şu anda birçok dili destekliyor ({languages}) ve zamanla yenilerini eklemeye devam edeceğiz. Yeni bir dil kullanıma sunulduğunda onu Ayarlar → Dillerim bölümünde bulacaksınız — ekleyin ve hemen öğrenmeye başlayın.",
     "q_assessment": "Seviye Tespiti nedir?",
     "a_assessment": "Öğrendiğiniz dile özel soru bankasından en fazla 15 soruluk uyarlanabilir bir testtir. A1–C2 düzeylerinde dil bilgisi, kelime bilgisi ve okuduğunu anlamayı kapsar. Sonuç CEFR seviyenizi tahmin eder, güçlü yönleri ve pratik gerektiren alanları gösterir; planı oluşturmadan önce önerilen seviyeyi değiştirebilirsiniz.",
     "q_studyPlan": "Çalışma Planı nedir ve nasıl oluşturulur?",
@@ -1311,7 +1380,7 @@
     "a_listening": "<strong>Dinleme</strong> bölümünde Lingu, CEFR seviyenize uygun dinleme alıştırmaları hazırlar. Sesi dinleyin, ardından 5 anlama sorusunu cevaplayın. Gönderdikten sonra puanınızı (0–5), XP'nizi, doğru cevapları ve deşifrenin tamamını görürsünüz. İstediğiniz zaman yeni alıştırmalar oluşturabilirsiniz.",
     "q_reading": "Okuma alıştırmaları nasıl çalışır?",
     "a_reading": "<strong>Okuma</strong> bölümü, CEFR seviyenize uygun metinler oluşturur — duyurular, e-postalar, makaleler, blog yazıları ve daha fazlası. Metni okuyun ve 5 çoktan seçmeli soruyu cevaplayın. Gönderdikten sonra puanınızı (0–5) ve XP'nizi görürsünüz. İstediğiniz zaman yeni alıştırmalar oluşturulabilir.",
-    "q_providers": "FreeLingo hangi yapay zekâ sağlayıcılarını destekliyor?",
+    "q_providers": "Linguist hangi yapay zekâ sağlayıcılarını destekliyor?",
     "a_providers_intro": "<code>.env</code> dosyasında <code>LLM_PROVIDER</code> ile ayarlanabilir:",
     "provider_ollama": "Yerel, ücretsiz. Sunucuda çalışan bir Ollama gerektirir. Önerilen model: gemma4:e4b. GPU olmadan yavaş olabilir.",
     "provider_openai": "Yöneticinin yapılandırdığı modeli kullanan OpenAI hizmeti. OPENAI_API_KEY gerektirir ve kullanım ücreti oluşabilir.",
@@ -1424,7 +1493,10 @@
       "Hafta sonu planları",
       "İş ve kariyer hedefleri",
       "Evden çalışma"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} otr.",
+    "quotaMin": "{used}/{limit} dk",
+    "quotaTok": "{used}/{limit} blt."
   },
   "voiceRecorder": {
     "record": "Kaydet",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Dersler",
     "flashcardsLabel": "Bilgi Kartları",
     "viewDetails": "Ayrıntıları görüntüle",
-    "supportedLanguages": "Kullanılabilir diller"
+    "supportedLanguages": "Kullanılabilir diller",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "İsveççe",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Ücretsiz deneme",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "{days} gün ücretsiz başlayın",
-    "trialTitleTrialUsed": "FreeLingo Premium'u etkinleştirin",
+    "trialTitleTrialUsed": "Linguist Premium'u etkinleştirin",
     "trialDesc": "İlk ödemenizden önce Lingu'ya, sesli pratiğe, dinleme ve okumaya tam erişim elde edin.",
     "trialDescTrialUsed": "Lingu'nun, sesli pratiğin, dinleme ve okumanın kilidini açmak için bir plan seçin.",
     "trialCtaMonthly": "Ücretsiz deneyin, ardından aylık €{price}",
@@ -1576,7 +1658,7 @@
     "audioError": "Ses oynatılamadı. Tekrar deneyebilirsiniz.",
     "step1": {
       "label": "Hoş geldiniz",
-      "title": "FreeLingo'ya hoş geldiniz",
+      "title": "Linguist'ya hoş geldiniz",
       "desc": "Merhaba! Ben Lingu, dil öğrenme arkadaşınız. Birlikte nasıl öğrenebileceğimizi göstereyim."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Oyunlarla pratiğe devam et",
     "paywallGamesDesc": "Ücretsiz oyun kotan bitti veya oyunlar Premium gerektiriyor. Mevcut oyunlara devam edebilirsin.",
     "paywallLabel": "Premium gerekli",
-    "paywallTitle": "FreeLingo Premium'un kilidini açın",
+    "paywallTitle": "Linguist Premium'un kilidini açın",
     "paywallDesc": "{days} günlük ücretsiz denemenizi başlatın ve ilk ödemenizden önce tüm Premium pratik modlarının kilidini açın.",
     "paywallDescTrialUsed": "Tüm Premium pratik modlarının kilidini açın ve onaylamadan önce tutarı gözden geçirin.",
     "paywallChatTitle": "Lingu ile sınırsız pratik yapın",
@@ -1636,7 +1718,7 @@
     "planYearly": "En avantajlı · yıllık €{price} · 2 ay ücretsiz →",
     "checkoutError": "Ödeme başlatılamadı. Lütfen tekrar deneyin.",
     "pricingTitle": "Planlar ve fiyatlar",
-    "pricingContext": "Bu planlar bu kurulum için geçerlidir. Kendi sunucunuzda barındırma FreeLingo Cloud aboneliği gerektirmez; erişim ve sınırları yönetici yapılandırır.",
+    "pricingContext": "Bu planlar bu kurulum için geçerlidir. Kendi sunucunuzda barındırma Linguist Cloud aboneliği gerektirmez; erişim ve sınırları yönetici yapılandırır.",
     "pricingDesc": "Abone olurken ek deneme: {days} gün · kart gerekir · ardından plan ücreti uygulanır",
     "pricingDescTrialUsed": "Satın alma anından itibaren ücretli aylık veya yıllık abonelik. İstediğiniz zaman iptal edin.",
     "planMonthlyName": "Aylık",
@@ -1668,7 +1750,7 @@
       "l5": "7 günlük tam erişimli deneme"
     },
     "successLabel": "Ödeme onaylandı",
-    "successTitle": "FreeLingo Premium'a hoş geldiniz!",
+    "successTitle": "Linguist Premium'a hoş geldiniz!",
     "successDesc": "Aboneliğiniz artık etkin. Tüm özelliklere sınırsız erişimin keyfini çıkarın.",
     "successCheckingLabel": "Abonelik onaylanıyor",
     "successCheckingTitle": "Aboneliğiniz kontrol ediliyor",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "Daha akıcı bir deneyim",
-      "desc": "FreeLingo ile günlük öğreniminizi daha keyifli hâle getirmek için küçük hataları da düzelttik ve bazı ayrıntıları iyileştirdik."
+      "desc": "Linguist ile günlük öğreniminizi daha keyifli hâle getirmek için küçük hataları da düzelttik ve bazı ayrıntıları iyileştirdik."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Yorum durumunuz kontrol edilemedi. Lütfen daha sonra tekrar deneyin.",
     "ratingRequiredError": "Göndermeden önce lütfen bir puan seçin.",
     "saveError": "Yorumunuz kaydedilemedi. Lütfen tekrar deneyin.",
-    "eyebrow": "FreeLingo'yu değerlendirin",
+    "eyebrow": "Linguist'yu değerlendirin",
     "title": "Deneyiminiz nasıldı?",
     "closeLabel": "Değerlendirme penceresini kapat",
     "checking": "Yorum durumu kontrol ediliyor...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Öğrenci hikâyeleri",
     "title": "Öğrenmek, kendiniz anlattığınızda daha gerçek hissettirir",
-    "subtitle": "FreeLingo'da Lingu ile pratik yapan öğrencilerden yorumlar.",
+    "subtitle": "Linguist'da Lingu ile pratik yapan öğrencilerden yorumlar.",
     "averageLabel": "{average}/5 · {count, plural, one {# değerlendirme} other {# değerlendirme}}",
     "ratingCount": "{count, plural, one {# değerlendirme} other {# değerlendirme}}",
     "carouselLabel": "Öğrenci yorumları",
@@ -1960,7 +2042,7 @@
     "readLess": "Daha az göster",
     "learningLanguage": "Öğrendiği dil: {language}",
     "starsLabel": "5 üzerinden {rating} yıldız",
-    "ratingOnly": "Doğrulanmış FreeLingo puanı."
+    "ratingOnly": "Doğrulanmış Linguist puanı."
   },
   "adminReviews": {
     "title": "Yorumlar",

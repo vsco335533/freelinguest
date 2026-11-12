@@ -103,21 +103,21 @@ export function VoiceSection({ title }: { title?: string } = {}) {
   if (ttsProvider !== 'openai') return null
 
   return (
-    <div className="border-fl-border bg-fl-surface border p-6">
-      <div className="border-fl-border mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="glass-card rounded-2xl p-6">
+      <div className="border-fl-border/60 mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-fl-accent text-fl-label">●</span>
+        <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
           {title ?? t('sectionVoice')}
         </span>
       </div>
-      <p className="text-fl-hint text-fl-muted-3 mb-4 font-mono">
+      <p className="text-fl-hint text-fl-muted-2 mb-4 font-mono font-medium">
         {t('voiceHint')}
       </p>
       <div className="flex items-center gap-3">
         <select
           value={selectedVoice}
           onChange={(e) => selectVoice(e.target.value)}
-          className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 flex-1 appearance-none border px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors focus:outline-none"
+          className="neu-input text-fl-fg flex-1 appearance-none rounded-xl px-4 py-3 font-mono text-sm font-semibold tracking-widest uppercase transition-all focus:outline-none"
         >
           {OPENAI_VOICES.map((voice) => (
             <option key={voice} value={voice}>
@@ -129,7 +129,7 @@ export function VoiceSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => void togglePreview(selectedVoice)}
           disabled={loadingVoice === selectedVoice}
-          className="text-fl-muted-3 hover:text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-3 font-mono text-xs tracking-widest whitespace-nowrap uppercase transition-colors disabled:opacity-40"
+          className="neu-button text-fl-fg rounded-xl px-4 py-3 font-mono text-xs font-semibold tracking-widest whitespace-nowrap uppercase transition-all disabled:opacity-40"
         >
           {loadingVoice === selectedVoice
             ? '...'

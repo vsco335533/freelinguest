@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Disponibil în cloud, fără instalare, sau găzduit pe propriul server.",
       "compare": "Compară opțiunile",
-      "accounts": "Fiecare instalare are propriile conturi și progres. Butonul principal deschide această instalare; linkul FreeLingo Cloud deschide serviciul oficial.",
-      "title": "Două moduri de a folosi FreeLingo",
+      "accounts": "Fiecare instalare are propriile conturi și progres. Butonul principal deschide această instalare; linkul Linguist Cloud deschide serviciul oficial.",
+      "title": "Două moduri de a folosi Linguist",
       "cloud": {
         "title": "Cloud · Noi îl administrăm",
-        "description": "Învață în browser cu serviciul administrat de FreeLingo.",
+        "description": "Învață în browser cu serviciul administrat de Linguist.",
         "setup": "Găzduire, întreținere și actualizări incluse.",
         "access": "IA și voce incluse în limitele planului tău.",
         "cost": "Începe cu un plan gratuit și treci la Premium pentru mai multă practică.",
-        "cta": "Accesează FreeLingo Cloud"
+        "cta": "Accesează Linguist Cloud"
       },
       "selfHosted": {
         "title": "Găzduire proprie · Tu îl administrezi",
-        "description": "Instalează FreeLingo pe infrastructura ta și alege furnizorii de IA și voce.",
+        "description": "Instalează Linguist pe infrastructura ta și alege furnizorii de IA și voce.",
         "setup": "Controlează instalarea, configurarea și stocarea datelor.",
         "access": "Software liber și gratuit sub licența AGPL-3.0.",
         "cost": "Tu acoperi infrastructura, întreținerea și eventualele costuri ale furnizorilor.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Care este diferența dintre cloud și găzduirea proprie?",
-        "answer": "FreeLingo Cloud este serviciul administrat de pe freelingo.app: creează un cont și învață fără să administrezi un server. Cu găzduirea proprie, instalezi și întreții FreeLingo pe infrastructura ta și configurezi serviciile de IA și voce. Funcționalitățile disponibile depind de configurație."
+        "answer": "Linguist Cloud este serviciul administrat de pe freelingo.app: creează un cont și învață fără să administrezi un server. Cu găzduirea proprie, instalezi și întreții Linguist pe infrastructura ta și configurezi serviciile de IA și voce. Funcționalitățile disponibile depind de configurație."
       },
       "free": {
         "question": "Pot începe gratuit? Am nevoie de card?",
         "answer": "Înregistrarea nu necesită card. Dacă instalarea oferă acces Premium inițial, acesta începe la înregistrare; apoi continui gratuit cu limite dacă nu te abonezi. Abonamentul plătit începe la contractare, cu excepția zilelor suplimentare de probă oferite explicit de plan. Această probă este separată de perioada inițială și necesită o metodă de plată."
       },
       "hosting": {
-        "question": "De ce am nevoie pentru a găzdui FreeLingo?",
+        "question": "De ce am nevoie pentru a găzdui Linguist?",
         "answer": "Ai nevoie de un server, Docker Compose și servicii de IA și voce configurate. Te ocupi de instalare, actualizări și copii de siguranță. Software-ul AGPL-3.0 este gratuit; infrastructura și furnizorii externi pot implica costuri. Cerințele hardware și limbile pentru voce depind de furnizorii aleși."
       },
       "data": {
         "question": "Unde sunt stocate și procesate datele mele?",
-        "answer": "În Cloud, echipa FreeLingo gestionează stocarea și trimite conținutul IA și voce furnizorilor serviciului pentru procesare. Cu găzduirea proprie, controlezi stocarea și furnizorii: serviciile externe de IA sau voce primesc conținutul relevant. Găzduirea proprie nu înseamnă automat că toată procesarea este locală."
+        "answer": "În Cloud, echipa Linguist gestionează stocarea și trimite conținutul IA și voce furnizorilor serviciului pentru procesare. Cu găzduirea proprie, controlezi stocarea și furnizorii: serviciile externe de IA sau voce primesc conținutul relevant. Găzduirea proprie nu înseamnă automat că toată procesarea este locală."
       },
       "languages": {
         "question": "Ce limbi pot învăța?",
@@ -61,10 +61,10 @@
     "heroSub": "Un parcurs pentru învățarea limbilor: lecții la nivelul tău, exerciții și jocuri pentru consolidare și conversații vocale cu partenerul tău de învățare bazat pe IA.",
     "startFree": "Începe să înveți gratuit",
     "freeNote": "Fără card. Accesul gratuit are limite de utilizare; îl poți extinde cu Premium.",
-    "seoTitle": "FreeLingo: învață limbi străine cu un plan și Lingu",
+    "seoTitle": "Linguist: învață limbi străine cu un plan și Lingu",
     "seoDescription": "Învață limbi străine de la A1 la C2 cu un plan personalizat, exerciții și jocuri. Aplică ce înveți în conversații cu Lingu, tutorele tău IA.",
     "journey": {
-      "title": "Cum funcționează FreeLingo",
+      "title": "Cum funcționează Linguist",
       "learnTitle": "Învață în ritmul tău",
       "learnDesc": "Descoperă-ți nivelul printr-o evaluare și începe un plan adaptat ție. Avansează lecție cu lecție, cu un curriculum structurat de la A1 la C2.",
       "practiceTitle": "Exersează și consolidează",
@@ -123,7 +123,7 @@
     "start": "Începe",
     "retry": "Încearcă din nou",
     "or": "sau",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "zile",
     "logout": "Deconectare",
     "logoutConfirmTitle": "Deconectare",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Note despre fraze",
     "nativeHelpStudyTips": "Sfaturi de studiu",
     "nativeHelpWordNotes": "Note despre cuvinte",
-    "nativeHelpPractice": "Practică"
+    "nativeHelpPractice": "Practică",
+    "aiTutor": "Tutor AI",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "indisponibil",
+    "baseLanguageSelect": "Limbă de bază",
+    "loaderLearn": "ÎNVAȚĂ.",
+    "loaderSpeak": "VORBEȘTE.",
+    "loaderRead": "CITEȘTE.",
+    "loaderWrite": "SCRIE",
+    "lessonTitlePattern": "{title} - Lecția {n}",
+    "completionTestTitle": "Test de nivel {level}",
+    "unitTitles": {
+      "a1-unit-1": "Identitate și saluturi",
+      "a1-unit-2": "Lumea mea",
+      "a1-unit-3": "Viața de zi cu zi",
+      "a1-unit-4": "Locuri și poziție",
+      "a1-unit-5": "Acțiuni în curs",
+      "a1-unit-6": "Ieri",
+      "a1-unit-7": "Abilități și dorințe",
+      "a1-unit-8": "Consolidare A1",
+      "a2-unit-1": "Verbe neregulate și narațiuni la trecut",
+      "a2-unit-2": "Planuri și viitor",
+      "a2-unit-3": "Comparații",
+      "a2-unit-4": "Abilitate și permisiune",
+      "a2-unit-5": "Cantitate și cumpărături",
+      "a2-unit-6": "Sănătate și corp",
+      "a2-unit-7": "Călătorii și transport",
+      "a2-unit-8": "Consolidare A2",
+      "b1-unit-1": "Aspectele lui Present Perfect",
+      "b1-unit-2": "Condiționalele zero, întâi și a doua",
+      "b1-unit-3": "Diateza pasivă",
+      "b1-unit-4": "Propoziții relative, conectori și verbe frazale",
+      "b1-unit-5": "Modale, sfaturi și întrebări disjunctive",
+      "b1-unit-6": "Vorbirea indirectă",
+      "b1-unit-7": "Past Perfect, dorințe și regrete",
+      "b1-unit-8": "Consolidare B1",
+      "b2-unit-1": "Narațiuni la trecut și secvențiere",
+      "b2-unit-2": "Dorințe avansate: Wish + Would/Could",
+      "b2-unit-3": "Condiționalele 2 și 3",
+      "b2-unit-4": "Cauzativul Have/Get, pasiv modal și infinitive pasive",
+      "b2-unit-5": "Gerunzii, infinitive și verbe frazale",
+      "b2-unit-6": "Vorbirea indirectă și modale perfecte",
+      "b2-unit-7": "Concesie, contrast și discurs academic",
+      "b2-unit-8": "Consolidare B2",
+      "c1-unit-1": "Condiționale mixte și speculație",
+      "c1-unit-2": "Propoziții participiale",
+      "c1-unit-3": "Atenuare și registru formal",
+      "c1-unit-4": "Emfază: inversiune și propoziții scindate",
+      "c1-unit-5": "Elipsă, substituție și coeziune textuală",
+      "c1-unit-6": "Relative avansate, gândire critică și verbe frazale",
+      "c1-unit-7": "Argumentare și retorică",
+      "c1-unit-8": "Consolidare C1",
+      "c2-unit-1": "Marcatori discursivi și coeziune textuală",
+      "c2-unit-2": "Nominalizare și stil academic",
+      "c2-unit-3": "Limbaj idiomatic și figurat",
+      "c2-unit-4": "Antepunere, emfază și procedee stilistice",
+      "c2-unit-5": "Lectură critică și scriere academică",
+      "c2-unit-6": "Pragmatică britanică și stil vorbit",
+      "c2-unit-7": "Procedee retorice și structură textuală avansată",
+      "c2-unit-8": "Consolidare C2"
+    }
   },
   "detective": {
     "title": "Detectivul greșelilor",
@@ -466,7 +528,7 @@
     "cardProductReview": "Recenzie produs",
     "cardLegalDocuments": "Documente legale",
     "sectionReview": "Recenzie",
-    "reviewDescription": "Împărtășește experiența ta cu FreeLingo. Dacă editezi o recenzie deja aprobată, aceasta va reveni la verificare înainte de a apărea public.",
+    "reviewDescription": "Împărtășește experiența ta cu Linguist. Dacă editezi o recenzie deja aprobată, aceasta va reveni la verificare înainte de a apărea public.",
     "reviewPending": "În așteptarea aprobării",
     "reviewUpdate": "Actualizează",
     "reviewSaved": "Recenzie salvată.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Termeni și condiții",
-      "seoDescription": "Consultă termenii FreeLingo privind conturile, utilizarea acceptabilă, accesul gratuit și abonamentele la platforma de învățare a limbilor.",
+      "seoDescription": "Consultă termenii Linguist privind conturile, utilizarea acceptabilă, accesul gratuit și abonamentele la platforma de învățare a limbilor.",
       "updated": "Ultima actualizare: august 2026",
-      "s1Title": "1. Despre FreeLingo",
-      "s1Body": "FreeLingo este o platformă de învățare a limbilor bazată pe AI, disponibilă în două moduri: (1) auto-găzduită, pe care o poți rula pe propria infrastructură fără costuri, și (2) ca serviciu găzduit gestionat de echipa FreeLingo, cu un plan gratuit și abonamente plătite.",
+      "s1Title": "1. Despre Linguist",
+      "s1Body": "Linguist este o platformă de învățare a limbilor bazată pe AI, disponibilă în două moduri: (1) auto-găzduită, pe care o poți rula pe propria infrastructură fără costuri, și (2) ca serviciu găzduit gestionat de echipa Linguist, cu un plan gratuit și abonamente plătite.",
       "s2Title": "2. Utilizare permisă",
-      "s2Intro": "Poți folosi FreeLingo exclusiv în scopuri personale de învățare a limbilor. Ești de acord să nu:",
+      "s2Intro": "Poți folosi Linguist exclusiv în scopuri personale de învățare a limbilor. Ești de acord să nu:",
       "s2i1": "Încerci să obții acces neautorizat la orice parte a sistemului.",
       "s2i2": "Încarci conținut malițios sau să perturbezi serviciul.",
       "s2i3": "Partajezi datele de autentificare cu terți.",
       "s2i4": "Folosești scripturi automate sau boți pentru a abuza de funcțiile tutorului AI.",
       "s3Title": "3. Conturi de utilizator",
-      "s3Body": "Trebuie să ai cel puțin 16 ani pentru a crea un cont și a folosi FreeLingo. Prin înregistrare, confirmi că îndeplinești această cerință de vârstă.",
+      "s3Body": "Trebuie să ai cel puțin 16 ani pentru a crea un cont și a folosi Linguist. Prin înregistrare, confirmi că îndeplinești această cerință de vârstă.",
       "s4Title": "4. Conținut și interacțiuni AI",
-      "s4Body": "Conversațiile cu tutorele AI sunt stocate în baza de date pentru continuitatea învățării. AI poate oferi răspunsuri incorecte — folosește întotdeauna propriul tău raționament. Conținutul generat de tutorele AI (exerciții, corecturi, explicații și alte materiale) îți aparține pentru uz personal. FreeLingo nu revendică drepturi de proprietate asupra conversațiilor tale sau asupra conținutului generat din acestea.",
+      "s4Body": "Conversațiile cu tutorele AI sunt stocate în baza de date pentru continuitatea învățării. AI poate oferi răspunsuri incorecte — folosește întotdeauna propriul tău raționament. Conținutul generat de tutorele AI (exerciții, corecturi, explicații și alte materiale) îți aparține pentru uz personal. Linguist nu revendică drepturi de proprietate asupra conversațiilor tale sau asupra conținutului generat din acestea.",
       "s5Title": "5. Moduri de serviciu",
-      "s5Body": "Implementările auto-găzduite sunt gratuite. Serviciul găzduit de echipa FreeLingo oferă un plan gratuit cu limite de utilizare și abonamente plătite pentru acces nelimitat, disponibile lunar sau anual. Planul gratuit include o perioadă de probă de 7 zile cu acces complet (fără metodă de plată necesară) și ulterior cote zilnice limitate pentru lecții și chat AI, plus cote săptămânale pentru exerciții de ascultare, citire și conversații vocale. Abonamentele plătite elimină toate limitele de utilizare ale acestor funcții. În serviciul găzduit, datele tale sunt stocate pe servere operate de echipa FreeLingo. Limitele actuale de utilizare pentru contul tău sunt disponibile în tabloul de bord.",
+      "s5Body": "Implementările auto-găzduite sunt gratuite. Serviciul găzduit de echipa Linguist oferă un plan gratuit cu limite de utilizare și abonamente plătite pentru acces nelimitat, disponibile lunar sau anual. Planul gratuit include o perioadă de probă de 7 zile cu acces complet (fără metodă de plată necesară) și ulterior cote zilnice limitate pentru lecții și chat AI, plus cote săptămânale pentru exerciții de ascultare, citire și conversații vocale. Abonamentele plătite elimină toate limitele de utilizare ale acestor funcții. În serviciul găzduit, datele tale sunt stocate pe servere operate de echipa Linguist. Limitele actuale de utilizare pentru contul tău sunt disponibile în tabloul de bord.",
       "s6Title": "6. Abonament și facturare",
       "s6Body": "Planul gratuit oferă acces limitat la funcțiile AI și o perioadă de probă completă de 7 zile pentru utilizatorii noi. Abonamentele plătite sunt lunare sau anuale și se reînnoiesc automat dacă nu sunt anulate în prealabil. Le poți anula din Setări, cu efect la sfârșitul perioadei curente. Operatorul poate anula reînnoirile sau abonamentele dacă serviciul este modificat sau închis. Dacă serviciul se încheie înaintea unei perioade plătite, se aplică rambursarea impusă de legislația consumatorilor.",
       "s7Title": "7. Disponibilitate",
-      "s7Body": "Serviciul găzduit este oferit fără garanții de continuitate sau disponibilitate. Operatorul îl poate modifica, suspenda sau închide oricând din motive tehnice, financiare sau de altă natură. Când este rezonabil posibil, închiderile planificate vor fi anunțate în aplicație sau prin e-mail. După data anunțată, conturile și datele operaționale pot fi șterse fără recuperare. FreeLingo nu oferă servicii de backup sau un instrument automat de export.",
+      "s7Body": "Serviciul găzduit este oferit fără garanții de continuitate sau disponibilitate. Operatorul îl poate modifica, suspenda sau închide oricând din motive tehnice, financiare sau de altă natură. Când este rezonabil posibil, închiderile planificate vor fi anunțate în aplicație sau prin e-mail. După data anunțată, conturile și datele operaționale pot fi șterse fără recuperare. Linguist nu oferă servicii de backup sau un instrument automat de export.",
       "s8Title": "8. Limitarea răspunderii",
-      "s8Body": "FreeLingo și contribuitorii săi nu sunt răspunzători pentru daune directe, indirecte, incidentale sau consequente rezultate din utilizarea sau incapacitatea de a utiliza acest serviciu. Sunteți de acord să despăgubiți și să exonerați de răspundere FreeLingo și colaboratorii săi față de orice reclamații, daune sau cheltuieli ale terților care decurg din utilizarea de către dvs. a serviciului cu încălcarea acestor termeni.",
+      "s8Body": "Linguist și contribuitorii săi nu sunt răspunzători pentru daune directe, indirecte, incidentale sau consequente rezultate din utilizarea sau incapacitatea de a utiliza acest serviciu. Sunteți de acord să despăgubiți și să exonerați de răspundere Linguist și colaboratorii săi față de orice reclamații, daune sau cheltuieli ale terților care decurg din utilizarea de către dvs. a serviciului cu încălcarea acestor termeni.",
       "s9Title": "9. Legea aplicabilă",
       "s9Body": "Acești termeni sunt guvernați de legea Spaniei. Orice litigiu este supus jurisdicției exclusive a instanțelor din Spania.",
       "s10Title": "10. Modificări ale acestor termeni",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Politică de confidențialitate",
       "linkBack": "Înapoi la înregistrare",
       "linkBackSettings": "Înapoi la setări",
-      "linkContact": "Pentru întrebări, folosește formularul freelingo.app cât timp este disponibil sau canalul de contact publicat în depozitul GitHub FreeLingo."
+      "linkContact": "Pentru întrebări, folosește formularul freelingo.app cât timp este disponibil sau canalul de contact publicat în depozitul GitHub Linguist."
     },
     "privacy": {
       "pageTitle": "Politică de confidențialitate",
-      "seoDescription": "Află cum gestionează FreeLingo datele personale, stocarea în browser și statisticile anonime și cum îți poți exercita drepturile de confidențialitate.",
+      "seoDescription": "Află cum gestionează Linguist datele personale, stocarea în browser și statisticile anonime și cum îți poți exercita drepturile de confidențialitate.",
       "updated": "Ultima actualizare: 10 octombrie 2026",
       "s1Title": "1. Prezentare generală",
-      "s1Body": "FreeLingo este disponibil ca aplicație auto-găzduită și ca serviciu găzduit. Pentru implementările auto-găzduite, toate datele sunt stocate exclusiv pe serverul operatorului.",
+      "s1Body": "Linguist este disponibil ca aplicație auto-găzduită și ca serviciu găzduit. Pentru implementările auto-găzduite, toate datele sunt stocate exclusiv pe serverul operatorului.",
       "s2Title": "2. Date pe care le colectăm",
-      "s2Intro": "FreeLingo nu este destinat copiilor sub 16 ani. Când creezi un cont și folosești FreeLingo, sunt stocate următoarele date:",
+      "s2Intro": "Linguist nu este destinat copiilor sub 16 ani. Când creezi un cont și folosești Linguist, sunt stocate următoarele date:",
       "s2i1": "Nume de utilizator, nume afișat și adresă de e-mail.",
       "s2i2": "Parolă hash (bcrypt — parola ta în text simplu nu este niciodată stocată).",
       "s2i3": "Preferințe de limbă și setări de învățare.",
@@ -532,7 +594,7 @@
       "s2i9": "Amintiri și preferințe globale ale contului, pe care tutorele AI le învață în conversații sau pe care le adaugi manual pentru a personaliza interacțiunile în toate limbile studiate.",
       "s2i10": "Sugestii, rapoarte de erori, comentarii și voturi pe care le trimiți prin panoul de sugestii. Doar numele tău de utilizator este afișat public; toți utilizatorii pot vedea sugestiile și rapoartele publicate.",
       "s3Title": "3. Cum folosim datele tale",
-      "s3Intro": "Datele tale sunt folosite exclusiv pentru a furniza experiența de învățare FreeLingo:",
+      "s3Intro": "Datele tale sunt folosite exclusiv pentru a furniza experiența de învățare Linguist:",
       "s3i1": "Autentificare și gestionarea sesiunilor.",
       "s3i2": "Personalizarea planului de studiu și interacțiunilor cu tutorele.",
       "s3i3": "Urmărirea progresului în învățare în timp.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Servicii AI externe",
       "s4Body": "În serviciul găzduit, chat-ul AI, sinteza vocală (TTS) şi transcrierea vocii (STT) sunt furnizate prin API-ul OpenAI. Conţinutul conversaţiilor şi audio-ul sunt trimise către OpenAI pentru procesare, conform Politicii de confidenţialitate a OpenAI (openai.com/privacy). Procesarea plăţilor este gestionată de Stripe, Inc. (SUA); Stripe procesează datele de plată direct şi nu stocăm datele cardului tău pe serverele noastre — datele tale de tranzacţie sunt supuse Politicii de confidenţialitate a Stripe (stripe.com/privacy).",
       "s5Title": "5. Cookie-uri, stocare locală și analiză statistică",
-      "s5Body": "FreeLingo folosește cookie-uri tehnice și de preferințe: refresh_token (httpOnly, implicit 30 de zile) pentru menținerea sesiunii, iar NEXT_LOCALE și LOCALE_DETECTED (până la un an) pentru memorarea și gestionarea limbii interfeței. Stocarea locală a browserului păstrează și preferințele de interfață și voce, precum și starea notificărilor și ghidurilor; stocarea de sesiune asigură continuitatea temporară a funcțiilor. Valorile locale rămân până când sunt șterse de aplicație sau de tine; cele de sesiune sunt eliminate după utilizare sau la închiderea filei. În serviciul găzduit folosim Umami, un instrument de analiză cu sursă deschisă, auto-găzduit pe aceeași infrastructură ca FreeLingo, pentru a obține statistici anonime și agregate despre utilizarea și funcționarea serviciului și pentru a îmbunătăți experiența de învățare. Această analiză folosește date tehnice de utilizare, nu utilizează cookie-uri, nu este legată de conturi și nu servește la crearea de profiluri individuale sau în scopuri publicitare. Datele analitice nu sunt vândute, cedate sau partajate cu terți. Statisticile Umami nu sunt șterse automat și sunt păstrate până la eliminarea manuală. În instalările auto-găzduite, configurarea analizei revine operatorului instanței. Notificarea despre cookie-uri este informativă; închiderea ei salvează doar faptul că a fost închisă.",
+      "s5Body": "Linguist folosește cookie-uri tehnice și de preferințe: refresh_token (httpOnly, implicit 30 de zile) pentru menținerea sesiunii, iar NEXT_LOCALE și LOCALE_DETECTED (până la un an) pentru memorarea și gestionarea limbii interfeței. Stocarea locală a browserului păstrează și preferințele de interfață și voce, precum și starea notificărilor și ghidurilor; stocarea de sesiune asigură continuitatea temporară a funcțiilor. Valorile locale rămân până când sunt șterse de aplicație sau de tine; cele de sesiune sunt eliminate după utilizare sau la închiderea filei. În serviciul găzduit folosim Umami, un instrument de analiză cu sursă deschisă, auto-găzduit pe aceeași infrastructură ca Linguist, pentru a obține statistici anonime și agregate despre utilizarea și funcționarea serviciului și pentru a îmbunătăți experiența de învățare. Această analiză folosește date tehnice de utilizare, nu utilizează cookie-uri, nu este legată de conturi și nu servește la crearea de profiluri individuale sau în scopuri publicitare. Datele analitice nu sunt vândute, cedate sau partajate cu terți. Statisticile Umami nu sunt șterse automat și sunt păstrate până la eliminarea manuală. În instalările auto-găzduite, configurarea analizei revine operatorului instanței. Notificarea despre cookie-uri este informativă; închiderea ei salvează doar faptul că a fost închisă.",
       "s6Title": "6. Drepturile tale (GDPR)",
-      "s6Body": "În Spațiul Economic European ai drepturile GDPR de acces, rectificare, ștergere, opoziție și portabilitate. Îți poți șterge contul din Setări. Alte cereri sunt gestionate manual prin contactul din secțiunea 8; FreeLingo nu oferă un instrument automat de export. Datele sunt prelucrate pentru furnizarea serviciului (Art. 6(1)(b) GDPR). OpenAI și Stripe pot prelucra date în SUA cu garanțiile aplicabile transferurilor internaționale. Poți depune o plângere la autoritatea de supraveghere competentă.",
+      "s6Body": "În Spațiul Economic European ai drepturile GDPR de acces, rectificare, ștergere, opoziție și portabilitate. Îți poți șterge contul din Setări. Alte cereri sunt gestionate manual prin contactul din secțiunea 8; Linguist nu oferă un instrument automat de export. Datele sunt prelucrate pentru furnizarea serviciului (Art. 6(1)(b) GDPR). OpenAI și Stripe pot prelucra date în SUA cu garanțiile aplicabile transferurilor internaționale. Poți depune o plângere la autoritatea de supraveghere competentă.",
       "s7Title": "7. Retenția și ștergerea datelor",
-      "s7Body": "Datele operaționale sunt păstrate cât timp există contul și serviciul găzduit este activ. Poți șterge amintiri, limbi sau întregul cont din Setări. La închiderea serviciului, operatorul poate șterge toate conturile și datele după notificarea rezonabil posibilă. Ștergerea este ireversibilă. După ștergerea sistemelor și copiilor aflate sub controlul operatorului, FreeLingo nu va păstra date personale. Stripe poate păstra informații despre plăți și tranzacții conform propriei politici și obligațiilor legale.",
+      "s7Body": "Datele operaționale sunt păstrate cât timp există contul și serviciul găzduit este activ. Poți șterge amintiri, limbi sau întregul cont din Setări. La închiderea serviciului, operatorul poate șterge toate conturile și datele după notificarea rezonabil posibilă. Ștergerea este ireversibilă. După ștergerea sistemelor și copiilor aflate sub controlul operatorului, Linguist nu va păstra date personale. Stripe poate păstra informații despre plăți și tranzacții conform propriei politici și obligațiilor legale.",
       "s8Title": "8. Contact",
-      "s8Body": "Pentru întrebări de confidențialitate despre serviciul găzduit, folosește formularul freelingo.app cât timp este disponibil. După închidere, folosește canalul de contact din depozitul GitHub FreeLingo și nu publica date personale în issue-uri publice. Pentru auto-găzduire, contactează administratorul instanței.",
+      "s8Body": "Pentru întrebări de confidențialitate despre serviciul găzduit, folosește formularul freelingo.app cât timp este disponibil. După închidere, folosește canalul de contact din depozitul GitHub Linguist și nu publica date personale în issue-uri publice. Pentru auto-găzduire, contactează administratorul instanței.",
       "s9Title": "9. Separabilitate",
       "s9Body": "Dacă vreo dispoziție a acestei politici este considerată nulă sau inaplicabilă, aceasta va fi limitată în măsura minimă necesară, iar celelalte vor rămâne în vigoare.",
       "linkTerms": "Termeni și condiții",
@@ -802,7 +864,8 @@
     "noPlanLabel": "ÎNCEPE",
     "noPlanTitle": "Creează-ți planul de studiu",
     "noPlanDesc": "Fă o evaluare rapidă pentru a-ți descoperi nivelul și a obține un plan de învățare personalizat.",
-    "noPlanHint": "Durează aproximativ 10 minute"
+    "noPlanHint": "Durează aproximativ 10 minute",
+    "loadFailed": "Încărcarea planului de studiu a eșuat"
   },
   "lesson": {
     "loading": "Se încarcă lecția...",
@@ -1275,7 +1338,13 @@
         "sv": "Suedeză",
         "da": "Daneză",
         "fi": "Finlandeză",
-        "hr": "Croată"
+        "hr": "Croată",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamilă",
+        "ml": "Malayalam",
+        "or": "Odia",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Folosește carduri flash pentru a antrena vocabularul în paralel",
     "workflowStep6": "Exersează conversația liberă cu Lingu",
     "q_language": "Ce limbă voi învăța?",
-    "a_language": "FreeLingo suportă în prezent mai multe limbi ({languages}) și vom adăuga mai multe în timp. Când o nouă limbă devine disponibilă, o vei găsi în Setări → Limbile mele — adaug-o și începe să înveți imediat.",
+    "a_language": "Linguist suportă în prezent mai multe limbi ({languages}) și vom adăuga mai multe în timp. Când o nouă limbă devine disponibilă, o vei găsi în Setări → Limbile mele — adaug-o și începe să înveți imediat.",
     "q_assessment": "Ce este Evaluarea?",
     "a_assessment": "Un test adaptiv cu cel mult 15 întrebări dintr-o bancă specifică limbii de studiu. Acoperă gramatica, vocabularul și înțelegerea lecturii de la A1 la C2. Rezultatul estimează nivelul CEFR și indică punctele forte și aspectele de exersat; poți ajusta nivelul sugerat înainte de a crea planul.",
     "q_studyPlan": "Ce este Planul de studiu și cum îl generez?",
@@ -1311,7 +1380,7 @@
     "a_listening": "În <strong>Listening</strong>, Lingu pregătește exerciții de ascultare adaptate nivelului tău CEFR. Ascultă audio și răspunde la 5 întrebări de înțelegere. După trimitere, primești scorul (0–5), XP, răspunsurile corecte și transcrierea completă. Poți genera exerciții noi la cerere.",
     "q_reading": "Cum funcționează exercițiile de citire?",
     "a_reading": "Secțiunea <strong>Reading</strong> generează texte la nivelul tău CEFR — anunțuri, e-mailuri, articole, postări de blog și multe altele. Citește textul și răspunde la 5 întrebări cu variante multiple. După trimitere, primești scorul (0–5) și XP. Exerciții noi pot fi generate la cerere.",
-    "q_providers": "Ce furnizori AI acceptă FreeLingo?",
+    "q_providers": "Ce furnizori AI acceptă Linguist?",
     "a_providers_intro": "Configurabil în <code>.env</code> prin <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Local, gratuit. Necesită Ollama pe gazdă. Model recomandat: gemma4:e4b.",
     "provider_openai": "Serviciul OpenAI cu modelul configurat de administrator. Necesită OPENAI_API_KEY și poate genera costuri de utilizare.",
@@ -1424,7 +1493,10 @@
       "Planuri de weekend",
       "Muncă și obiective de carieră",
       "Munca de acasă"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Înregistrează",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Lecții",
     "flashcardsLabel": "Flashcard-uri",
     "viewDetails": "Vezi detalii",
-    "supportedLanguages": "Limbi disponibile"
+    "supportedLanguages": "Limbi disponibile",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Suedeză",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Probă gratuită",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Începe cu {days} zile gratuite",
-    "trialTitleTrialUsed": "Activează FreeLingo Premium",
+    "trialTitleTrialUsed": "Activează Linguist Premium",
     "trialDesc": "Primești acces la Lingu, practică vocală, ascultare și citire înainte de prima plată.",
     "trialDescTrialUsed": "Alege un plan pentru a debloca Lingu, practica vocală, listening și reading.",
     "trialCtaMonthly": "Încearcă gratuit, apoi {price}€/lună",
@@ -1576,7 +1658,7 @@
     "audioError": "Sunetul nu a putut fi redat. Poți încerca din nou.",
     "step1": {
       "label": "Bun venit",
-      "title": "Bun venit la FreeLingo",
+      "title": "Bun venit la Linguist",
       "desc": "Salut! Sunt Lingu, partenerul tău pentru învățarea limbilor. Îți arăt cum putem învăța împreună."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Continuă să exersezi prin jocuri",
     "paywallGamesDesc": "Ai epuizat cota gratuită sau jocurile necesită Premium. Poți relua jocurile existente.",
     "paywallLabel": "Premium necesar",
-    "paywallTitle": "Deblochează FreeLingo Premium",
+    "paywallTitle": "Deblochează Linguist Premium",
     "paywallDesc": "Încearcă gratuit {days} zile și deblochează toată practica Premium înainte de prima plată.",
     "paywallDescTrialUsed": "Deblochează toată practica Premium și verifică suma înainte de confirmare.",
     "paywallChatTitle": "Exersează cu Lingu fără limite",
@@ -1636,7 +1718,7 @@
     "planYearly": "Cea mai bună ofertă · {price}€/an · 2 luni gratuite →",
     "checkoutError": "Nu s-a putut iniția plata. Încearcă din nou.",
     "pricingTitle": "Planuri și prețuri",
-    "pricingContext": "Aceste planuri se aplică acestei instalări. Găzduirea proprie nu necesită abonament FreeLingo Cloud; administratorul configurează accesul și limitele.",
+    "pricingContext": "Aceste planuri se aplică acestei instalări. Găzduirea proprie nu necesită abonament Linguist Cloud; administratorul configurează accesul și limitele.",
     "pricingDesc": "Probă suplimentară la abonare: {days} zile · card necesar · apoi se aplică prețul planului",
     "pricingDescTrialUsed": "Abonament lunar sau anual plătit de la contractare. Anulează oricând.",
     "planMonthlyName": "Lunar",
@@ -1668,7 +1750,7 @@
       "l5": "Probă completă de 7 zile"
     },
     "successLabel": "Plată confirmată",
-    "successTitle": "Bun venit la FreeLingo Premium!",
+    "successTitle": "Bun venit la Linguist Premium!",
     "successDesc": "Abonamentul tău este acum activ. Bucură-te de acces nelimitat la toate funcțiile.",
     "successCheckingLabel": "Se confirmă abonamentul",
     "successCheckingTitle": "Verificăm abonamentul",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "O experiență mai fluidă",
-      "desc": "Am corectat și mici erori și am finisat câteva detalii, ca învățarea de zi cu zi cu FreeLingo să fie și mai plăcută."
+      "desc": "Am corectat și mici erori și am finisat câteva detalii, ca învățarea de zi cu zi cu Linguist să fie și mai plăcută."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Nu am putut verifica starea recenziei tale. Încearcă din nou mai târziu.",
     "ratingRequiredError": "Alege un rating înainte de trimitere.",
     "saveError": "Nu am putut salva recenzia. Încearcă din nou.",
-    "eyebrow": "Evaluează FreeLingo",
+    "eyebrow": "Evaluează Linguist",
     "title": "Cum a fost experiența ta?",
     "closeLabel": "Închide solicitarea de recenzie",
     "checking": "Se verifică starea recenziei...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Povești de la cursanți",
     "title": "Învățarea se vede mai bine când o povestești tu",
-    "subtitle": "Recenzii de la studenți care exersează deja cu Lingu pe FreeLingo.",
+    "subtitle": "Recenzii de la studenți care exersează deja cu Lingu pe Linguist.",
     "averageLabel": "{average}/5 · {count, plural, one {# evaluare} few {# evaluări} other {# de evaluări}}",
     "ratingCount": "{count, plural, one {# evaluare} few {# evaluări} other {# de evaluări}}",
     "carouselLabel": "Recenziile cursanților",
@@ -1960,7 +2042,7 @@
     "readLess": "Citește mai puțin",
     "learningLanguage": "Învață {language}",
     "starsLabel": "{rating} din 5 stele",
-    "ratingOnly": "Rating FreeLingo verificat."
+    "ratingOnly": "Rating Linguist verificat."
   },
   "adminReviews": {
     "title": "Recenzii",

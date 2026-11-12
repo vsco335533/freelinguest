@@ -340,7 +340,7 @@ function ListeningPage() {
           </h1>
           <button
             onClick={loadNext}
-            className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+            className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase"
           >
             {t('practiceMore')}
           </button>
@@ -349,8 +349,8 @@ function ListeningPage() {
         {historyLoading && history.length === 0 ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : history.length === 0 ? (
-          <div className="border-fl-border bg-fl-surface border p-6 text-center">
-            <p className="text-fl-muted-3 font-mono text-xs tracking-wide">
+          <div className="glass-card rounded-2xl p-6 text-center">
+            <p className="text-fl-muted-2 font-mono text-xs font-semibold tracking-wide">
               {t('historyEmpty')}
             </p>
           </div>
@@ -359,7 +359,7 @@ function ListeningPage() {
             {history.map((item) => (
               <div
                 key={item.id}
-                className="border-fl-border bg-fl-surface border p-4"
+                className="glass-card rounded-2xl p-4"
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -375,7 +375,7 @@ function ListeningPage() {
                       {item.score}/{item.exercise.questions.length}
                     </p>
                     <p className="text-fl-label text-fl-accent font-mono">
-                      +{item.xp_earned} XP
+                      +{item.xp_earned} {tCommon('xpUnit')}
                     </p>
                   </div>
                 </div>
@@ -399,7 +399,7 @@ function ListeningPage() {
                     setIsReplay(true)
                     setPageState('exercise')
                   }}
-                  className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                  className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase"
                 >
                   {t('practiceAgain')}
                 </button>
@@ -443,10 +443,10 @@ function ListeningPage() {
     return (
       <div className="mx-auto max-w-4xl space-y-5 px-4 py-6 md:px-8">
         {/* Score card */}
-        <div className="border-fl-border bg-fl-surface border p-5">
+        <div className="neu-glass-card rounded-3xl p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+              <p className="text-fl-label text-fl-muted-3 font-mono font-bold tracking-widest uppercase">
                 {t('resultsLabel')}
               </p>
               <p className="text-fl-fg mt-1 font-mono text-2xl font-bold">
@@ -454,11 +454,11 @@ function ListeningPage() {
               </p>
             </div>
             <div className="text-right">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
-                XP
+              <p className="text-fl-label text-fl-muted-3 font-mono font-bold tracking-widest uppercase">
+                {tCommon('xpUnit')}
               </p>
               {isReplay && result.xp_earned === 0 ? (
-                <p className="text-fl-label text-fl-muted-3 mt-1 font-mono">
+                <p className="text-fl-label text-fl-muted-3 mt-1 font-mono font-semibold">
                   {t('replayNoXp')}
                 </p>
               ) : (
@@ -472,10 +472,10 @@ function ListeningPage() {
 
         {/* Transcript */}
         <div>
-          <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+          <p className="text-fl-label text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
             {t('transcript')}
           </p>
-          <div className="border-fl-border bg-fl-surface border p-4">
+          <div className="glass-card rounded-2xl p-4">
             <TargetLanguageText
               as="p"
               languageCode={exercise.target_language}
@@ -503,7 +503,7 @@ function ListeningPage() {
             return (
               <div
                 key={q.index}
-                className={`border p-4 ${
+                className={`glass-card rounded-2xl border p-4 ${
                   isCorrect
                     ? 'border-fl-success/50 bg-fl-success/5'
                     : 'border-fl-error-fg/50 bg-fl-error-fg/5'
@@ -546,13 +546,13 @@ function ListeningPage() {
         <div className="flex gap-3 pt-1">
           <button
             onClick={loadNext}
-            className="border-fl-border bg-fl-surface text-fl-fg hover:bg-fl-surface-2 flex-1 border py-3 font-mono text-sm tracking-widest uppercase transition-colors"
+            className="neu-button-primary flex-1 rounded-xl py-3 font-mono text-sm font-bold tracking-widest text-white uppercase"
           >
             {t('nextExercise')}
           </button>
           <button
             onClick={() => loadHistory(0)}
-            className="border-fl-border bg-fl-surface text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface-2 border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+            className="neu-button text-fl-muted-1 hover:text-fl-fg rounded-xl px-5 py-3 font-mono text-xs font-bold tracking-widest uppercase"
           >
             {t('viewHistory')}
           </button>
@@ -593,7 +593,7 @@ function ListeningPage() {
           </h1>
           <button
             onClick={() => loadHistory(0)}
-            className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+            className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase"
           >
             {t('history')}
           </button>
@@ -609,13 +609,13 @@ function ListeningPage() {
 
         {freemiumExhausted && <PaywallBanner feature="listening" compact />}
         {(needsContext || !freemiumExhausted) && (
-          <div className="border-fl-border bg-fl-surface flex flex-col items-center gap-5 border p-8 text-center">
-            <p className="text-fl-muted-2 font-mono text-xs tracking-wide">
+          <div className="neu-glass-card flex flex-col items-center gap-5 rounded-3xl p-8 text-center">
+            <p className="text-fl-muted-2 font-mono text-xs font-semibold tracking-wide">
               {t('noExercises')}
             </p>
             <button
               onClick={needsContext ? loadNext : handleGenerate}
-              className="border-fl-border bg-fl-surface text-fl-fg hover:bg-fl-surface-2 border px-8 py-3 font-mono text-sm tracking-widest uppercase transition-colors"
+              className="neu-button-primary rounded-xl px-8 py-3 font-mono text-sm font-bold tracking-widest text-white uppercase"
             >
               {needsContext ? tCommon('retry') : t('generate')}
             </button>
@@ -642,7 +642,7 @@ function ListeningPage() {
         </div>
         <button
           onClick={() => loadHistory(0)}
-          className="text-fl-muted-2 hover:text-fl-fg shrink-0 font-mono text-xs tracking-widest uppercase transition-colors"
+          className="neu-button text-fl-fg shrink-0 rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase"
         >
           {t('history')}
         </button>
@@ -655,8 +655,8 @@ function ListeningPage() {
       ) : (
         <>
           {/* Topic */}
-          <div className="border-fl-border bg-fl-surface border px-4 py-3">
-            <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+          <div className="glass-card rounded-2xl px-5 py-4">
+            <p className="text-fl-label text-fl-muted-3 font-mono font-bold tracking-widest uppercase">
               {t('topic')}
             </p>
             <p className="text-fl-fg mt-1 font-mono text-xs font-bold">
@@ -666,7 +666,7 @@ function ListeningPage() {
 
           {/* Audio player */}
           <div>
-            <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+            <p className="text-fl-label text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
               {t('listenLabel')}
             </p>
             <ExerciseAudioPlayer exerciseId={exercise.id} />
@@ -674,14 +674,14 @@ function ListeningPage() {
 
           {/* Questions */}
           <div>
-            <p className="text-fl-label text-fl-muted-3 mb-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-label text-fl-muted-3 mb-3 font-mono font-bold tracking-widest uppercase">
               {t('questionsLabel')}
             </p>
             <div className="space-y-4">
               {exercise.questions.map((q) => (
                 <div
                   key={q.index}
-                  className="border-fl-border bg-fl-surface border p-4"
+                  className="glass-card rounded-2xl p-5"
                 >
                   <TargetLanguageText
                     as="p"
@@ -693,7 +693,7 @@ function ListeningPage() {
                   >
                     {q.index + 1}. {q.question}
                   </TargetLanguageText>
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {Object.entries(q.options).map(([k, v]) => {
                       const selected = answers[String(q.index)] === k
                       return (
@@ -710,10 +710,10 @@ function ListeningPage() {
                               [String(q.index)]: k,
                             }))
                           }}
-                          className={`w-full border px-3 py-2 text-left transition-colors ${
+                          className={`w-full rounded-xl border px-4 py-2.5 text-left transition-all ${
                             selected
-                              ? 'border-fl-accent bg-fl-surface-2 text-fl-fg'
-                              : 'border-fl-border text-fl-muted-1 hover:border-fl-border-2 hover:text-fl-fg hover:bg-fl-surface-2'
+                              ? 'neu-card border-fl-accent/70 bg-fl-accent/15 text-fl-fg ring-fl-accent/40 ring-2'
+                              : 'neu-button text-fl-muted-1 hover:text-fl-fg'
                           }`}
                         >
                           <span className="text-fl-label font-mono font-bold">
@@ -744,7 +744,7 @@ function ListeningPage() {
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || submitting}
-            className="border-fl-border bg-fl-fg text-fl-bg hover:bg-fl-fg/90 focus-visible:outline-fl-fg w-full border py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+            className="neu-button-primary focus-visible:outline-fl-fg w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest text-white uppercase focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {submitting ? tCommon('checking') : t('submit')}
           </button>

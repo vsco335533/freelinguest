@@ -38,6 +38,7 @@ export default function OnboardingTour() {
   const t = useTranslations('tour')
   const tNav = useTranslations('nav')
   const tGames = useTranslations('games')
+  const tCommon = useTranslations('common')
   const locale = useLocale()
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const [visible, setVisible] = useState(false)
@@ -126,20 +127,20 @@ export default function OnboardingTour() {
   const examples =
     step === 2
       ? [
-          { icon: MessageSquare, label: tNav('tutor') },
-          { icon: Mic, label: tNav('conversation') },
-        ]
+        { icon: MessageSquare, label: tNav('tutor') },
+        { icon: Mic, label: tNav('conversation') },
+      ]
       : step === 4
         ? [
-            { icon: Headphones, label: tNav('listening') },
-            { icon: BookOpen, label: tNav('reading') },
-          ]
+          { icon: Headphones, label: tNav('listening') },
+          { icon: BookOpen, label: tNav('reading') },
+        ]
         : step === 5
           ? [
-              { icon: Search, label: tGames('detectiveTitle') },
-              { icon: Shuffle, label: tGames('sentenceOrderTitle') },
-              { icon: Layers, label: tGames('vocabularyPairsTitle') },
-            ]
+            { icon: Search, label: tGames('detectiveTitle') },
+            { icon: Shuffle, label: tGames('sentenceOrderTitle') },
+            { icon: Layers, label: tGames('vocabularyPairsTitle') },
+          ]
           : []
 
   return (
@@ -147,7 +148,7 @@ export default function OnboardingTour() {
       ref={dialogRef}
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
-      className="border-fl-border bg-fl-surface text-fl-fg backdrop:bg-fl-bg/80 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto border p-0 shadow-2xl backdrop:backdrop-blur-sm"
+      className="neu-glass-card text-fl-fg backdrop:bg-fl-bg/70 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto rounded-3xl p-0 shadow-2xl backdrop:backdrop-blur-md"
       onCancel={(event) => {
         event.preventDefault()
         dismiss()
@@ -157,13 +158,13 @@ export default function OnboardingTour() {
       }}
     >
       <div>
-        <div className="border-fl-border flex items-center justify-between gap-4 border-b px-5 py-4 md:px-8">
+        <div className="border-fl-border/60 flex items-center justify-between gap-4 border-b px-5 py-4 md:px-8">
           <span className="font-code text-sm font-bold tracking-widest uppercase">
-            FreeLingo
+            Linguist
           </span>
           <div className="flex items-center gap-4">
             <span
-              className="text-fl-muted-2 font-code text-xs tabular-nums"
+              className="text-fl-muted-2 font-code text-xs font-semibold tabular-nums"
               aria-live="polite"
             >
               {t('progress', { current: step + 1, total: STEPS.length })}
@@ -171,7 +172,7 @@ export default function OnboardingTour() {
             <button
               type="button"
               onClick={() => dismiss()}
-              className="text-fl-muted-2 hover:text-fl-fg min-h-10 text-sm underline-offset-4 hover:underline"
+              className="neu-button text-fl-muted-1 hover:text-fl-fg min-h-9 rounded-xl px-3 py-1.5 text-sm font-semibold transition-all"
             >
               {t('skip')}
             </button>
@@ -185,7 +186,7 @@ export default function OnboardingTour() {
               <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
               {t(`${current.id}.label`)}
               {stripeEnabled && 'premium' in current && (
-                <span aria-label="Premium">★</span>
+                <span aria-label={tCommon('premiumBadge')}>★</span>
               )}
             </p>
             <h2
@@ -226,10 +227,10 @@ export default function OnboardingTour() {
                 {examples.map(({ icon: ExampleIcon, label }) => (
                   <li
                     key={label}
-                    className="border-fl-border bg-fl-bg text-fl-muted-1 flex items-center gap-3 border px-3 py-2.5 text-sm"
+                    className="glass-card text-fl-muted-1 flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm"
                   >
                     <ExampleIcon
-                      className="h-4 w-4 shrink-0"
+                      className="h-4 w-4 shrink-0 text-blue-500"
                       aria-hidden="true"
                     />
                     {label}
@@ -240,12 +241,12 @@ export default function OnboardingTour() {
           </div>
         </div>
 
-        <div className="border-fl-border flex items-center justify-between gap-3 border-t px-6 py-4 md:px-8">
+        <div className="border-fl-border/60 flex items-center justify-between gap-3 border-t px-6 py-4 md:px-8">
           <button
             type="button"
             onClick={() => goTo(step - 1)}
             disabled={step === 0}
-            className="text-fl-muted-2 hover:text-fl-fg flex min-h-11 items-center gap-2 text-sm disabled:invisible"
+            className="neu-button text-fl-muted-2 hover:text-fl-fg flex min-h-11 items-center gap-2 rounded-xl px-4 py-2 text-sm disabled:invisible"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {t('prev')}
@@ -255,7 +256,7 @@ export default function OnboardingTour() {
             onClick={() =>
               step === STEPS.length - 1 ? dismiss(true) : goTo(step + 1)
             }
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 flex min-h-11 items-center justify-center gap-2 px-4 py-2 text-sm font-semibold transition-colors"
+            className="neu-button-primary flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold"
           >
             {t(step === STEPS.length - 1 ? 'done' : 'next')}
             <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />

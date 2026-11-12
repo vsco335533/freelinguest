@@ -26,6 +26,7 @@ import {
 import { RewardGuide } from '@/components/progress/RewardGuide'
 import { TargetLanguageText } from '@/components/TargetLanguageText'
 import { useAnalyticsView } from '@/hooks/useAnalyticsView'
+import { localizeChecklistItem, localizeUnitTitle } from '@/lib/curriculum-i18n'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -105,36 +106,54 @@ function UnitCompetencyBlock({
 }) {
   const t = useTranslations('progress')
   const tPlan = useTranslations('plan')
-  const number = new Intl.NumberFormat(useLocale())
+  const tCommon = useTranslations('common')
+  const locale = useLocale()
+  const number = new Intl.NumberFormat(locale)
   const masteredCount = record?.mastered_count ?? 0
   const totalCount = unit.competency_checklist.length
   const score = record?.score ?? 0
   const pct =
     totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0
+  const unitTitle = localizeUnitTitle(
+    {
+      unitId: unit.id,
+      title: unit.title,
+      cefrLevel: unit.level,
+      targetLanguage: languageCode,
+    },
+    tCommon
+  )
+  const isLocalizedUnitTitle = unitTitle !== unit.title
 
   return (
-    <div className="border-fl-border bg-fl-surface border">
+    <div className="glass-card overflow-hidden rounded-2xl">
       {/* Unit header */}
-      <div className="border-fl-border flex flex-wrap items-center justify-between gap-3 border-b px-5 py-4">
+      <div className="border-fl-border/60 flex flex-wrap items-center justify-between gap-3 border-b px-5 py-4">
         <div className="min-w-0 space-y-1">
-          <span className="text-fl-muted-2 text-xs">
+          <span className="text-fl-muted-2 text-xs font-semibold">
             {tPlan('unitLabel')} {number.format(unit.unit_number)}
           </span>
-          <TargetLanguageText
-            as="h3"
-            languageCode={languageCode}
-            className="text-fl-fg font-semibold"
-          >
-            {unit.title}
-          </TargetLanguageText>
+          {isLocalizedUnitTitle ? (
+            <h3 lang={locale} className="text-fl-fg font-semibold">
+              {unitTitle}
+            </h3>
+          ) : (
+            <TargetLanguageText
+              as="h3"
+              languageCode={languageCode}
+              className="text-fl-fg font-semibold"
+            >
+              {unitTitle}
+            </TargetLanguageText>
+          )}
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-fl-muted-2 text-xs tabular-nums">
+          <span className="text-fl-muted-2 text-xs font-semibold tabular-nums">
             {number.format(masteredCount)}/{number.format(totalCount)}{' '}
             {t('mastered')}
           </span>
           {record && (
-            <span className="text-fl-muted-2 text-xs tabular-nums">
+            <span className="text-fl-muted-2 text-xs font-semibold tabular-nums">
               {number.format(Math.round(score * 100))}%
             </span>
           )}
@@ -143,9 +162,9 @@ function UnitCompetencyBlock({
 
       {/* Progress bar */}
       <div
-        className="bg-fl-border h-1"
+        className="bg-fl-border/60 h-1.5 w-full overflow-hidden rounded-full"
         role="progressbar"
-        aria-label={`${unit.title}: ${t('mastered')}`}
+        aria-label={`${unitTitle}: ${t('mastered')}`}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={pct}
@@ -166,18 +185,34 @@ function UnitCompetencyBlock({
             score
           )
           const Icon = STATUS_ICON[status]
+          const localizedText = localizeChecklistItem(
+            {
+              unitId: unit.id,
+              index: idx,
+              text,
+              targetLanguage: languageCode,
+            },
+            tCommon
+          )
+          const isLocalizedItem = localizedText !== text
           return (
             <li key={idx} className="flex items-start gap-3">
               <span className={`mt-0.5 shrink-0 ${STATUS_COLOR[status]}`}>
                 <Icon className="size-4" aria-hidden="true" />
                 <span className="sr-only">{t(STATUS_LABEL[status])}: </span>
               </span>
-              <TargetLanguageText
-                languageCode={languageCode}
-                className={STATUS_COLOR[status]}
-              >
-                {text}
-              </TargetLanguageText>
+              {isLocalizedItem ? (
+                <span lang={locale} className={STATUS_COLOR[status]}>
+                  {localizedText}
+                </span>
+              ) : (
+                <TargetLanguageText
+                  languageCode={languageCode}
+                  className={STATUS_COLOR[status]}
+                >
+                  {text}
+                </TargetLanguageText>
+              )}
               {status === 'in-progress' && record && (
                 <span className="text-fl-muted-2 ml-auto shrink-0 text-xs tabular-nums">
                   {number.format(Math.round(score * 100))}%
@@ -195,6 +230,7 @@ function UnitCompetencyBlock({
 
 export default function ProgressPage() {
   const t = useTranslations('progress')
+  const tTarget = useTranslations('targetLanguages')
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const needsRefresh = useLanguageStore((s) => s.needsRefresh)
   const isSwitching = useLanguageStore((s) => s.isSwitching)
@@ -203,11 +239,15 @@ export default function ProgressPage() {
   if (isSwitching) return <PageLoading label={t('loading')} />
   if (needsRefresh || !activeLanguage) return <ProgressLanguageRecovery />
 
+  const localizedLanguageName = tTarget.has(activeLanguage.code)
+    ? tTarget(activeLanguage.code)
+    : activeLanguage.name
+
   return (
     <ProgressContent
       key={activeLanguage.code}
       targetLanguageCode={activeLanguage.code}
-      languageName={activeLanguage.name}
+      languageName={localizedLanguageName}
     />
   )
 }
@@ -220,7 +260,7 @@ function ProgressLoadError({ onRetry }: { onRetry: () => void }) {
         {t('errorMessage')}
       </p>
       <button
-        className="border-fl-border text-fl-fg hover:bg-fl-surface-2 border px-4 py-2 text-sm"
+        className="neu-button text-fl-fg rounded-xl px-5 py-2.5 text-sm font-semibold"
         onClick={onRetry}
       >
         {t('retry')}
@@ -411,9 +451,9 @@ function ProgressContent({
     <div className="mx-auto max-w-4xl space-y-8 p-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-fl-fg text-2xl font-semibold">{t('title')}</h1>
+        <h1 className="text-fl-fg text-2xl font-bold">{t('title')}</h1>
         {languageName && (
-          <span className="border-fl-border text-fl-muted-1 border px-3 py-1 text-sm">
+          <span className="glass-card text-fl-muted-1 rounded-full px-3.5 py-1.5 text-sm font-semibold">
             {languageName} · {cefrLevel}
           </span>
         )}
@@ -454,13 +494,13 @@ function ProgressContent({
           ))}
 
           {competencies.length === 0 && (
-            <div className="border-fl-border bg-fl-surface border px-6 py-8 text-center">
-              <p className="text-fl-muted-2 text-sm leading-relaxed">
+            <div className="glass-card rounded-2xl px-6 py-8 text-center">
+              <p className="text-fl-muted-2 text-sm leading-relaxed font-medium">
                 {t('noCompetencies')}
               </p>
               <Link
                 href="/plan"
-                className="text-fl-accent mt-4 inline-block text-sm font-medium hover:underline"
+                className="text-fl-accent mt-4 inline-block text-sm font-semibold hover:underline"
               >
                 {t('goToMyPlan')}
               </Link>
@@ -491,10 +531,10 @@ function ProgressContent({
             <button
               onClick={() => setShowAllLevels(false)}
               aria-pressed={!showAllLevels}
-              className={`border px-3 py-1.5 text-sm transition-colors ${
+              className={`rounded-xl px-3.5 py-2 text-sm font-semibold transition-all ${
                 !showAllLevels
-                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                  ? 'neu-button-primary text-white'
+                  : 'neu-button text-fl-muted-2 hover:text-fl-fg'
               }`}
             >
               {t('currentLevelOnly')}
@@ -502,17 +542,17 @@ function ProgressContent({
             <button
               onClick={() => setShowAllLevels(true)}
               aria-pressed={showAllLevels}
-              className={`border px-3 py-1.5 text-sm transition-colors ${
+              className={`rounded-xl px-3.5 py-2 text-sm font-semibold transition-all ${
                 showAllLevels
-                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                  ? 'neu-button-primary text-white'
+                  : 'neu-button text-fl-muted-2 hover:text-fl-fg'
               }`}
             >
               {t('allLevels')}
             </button>
           </div>
 
-          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+          <div className="glass-card divide-fl-border/60 divide-y overflow-hidden rounded-2xl">
             {displayVocabSets.map((s) => {
               const mastered = s.words.filter((w) =>
                 masteredWordSet.has(w.word.trim().toLowerCase())
@@ -525,7 +565,7 @@ function ProgressContent({
                 <div key={s.id} className="flex items-center gap-4 px-5 py-3">
                   <Link
                     href={`/vocabulary/${s.id}`}
-                    className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate text-sm transition-colors"
+                    className="text-fl-muted-1 hover:text-fl-fg min-w-0 flex-1 truncate text-sm font-medium transition-colors"
                   >
                     <TargetLanguageText languageCode={targetLanguageCode}>
                       {s.topic}
@@ -533,7 +573,7 @@ function ProgressContent({
                   </Link>
                   <div className="flex items-center gap-3">
                     <div
-                      className="bg-fl-border h-1 w-16 sm:w-24"
+                      className="bg-fl-border/60 h-1.5 w-16 overflow-hidden rounded-full sm:w-24"
                       role="progressbar"
                       aria-label={s.topic}
                       aria-valuemin={0}
@@ -541,11 +581,11 @@ function ProgressContent({
                       aria-valuenow={pct}
                     >
                       <div
-                        className="bg-fl-accent h-full transition-[width] motion-reduce:transition-none"
+                        className="bg-fl-accent h-full rounded-full transition-[width] motion-reduce:transition-none"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-fl-muted-2 min-w-12 text-right text-xs tabular-nums">
+                    <span className="text-fl-muted-2 min-w-12 text-right text-xs font-semibold tabular-nums">
                       {mastered.toLocaleString(locale)}/
                       {s.words.length.toLocaleString(locale)}
                     </span>
@@ -566,19 +606,19 @@ function ProgressContent({
             </h2>
             <div className="bg-fl-border h-px flex-1" />
           </div>
-          <p className="text-fl-muted-2 text-sm">
+          <p className="text-fl-muted-2 text-sm font-medium">
             {tDashboard('recentPerformanceDescription')}
           </p>
-          <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+          <div className="glass-card divide-fl-border/60 divide-y overflow-hidden rounded-2xl">
             {Object.entries(summary.skills).map(([skill, value]) => (
               <div key={skill} className="flex items-center gap-4 px-5 py-3">
-                <span className="text-fl-muted-1 w-28 text-sm">
+                <span className="text-fl-muted-1 w-28 text-sm font-medium">
                   {tPlan.has(`lessonTypes.${skill}`)
                     ? tPlan(`lessonTypes.${skill}`)
                     : skill}
                 </span>
                 <div
-                  className="bg-fl-border h-1 flex-1"
+                  className="bg-fl-border/60 h-1.5 flex-1 overflow-hidden rounded-full"
                   role="progressbar"
                   aria-label={
                     tPlan.has(`lessonTypes.${skill}`)

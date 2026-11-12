@@ -47,8 +47,8 @@ const themeScript = `(function(){try{var t='system';var s=localStorage.getItem('
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'FreeLingo',
-    template: '%s | FreeLingo',
+    default: 'Linguist — AI-Powered Language Learning',
+    template: '%s | Linguist',
   },
   // Public content opts in at its own route; private and account pages stay out.
   robots: { index: false, follow: true },
@@ -60,11 +60,8 @@ export const metadata: Metadata = {
   ],
   creator: 'Arturo Carretero Calvo',
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon.png', type: 'image/png' },
-    ],
-    apple: '/apple-touch-icon.png',
+    icon: [{ url: '/linguist-mark.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/linguist-mark.svg', type: 'image/svg+xml' }],
   },
 }
 
@@ -87,7 +84,7 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){if(document.cookie.indexOf('LOCALE_DETECTED=')!==-1)return;var m=document.cookie.match(/(^| )NEXT_LOCALE=([^;]+)/);var cl=m?m[2]:null;var bl=(navigator.language||'').split('-')[0].toLowerCase();var s=['es','fr','pt','de','it','pl','nl','ro','ru','tr','sv','da','fi','hr'];document.cookie='LOCALE_DETECTED=1;path=/;max-age=31536000;SameSite=Lax';if(cl==='en'||s.indexOf(cl)!==-1)return;if(bl!=='en'&&s.indexOf(bl)!==-1&&cl!==bl){document.cookie='NEXT_LOCALE='+bl+';path=/;max-age=31536000;SameSite=Lax';location.reload()}})();`,
+            __html: `(function(){if(document.cookie.indexOf('LOCALE_DETECTED=')!==-1)return;var m=document.cookie.match(/(^| )NEXT_LOCALE=([^;]+)/);var cl=m?m[2]:null;var bl=(navigator.language||'').split('-')[0].toLowerCase();var s=['hi','te','ta','ml','or','kn','es','fr','pt','de','it','pl','nl','ro','ru','tr','sv','da','fi','hr'];document.cookie='LOCALE_DETECTED=1;path=/;max-age=31536000;SameSite=Lax';if(cl==='en'||s.indexOf(cl)!==-1)return;if(bl!=='en'&&s.indexOf(bl)!==-1&&cl!==bl){document.cookie='NEXT_LOCALE='+bl+';path=/;max-age=31536000;SameSite=Lax';location.reload()}})();`,
           }}
         />
         {umami && (

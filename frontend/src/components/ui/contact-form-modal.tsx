@@ -86,7 +86,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
       onClick={onClose}
     >
       <div
-        className="border-fl-border bg-fl-surface w-full max-w-md border shadow-2xl"
+        className="neu-glass-card w-full max-w-md overflow-hidden rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -126,7 +126,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
-                  className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-border-2 border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                  className="neu-input text-fl-fg placeholder:text-fl-muted-3 rounded-xl px-3.5 py-2.5 font-mono text-xs font-medium transition-all focus:outline-none disabled:opacity-50"
                   placeholder={t('placeholderEmail')}
                 />
               </div>
@@ -143,7 +143,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   disabled={isLoading}
-                  className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-border-2 border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                  className="neu-input text-fl-fg placeholder:text-fl-muted-3 rounded-xl px-3.5 py-2.5 font-mono text-xs font-medium transition-all focus:outline-none disabled:opacity-50"
                   placeholder={t('placeholderSubject')}
                 />
               </div>
@@ -160,7 +160,7 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={isLoading}
-                  className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-border-2 min-h-[98px] resize-y border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                  className="neu-input text-fl-fg placeholder:text-fl-muted-3 min-h-[98px] resize-y rounded-xl px-3.5 py-2.5 font-mono text-xs font-medium transition-all focus:outline-none disabled:opacity-50"
                   placeholder={t('placeholderDescription')}
                 />
               </div>
@@ -174,19 +174,19 @@ export function ContactFormModal({ open, onClose }: ContactFormModalProps) {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2 px-6 pb-6">
+            <div className="flex gap-2.5 px-6 pb-6">
               <button
                 type="button"
                 onClick={onClose}
                 disabled={isLoading}
-                className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="neu-button text-fl-muted-2 hover:text-fl-fg flex-1 rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-50"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright flex-1 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="neu-button-primary flex-1 rounded-xl py-3 font-mono text-sm font-bold tracking-widest text-white uppercase transition-all disabled:opacity-50"
               >
                 {isLoading ? (
                   <>

@@ -6,6 +6,10 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { PageLoading } from '@/components/ui/page-loading'
+import {
+  AuthBackdropOrbs,
+  LinguistBrandHeader,
+} from '@/components/ui/LinguistBrandHeader'
 
 const VERIFY_TIMEOUT_MS = 15_000
 
@@ -57,16 +61,13 @@ function VerifyEmailContent() {
   }, [verify])
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-10 flex flex-col items-center">
-          <h1 className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-        </div>
-        <div className="border-fl-border bg-fl-surface space-y-6 border p-8 text-center">
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-fl-label text-fl-muted-2">●</span>
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader />
+        <div className="neu-glass-card animate-fade-up space-y-6 p-8 text-center">
+          <div className="border-fl-border/60 flex items-center justify-center gap-2 border-b pb-4">
+            <span className="text-fl-label text-blue-500">●</span>
             <span className="text-fl-caption text-fl-muted-2 font-mono tracking-widest uppercase">
               {t('title')}
             </span>
@@ -79,7 +80,7 @@ function VerifyEmailContent() {
               <p className="text-fl-fg font-mono text-sm">{t('success')}</p>
               <Link
                 href="/login"
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block w-full py-3 text-center font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+                className="neu-button-primary block w-full py-3 text-center font-mono text-sm font-bold tracking-widest uppercase"
               >
                 {t('goToLogin')}
               </Link>
@@ -91,7 +92,7 @@ function VerifyEmailContent() {
               <p className="text-fl-error font-mono text-xs">{t('error')}</p>
               <button
                 onClick={verify}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block w-full py-3 text-center font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+                className="neu-button-primary block w-full py-3 text-center font-mono text-sm font-bold tracking-widest uppercase"
               >
                 {tCommon('retry')}
               </button>

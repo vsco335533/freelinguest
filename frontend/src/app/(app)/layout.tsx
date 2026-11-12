@@ -3,16 +3,18 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 import { apiFetch, requestAccessToken } from '@/lib/api'
+import { isSupportedLocale, persistLocaleCookies } from '@/lib/locale-cookie'
 import { mapUser } from '@/lib/mappers'
 import { useLogout } from '@/hooks/useLogout'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { ContactFormModal } from '@/components/ui/contact-form-modal'
 import { LoadingBar } from '@/components/ui/loading-bar'
-import { PageLoading } from '@/components/ui/page-loading'
+import { LinguistLogoMark } from '@/components/ui/LinguistLogoMark'
+import { LinguistWelcomeLoader } from '@/components/ui/LinguistWelcomeLoader'
 import {
   PageLoadingProvider,
   PageLoadingViewport,
@@ -28,10 +30,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   )
 }
 
+const WELCOME_LOADER_MIN_MS = 5000
+
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
+  const activeLocale = useLocale()
   const tNav = useTranslations('nav')
   const tCommon = useTranslations('common')
-  const tBilling = useTranslations('billing')
   const pathname = usePathname()
 
   const mainNavItems = [
@@ -83,7 +87,6 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
   ])
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)
-  const [trialDaysLeft, setTrialDaysLeft] = useState(0)
 
   async function handleResendVerification() {
     const res = await apiFetch('/api/auth/resend-verification', {
@@ -96,7 +99,10 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
   // to silently get a new access token, then fetch /me to populate the user.
   useEffect(() => {
     let canceled = false
+    let stayLoading = false
+    let timerId: number | undefined
     const controller = new AbortController()
+    const startedAt = Date.now()
     const { sessionVersion } = useAuthStore.getState()
     const obsolete = () =>
       canceled || useAuthStore.getState().sessionVersion !== sessionVersion
@@ -115,6 +121,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
         })
         if (obsolete()) return
         if (!meRes.ok) {
+          stayLoading = true
           logout()
           router.push('/login')
           return
@@ -123,67 +130,44 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
         if (obsolete()) return
         setUser(mapUser(me))
 
+        const preferredLocale = me.ui_locale || me.native_language
+        if (isSupportedLocale(preferredLocale) && preferredLocale !== activeLocale) {
+          stayLoading = true
+          persistLocaleCookies(preferredLocale)
+          window.location.reload()
+          return
+        }
+
         if (me.learning_goals === null) {
+          stayLoading = true
           router.replace('/onboarding')
           return
         }
+
+        const remaining = WELCOME_LOADER_MIN_MS - (Date.now() - startedAt)
+        if (remaining > 0) {
+          await new Promise<void>((resolve) => {
+            timerId = window.setTimeout(resolve, remaining)
+          })
+          if (obsolete()) return
+        }
       } catch {
         if (obsolete()) return
+        stayLoading = true
         logout()
         router.push('/login')
       } finally {
-        if (!canceled) setInitializing(false)
+        if (!canceled && !stayLoading) setInitializing(false)
       }
     }
     init()
     return () => {
       canceled = true
+      if (timerId !== undefined) window.clearTimeout(timerId)
       controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    // Stripe trial countdown
-    if (
-      user?.subscription_status === 'trialing' &&
-      user?.subscription_ends_at &&
-      stripeEnabled
-    ) {
-      const days = Math.max(
-        1,
-        Math.ceil(
-          (new Date(user.subscription_ends_at).getTime() - Date.now()) /
-            (1000 * 60 * 60 * 24)
-        )
-      )
-      setTrialDaysLeft(days)
-      return
-    }
-    // Freemium trial countdown
-    if (
-      user?.freemium_trial_ends_at &&
-      stripeEnabled &&
-      user?.subscription_status !== 'active' &&
-      user?.subscription_status !== 'trialing'
-    ) {
-      const end = new Date(user.freemium_trial_ends_at)
-      if (end > new Date()) {
-        const days = Math.max(
-          1,
-          Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
-        )
-        setTrialDaysLeft(days)
-        return
-      }
-    }
-    setTrialDaysLeft(0)
-  }, [
-    user?.subscription_status,
-    user?.subscription_ends_at,
-    user?.freemium_trial_ends_at,
-    stripeEnabled,
-  ])
 
   useEffect(() => {
     if (initializing) return
@@ -212,7 +196,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
   if (initializing) {
     return (
       <PageLoadingViewport className="h-dvh">
-        <PageLoading label={tCommon('initializing')} className="bg-fl-bg" />
+        <LinguistWelcomeLoader
+          label={tCommon('initializing')}
+          minDurationMs={WELCOME_LOADER_MIN_MS}
+          fullScreen
+        />
       </PageLoadingViewport>
     )
   }
@@ -225,24 +213,29 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
         : ''
 
   return (
-    <div className="bg-fl-bg flex h-dvh overflow-hidden">
+    <div className="fl-gradient-bg flex h-dvh overflow-hidden">
       {/* Sidebar */}
-      <aside className="border-fl-border bg-fl-bg hidden w-52 shrink-0 flex-col border-r px-0 py-0 md:flex">
+      <aside className="glass-panel border-fl-border/70 hidden w-64 shrink-0 flex-col border-r px-0 py-0 md:flex">
         {/* Logo area */}
-        <div className="border-fl-border flex items-center gap-2 border-b px-5 py-5">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
-            FreeLingo
-          </span>
+        <div className="border-fl-border/60 flex items-center gap-3 border-b px-5 py-4">
+          <LinguistLogoMark size={30} animated />
+          <div className="flex flex-col">
+            <span className="text-fl-fg font-code text-sm font-bold tracking-widest uppercase">
+              Linguist
+            </span>
+            <span className="text-fl-muted-3 font-mono text-[9px] tracking-widest uppercase">
+              {tCommon('aiTutor')}
+            </span>
+          </div>
         </div>
 
         {/* Language switcher */}
-        <div className="border-fl-border border-b">
+        <div className="border-fl-border/60 border-b">
           <LanguageSwitcher />
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto py-4">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-2.5 py-4">
           {/* Main items */}
           {mainNavItems.map((item) => {
             const active =
@@ -251,14 +244,13 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                  active
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                }`}
+                className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${active
+                    ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_14px_rgba(37,99,235,0.12)]'
+                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                  }`}
               >
                 <span
-                  className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
+                  className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
                 >
                   ●
                 </span>
@@ -271,10 +263,10 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
           })}
 
           {/* Resources group */}
-          <div className="mt-2">
+          <div className="mt-2 pt-2">
             <button
               onClick={() => setResourcesOpen((o) => !o)}
-              className="text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between border-l-2 border-transparent px-5 py-2 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors"
+              className="glass-nav-item text-fl-muted-4 hover:text-fl-muted-2 flex w-full items-center justify-between px-3.5 py-2 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-colors"
             >
               <span>{tNav('resources')}</span>
               <span className="text-fl-label">{resourcesOpen ? '▴' : '▾'}</span>
@@ -287,14 +279,13 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                      active
-                        ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                    }`}
+                    className={`glass-nav-item flex items-center gap-3 py-2 pr-3.5 pl-6 font-mono text-xs tracking-wide wrap-anywhere transition-all ${active
+                        ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_12px_rgba(37,99,235,0.1)]'
+                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                      }`}
                   >
                     <span
-                      className={`text-fl-label ${active ? 'text-fl-accent' : 'text-fl-muted-4'}`}
+                      className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
                     >
                       ·
                     </span>
@@ -305,7 +296,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Bottom items */}
-          <div className="border-fl-border mt-2 border-t pt-2">
+          <div className="border-fl-border/60 mt-2 space-y-1 border-t pt-3">
             {bottomNavItems.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + '/')
@@ -313,14 +304,13 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
+                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${active
+                      ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_14px_rgba(37,99,235,0.12)]'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                    }`}
                 >
                   <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                    className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
                   >
                     ●
                   </span>
@@ -338,11 +328,10 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
           {user?.role === 'admin' && (
             <Link
               href="/admin"
-              className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere transition-colors ${
-                pathname.startsWith('/admin')
-                  ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-              }`}
+              className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${pathname.startsWith('/admin')
+                  ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_14px_rgba(37,99,235,0.12)]'
+                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                }`}
             >
               <span className="text-fl-label text-fl-muted-4">●</span>
               {tNav('admin')}
@@ -388,40 +377,40 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
               <p className="text-fl-label text-fl-muted-4 truncate font-mono">
                 @{user?.username?.toLowerCase()}
               </p>
-              {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent truncate font-mono text-xs">
-                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
-                </p>
-              )}
             </div>
           </div>
           <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
-            v1.12.5
+            v1.01
           </p>
-          <button
-            onClick={() => setContactOpen(true)}
-            className="text-fl-muted-2 hover:text-fl-fg mb-1 w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
-          >
-            {tNav('contact')}
-          </button>
-          <button
-            onClick={() => setLogoutConfirm(true)}
-            className="text-fl-muted-2 hover:text-fl-fg w-full text-left font-mono text-xs tracking-widest uppercase transition-colors"
-          >
-            {tCommon('logout')}
-          </button>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => setContactOpen(true)}
+              className="neu-button text-fl-muted-2 hover:text-fl-fg w-full rounded-lg px-3 py-1.5 text-left font-mono text-xs tracking-widest uppercase transition-all"
+            >
+              {tNav('contact')}
+            </button>
+            <button
+              onClick={() => setLogoutConfirm(true)}
+              className="neu-button text-fl-muted-2 hover:text-fl-fg w-full rounded-lg px-3 py-1.5 text-left font-mono text-xs tracking-widest uppercase transition-all"
+            >
+              {tCommon('logout')}
+            </button>
+          </div>
         </div>
       </aside>
 
       {/* Mobile top bar */}
-      <div className="border-fl-border bg-fl-bg fixed top-0 right-0 left-0 z-50 border-b md:hidden">
+      <div className="glass-panel border-fl-border/70 fixed top-0 right-0 left-0 z-50 border-b md:hidden">
         <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
-            FreeLingo
-          </span>
+          <div className="flex items-center gap-2.5">
+            <LinguistLogoMark size={24} animated />
+            <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
+              Linguist
+            </span>
+          </div>
           <button
             onClick={() => setMobileMenuOpen((o) => !o)}
-            className="text-fl-muted-2 hover:text-fl-fg p-1 font-mono transition-colors"
+            className="neu-button text-fl-muted-2 hover:text-fl-fg rounded-lg px-2.5 py-1 font-mono transition-all"
             aria-label={
               mobileMenuOpen ? tCommon('closeMenu') : tCommon('openMenu')
             }
@@ -434,8 +423,8 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
         {/* Dropdown */}
         {mobileMenuOpen && (
-          <nav className="border-fl-border bg-fl-bg max-h-[calc(100svh-3.5rem)] overflow-y-auto overscroll-contain border-t pb-2">
-            <div className="border-fl-border border-b">
+          <nav className="glass-panel border-fl-border/60 animate-fade-up max-h-[calc(100svh-3.5rem)] space-y-1 overflow-y-auto overscroll-contain border-t px-2.5 pb-3">
+            <div className="border-fl-border/60 border-b">
               <LanguageSwitcher />
             </div>
             {mainNavItems.map((item) => {
@@ -446,11 +435,10 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
+                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${active
+                      ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                    }`}
                 >
                   <span
                     className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
@@ -486,14 +474,13 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 py-2.5 pr-5 pl-8 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                        active
-                          ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                      }`}
+                      className={`glass-nav-item flex items-center gap-3 py-2 pr-3.5 pl-6 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${active
+                          ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
+                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                        }`}
                     >
                       <span
-                        className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                        className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
                       >
                         ·
                       </span>
@@ -512,14 +499,13 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                    active
-                      ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                  }`}
+                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${active
+                      ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
+                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                    }`}
                 >
                   <span
-                    className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
+                    className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
                   >
                     ●
                   </span>
@@ -537,11 +523,10 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-5 py-3 font-mono text-sm tracking-wide wrap-anywhere uppercase transition-colors ${
-                  pathname.startsWith('/admin')
-                    ? 'text-fl-fg bg-fl-surface-2 border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-fl-surface border-l-2 border-transparent'
-                }`}
+                className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${pathname.startsWith('/admin')
+                    ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
+                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
+                  }`}
               >
                 <span className="text-fl-label text-fl-muted-4">●</span>
                 {tNav('admin')}
@@ -586,13 +571,8 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   </p>
                 </div>
               </div>
-              {trialDaysLeft > 0 && (
-                <p className="text-fl-label text-fl-accent mb-2 font-mono text-xs">
-                  ★ {tBilling('trialDays', { days: trialDaysLeft })}
-                </p>
-              )}
               <p className="text-fl-label text-fl-muted-4 font-code mb-2 tracking-wider">
-                v1.12.5
+                v1.01
               </p>
               <button
                 onClick={() => {

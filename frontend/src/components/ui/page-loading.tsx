@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useMemo } from 'react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
+import { LinguistLogoMark } from '@/components/ui/LinguistLogoMark'
 import { useLoadingStore } from '@/store/loading'
 import { usePageLoadingPresentation } from './page-loading-boundary'
 
@@ -111,13 +111,10 @@ export function PageLoadingPresentation({
           }`}
         >
           {artwork ? (
-            <Image
-              src="/logo.png"
-              alt=""
-              width={150}
-              height={150}
-              sizes="(min-width: 768px) 150px, 75px"
-              className="h-full w-full object-contain"
+            <LinguistLogoMark
+              size={132}
+              animated
+              className="h-full w-full drop-shadow-[0_10px_28px_rgba(37,99,235,0.28)]"
             />
           ) : (
             <Loader2 className="text-fl-muted-2 size-6 motion-safe:animate-spin" />

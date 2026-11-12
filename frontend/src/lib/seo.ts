@@ -23,6 +23,12 @@ const OPEN_GRAPH_LOCALES: Record<string, string> = {
   da: 'da_DK',
   fi: 'fi_FI',
   hr: 'hr_HR',
+  hi: 'hi_IN',
+  te: 'te_IN',
+  ta: 'ta_IN',
+  ml: 'ml_IN',
+  or: 'or_IN',
+  kn: 'kn_IN',
 }
 
 export function createPublicMetadata({
@@ -41,7 +47,7 @@ export function createPublicMetadata({
     url: new URL('/og-image-v2.png', SITE_URL).href,
     width: 1200,
     height: 630,
-    alt: 'FreeLingo',
+    alt: 'Linguist',
   }
 
   return {
@@ -51,7 +57,7 @@ export function createPublicMetadata({
     robots: { index: true, follow: true },
     openGraph: {
       type: 'website',
-      siteName: 'FreeLingo',
+      siteName: 'Linguist',
       locale: OPEN_GRAPH_LOCALES[locale],
       url,
       title,

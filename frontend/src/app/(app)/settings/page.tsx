@@ -90,17 +90,17 @@ export default function SettingsPage() {
         <SettingsPanel id="account" title={t('sectionAccount')}>
           <ProfileSection title={t('cardProfileAccess')} />
 
-          <div className="border-fl-border bg-fl-surface border p-6">
-            <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-fl-label text-fl-muted-2">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+          <div className="glass-card rounded-2xl p-6">
+            <div className="border-fl-border/60 mb-4 flex items-center gap-2 border-b pb-4">
+              <span className="text-fl-accent text-fl-label">●</span>
+              <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
                 {t('cardSessionSecurity')}
               </span>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               <button
                 onClick={() => setLogoutConfirm(true)}
-                className="text-fl-label text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-fl-error/40 w-full border py-3 font-mono tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-label text-fl-fg hover:text-fl-error w-full rounded-xl py-3 font-mono font-semibold tracking-widest uppercase transition-all"
               >
                 {tCommon('logout')}
               </button>
@@ -109,7 +109,7 @@ export default function SettingsPage() {
                 <button
                   onClick={() => setDeleteConfirm(true)}
                   disabled={deleting}
-                  className="text-fl-label text-fl-error border-fl-error/40 hover:border-fl-error/70 w-full border py-3 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+                  className="neu-button text-fl-label text-fl-error border-fl-error/40 w-full rounded-xl py-3 font-mono font-semibold tracking-widest uppercase transition-all disabled:opacity-40"
                 >
                   {t('deleteAccount')}
                 </button>
@@ -141,23 +141,23 @@ export default function SettingsPage() {
         </SettingsPanel>
 
         <SettingsPanel id="legal" title={t('sectionLegal')}>
-          <div className="border-fl-border bg-fl-surface border p-6">
-            <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-              <span className="text-fl-label text-fl-muted-2">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+          <div className="glass-card rounded-2xl p-6">
+            <div className="border-fl-border/60 mb-4 flex items-center gap-2 border-b pb-4">
+              <span className="text-fl-accent text-fl-label">●</span>
+              <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
                 {t('cardLegalDocuments')}
               </span>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap gap-2">
               <a
                 href="/terms?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
               >
                 {t('termsOfService')}
               </a>
               <a
                 href="/privacy?from=settings"
-                className="text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
               >
                 {t('privacyPolicy')}
               </a>

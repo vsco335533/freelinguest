@@ -152,14 +152,14 @@ function VocabularyContent({
             {t('myVocabulary')}
           </h1>
           {!loading && (
-            <span className="border-fl-border bg-fl-surface text-fl-muted-1 border px-2.5 py-1 text-sm tabular-nums">
+            <span className="glass-card text-fl-muted-1 rounded-full px-3 py-1 text-sm font-semibold tabular-nums">
               {data?.total ?? 0}
             </span>
           )}
         </div>
         <Link
           href="/flashcards"
-          className="text-fl-fg border-fl-border hover:bg-fl-surface-2 focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="neu-button text-fl-fg focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <ArrowLeft className="size-4 shrink-0" aria-hidden="true" />
           {t('backToFlashcards')}
@@ -167,7 +167,7 @@ function VocabularyContent({
       </div>
 
       {/* Search */}
-      <div className="border-fl-border bg-fl-surface space-y-4 border p-4 sm:p-5">
+      <div className="glass-card space-y-4 rounded-2xl p-4 sm:p-5">
         <div className="grid items-end gap-4 lg:grid-cols-[minmax(0,1fr)_auto_auto]">
           <div className="relative min-w-0">
             <Search
@@ -181,10 +181,10 @@ function VocabularyContent({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('librarySearch')}
-              className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-2 focus-visible:outline-fl-accent min-h-11 w-full border py-2 pr-3 pl-11 text-base focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="neu-input text-fl-fg placeholder:text-fl-muted-3 focus-visible:outline-fl-accent min-h-11 w-full rounded-xl py-2 pr-3 pl-11 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
             />
           </div>
-          <label className="text-fl-muted-1 flex min-w-0 flex-col gap-2 text-sm font-medium">
+          <label className="text-fl-muted-1 flex min-w-0 flex-col gap-2 text-sm font-semibold">
             {t('sourceFilter')}
             <select
               value={source}
@@ -193,13 +193,13 @@ function VocabularyContent({
                 setSource(event.target.value)
                 setPage(1)
               }}
-              className="border-fl-border bg-fl-bg text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full min-w-0 border px-3 py-2 text-base font-normal focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="neu-input text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full min-w-0 rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               <option value="all">{t('allCards')}</option>
               <option value="from_text">{t('savedFromText')}</option>
             </select>
           </label>
-          <label className="text-fl-muted-1 flex min-w-0 flex-col gap-2 text-sm font-medium">
+          <label className="text-fl-muted-1 flex min-w-0 flex-col gap-2 text-sm font-semibold">
             {t('statusFilter')}
             <select
               value={status}
@@ -208,7 +208,7 @@ function VocabularyContent({
                 setStatus(event.target.value)
                 setPage(1)
               }}
-              className="border-fl-border bg-fl-bg text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full min-w-0 border px-3 py-2 text-base font-normal focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="neu-input text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full min-w-0 rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               <option value="all">{tCommon('all')}</option>
               <option value="due">{t('due')}</option>
@@ -217,19 +217,19 @@ function VocabularyContent({
             </select>
           </label>
         </div>
-        <p className="border-fl-border text-fl-muted-2 border-t pt-3 text-sm leading-relaxed">
+        <p className="border-fl-border/60 text-fl-muted-2 border-t pt-3 text-sm leading-relaxed font-medium">
           {t('suspendHint')}
         </p>
       </div>
 
       {/* List */}
       {data && loading && (
-        <p role="status" className="text-fl-muted-2 text-sm">
+        <p role="status" className="text-fl-muted-2 text-sm font-semibold">
           {tCommon('loading')}
         </p>
       )}
       {data && loadError && <FlashcardError onRetry={reload} />}
-      <div className="border-fl-border bg-fl-surface border">
+      <div className="glass-card overflow-hidden rounded-2xl">
         {loading && !data ? (
           <PageLoading fullScreen={false} className="block p-5" />
         ) : loadError && !data ? (
@@ -290,7 +290,7 @@ function VocabularyContent({
                       {item.example_sentence}
                     </TargetLanguageText>
                   )}
-                  <p className="border-fl-border bg-fl-bg text-fl-muted-1 mt-3 inline-flex max-w-full items-center gap-2 border px-2.5 py-1.5 text-xs">
+                  <p className="border-fl-border/70 bg-fl-surface-2/70 text-fl-muted-1 mt-3 inline-flex max-w-full items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold">
                     {item.is_suspended ? (
                       <Pause className="size-3.5 shrink-0" aria-hidden="true" />
                     ) : (

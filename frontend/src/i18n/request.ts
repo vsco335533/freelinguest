@@ -9,6 +9,33 @@ function resolveLocale(raw: string | undefined): Locale {
   return 'en'
 }
 
+function deepMerge(
+  base: Record<string, unknown>,
+  override: Record<string, unknown>
+): Record<string, unknown> {
+  const result: Record<string, unknown> = { ...base }
+  for (const key of Object.keys(override)) {
+    const val = override[key]
+    const baseVal = result[key]
+    if (
+      val &&
+      typeof val === 'object' &&
+      !Array.isArray(val) &&
+      baseVal &&
+      typeof baseVal === 'object' &&
+      !Array.isArray(baseVal)
+    ) {
+      result[key] = deepMerge(
+        baseVal as Record<string, unknown>,
+        val as Record<string, unknown>
+      )
+    } else if (val !== undefined) {
+      result[key] = val
+    }
+  }
+  return result
+}
+
 export default getRequestConfig(async () => {
   const headerStore = await headers()
   const cookieStore = await cookies()
@@ -19,13 +46,17 @@ export default getRequestConfig(async () => {
     headerStore.get('x-next-locale') ?? cookieStore.get('NEXT_LOCALE')?.value
   )
 
-  let messages
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default
-  } catch {
-    // Fallback to English if locale file is missing
-    const defaultLocale = 'en'
-    messages = (await import(`../../messages/${defaultLocale}.json`)).default
+  const defaultMessages = (await import('../../messages/en.json')).default
+  let messages = defaultMessages
+
+  if (locale !== 'en') {
+    try {
+      const localeMessages = (await import(`../../messages/${locale}.json`))
+        .default
+      messages = deepMerge(defaultMessages, localeMessages)
+    } catch {
+      messages = defaultMessages
+    }
   }
 
   return {

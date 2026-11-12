@@ -51,7 +51,7 @@ export function DashboardAnnouncement() {
   return (
     <section
       aria-labelledby="dashboard-announcement-title"
-      className="border-fl-accent/50 bg-fl-accent/5 relative mb-6 border p-5 pr-14"
+      className="neu-glass-card border-fl-accent/40 relative mb-6 rounded-2xl border p-5 pr-14"
     >
       <div className="flex gap-3">
         <Megaphone
@@ -68,11 +68,14 @@ export function DashboardAnnouncement() {
           <p className="text-fl-accent mt-1 font-mono text-xs font-bold tracking-wide whitespace-pre-wrap">
             {translation.subtitle}
           </p>
-          <p className="text-fl-muted-1 mt-3 max-w-[70ch] font-sans text-sm leading-relaxed whitespace-pre-wrap">
+          <p className="text-fl-muted-2 mt-3 max-w-[70ch] font-sans text-sm font-medium leading-relaxed whitespace-pre-wrap">
             {translation.description}
           </p>
           {error && (
-            <p role="alert" className="text-fl-error mt-3 font-mono text-xs">
+            <p
+              role="alert"
+              className="text-fl-error mt-3 font-mono text-xs font-semibold"
+            >
               {t('announcementDismissError')}
             </p>
           )}
@@ -83,9 +86,9 @@ export function DashboardAnnouncement() {
         onClick={dismiss}
         disabled={pending}
         aria-label={t('announcementDismiss')}
-        className="text-fl-muted-2 hover:text-fl-fg absolute top-3 right-3 inline-flex size-9 items-center justify-center transition-colors disabled:cursor-wait disabled:opacity-40"
+        className="neu-button text-fl-muted-2 hover:text-fl-fg absolute top-3.5 right-3.5 inline-flex size-9 items-center justify-center rounded-full transition-all disabled:cursor-wait disabled:opacity-40"
       >
-        <X className="size-5" aria-hidden="true" />
+        <X className="size-4" aria-hidden="true" />
       </button>
     </section>
   )

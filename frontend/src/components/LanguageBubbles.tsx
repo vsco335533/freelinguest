@@ -51,7 +51,7 @@ export function LanguageBubbles() {
         <div
           className="relative z-[1] flex h-[140px] w-full justify-center sm:absolute sm:top-1/2 sm:left-1/2 sm:w-[140px] sm:-translate-x-1/2 sm:-translate-y-1/2"
           role="img"
-          aria-label="FreeLingo"
+          aria-label="Linguist"
         >
           <LinguAvatar
             animation="saludo"
@@ -84,7 +84,7 @@ export function LanguageBubbles() {
                   animationPlayState: ready ? 'running' : 'paused',
                 }}
               >
-                <div className="border-fl-border bg-fl-surface flex items-center gap-1.5 rounded-full border px-2.5 py-1 shadow-sm transition-shadow hover:shadow-md">
+                <div className="glass-card flex items-center gap-1.5 rounded-full px-3 py-1.5">
                   <Image
                     src={lang.flagPath}
                     alt={tTarget(lang.code)}

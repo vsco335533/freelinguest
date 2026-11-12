@@ -52,6 +52,7 @@ function QuotaBar({
   limit: number
   unlimited: boolean
 }) {
+  const locale = useLocale()
   const pct =
     unlimited || limit === 0
       ? null
@@ -75,7 +76,8 @@ function QuotaBar({
           <span
             className={`text-fl-hint font-mono tabular-nums ${exceeded ? 'text-fl-error' : 'text-fl-muted-2'}`}
           >
-            {used}&thinsp;/&thinsp;{limit}
+            {used.toLocaleString(locale)}&thinsp;/&thinsp;
+            {limit.toLocaleString(locale)}
           </span>
         </>
       )}
@@ -83,27 +85,49 @@ function QuotaBar({
   )
 }
 
-function quotaPillSummary(quota: QuotaStatus): {
+function quotaPillSummary(
+  quota: QuotaStatus,
+  t: (k: string, values?: Record<string, string | number>) => string,
+  locale: string
+): {
   text: string
   alert: boolean
 } {
+  const number = new Intl.NumberFormat(locale)
+  const compact = new Intl.NumberFormat(locale, {
+    notation: 'compact',
+    maximumFractionDigits: 0,
+  })
   const parts: string[] = []
   let alert = false
 
   if (!quota.sessions_unlimited) {
-    parts.push(`${quota.sessions_this_week}/${quota.sessions_limit} ses`)
+    parts.push(
+      t('quotaSes', {
+        used: number.format(quota.sessions_this_week),
+        limit: number.format(quota.sessions_limit),
+      })
+    )
     if (quota.sessions_this_week >= quota.sessions_limit) alert = true
   }
 
   if (!quota.time_unlimited) {
-    parts.push(`${quota.minutes_today}/${quota.minutes_limit} min`)
+    parts.push(
+      t('quotaMin', {
+        used: number.format(quota.minutes_today),
+        limit: number.format(quota.minutes_limit),
+      })
+    )
     if (quota.minutes_today >= quota.minutes_limit) alert = true
   }
 
   if (!quota.tokens_unlimited) {
-    const kUsed = Math.round((quota.tokens_this_month ?? 0) / 1000)
-    const kLimit = Math.round((quota.tokens_monthly_limit ?? 0) / 1000)
-    parts.push(`${kUsed}k/${kLimit}k tok`)
+    parts.push(
+      t('quotaTok', {
+        used: compact.format(quota.tokens_this_month ?? 0),
+        limit: compact.format(quota.tokens_monthly_limit ?? 0),
+      })
+    )
     if ((quota.tokens_this_month ?? 0) >= (quota.tokens_monthly_limit ?? 0))
       alert = true
   }
@@ -116,10 +140,11 @@ function QuotaPill({
   t,
 }: {
   quota: QuotaStatus
-  t: (k: string) => string
+  t: (k: string, values?: Record<string, string | number>) => string
 }) {
   const [open, setOpen] = useState(false)
-  const { text, alert } = quotaPillSummary(quota)
+  const locale = useLocale()
+  const { text, alert } = quotaPillSummary(quota, t, locale)
 
   return (
     <div className="w-full">
@@ -1267,7 +1292,7 @@ export default function ConversationMode({
       </div>
 
       {trialMode && (
-        <div className="border-fl-accent/40 bg-fl-surface text-fl-muted-1 mb-4 border px-4 py-3 text-center font-mono text-xs tracking-widest uppercase">
+        <div className="glass-card border-fl-accent/40 text-fl-muted-1 mb-4 rounded-2xl px-4 py-3 text-center font-mono text-xs font-bold tracking-widest uppercase">
           {t('trialBanner', {
             minutes: Math.round((voiceTrialDurationSeconds ?? 300) / 60),
           })}
@@ -1324,12 +1349,12 @@ export default function ConversationMode({
 
       {/* Status message */}
       {errorMsg && (
-        <div className="border-fl-error/40 bg-fl-surface text-fl-error mb-4 border px-4 py-3 font-mono text-xs">
+        <div className="glass-card border-fl-error/40 text-fl-error mb-4 rounded-2xl px-4 py-3 font-mono text-xs font-semibold">
           ✕ {errorMsg}
         </div>
       )}
       {status === 'ended' && (
-        <div className="border-fl-border bg-fl-surface text-fl-muted-2 mb-4 border px-4 py-3 font-mono text-xs">
+        <div className="glass-card text-fl-muted-2 mb-4 rounded-2xl px-4 py-3 font-mono text-xs font-semibold">
           {t('sessionEnded')}
         </div>
       )}
@@ -1341,7 +1366,7 @@ export default function ConversationMode({
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
           <div className="mb-4">
-            <p className="text-fl-hint text-fl-muted-3 mb-3 text-center font-mono tracking-widest uppercase">
+            <p className="text-fl-hint text-fl-muted-2 mb-3 text-center font-mono font-bold tracking-widest uppercase">
               {t('startersHint')}
             </p>
             <div className="flex flex-wrap justify-center gap-2 md:flex-col md:items-center">
@@ -1362,7 +1387,7 @@ export default function ConversationMode({
                             },
                           ])
                         }
-                        className="text-fl-muted-1 border-fl-border hover:border-fl-border-2 hover:text-fl-fg border px-3 py-2 font-mono text-xs tracking-wide transition-colors"
+                        className="neu-button text-fl-fg rounded-full px-4 py-2 font-mono text-xs font-semibold tracking-wide"
                       >
                         {topic}
                       </button>

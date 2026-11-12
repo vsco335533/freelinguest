@@ -45,6 +45,12 @@ interface AdminUserItem {
 
 const LANGUAGES = [
   'en',
+  'hi',
+  'te',
+  'ta',
+  'ml',
+  'or',
+  'kn',
   'es',
   'fr',
   'pt',
@@ -446,7 +452,7 @@ export default function AdminUsersPage() {
   }
 
   const inputCls =
-    'w-full bg-fl-bg border border-fl-border px-4 py-3 font-mono text-xs text-fl-fg placeholder:text-fl-muted-4 focus:outline-none focus:border-fl-border-2 transition-colors'
+    'neu-input w-full rounded-xl px-4 py-3 font-mono text-xs font-medium text-fl-fg placeholder:text-fl-muted-4 transition-all focus:outline-none'
 
   const hasFilters =
     searchTerm ||
@@ -469,7 +475,7 @@ export default function AdminUsersPage() {
             <button
               onClick={generateInvite}
               disabled={actionBusy === 'invite'}
-              className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="neu-button text-fl-label text-fl-muted-1 hover:text-fl-fg inline-flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all disabled:opacity-40"
             >
               {actionBusy === 'invite' ? (
                 <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
@@ -480,7 +486,7 @@ export default function AdminUsersPage() {
             </button>
             <button
               onClick={openCreateUser}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-flex items-center gap-2 px-3 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+              className="neu-button-primary inline-flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-all"
             >
               <Plus className="size-3.5" aria-hidden="true" />
               {t('createUserBtn')}
@@ -492,14 +498,14 @@ export default function AdminUsersPage() {
       <AdminNav />
 
       {inviteUrl && (
-        <div className="border-fl-border bg-fl-surface border px-5 py-4">
+        <div className="glass-card rounded-2xl px-5 py-4">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
               {t('inviteLink')}
             </p>
             <button
               onClick={copyInvite}
-              className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center gap-2 border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-label text-fl-muted-1 hover:text-fl-fg inline-flex items-center gap-2 rounded-xl px-3 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all"
             >
               {inviteCopied ? (
                 <Check className="size-3.5" aria-hidden="true" />
@@ -519,36 +525,36 @@ export default function AdminUsersPage() {
       )}
 
       {error && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-fl-error/40 bg-fl-error/10 text-fl-error rounded-2xl border px-4 py-3 font-mono text-xs font-semibold">
           {error}
         </div>
       )}
 
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex flex-wrap items-center gap-2 border-b px-5 py-4">
-          <span className="text-fl-label text-fl-muted-2">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex flex-wrap items-center gap-2 border-b px-5 py-4">
+          <span className="text-fl-label text-fl-accent">●</span>
+          <span className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
             {t('users')}
           </span>
           {loading && (
             <Loader2
-              className="text-fl-muted-3 size-3.5 animate-spin"
+              className="text-fl-muted-2 size-3.5 animate-spin"
               aria-hidden="true"
             />
           )}
-          <span className="text-fl-hint text-fl-muted-4 ml-auto font-mono tracking-widest uppercase">
+          <span className="text-fl-hint text-fl-muted-2 ml-auto font-mono font-semibold tracking-widest uppercase">
             {total} {t('total')}
           </span>
         </div>
 
         <div
-          className={`border-fl-border grid gap-2 border-b px-5 py-3 ${
+          className={`border-fl-border/60 grid gap-2.5 border-b px-5 py-3.5 ${
             stripeEnabled
               ? 'lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]'
               : 'lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto]'
           }`}
         >
-          <div className="flex min-w-0">
+          <div className="flex min-w-0 gap-1.5">
             <input
               type="search"
               placeholder={t('searchPlaceholder')}
@@ -560,12 +566,12 @@ export default function AdminUsersPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 min-w-0 flex-1 border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+              className="neu-input min-w-0 flex-1 rounded-xl px-4 py-2 font-mono text-xs font-medium text-fl-fg placeholder:text-fl-muted-4 transition-all focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-fl-bg border-fl-border text-fl-muted-3 hover:text-fl-fg hover:border-fl-border-2 -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="neu-button text-fl-muted-2 hover:text-fl-fg inline-flex w-10 shrink-0 items-center justify-center rounded-xl transition-all"
               aria-label={t('searchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -574,7 +580,7 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold text-fl-fg transition-all focus:outline-none"
             aria-label={t('roleFilter')}
           >
             <option value="">{t('allRoles')}</option>
@@ -587,7 +593,7 @@ export default function AdminUsersPage() {
           <select
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value)}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold text-fl-fg transition-all focus:outline-none"
             aria-label={t('statusFilter')}
           >
             <option value="">{t('allStatuses')}</option>
@@ -601,7 +607,7 @@ export default function AdminUsersPage() {
             <select
               value={subscriptionFilter}
               onChange={(e) => setSubscriptionFilter(e.target.value)}
-              className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+              className="neu-input appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold text-fl-fg transition-all focus:outline-none"
               aria-label={t('subscriptionFilter')}
             >
               <option value="">{t('allSubscriptions')}</option>
@@ -616,7 +622,7 @@ export default function AdminUsersPage() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center justify-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="neu-button text-fl-label text-fl-muted-1 hover:text-fl-fg inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-40"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {t('clearFilters')}
@@ -624,7 +630,7 @@ export default function AdminUsersPage() {
         </div>
 
         {users.length === 0 ? (
-          <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs">
+          <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs font-semibold">
             {t('noUsers')}
           </p>
         ) : (
@@ -632,33 +638,33 @@ export default function AdminUsersPage() {
             <div className="hidden lg:block">
               <table className="w-full table-fixed border-collapse">
                 <thead>
-                  <tr className="border-fl-border border-b">
+                  <tr className="border-fl-border/60 border-b">
                     <th
-                      className={`text-fl-label text-fl-muted-4 px-5 py-3 text-left font-mono tracking-widest uppercase ${stripeEnabled ? 'w-[25%]' : 'w-[30%]'}`}
+                      className={`text-fl-label text-fl-muted-2 px-5 py-3 text-left font-mono font-semibold tracking-widest uppercase ${stripeEnabled ? 'w-[25%]' : 'w-[30%]'}`}
                     >
                       {t('userColumn')}
                     </th>
                     <th
-                      className={`text-fl-label text-fl-muted-4 px-5 py-3 text-left font-mono tracking-widest uppercase ${stripeEnabled ? 'w-[25%]' : 'w-[30%]'}`}
+                      className={`text-fl-label text-fl-muted-2 px-5 py-3 text-left font-mono font-semibold tracking-widest uppercase ${stripeEnabled ? 'w-[25%]' : 'w-[30%]'}`}
                     >
                       {t('fieldEmail')}
                     </th>
                     <th
-                      className={`text-fl-label text-fl-muted-4 px-5 py-3 text-left font-mono tracking-widest uppercase ${stripeEnabled ? 'w-[12.5%]' : 'w-[15%]'}`}
+                      className={`text-fl-label text-fl-muted-2 px-5 py-3 text-left font-mono font-semibold tracking-widest uppercase ${stripeEnabled ? 'w-[12.5%]' : 'w-[15%]'}`}
                     >
                       {t('role')}
                     </th>
                     <th
-                      className={`text-fl-label text-fl-muted-4 px-5 py-3 text-left font-mono tracking-widest uppercase ${stripeEnabled ? 'w-[12.5%]' : 'w-[15%]'}`}
+                      className={`text-fl-label text-fl-muted-2 px-5 py-3 text-left font-mono font-semibold tracking-widest uppercase ${stripeEnabled ? 'w-[12.5%]' : 'w-[15%]'}`}
                     >
                       {t('status')}
                     </th>
                     {stripeEnabled && (
-                      <th className="text-fl-label text-fl-muted-4 w-[15%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                      <th className="text-fl-label text-fl-muted-2 w-[15%] px-5 py-3 text-left font-mono font-semibold tracking-widest uppercase">
                         {t('fieldSubscription')}
                       </th>
                     )}
-                    <th className="text-fl-label text-fl-muted-4 w-[10%] px-5 py-3 text-right font-mono tracking-widest uppercase">
+                    <th className="text-fl-label text-fl-muted-2 w-[10%] px-5 py-3 text-right font-mono font-semibold tracking-widest uppercase">
                       {t('actions')}
                     </th>
                   </tr>
@@ -667,26 +673,26 @@ export default function AdminUsersPage() {
                   {users.map((u) => (
                     <tr
                       key={u.id}
-                      className="border-fl-border hover:bg-fl-bg/60 border-b last:border-0"
+                      className="border-fl-border/60 hover:bg-fl-accent/5 border-b transition-colors last:border-0"
                     >
                       <td className="px-5 py-4 align-middle">
-                        <p className="text-fl-fg truncate font-mono text-sm">
+                        <p className="text-fl-fg truncate font-mono text-sm font-semibold">
                           {u.display_name}
                         </p>
-                        <p className="text-fl-label text-fl-muted-3 truncate font-mono">
+                        <p className="text-fl-label text-fl-muted-2 truncate font-mono font-medium">
                           #{u.id} / @{u.username.toLowerCase()} /{' '}
                           {u.native_language}
                         </p>
                       </td>
-                      <td className="text-fl-muted-2 truncate px-5 py-4 align-middle font-mono text-xs">
+                      <td className="text-fl-muted-1 truncate px-5 py-4 align-middle font-mono text-xs font-medium">
                         {u.email || '—'}
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                          className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                             u.role === 'admin'
-                              ? 'border-fl-fg/40 text-fl-fg'
-                              : 'border-fl-border text-fl-muted-2'
+                              ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
+                              : 'border-fl-border bg-white/50 text-fl-muted-2'
                           }`}
                         >
                           {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
@@ -694,10 +700,10 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-5 py-4 align-middle">
                         <span
-                          className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                          className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                             u.is_active
-                              ? 'border-green-500/40 text-green-400'
-                              : 'border-fl-error/30 text-fl-error-fg'
+                              ? 'border-fl-success/40 bg-fl-success/10 text-fl-success'
+                              : 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg'
                           }`}
                         >
                           {u.is_active ? t('active') : t('inactive')}
@@ -706,17 +712,17 @@ export default function AdminUsersPage() {
                       {stripeEnabled && (
                         <td className="px-5 py-4 align-middle">
                           <span
-                            className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${statusBadgeClass(u.subscription_status)}`}
+                            className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${statusBadgeClass(u.subscription_status)}`}
                           >
                             {subscriptionLabel(u.subscription_status, tBilling)}
                           </span>
                         </td>
                       )}
                       <td className="px-5 py-4 align-middle">
-                        <div className="flex justify-end gap-1">
+                        <div className="flex justify-end gap-1.5">
                           <Link
                             href={`/admin/users/${u.id}`}
-                            className="border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 inline-flex size-8 items-center justify-center border transition-colors"
+                            className="neu-button text-fl-muted-1 hover:text-fl-fg inline-flex size-8 items-center justify-center rounded-xl transition-all"
                             aria-label={t('viewStats')}
                           >
                             <ExternalLink
@@ -727,12 +733,12 @@ export default function AdminUsersPage() {
                           <button
                             onClick={() => setActivePending(u)}
                             disabled={u.id === currentUserId}
-                            className={`inline-flex size-8 items-center justify-center border transition-colors ${
+                            className={`inline-flex size-8 items-center justify-center rounded-xl border transition-all ${
                               u.id === currentUserId
-                                ? 'cursor-not-allowed opacity-20'
+                                ? 'cursor-not-allowed border-fl-border opacity-25'
                                 : u.is_active
-                                  ? 'border-fl-error/30 text-fl-error-fg hover:border-fl-error'
-                                  : 'border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2'
+                                  ? 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg hover:border-fl-error'
+                                  : 'neu-button text-fl-muted-1 hover:text-fl-fg'
                             }`}
                             aria-label={
                               u.is_active ? t('deactivate') : t('activate')
@@ -760,7 +766,7 @@ export default function AdminUsersPage() {
                           <button
                             onClick={() => setDeletePending(u)}
                             disabled={u.id === currentUserId}
-                            className="border-fl-error/30 text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex size-8 items-center justify-center border transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+                            className="border-fl-error/30 bg-fl-error/10 text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex size-8 items-center justify-center rounded-xl border font-bold transition-all disabled:cursor-not-allowed disabled:opacity-25"
                             aria-label={t('delete')}
                             title={
                               u.id === currentUserId
@@ -789,40 +795,40 @@ export default function AdminUsersPage() {
               {users.map((u, i) => (
                 <div
                   key={u.id}
-                  className={`space-y-3 px-4 py-4 ${i < users.length - 1 ? 'border-fl-border border-b' : ''}`}
+                  className={`space-y-3 px-4 py-4 ${i < users.length - 1 ? 'border-fl-border/60 border-b' : ''}`}
                 >
                   <div className="min-w-0 space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-fl-fg font-mono text-sm">
+                      <span className="text-fl-fg font-mono text-sm font-semibold">
                         {u.display_name}
                       </span>
                       <span
-                        className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                        className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                           u.role === 'admin'
-                            ? 'border-fl-fg/40 text-fl-fg'
-                            : 'border-fl-border text-fl-muted-2'
+                            ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
+                            : 'border-fl-border bg-white/50 text-fl-muted-2'
                         }`}
                       >
                         {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
                       </span>
                       <span
-                        className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                        className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                           u.is_active
-                            ? 'border-green-500/40 text-green-400'
-                            : 'border-fl-error/30 text-fl-error-fg'
+                            ? 'border-fl-success/40 bg-fl-success/10 text-fl-success'
+                            : 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg'
                         }`}
                       >
                         {u.is_active ? t('active') : t('inactive')}
                       </span>
                     </div>
-                    <p className="text-fl-label text-fl-muted-2 font-mono break-all">
-                      <span className="text-fl-muted-4">#{u.id}</span> /{' '}
+                    <p className="text-fl-label text-fl-muted-2 font-mono font-medium break-all">
+                      <span className="text-fl-muted-2 font-semibold">#{u.id}</span> /{' '}
                       {u.username.toLowerCase()} {u.email ? `/ ${u.email}` : ''}{' '}
                       / {u.native_language}
                     </p>
                     {stripeEnabled && (
                       <span
-                        className={`text-fl-hint inline-flex border px-2 py-0.5 font-mono tracking-widest uppercase ${statusBadgeClass(u.subscription_status)}`}
+                        className={`text-fl-hint inline-flex rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${statusBadgeClass(u.subscription_status)}`}
                       >
                         {subscriptionLabel(u.subscription_status, tBilling)}
                       </span>
@@ -831,7 +837,7 @@ export default function AdminUsersPage() {
                   <div className="flex flex-wrap gap-2">
                     <Link
                       href={`/admin/users/${u.id}`}
-                      className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
+                      className="neu-button text-fl-label text-fl-muted-1 hover:text-fl-fg inline-flex items-center gap-2 rounded-xl px-3 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
                     >
                       <ExternalLink className="size-3.5" aria-hidden="true" />
                       {t('viewStats')}
@@ -839,12 +845,12 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setActivePending(u)}
                       disabled={u.id === currentUserId}
-                      className={`text-fl-label inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors ${
+                      className={`text-fl-label inline-flex items-center gap-2 rounded-xl border px-3 py-2 font-mono font-semibold tracking-widest uppercase transition-all ${
                         u.id === currentUserId
-                          ? 'cursor-not-allowed opacity-20'
+                          ? 'cursor-not-allowed border-fl-border opacity-25'
                           : u.is_active
-                            ? 'border-fl-error/30 text-fl-error-fg hover:border-fl-error'
-                            : 'border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2'
+                            ? 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg hover:border-fl-error'
+                            : 'neu-button text-fl-muted-1 hover:text-fl-fg'
                       }`}
                     >
                       {actionBusy === `active-${u.id}` && (
@@ -858,7 +864,7 @@ export default function AdminUsersPage() {
                     <button
                       onClick={() => setDeletePending(u)}
                       disabled={u.id === currentUserId}
-                      className="border-fl-error/30 text-fl-label text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+                      className="border-fl-error/30 bg-fl-error/10 text-fl-label text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex items-center gap-2 rounded-xl border px-3 py-2 font-mono font-semibold tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-25"
                     >
                       {actionBusy === `delete-${u.id}` && (
                         <Loader2
@@ -891,30 +897,30 @@ export default function AdminUsersPage() {
           onClick={() => setShowCreate(false)}
         >
           <div
-            className="border-fl-border bg-fl-surface max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto border shadow-2xl"
+            className="neu-glass-card max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto rounded-3xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="admin-create-user-title"
             aria-describedby="admin-create-user-description"
           >
-            <div className="border-fl-border flex items-start justify-between gap-4 border-b px-6 py-5">
+            <div className="border-fl-border/60 flex items-start justify-between gap-4 border-b px-6 py-5">
               <div>
                 <div className="flex items-center gap-2">
                   <UserPlus
-                    className="text-fl-muted-2 size-4"
+                    className="text-fl-accent size-4"
                     aria-hidden="true"
                   />
                   <h2
                     id="admin-create-user-title"
-                    className="text-fl-fg font-mono text-sm tracking-widest uppercase"
+                    className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase"
                   >
                     {t('createUser')}
                   </h2>
                 </div>
                 <p
                   id="admin-create-user-description"
-                  className="text-fl-muted-2 mt-2 font-mono text-xs"
+                  className="text-fl-muted-2 mt-2 font-mono text-xs font-medium"
                 >
                   {t('createUserSheetDesc')}
                 </p>
@@ -922,7 +928,7 @@ export default function AdminUsersPage() {
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="text-fl-muted-2 hover:text-fl-fg p-1 transition-colors"
+                className="neu-button text-fl-muted-1 hover:text-fl-fg rounded-full p-1.5 transition-all"
                 aria-label={tCommon('cancel')}
               >
                 <X className="size-4" aria-hidden="true" />
@@ -935,7 +941,7 @@ export default function AdminUsersPage() {
               className="space-y-4 px-6 py-5"
             >
               {error && (
-                <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+                <div className="border-fl-error/40 bg-fl-error/10 text-fl-error rounded-xl border px-4 py-3 font-mono text-xs font-semibold">
                   {error}
                 </div>
               )}
@@ -966,7 +972,7 @@ export default function AdminUsersPage() {
                 },
               ].map(({ key, label, required, type }) => (
                 <label key={key} className="block">
-                  <span className="text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                  <span className="text-fl-muted-2 mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
                     {label}
                   </span>
                   <input
@@ -996,7 +1002,7 @@ export default function AdminUsersPage() {
                 </label>
               ))}
               <label className="block">
-                <span className="text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                <span className="text-fl-muted-2 mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
                   {t('fieldNativeLanguage')}
                 </span>
                 <select
@@ -1016,7 +1022,7 @@ export default function AdminUsersPage() {
                 </select>
               </label>
               <label className="block">
-                <span className="text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                <span className="text-fl-muted-2 mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
                   {t('fieldTargetLanguage')}
                 </span>
                 <select
@@ -1034,7 +1040,7 @@ export default function AdminUsersPage() {
                 </select>
               </label>
               <label className="block">
-                <span className="text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+                <span className="text-fl-muted-2 mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
                   {t('fieldRole')}
                 </span>
                 <select
@@ -1051,11 +1057,11 @@ export default function AdminUsersPage() {
               </label>
             </form>
 
-            <div className="border-fl-border grid grid-cols-2 gap-2 border-t px-6 py-5">
+            <div className="border-fl-border/60 grid grid-cols-2 gap-3 border-t px-6 py-5">
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg border py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-muted-1 hover:text-fl-fg rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all"
               >
                 {tCommon('cancel')}
               </button>
@@ -1063,7 +1069,7 @@ export default function AdminUsersPage() {
                 type="submit"
                 form="admin-create-user-form"
                 disabled={createSaving}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-flex items-center justify-center gap-2 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="neu-button-primary inline-flex items-center justify-center gap-2 rounded-xl py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-50"
               >
                 {createSaving && (
                   <Loader2

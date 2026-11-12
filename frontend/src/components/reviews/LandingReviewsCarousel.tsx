@@ -46,7 +46,7 @@ function ReviewCard({ review }: { review: ReviewPublic }) {
   }, [expanded, review.comment])
 
   return (
-    <article className="border-fl-border bg-fl-surface flex w-full min-w-0 flex-none snap-start flex-col border p-6 sm:w-[360px]">
+    <article className="neu-glass-card flex w-full min-w-0 flex-none snap-start flex-col p-6 sm:w-[360px]">
       <Stars
         rating={review.rating}
         label={t('starsLabel', { rating: review.rating })}
@@ -208,7 +208,7 @@ export function LandingReviewsCarousel({
               average: formattedAverage,
               count: summary.total,
             })}
-            className="border-fl-border bg-fl-surface mx-auto mt-3 border px-6 py-4"
+            className="glass-card mx-auto mt-3 rounded-2xl px-6 py-4"
           >
             <div
               aria-hidden="true"
@@ -245,7 +245,7 @@ export function LandingReviewsCarousel({
                   type="button"
                   aria-controls={carouselId}
                   onClick={() => setIsPlaying((value) => !value)}
-                  className="border-fl-border text-fl-muted-1 hover:bg-fl-surface focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 border px-3 font-sans text-sm focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="neu-button text-fl-muted-1 inline-flex min-h-11 items-center gap-2 rounded-xl px-3.5 font-sans text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 >
                   {isPlaying ? (
                     <Pause className="size-4" aria-hidden="true" />
@@ -261,7 +261,7 @@ export function LandingReviewsCarousel({
                 aria-controls={carouselId}
                 onFocus={() => setIsPlaying(false)}
                 onClick={() => navigate('previous')}
-                className="border-fl-border text-fl-fg hover:bg-fl-surface focus-visible:outline-fl-accent inline-flex size-11 items-center justify-center border focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="neu-button text-fl-fg inline-flex size-11 items-center justify-center rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 <ArrowLeft className="size-4" aria-hidden="true" />
               </button>
@@ -271,7 +271,7 @@ export function LandingReviewsCarousel({
                 aria-controls={carouselId}
                 onFocus={() => setIsPlaying(false)}
                 onClick={() => navigate('next')}
-                className="border-fl-border text-fl-fg hover:bg-fl-surface focus-visible:outline-fl-accent inline-flex size-11 items-center justify-center border focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="neu-button text-fl-fg inline-flex size-11 items-center justify-center rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 <ArrowRight className="size-4" aria-hidden="true" />
               </button>

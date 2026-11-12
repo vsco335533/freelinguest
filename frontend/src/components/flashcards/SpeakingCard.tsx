@@ -53,10 +53,10 @@ export function SpeakingCard({
   }
 
   const buttonClass =
-    'border-fl-border text-fl-fg hover:bg-fl-surface-2 focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40'
+    'neu-button text-fl-fg focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40'
   return (
-    <div className="border-fl-accent/35 bg-fl-surface border">
-      <div className="border-fl-border flex flex-wrap items-center justify-between gap-2 border-b px-6 py-4">
+    <div className="neu-glass-card overflow-hidden rounded-3xl">
+      <div className="border-fl-border/60 flex flex-wrap items-center justify-between gap-2 border-b px-6 py-4">
         <span className="text-fl-muted-1 inline-flex items-center gap-2 text-sm font-medium">
           <Mic className="text-fl-accent size-4 shrink-0" aria-hidden="true" />
           {t('speakingMode')}
@@ -105,8 +105,10 @@ export function SpeakingCard({
               {t(result.correct ? 'speechMatch' : 'speechMismatch')}
             </p>
             <dl className="grid gap-3 text-left sm:grid-cols-2">
-              <div className="border-fl-border bg-fl-bg min-w-0 space-y-2 border p-4">
-                <dt className="text-fl-muted-2 text-sm">{t('speechHeard')}</dt>
+              <div className="glass-card min-w-0 space-y-2 rounded-2xl p-4">
+                <dt className="text-fl-muted-2 text-sm font-semibold">
+                  {t('speechHeard')}
+                </dt>
                 <TargetLanguageText
                   as="dd"
                   languageCode={languageCode}
@@ -115,8 +117,8 @@ export function SpeakingCard({
                   {result.text}
                 </TargetLanguageText>
               </div>
-              <div className="border-fl-accent/35 bg-fl-accent/10 min-w-0 space-y-2 border p-4">
-                <dt className="text-fl-muted-2 text-sm">
+              <div className="neu-card border-fl-accent/35 bg-fl-accent/10 min-w-0 space-y-2 rounded-2xl p-4">
+                <dt className="text-fl-muted-2 text-sm font-semibold">
                   {t('speechExpected')}
                 </dt>
                 <dd className="flex items-center gap-2">
@@ -133,13 +135,13 @@ export function SpeakingCard({
                 </dd>
               </div>
             </dl>
-            <p className="text-fl-muted-2 text-sm leading-relaxed">
+            <p className="text-fl-muted-2 text-sm leading-relaxed font-medium">
               {t('speechConfirmHint')}
             </p>
             <div className="flex flex-col justify-center gap-2 sm:flex-row sm:flex-wrap">
               <button
                 disabled={disabled}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                className="neu-button-primary focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
                 onClick={() => void onReview(result.correct ? 5 : 2)}
               >
                 <Check className="size-4 shrink-0" aria-hidden="true" />

@@ -18,6 +18,12 @@ export const SUPPORTED_LOCALES = [
   'da',
   'fi',
   'hr',
+  'hi',
+  'te',
+  'ta',
+  'ml',
+  'or',
+  'kn',
 ] as const
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number]

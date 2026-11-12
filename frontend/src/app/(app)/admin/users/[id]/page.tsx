@@ -88,11 +88,11 @@ const tabs: {
 
 function StatRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="border-fl-border flex items-center justify-between gap-4 border-b py-3 last:border-0">
-      <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="border-fl-border/60 flex items-center justify-between gap-4 border-b py-3 last:border-0">
+      <span className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
         {label}
       </span>
-      <span className="text-fl-fg min-w-0 text-right font-mono text-sm break-words">
+      <span className="text-fl-fg min-w-0 text-right font-mono text-sm font-semibold break-words">
         {value}
       </span>
     </div>
@@ -107,10 +107,10 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <div className="border-fl-border bg-fl-surface border">
-      <div className="border-fl-border flex items-center gap-2 border-b px-5 py-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="glass-card overflow-hidden rounded-2xl">
+      <div className="border-fl-border/60 flex items-center gap-2 border-b px-5 py-4">
+        <span className="text-fl-label text-fl-accent">●</span>
+        <span className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
           {title}
         </span>
       </div>
@@ -127,11 +127,11 @@ function SummaryCard({
   value: React.ReactNode
 }) {
   return (
-    <div className="border-fl-border bg-fl-surface border px-4 py-3">
-      <p className="text-fl-label text-fl-muted-4 mb-1 font-mono tracking-widest uppercase">
+    <div className="neu-card rounded-2xl px-4 py-3">
+      <p className="text-fl-label text-fl-muted-2 mb-1 font-mono font-semibold tracking-widest uppercase">
         {label}
       </p>
-      <p className="text-fl-fg font-mono text-lg">{value}</p>
+      <p className="text-fl-fg font-mono text-lg font-bold">{value}</p>
     </div>
   )
 }
@@ -139,20 +139,20 @@ function SummaryCard({
 function subscriptionStatusClass(status: string) {
   switch (status) {
     case 'active':
-      return 'border-green-500/40 text-green-400'
+      return 'border-fl-success/40 bg-fl-success/10 text-fl-success'
     case 'trialing':
-      return 'border-blue-500/40 text-blue-400'
+      return 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
     case 'past_due':
     case 'unpaid':
     case 'paused':
-      return 'border-yellow-500/40 text-yellow-400'
+      return 'border-amber-500/40 bg-amber-500/10 text-amber-700'
     case 'incomplete':
     case 'incomplete_expired':
-      return 'border-orange-500/40 text-orange-400'
+      return 'border-orange-500/40 bg-orange-500/10 text-orange-700'
     case 'canceled':
-      return 'border-fl-border text-fl-muted-2'
+      return 'border-fl-border bg-white/50 text-fl-muted-2'
     default:
-      return 'border-fl-border text-fl-muted-3'
+      return 'border-fl-border bg-white/50 text-fl-muted-2'
   }
 }
 
@@ -380,37 +380,37 @@ export default function AdminUserStatsPage() {
         <div className="flex min-w-0 items-center gap-2">
           <Link
             href="/admin/users"
-            className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+            className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono font-semibold tracking-widest uppercase transition-colors"
           >
             {t('users')}
           </Link>
-          <span className="text-fl-muted-4 text-fl-label font-mono">/</span>
-          <span className="text-fl-label text-fl-fg truncate font-mono tracking-widest uppercase">
+          <span className="text-fl-muted-2 text-fl-label font-mono font-semibold">/</span>
+          <span className="text-fl-label text-fl-fg truncate font-mono font-bold tracking-widest uppercase">
             {user.display_name}
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+            className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
               user.is_active
-                ? 'border-green-500/40 text-green-400'
-                : 'border-fl-error/30 text-fl-error-fg'
+                ? 'border-fl-success/40 bg-fl-success/10 text-fl-success'
+                : 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg'
             }`}
           >
             {user.is_active ? t('active') : t('inactive')}
           </span>
           <span
-            className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+            className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
               user.role === 'admin'
-                ? 'border-fl-fg/40 text-fl-fg'
-                : 'border-fl-border text-fl-muted-2'
+                ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
+                : 'border-fl-border bg-white/50 text-fl-muted-2'
             }`}
           >
             {user.role === 'admin' ? t('roleAdmin') : t('roleUser')}
           </span>
           {stripeEnabled && (
             <span
-              className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${subscriptionStatusClass(user.subscription_status)}`}
+              className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${subscriptionStatusClass(user.subscription_status)}`}
             >
               {subscriptionLabel}
             </span>
@@ -420,18 +420,18 @@ export default function AdminUserStatsPage() {
 
       <AdminNav />
 
-      <div className="border-fl-border bg-fl-surface border p-5">
+      <div className="glass-card rounded-2xl p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="min-w-0">
-            <p className="text-fl-fg truncate font-mono text-xl">
+            <p className="text-fl-fg truncate font-mono text-xl font-bold">
               {user.display_name}
             </p>
-            <p className="text-fl-muted-2 mt-1 font-mono text-xs break-all">
+            <p className="text-fl-muted-2 mt-1 font-mono text-xs font-medium break-all">
               #{user.id} / @{user.username.toLowerCase()}
               {user.email ? ` / ${user.email}` : ''}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
             <SummaryCard
               label={t('statsXp')}
               value={stats.xp_total.toLocaleString(locale)}
@@ -453,12 +453,12 @@ export default function AdminUserStatsPage() {
       </div>
 
       {error && error !== 'loadError' && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-fl-error/40 bg-fl-error/10 text-fl-error rounded-2xl border px-4 py-3 font-mono text-xs font-semibold">
           {error}
         </div>
       )}
 
-      <div className="border-fl-border bg-fl-surface flex gap-1 overflow-x-auto border p-1">
+      <div className="glass-card flex gap-1.5 overflow-x-auto rounded-2xl p-1.5">
         {tabs
           .filter((tab) => stripeEnabled || tab.key !== 'subscription')
           .map((tab) => {
@@ -469,10 +469,10 @@ export default function AdminUserStatsPage() {
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
-                className={`text-fl-label flex min-h-9 shrink-0 items-center gap-2 px-3 py-2 font-mono tracking-widest uppercase transition-colors ${
+                className={`text-fl-label flex min-h-9 shrink-0 items-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all ${
                   active
-                    ? 'bg-fl-bg text-fl-fg border-fl-accent border-l-2'
-                    : 'text-fl-muted-2 hover:bg-fl-bg hover:text-fl-fg border-l-2 border-transparent'
+                    ? 'neu-button-primary'
+                    : 'text-fl-muted-1 hover:bg-fl-accent/10 hover:text-fl-fg'
                 }`}
               >
                 <Icon className="size-3.5" aria-hidden="true" />
@@ -491,20 +491,20 @@ export default function AdminUserStatsPage() {
           />
           {user.email && <StatRow label={t('fieldEmail')} value={user.email} />}
           {user.email && (
-            <div className="border-fl-border flex flex-wrap items-center justify-between gap-3 border-b py-3">
+            <div className="border-fl-border/60 flex flex-wrap items-center justify-between gap-3 border-b py-3">
               <div className="flex items-center gap-2">
                 {user.is_verified ? (
                   <BadgeCheck
-                    className="size-4 text-green-400"
+                    className="text-fl-success size-4"
                     aria-hidden="true"
                   />
                 ) : (
                   <MailCheck
-                    className="text-fl-muted-3 size-4"
+                    className="text-fl-muted-2 size-4"
                     aria-hidden="true"
                   />
                 )}
-                <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+                <span className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
                   {user.is_verified
                     ? t('emailVerified')
                     : t('emailNotVerified')}
@@ -513,7 +513,7 @@ export default function AdminUserStatsPage() {
               <button
                 onClick={() => setVerifyPending(true)}
                 disabled={verifySaving}
-                className="text-fl-hint hover:border-fl-fg hover:text-fl-fg border-fl-border text-fl-muted-2 inline-flex items-center gap-2 border px-2 py-1 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="neu-button text-fl-hint text-fl-muted-1 hover:text-fl-fg inline-flex items-center gap-2 rounded-xl px-3 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all disabled:opacity-40"
               >
                 {verifySaving && (
                   <Loader2
@@ -560,8 +560,8 @@ export default function AdminUserStatsPage() {
                 return (
                   <div
                     key={pl.target_language}
-                    className={`bg-fl-bg border px-4 py-3 ${
-                      isActive ? 'border-fl-accent/50' : 'border-fl-border'
+                    className={`neu-card rounded-2xl border px-4 py-3.5 ${
+                      isActive ? 'border-fl-accent/50 ring-1 ring-fl-accent/20' : 'border-fl-border/60'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -571,7 +571,7 @@ export default function AdminUserStatsPage() {
                           alt={lang.code}
                           width={24}
                           height={17}
-                          className="shrink-0 object-cover"
+                          className="shrink-0 rounded-sm object-cover"
                         />
                       )}
                       <span className="text-fl-fg min-w-0 flex-1 truncate font-mono text-sm font-bold">
@@ -725,18 +725,18 @@ export default function AdminUserStatsPage() {
                 value={quotaMonthlyTokens}
                 onChange={setQuotaMonthlyTokens}
               />
-              <p className="text-fl-hint text-fl-muted-4 font-mono">
+              <p className="text-fl-hint text-fl-muted-2 font-mono font-medium">
                 {t('quotaZeroMeansUnlimited')}
               </p>
               {quotaError && (
-                <p className="border-fl-error/40 text-fl-error border px-3 py-2 font-mono text-xs">
+                <p className="border-fl-error/40 bg-fl-error/10 text-fl-error rounded-xl border px-3 py-2 font-mono text-xs font-semibold">
                   {quotaError}
                 </p>
               )}
               <button
                 onClick={saveQuota}
                 disabled={quotaSaving || !quotaValuesValid}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-flex w-full items-center justify-center gap-2 px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="neu-button-primary inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
               >
                 {quotaSaving && (
                   <Loader2
@@ -770,25 +770,25 @@ export default function AdminUserStatsPage() {
           )}
           <div className="space-y-2 py-4">
             <label className="block">
-              <span className="text-fl-muted-3 mb-1 block font-mono text-xs tracking-widest uppercase">
+              <span className="text-fl-muted-2 mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
                 {t('subscriptionOverride')}
               </span>
               <select
                 value={currentPlan}
                 onChange={(e) => setPendingPlan(e.target.value as PlanKey)}
                 disabled={subscriptionSaving}
-                className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-accent w-full border px-3 py-2 font-mono text-xs tracking-widest uppercase focus:outline-none disabled:opacity-40"
+                className="neu-input w-full appearance-none rounded-xl px-3.5 py-2.5 font-mono text-xs font-semibold tracking-widest text-fl-fg uppercase transition-all focus:outline-none disabled:opacity-40"
               >
                 <option value="none">{tBilling('statusNone')}</option>
                 <option value="monthly">{tBilling('planMonthlyName')}</option>
                 <option value="yearly">{tBilling('planYearlyName')}</option>
               </select>
             </label>
-            <p className="text-fl-hint text-fl-muted-4 font-mono">
+            <p className="text-fl-hint text-fl-muted-2 font-mono font-medium">
               {t('subscriptionOverrideDesc')}
             </p>
             {subscriptionSaving && (
-              <p className="text-fl-muted-2 inline-flex items-center gap-2 font-mono text-xs">
+              <p className="text-fl-muted-2 inline-flex items-center gap-2 font-mono text-xs font-semibold">
                 <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
                 {t('saving')}
               </p>
@@ -847,22 +847,22 @@ function QuotaInput({
     value.trim() === '' || !Number.isInteger(Number(value)) || Number(value) < 0
 
   return (
-    <label className="grid gap-2 sm:grid-cols-[1fr_9rem] sm:items-center">
-      <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
+    <label className="grid gap-2 sm:grid-cols-[1fr_9.5rem] sm:items-center">
+      <span className="text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
         {label}
       </span>
-      <span className="flex">
+      <span className="flex overflow-hidden rounded-xl border border-fl-border/60 shadow-sm">
         <input
           type="number"
           min={0}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={invalid}
-          className={`bg-fl-bg text-fl-fg focus:border-fl-accent min-w-0 flex-1 border px-3 py-2 text-right font-mono text-sm focus:outline-none ${
-            invalid ? 'border-fl-error/50' : 'border-fl-border'
+          className={`neu-input min-w-0 flex-1 rounded-l-xl border-0 px-3 py-2 text-right font-mono text-sm font-semibold text-fl-fg focus:outline-none ${
+            invalid ? 'ring-1 ring-fl-error/60' : ''
           }`}
         />
-        <span className="border-fl-border bg-fl-surface-2 text-fl-muted-2 border border-l-0 px-3 py-2 font-mono text-xs">
+        <span className="border-fl-border/60 text-fl-muted-2 rounded-r-xl border-l bg-white/50 px-3 py-2 font-mono text-xs font-semibold">
           {unit}
         </span>
       </span>

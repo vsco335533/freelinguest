@@ -45,21 +45,21 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
   }, [attempt, sessionVersion])
 
   return (
-    <div className="border-fl-border bg-fl-surface border p-6">
-      <div className="border-fl-border mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="glass-card rounded-2xl p-6">
+      <div className="border-fl-border/60 mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-fl-accent text-fl-label">●</span>
+        <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
           {title ?? t('sectionUsageLimits')}
         </span>
       </div>
       {failed ? (
         <div className="space-y-3">
-          <p role="alert" className="text-fl-error-fg text-sm">
+          <p role="alert" className="text-fl-error-fg text-sm font-semibold">
             {tCommon('errorMessage')}
           </p>
           <button
             type="button"
-            className="text-fl-accent text-sm underline"
+            className="neu-button rounded-xl px-4 py-2 text-sm font-semibold"
             onClick={() => setAttempt((value) => value + 1)}
           >
             {tCommon('retry')}
@@ -106,23 +106,23 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
             const exceeded = !unlimited && limit > 0 && used >= limit
             return (
               <div key={label} className="flex items-center gap-3">
-                <span className="text-fl-hint text-fl-muted-4 w-36 shrink-0 font-mono tracking-widest uppercase">
+                <span className="text-fl-hint text-fl-muted-2 w-36 shrink-0 font-mono font-semibold tracking-widest uppercase">
                   {label}
                 </span>
                 {unlimited ? (
-                  <span className="text-fl-hint text-fl-muted-2 font-mono">
+                  <span className="text-fl-hint text-fl-fg font-mono font-semibold">
                     {t('quotaUnlimited')}
                   </span>
                 ) : (
                   <>
-                    <div className="bg-fl-surface-2 h-1 flex-1 overflow-hidden">
+                    <div className="bg-fl-border/60 h-2 flex-1 overflow-hidden rounded-full">
                       <div
-                        className={`h-full transition-all motion-reduce:transition-none ${exceeded ? 'bg-fl-error' : 'bg-fl-accent'}`}
+                        className={`h-full rounded-full transition-all motion-reduce:transition-none ${exceeded ? 'bg-fl-error' : 'bg-fl-accent'}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
                     <span
-                      className={`text-fl-hint font-mono tabular-nums ${exceeded ? 'text-fl-error' : 'text-fl-muted-2'}`}
+                      className={`text-fl-hint font-mono font-semibold tabular-nums ${exceeded ? 'text-fl-error' : 'text-fl-fg'}`}
                     >
                       {format(used)}&thinsp;/&thinsp;{format(limit)}
                     </span>
@@ -131,7 +131,7 @@ export function UsageLimitsSection({ title }: { title?: string } = {}) {
               </div>
             )
           })}
-          <p className="text-fl-hint text-fl-muted-3 pt-1 font-mono">
+          <p className="text-fl-hint text-fl-muted-2 pt-1 font-mono font-medium">
             {t('quotaHint')}
           </p>
         </div>

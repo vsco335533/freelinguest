@@ -323,7 +323,7 @@ function GrammarTopicContent({
 
   return (
     <div ref={analyticsRef} className="mx-auto max-w-4xl space-y-4 p-6">
-      <nav className="text-fl-label text-fl-muted-3 flex items-center gap-2 font-mono">
+      <nav className="text-fl-label text-fl-muted-2 flex items-center gap-2 font-mono font-semibold">
         <Link
           href="/grammar"
           className="hover:text-fl-fg tracking-widest uppercase transition-colors"
@@ -335,37 +335,39 @@ function GrammarTopicContent({
           {topic.level}
         </span>
         <span>{'\u203a'}</span>
-        <span className="text-fl-fg tracking-wide">{topic.title}</span>
+        <span className="text-fl-fg font-bold tracking-wide">
+          {topic.title}
+        </span>
       </nav>
 
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">{'\u25cf'}</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-accent text-fl-label">{'\u25cf'}</span>
+          <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('backToGrammar')}
           </span>
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="border-fl-border text-fl-label text-fl-muted-3 border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="glass-card text-fl-label text-fl-fg rounded-full px-3 py-0.5 font-mono font-semibold tracking-widest uppercase">
               {topic.level}
             </span>
-            <span className="border-fl-border text-fl-label text-fl-muted-3 border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="glass-card text-fl-label text-fl-muted-2 rounded-full px-3 py-0.5 font-mono font-semibold tracking-widest uppercase">
               {topic.category}
             </span>
           </div>
           <h1 className="text-fl-fg font-mono text-xl font-bold tracking-wide">
             {topic.title}
           </h1>
-          <p className="text-fl-muted-1 max-w-[70ch] font-sans text-sm leading-relaxed">
+          <p className="text-fl-fg max-w-[70ch] font-sans text-sm leading-relaxed">
             {topic.summary}
           </p>
           {topic.structure && (
-            <div className="border-fl-border bg-fl-bg border px-4 py-3">
-              <p className="text-fl-label text-fl-muted-3 mb-1 font-mono tracking-widest uppercase">
+            <div className="glass-card rounded-xl px-4 py-3">
+              <p className="text-fl-label text-fl-accent mb-1 font-mono font-bold tracking-widest uppercase">
                 {t('structure')}
               </p>
-              <p className="text-fl-fg font-sans text-sm leading-relaxed">
+              <p className="text-fl-fg font-sans text-sm font-medium leading-relaxed">
                 {topic.structure}
               </p>
             </div>
@@ -373,9 +375,9 @@ function GrammarTopicContent({
         </div>
       </div>
 
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('explanation')}
           </span>
         </div>
@@ -399,11 +401,11 @@ function GrammarTopicContent({
       </div>
 
       {nativeLanguageName && (
-        <div className="border-fl-border bg-fl-surface border">
+        <div className="glass-card overflow-hidden rounded-2xl">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
+            className="border-fl-border/60 text-fl-label text-fl-fg flex w-full items-center justify-between border-b px-6 py-4 font-mono font-bold tracking-widest uppercase transition-colors hover:bg-white/40 dark:hover:bg-white/5"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -535,19 +537,19 @@ function GrammarTopicContent({
       )}
 
       {topic.rules.length > 0 && (
-        <div className="border-fl-border bg-fl-surface border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="glass-card overflow-hidden rounded-2xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
               {t('keyRules')}
             </span>
           </div>
           <ul className="space-y-2 px-6 py-5">
             {topic.rules.map((rule, i) => (
               <li key={i} className="flex items-start gap-2">
-                <span className="text-fl-label text-fl-muted-3 mt-0.5 shrink-0 font-mono">
+                <span className="text-fl-label text-fl-accent mt-0.5 shrink-0 font-mono font-bold">
                   {i + 1}.
                 </span>
-                <p className="text-fl-muted-1 max-w-[70ch] font-sans text-sm leading-relaxed">
+                <p className="text-fl-fg max-w-[70ch] font-sans text-sm leading-relaxed">
                   {rule}
                 </p>
               </li>
@@ -557,9 +559,9 @@ function GrammarTopicContent({
       )}
 
       {topic.examples.length > 0 && (
-        <div className="border-fl-border bg-fl-surface border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="glass-card overflow-hidden rounded-2xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
               {t('examples')}
             </span>
           </div>
@@ -567,13 +569,13 @@ function GrammarTopicContent({
             {topic.examples.map((ex, i) => (
               <div
                 key={i}
-                className="border-fl-border space-y-0.5 border-l-2 pl-4"
+                className="border-fl-accent/40 space-y-0.5 border-l-2 pl-4"
               >
                 <p className="text-fl-fg font-sans text-base leading-relaxed">
                   {ex.text}
                 </p>
                 {ex.note && (
-                  <p className="text-fl-muted-1 font-sans text-sm leading-relaxed italic">
+                  <p className="text-fl-muted-2 font-sans text-sm font-medium leading-relaxed italic">
                     {ex.note}
                   </p>
                 )}
@@ -584,9 +586,9 @@ function GrammarTopicContent({
       )}
 
       {topic.common_mistakes.length > 0 && (
-        <div className="border-fl-border bg-fl-surface border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="glass-card overflow-hidden rounded-2xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
               {t('commonMistakes')}
             </span>
           </div>
@@ -595,17 +597,17 @@ function GrammarTopicContent({
               <div key={i} className="space-y-1.5">
                 {m.wrong && (
                   <div className="flex items-start gap-2">
-                    <span className="text-fl-label shrink-0 font-mono text-red-500">
+                    <span className="text-fl-label shrink-0 font-mono font-bold text-red-500">
                       {'\u2717'}
                     </span>
-                    <p className="text-fl-muted-1 font-sans text-sm leading-relaxed line-through">
+                    <p className="text-fl-muted-2 font-sans text-sm leading-relaxed line-through">
                       {m.wrong}
                     </p>
                   </div>
                 )}
                 {m.correct && (
                   <div className="flex items-start gap-2">
-                    <span className="text-fl-label shrink-0 font-mono text-green-500">
+                    <span className="text-fl-label shrink-0 font-mono font-bold text-green-600 dark:text-green-400">
                       {'\u2713'}
                     </span>
                     <p className="text-fl-fg font-sans text-sm leading-relaxed">
@@ -614,7 +616,7 @@ function GrammarTopicContent({
                   </div>
                 )}
                 {m.note && (
-                  <p className="text-fl-muted-1 max-w-[70ch] pl-5 font-sans text-sm leading-relaxed">
+                  <p className="text-fl-muted-2 max-w-[70ch] pl-5 font-sans text-sm font-medium leading-relaxed">
                     {m.note}
                   </p>
                 )}
@@ -625,9 +627,9 @@ function GrammarTopicContent({
       )}
 
       {relatedTopics.length > 0 && (
-        <div className="border-fl-border bg-fl-surface border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="glass-card overflow-hidden rounded-2xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
               {t('relatedTopics')}
             </span>
           </div>
@@ -638,10 +640,12 @@ function GrammarTopicContent({
                   <Link
                     key={rt.slug}
                     href={`/grammar/${rt.slug}`}
-                    className="border-fl-border text-fl-label text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg border px-3 py-2 font-mono tracking-widest uppercase transition-colors"
+                    className="neu-button text-fl-label text-fl-fg rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
                   >
                     {'\u25cf'} {rt.title}
-                    <span className="text-fl-muted-4 ml-2">{rt.level}</span>
+                    <span className="text-fl-accent ml-2 font-bold">
+                      {rt.level}
+                    </span>
                   </Link>
                 )
             )}
@@ -651,7 +655,7 @@ function GrammarTopicContent({
 
       <Link
         href="/grammar"
-        className="text-fl-label text-fl-muted-2 hover:text-fl-fg inline-block font-mono tracking-widest uppercase transition-colors"
+        className="neu-button text-fl-label text-fl-fg inline-block rounded-xl px-4 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
       >
         {'\u2190'} {t('backLink')}
       </Link>

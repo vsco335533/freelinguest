@@ -33,13 +33,13 @@ export function BackPreference({
 
   return (
     <div className="min-w-0 space-y-2">
-      <label className="text-fl-muted-1 flex flex-col gap-2 text-sm">
+      <label className="text-fl-muted-1 flex flex-col gap-2 text-sm font-semibold">
         {t('backPreference')}
         <select
           value={value}
           disabled={loading || !loaded}
           onChange={(event) => void save(event.target.value as BackContent)}
-          className="border-fl-border bg-fl-bg text-fl-fg focus-visible:outline-fl-accent min-h-11 max-w-full border px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-40"
+          className="neu-input text-fl-fg focus-visible:outline-fl-accent min-h-11 max-w-full rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-40"
         >
           <option value="definition">{t('field_definition')}</option>
           <option value="translation">{t('field_translation')}</option>

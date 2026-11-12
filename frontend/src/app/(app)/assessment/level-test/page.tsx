@@ -228,20 +228,20 @@ export default function LevelTestPage() {
   if (step === 'error') {
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-accent font-bold">●</span>
+            <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
               {t('levelTest.title')}
             </span>
           </div>
           <div className="space-y-6 p-8">
-            <p className="font-mono text-xs leading-relaxed text-red-500">
+            <p className="font-mono text-xs leading-relaxed font-semibold text-red-500">
               {error}
             </p>
             <button
               onClick={() => router.push('/plan')}
-              className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg w-full border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-fg w-full rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase"
             >
               ← {t('levelTest.result.back')}
             </button>
@@ -304,12 +304,12 @@ export default function LevelTestPage() {
 
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-lg border">
+        <div className="neu-glass-card w-full max-w-lg overflow-hidden rounded-3xl">
           {/* Header */}
-          <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
+          <div className="border-fl-border/60 flex items-center justify-between border-b px-6 py-4">
             <div className="flex items-center gap-2">
-              <span className="text-fl-label text-fl-muted-3">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+              <span className="text-fl-label text-fl-accent font-bold">●</span>
+              <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
                 {t('levelTest.resultsTitle', { level: cefrLevel })}
               </span>
             </div>
@@ -318,13 +318,13 @@ export default function LevelTestPage() {
           <div className="space-y-6 p-8">
             {/* Score */}
             <div className="space-y-2 text-center">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+              <p className="text-fl-label text-fl-muted-3 font-mono font-bold tracking-widest uppercase">
                 {t('levelTest.finalScore')}
               </p>
               <p className="text-fl-fg font-mono text-7xl font-bold tracking-widest">
                 {pct}%
               </p>
-              <p className="text-fl-muted-3 font-mono text-xs">
+              <p className="text-fl-muted-2 font-mono text-xs font-semibold">
                 {t('levelTest.correctCount', {
                   correct: answers.filter((a) => a.correct).length,
                   total: questions.length,
@@ -341,20 +341,20 @@ export default function LevelTestPage() {
                 const label = getSkillLabel(skill)
                 return (
                   <div key={skill} className="flex items-center gap-3">
-                    <span className="text-fl-label text-fl-muted-3 w-6 text-center font-mono uppercase">
+                    <span className="text-fl-label text-fl-muted-3 w-6 text-center font-mono font-bold uppercase">
                       {label[0]?.toUpperCase() ?? '?'}
                     </span>
-                    <span className="text-fl-label text-fl-muted-2 w-24 font-mono tracking-widest uppercase">
+                    <span className="text-fl-label text-fl-muted-2 w-24 font-mono font-semibold tracking-widest uppercase">
                       {label}
                     </span>
-                    <div className="bg-fl-border h-1.5 flex-1">
+                    <div className="bg-fl-border/60 h-2 flex-1 overflow-hidden rounded-full">
                       <div
-                        className={`h-full transition-all ${isWeak ? 'bg-amber-500' : 'bg-fl-fg'}`}
+                        className={`h-full rounded-full transition-all ${isWeak ? 'bg-amber-500' : 'bg-fl-accent'}`}
                         style={{ width: `${skillPct}%` }}
                       />
                     </div>
                     <span
-                      className={`text-fl-label w-16 text-right font-mono ${isWeak ? 'text-amber-500' : 'text-fl-fg'}`}
+                      className={`text-fl-label w-16 text-right font-mono font-semibold ${isWeak ? 'text-amber-500' : 'text-fl-fg'}`}
                     >
                       {v.correct}/{v.total} ({skillPct}%)
                       {isWeak && ' ◂'}
@@ -365,29 +365,29 @@ export default function LevelTestPage() {
             </div>
 
             {/* Recommendation */}
-            <div className="border-fl-border space-y-3 border p-6">
+            <div className="glass-card space-y-3 rounded-2xl p-6">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{rec.icon}</span>
                 <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
                   {t('levelTest.result.recommendation')}: {rec.label}
                 </span>
               </div>
-              <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
+              <p className="text-fl-muted-2 font-mono text-xs leading-relaxed font-medium">
                 {rec.message}
               </p>
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2.5">
               <button
                 onClick={() => router.push(rec.nextAction)}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+                className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest text-white uppercase"
               >
                 {rec.nextLabel}
               </button>
               <button
                 onClick={() => router.push('/plan')}
-                className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg w-full border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-muted-1 hover:text-fl-fg w-full rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase"
               >
                 ← {t('levelTest.result.back')}
               </button>
@@ -408,33 +408,33 @@ export default function LevelTestPage() {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-lg border">
+      <div className="neu-glass-card w-full max-w-lg rounded-3xl">
         {/* Header */}
-        <div className="border-fl-border space-y-3 border-b px-6 py-4">
+        <div className="border-fl-border/60 space-y-3 border-b px-6 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-fl-label text-fl-muted-3">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+              <span className="text-fl-accent text-fl-label">●</span>
+              <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
                 {t('levelTest.quizTitle', { level: cefrLevel })}
               </span>
             </div>
-            <span className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <span className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
               {currentIndex + 1} / {questions.length}
             </span>
           </div>
           {/* Progress bar */}
-          <div className="bg-fl-border h-0.5">
+          <div className="bg-fl-border/60 h-1.5 overflow-hidden rounded-full">
             <div
-              className="bg-fl-fg h-full transition-all duration-300"
+              className="bg-fl-accent h-full rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
           {/* Skill badge */}
           <div className="flex items-center gap-2">
-            <span className="border-fl-border text-fl-label text-fl-muted-2 border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="glass-card text-fl-label text-fl-fg rounded-full px-3 py-1 font-mono font-semibold tracking-widest uppercase">
               {skillLabel}
             </span>
-            <span className="border-fl-border text-fl-label text-fl-muted-3 border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="glass-card text-fl-label text-fl-muted-2 rounded-full px-3 py-1 font-mono font-semibold tracking-widest uppercase">
               {q.difficulty}
             </span>
           </div>
@@ -442,29 +442,29 @@ export default function LevelTestPage() {
 
         {/* Question */}
         <div className="space-y-6 p-8">
-          <p className="text-fl-fg font-mono text-sm leading-relaxed">
+          <p className="text-fl-fg font-mono text-sm font-medium leading-relaxed">
             {q.question}
           </p>
 
           {/* Options */}
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {q.options.map((option, i) => {
               let style =
-                'w-full text-left border font-mono text-xs tracking-wide py-3.5 px-4 transition-colors cursor-pointer'
+                'w-full text-left rounded-xl font-mono text-xs font-medium tracking-wide py-3.5 px-4 transition-all cursor-pointer'
 
               if (!answerConfirmed) {
                 style +=
                   selectedOption === option
-                    ? ' border-fl-fg text-fl-fg bg-fl-surface'
-                    : ' border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                    ? ' neu-card ring-2 ring-fl-accent/60 text-fl-fg font-semibold'
+                    : ' neu-button text-fl-fg hover:text-fl-accent'
               } else {
                 if (option === q.correct) {
                   style +=
-                    ' border-green-500 text-green-600 dark:text-green-400'
+                    ' glass-card border-green-500 text-green-700 dark:text-green-400 font-semibold'
                 } else if (option === selectedOption && option !== q.correct) {
-                  style += ' border-red-500 text-red-500'
+                  style += ' glass-card border-red-500 text-red-600 font-semibold'
                 } else {
-                  style += ' border-fl-border text-fl-muted-3 opacity-50'
+                  style += ' glass-card text-fl-muted-3 opacity-60'
                 }
               }
 
@@ -477,7 +477,9 @@ export default function LevelTestPage() {
                   disabled={answerConfirmed}
                   className={style}
                 >
-                  <span className="text-fl-muted-3 mr-3">{prefix}.</span>
+                  <span className="text-fl-muted-3 mr-3 font-bold">
+                    {prefix}.
+                  </span>
                   {option}
                 </button>
               )
@@ -489,17 +491,17 @@ export default function LevelTestPage() {
             <button
               onClick={handleConfirmAnswer}
               disabled={!selectedOption}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+              className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-40"
             >
               {t('levelTest.confirm')}
             </button>
           ) : (
             <div className="space-y-3">
               <div
-                className={`border p-3 font-mono text-xs leading-relaxed ${
+                className={`glass-card rounded-xl p-3.5 font-mono text-xs font-semibold leading-relaxed ${
                   answers.at(-1)?.correct
-                    ? 'border-green-500 text-green-600 dark:text-green-400'
-                    : 'border-red-500 text-red-500'
+                    ? 'border-green-500 text-green-700 dark:text-green-400'
+                    : 'border-red-500 text-red-600'
                 }`}
               >
                 {answers.at(-1)?.correct
@@ -508,7 +510,7 @@ export default function LevelTestPage() {
               </div>
               <button
                 onClick={handleNext}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+                className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-all"
               >
                 {currentIndex + 1 >= questions.length
                   ? `${t('levelTest.submit')} →`

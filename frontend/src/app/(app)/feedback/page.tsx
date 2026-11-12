@@ -48,11 +48,13 @@ type SortOption = 'votes' | 'date'
 const PAGE_SIZE = 10
 
 const STATUS_STYLES: Record<string, string> = {
-  pending: 'border-fl-border text-fl-muted-2',
-  planned: 'border-blue-500/40 text-blue-400',
-  in_progress: 'border-yellow-500/40 text-yellow-400',
-  done: 'border-green-500/40 text-green-400',
-  declined: 'border-fl-error/30 text-fl-error-fg',
+  pending: 'border-fl-border text-fl-muted-2 bg-white/40 dark:bg-white/5',
+  planned:
+    'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  in_progress:
+    'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  done: 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300',
+  declined: 'border-fl-error/40 bg-fl-error/10 text-fl-error-fg',
 }
 
 // ---------------------------------------------------------------------------
@@ -75,7 +77,7 @@ function StatusBadge({ status, label }: { status: string; label: string }) {
   const cls = STATUS_STYLES[status] ?? STATUS_STYLES.pending
   return (
     <span
-      className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${cls}`}
+      className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${cls}`}
     >
       {label}
     </span>
@@ -100,9 +102,9 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
   const [error, setError] = useState('')
 
   const inputCls =
-    'w-full bg-fl-bg border border-fl-border px-4 py-3 font-mono text-xs text-fl-fg placeholder:text-fl-muted-4 focus:outline-none focus:border-fl-border-2 transition-colors resize-none'
+    'w-full neu-input rounded-xl px-4 py-3 font-mono text-xs font-medium text-fl-fg placeholder:text-fl-muted-3 focus:outline-none transition-all resize-none'
   const textareaCls =
-    'w-full bg-fl-bg border border-fl-border px-4 py-3 font-mono text-xs text-fl-fg placeholder:text-fl-muted-4 focus:outline-none focus:border-fl-border-2 transition-colors resize-y min-h-[106px]'
+    'w-full neu-input rounded-xl px-4 py-3 font-mono text-xs font-medium text-fl-fg placeholder:text-fl-muted-3 focus:outline-none transition-all resize-y min-h-[106px]'
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -145,14 +147,14 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
       onClick={onClose}
     >
       <div
-        className="border-fl-border bg-fl-surface w-full max-w-md border shadow-2xl"
+        className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
+        <div className="border-fl-border/60 flex items-center justify-between border-b px-6 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-fl-label text-fl-muted-2">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <span className="text-fl-accent text-fl-label">●</span>
+            <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
               {type === 'feature'
                 ? t('modalCreateTitleFeature')
                 : t('modalCreateTitleBug')}
@@ -160,21 +162,21 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
           </div>
           <button
             onClick={onClose}
-            className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono transition-colors"
+            className="neu-button text-fl-label text-fl-fg rounded-full px-2.5 py-1 font-mono font-bold transition-all"
           >
             ✕
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-3 p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 p-6">
           {error && (
-            <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+            <div className="border-fl-error/40 text-fl-error glass-card rounded-xl border px-4 py-3 font-mono text-xs font-semibold">
               ✕ {error}
             </div>
           )}
           <div>
-            <label className="text-fl-muted-2 mb-1 block font-mono text-xs tracking-widest uppercase">
+            <label className="text-fl-fg mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
               {t('labelTitle')}
             </label>
             <input
@@ -193,7 +195,7 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
             />
           </div>
           <div>
-            <label className="text-fl-muted-2 mb-1 block font-mono text-xs tracking-widest uppercase">
+            <label className="text-fl-fg mb-1.5 block font-mono text-xs font-semibold tracking-widest uppercase">
               {t('labelDescription')}
             </label>
             <textarea
@@ -210,18 +212,18 @@ function CreateModal({ type, onClose, onCreated }: CreateModalProps) {
               className={textareaCls}
             />
           </div>
-          <div className="flex gap-2 pt-1">
+          <div className="flex gap-2.5 pt-1">
             <button
               type="button"
               onClick={onClose}
-              className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 flex-1 border px-4 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-fg flex-1 rounded-xl px-4 py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
             >
               {t('cancel')}
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 flex-1 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="neu-button-primary flex-1 rounded-xl py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-50"
             >
               {submitting ? t('submitting') : t('submit')}
             </button>
@@ -353,25 +355,25 @@ function DetailView({
       {/* Back */}
       <button
         onClick={onBack}
-        className="text-fl-label text-fl-muted-1 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+        className="neu-button text-fl-label text-fl-fg rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
       >
         {t('backToList')}
       </button>
 
       {/* Entry card */}
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border space-y-3 border-b px-6 py-5">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 space-y-3 border-b px-6 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h2 className="text-fl-fg min-w-0 flex-1 font-mono text-base leading-snug font-bold">
               {entry.title}
             </h2>
             <StatusBadge status={entry.status} label={statusLabel} />
           </div>
-          <p className="text-fl-muted-1 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+          <p className="text-fl-fg font-mono text-xs font-medium leading-relaxed whitespace-pre-wrap">
             {entry.description}
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <span className="text-fl-hint text-fl-muted-4 inline-flex flex-wrap items-center gap-x-1 font-mono">
+            <span className="text-fl-hint text-fl-muted-2 inline-flex flex-wrap items-center gap-x-1 font-mono font-medium">
               <span>
                 {t('by')} {entry.author.display_name}
               </span>
@@ -383,10 +385,10 @@ function DetailView({
               <button
                 onClick={handleVote}
                 disabled={voting}
-                className={`text-fl-hint border px-3 py-1 font-mono tracking-widest uppercase transition-colors disabled:opacity-50 ${
+                className={`text-fl-hint rounded-full px-3.5 py-1.5 font-mono font-bold tracking-widest uppercase transition-all disabled:opacity-50 ${
                   entry.voted_by_me
-                    ? 'border-fl-accent/60 text-fl-accent bg-fl-accent/10'
-                    : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-fg'
                 }`}
               >
                 ▲ {entry.vote_count}
@@ -396,7 +398,7 @@ function DetailView({
             {(currentUserId === entry.author.id || isAdmin) && (
               <button
                 onClick={() => setDeleteEntryPending(true)}
-                className="text-fl-hint border-fl-error/30 text-fl-error-fg hover:border-fl-error ml-auto border px-3 py-1 font-mono tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-hint border-fl-error/30 text-fl-error-fg ml-auto rounded-xl px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all"
               >
                 {t('deleteEntry')}
               </button>
@@ -405,16 +407,16 @@ function DetailView({
         </div>
 
         {/* Comments */}
-        <div className="divide-fl-border divide-y">
+        <div className="divide-fl-border/60 divide-y">
           {comments.length === 0 ? (
-            <p className="text-fl-muted-4 px-6 py-6 text-center font-mono text-xs">
+            <p className="text-fl-muted-2 px-6 py-6 text-center font-mono text-xs font-medium">
               {t('addComment')}
             </p>
           ) : (
             comments.map((c) => (
               <div key={c.id} className="space-y-1 px-6 py-4">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-fl-hint text-fl-muted-2 inline-flex flex-wrap items-center gap-x-1 font-mono">
+                  <span className="text-fl-hint text-fl-muted-2 inline-flex flex-wrap items-center gap-x-1 font-mono font-semibold">
                     <span>{c.author.display_name}</span>
                     <AdminAuthorBadge role={c.author.role} />
                     <span>· {formatDate(c.created_at, locale)}</span>
@@ -422,13 +424,13 @@ function DetailView({
                   {currentUserId === c.author.id && (
                     <button
                       onClick={() => setDeletePendingComment(c)}
-                      className="text-fl-hint text-fl-muted-4 hover:text-fl-error-fg font-mono tracking-widest uppercase transition-colors"
+                      className="neu-button text-fl-hint text-fl-error-fg rounded-lg px-2.5 py-1 font-mono font-semibold tracking-widest uppercase transition-all"
                     >
                       {t('deleteComment')}
                     </button>
                   )}
                 </div>
-                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+                <p className="text-fl-fg font-mono text-xs font-medium leading-relaxed whitespace-pre-wrap">
                   {c.body}
                 </p>
               </div>
@@ -439,10 +441,10 @@ function DetailView({
         {/* Add comment form */}
         <form
           onSubmit={handlePostComment}
-          className="border-fl-border space-y-2 border-t px-6 py-4"
+          className="border-fl-border/60 space-y-3 border-t px-6 py-4"
         >
           {error && (
-            <div className="border-fl-error/40 text-fl-error border px-4 py-2 font-mono text-xs">
+            <div className="border-fl-error/40 text-fl-error glass-card rounded-xl border px-4 py-2 font-mono text-xs font-semibold">
               ✕ {error}
             </div>
           )}
@@ -452,12 +454,12 @@ function DetailView({
             onChange={(e) => setCommentBody(e.target.value)}
             placeholder={t('commentPlaceholder')}
             maxLength={2000}
-            className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 min-h-[50px] w-full resize-y border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input text-fl-fg placeholder:text-fl-muted-3 min-h-[50px] w-full resize-y rounded-xl px-4 py-2.5 font-mono text-xs font-medium transition-all focus:outline-none"
           />
           <button
             type="submit"
             disabled={postingComment || !commentBody.trim()}
-            className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-4 py-2 font-mono text-sm tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-40"
           >
             {postingComment ? t('postingComment') : t('postComment')}
           </button>
@@ -686,8 +688,8 @@ function FeedbackContent() {
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
       {/* Page header */}
-      <div className="border-fl-border border-b pb-4">
-        <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
+      <div className="border-fl-border/60 border-b pb-4">
+        <p className="text-fl-label text-fl-accent mb-1 font-mono font-bold tracking-widest uppercase">
           {t('title')}
         </p>
         <h1 className="text-fl-fg font-mono text-2xl font-bold tracking-tight">
@@ -696,7 +698,7 @@ function FeedbackContent() {
       </div>
 
       {/* Tabs */}
-      <div className="border-fl-border flex border-b">
+      <div className="glass-card flex flex-wrap items-center gap-2 rounded-2xl p-2">
         {(['feature', 'bug'] as Tab[]).map((tabOption) => (
           <button
             key={tabOption}
@@ -704,10 +706,10 @@ function FeedbackContent() {
               setPage(0)
               setTab(tabOption)
             }}
-            className={`-mb-px border-b-2 px-5 py-2 font-mono text-xs tracking-widest uppercase transition-colors ${
+            className={`rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
               tab === tabOption
-                ? 'border-fl-fg text-fl-fg'
-                : 'text-fl-muted-2 hover:text-fl-fg border-transparent'
+                ? 'neu-button-primary'
+                : 'neu-button text-fl-muted-2 hover:text-fl-fg'
             }`}
           >
             {tabOption === 'feature' ? t('tabFeatures') : t('tabBugs')}
@@ -716,7 +718,7 @@ function FeedbackContent() {
         <div className="flex-1" />
         <button
           onClick={() => setShowCreate(true)}
-          className="text-fl-muted-1 hover:text-fl-fg px-4 py-2 font-mono text-sm tracking-widest uppercase transition-colors"
+          className="neu-button-primary rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase transition-all"
         >
           {tab === 'feature' ? t('newFeature') : t('newBug')}
         </button>
@@ -724,7 +726,7 @@ function FeedbackContent() {
 
       {/* Filters + sort row */}
       <div className="flex flex-wrap items-center gap-3">
-        <span className="text-fl-hint text-fl-muted-4 font-mono tracking-widest uppercase">
+        <span className="text-fl-hint text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
           {t('sortBy')}
         </span>
         {(['votes', 'date'] as SortOption[]).map((s) => (
@@ -734,17 +736,17 @@ function FeedbackContent() {
               setPage(0)
               setSort(s)
             }}
-            className={`text-fl-hint border px-3 py-1 font-mono tracking-widest uppercase transition-colors ${
+            className={`text-fl-hint rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
               sort === s
-                ? 'border-fl-fg/40 text-fl-fg'
-                : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                ? 'neu-button-primary'
+                : 'neu-button text-fl-muted-2 hover:text-fl-fg'
             }`}
           >
             {s === 'votes' ? t('sortVotes') : t('sortDate')}
           </button>
         ))}
 
-        <span className="text-fl-hint text-fl-muted-4 ml-2 font-mono tracking-widest uppercase">
+        <span className="text-fl-hint text-fl-muted-2 ml-2 font-mono font-semibold tracking-widest uppercase">
           {t('filterStatus')}
         </span>
         <select
@@ -753,7 +755,7 @@ function FeedbackContent() {
             setPage(0)
             setStatusFilter(e.target.value)
           }}
-          className="bg-fl-bg border-fl-border text-fl-hint text-fl-muted-1 focus:border-fl-border-2 appearance-none border px-3 py-1 font-mono transition-colors focus:outline-none"
+          className="neu-input text-fl-hint text-fl-fg appearance-none rounded-xl px-3.5 py-1.5 font-mono font-semibold transition-all focus:outline-none"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -765,12 +767,12 @@ function FeedbackContent() {
 
       {/* Error */}
       {error && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-fl-error/40 text-fl-error glass-card rounded-2xl border px-4 py-3 font-mono text-xs font-semibold">
           ✕ {error}
           <button
             onClick={() => loadEntries(page, tab, sort, statusFilter)}
             disabled={loading}
-            className="ml-3 underline disabled:opacity-50"
+            className="neu-button ml-3 rounded-lg px-2.5 py-1 font-semibold disabled:opacity-50"
           >
             {tCommon('retry')}
           </button>
@@ -778,7 +780,7 @@ function FeedbackContent() {
       )}
 
       {/* List */}
-      <div className="border-fl-border bg-fl-surface border">
+      <div className="glass-card overflow-hidden rounded-2xl">
         {loading && (
           <PageLoading
             fullScreen={false}
@@ -788,7 +790,7 @@ function FeedbackContent() {
         {entries.length === 0 ? (
           !loading &&
           !error && (
-            <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs">
+            <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs font-semibold">
               {t('noEntries')}
             </p>
           )
@@ -802,15 +804,15 @@ function FeedbackContent() {
               return (
                 <div
                   key={entry.id}
-                  className={`hover:bg-fl-surface-2 flex cursor-pointer gap-4 px-5 py-4 transition-colors ${
-                    i < entries.length - 1 ? 'border-fl-border border-b' : ''
+                  className={`flex cursor-pointer gap-4 px-5 py-4 transition-colors hover:bg-white/40 dark:hover:bg-white/5 ${
+                    i < entries.length - 1 ? 'border-fl-border/60 border-b' : ''
                   }`}
                   onClick={() => setSelectedEntry(entry)}
                 >
                   {/* Vote column — only for features */}
                   {entry.type === 'feature' && (
                     <div
-                      className="flex shrink-0 flex-col items-center gap-0.5 pt-0.5"
+                      className="flex shrink-0 flex-col items-center gap-1 pt-0.5"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
@@ -854,17 +856,17 @@ function FeedbackContent() {
                             if (loadController.current) setVotingId(null)
                           }
                         }}
-                        className={`border px-2 py-1 font-mono text-sm leading-none transition-colors ${
+                        className={`rounded-xl px-2.5 py-1.5 font-mono text-sm leading-none font-bold transition-all ${
                           entry.voted_by_me
-                            ? 'border-fl-accent/60 text-fl-accent bg-fl-accent/10'
-                            : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                            ? 'neu-button-primary'
+                            : 'neu-button text-fl-fg'
                         }`}
                         title={voteLabel}
                         aria-label={voteLabel}
                       >
                         ▲
                       </button>
-                      <span className="text-fl-hint text-fl-muted-2 font-mono tabular-nums">
+                      <span className="text-fl-hint text-fl-fg font-mono font-bold tabular-nums">
                         {entry.vote_count}
                       </span>
                     </div>
@@ -875,7 +877,7 @@ function FeedbackContent() {
                   {/* Content */}
                   <div className="min-w-0 flex-1 space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-fl-fg truncate font-mono text-sm font-semibold">
+                      <span className="text-fl-fg truncate font-mono text-sm font-bold">
                         {entry.title}
                       </span>
                       <StatusBadge
@@ -883,16 +885,16 @@ function FeedbackContent() {
                         label={getStatusLabel(entry.status)}
                       />
                       {entry.unread_by_me && (
-                        <span className="text-fl-label border border-red-500/40 px-2 py-0.5 font-mono leading-none font-bold tracking-widest text-red-400 uppercase">
+                        <span className="text-fl-label rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-0.5 font-mono leading-none font-bold tracking-widest text-red-600 uppercase dark:text-red-400">
                           {t('unread')}
                         </span>
                       )}
                     </div>
-                    <p className="text-fl-muted-2 line-clamp-2 font-mono text-xs leading-relaxed">
+                    <p className="text-fl-muted-2 line-clamp-2 font-mono text-xs font-medium leading-relaxed">
                       {entry.description}
                     </p>
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-fl-hint text-fl-muted-4 inline-flex flex-wrap items-center gap-x-1 font-mono">
+                      <span className="text-fl-hint text-fl-muted-2 inline-flex flex-wrap items-center gap-x-1 font-mono font-medium">
                         <span>
                           {t('by')} {entry.author.display_name}
                         </span>
@@ -900,7 +902,7 @@ function FeedbackContent() {
                         <span>· {formatDate(entry.created_at, locale)}</span>
                       </span>
                       {entry.comment_count > 0 && (
-                        <span className="text-fl-hint text-fl-muted-4 font-mono">
+                        <span className="text-fl-hint text-fl-muted-2 font-mono font-medium">
                           ◌{' '}
                           {entry.comment_count === 1
                             ? t('comment')
@@ -914,7 +916,7 @@ function FeedbackContent() {
                             e.stopPropagation()
                             setDeletePending(entry)
                           }}
-                          className="text-fl-hint text-fl-muted-4 hover:text-fl-error-fg ml-auto font-mono tracking-widest uppercase transition-colors"
+                          className="neu-button text-fl-hint text-fl-error-fg ml-auto rounded-lg px-2.5 py-1 font-mono font-semibold tracking-widest uppercase transition-all"
                         >
                           {t('deleteEntry')}
                         </button>

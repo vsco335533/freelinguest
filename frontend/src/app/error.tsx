@@ -3,6 +3,8 @@
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { getLogger } from '@/lib/logger'
+import { LinguistLogoMark } from '@/components/ui/LinguistLogoMark'
+import { AuthBackdropOrbs } from '@/components/ui/LinguistBrandHeader'
 
 const errorLogger = getLogger('global-error')
 
@@ -20,20 +22,21 @@ export default function GlobalError({
   }, [error])
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-md border">
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center p-6">
+      <AuthBackdropOrbs />
+      <div className="neu-glass-card relative z-10 w-full max-w-md overflow-hidden">
         {/* Header */}
-        <div className="border-fl-border flex items-center gap-3 border-b px-8 py-6">
-          <span className="text-fl-muted-2 font-mono text-sm">●</span>
-          <span className="text-fl-muted-2 font-code text-xs tracking-widest uppercase">
-            FreeLingo
+        <div className="border-fl-border/60 flex items-center gap-3 border-b px-8 py-5">
+          <LinguistLogoMark size={26} />
+          <span className="text-fl-fg font-code text-xs font-bold tracking-widest uppercase">
+            Linguist
           </span>
         </div>
 
         {/* Body */}
         <div className="space-y-6 px-8 py-8">
           <div className="space-y-1">
-            <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <p className="text-fl-label font-mono tracking-widest text-blue-500 uppercase">
               {t('label')}
             </p>
             <h1 className="text-fl-fg font-mono text-xl font-bold tracking-tight">
@@ -55,13 +58,13 @@ export default function GlobalError({
           <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <button
               onClick={reset}
-              className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright flex-1 px-6 py-3 font-mono text-sm tracking-widest uppercase transition-colors"
+              className="neu-button-primary flex-1 px-6 py-3 font-mono text-sm font-bold tracking-widest uppercase"
             >
               {t('retry')}
             </button>
             <a
               href="/dashboard"
-              className="border-fl-border text-fl-fg-2 hover:bg-fl-surface-2 flex-1 border px-6 py-3 text-center font-mono text-xs tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-fg-2 flex-1 px-6 py-3 text-center font-mono text-xs tracking-widest uppercase"
             >
               {t('dashboard')}
             </a>
@@ -69,9 +72,9 @@ export default function GlobalError({
         </div>
 
         {/* Footer */}
-        <div className="border-fl-border border-t px-8 py-4">
+        <div className="border-fl-border/60 border-t px-8 py-4">
           <p className="text-fl-hint text-fl-muted-2 text-center font-mono">
-            &copy; FreeLingo
+            &copy; Linguist
           </p>
         </div>
       </div>

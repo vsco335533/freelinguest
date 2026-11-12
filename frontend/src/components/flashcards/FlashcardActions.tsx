@@ -155,9 +155,9 @@ export function FlashcardActions({
   }
 
   const buttonClass =
-    'border-fl-border text-fl-muted-1 hover:bg-fl-surface-2 hover:text-fl-fg focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40'
+    'neu-button text-fl-muted-1 hover:text-fl-fg focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40'
   const inputClass =
-    'border-fl-border bg-fl-bg text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full border px-3 py-2 font-sans text-base focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50'
+    'neu-input text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full rounded-xl px-3.5 py-2 font-sans text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50'
 
   return (
     <div className="space-y-3">
@@ -208,7 +208,7 @@ export function FlashcardActions({
       </div>
       {mode === 'edit' && (
         <form
-          className="border-fl-border bg-fl-bg space-y-4 border p-4 sm:p-5"
+          className="glass-card space-y-4 rounded-2xl p-4 sm:p-5"
           aria-label={t('editCard')}
           onSubmit={(event) => {
             event.preventDefault()
@@ -269,7 +269,7 @@ export function FlashcardActions({
                 !draft.word.trim() ||
                 !draft.definition.trim()
               }
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+              className="neu-button-primary focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Check className="size-4 shrink-0" aria-hidden="true" />
               {pending ? common('saving') : common('save')}

@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useConfigStore } from '@/store/config'
+import { LinguistBrandHeader } from '@/components/ui/LinguistBrandHeader'
 
 export default function PrivacyPage() {
   const t = useTranslations('legal.privacy')
@@ -72,27 +72,17 @@ export default function PrivacyPage() {
 
   return (
     <div>
-      <div className="mb-10 flex flex-col items-center">
-        <Link href="/">
-          <Image
-            src="/logo.png"
-            alt="FreeLingo"
-            width={48}
-            height={48}
-            className="mb-3"
-          />
-        </Link>
-        <p className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-          FreeLingo
-        </p>
-        <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
-          {tCommon('tagline')}
-        </p>
-      </div>
+      <LinguistBrandHeader
+        href="/"
+        asHeading={false}
+        size={48}
+        subtitle={tCommon('tagline')}
+        className="mb-10"
+      />
 
-      <div className="border-fl-border bg-fl-surface space-y-8 border p-8">
-        <div className="border-fl-border flex items-center gap-2 border-b pb-4">
-          <span className="text-fl-label text-fl-muted-2">●</span>
+      <div className="neu-glass-card space-y-8 p-8">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b pb-4">
+          <span className="text-fl-label text-blue-500">●</span>
           <h1 className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
             {t('pageTitle')}
           </h1>

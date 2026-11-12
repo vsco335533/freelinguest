@@ -31,29 +31,29 @@ export default function AdaptiveQuizCard({
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-lg border">
+      <div className="neu-glass-card w-full max-w-lg overflow-hidden rounded-3xl">
         {/* Header */}
-        <div className="border-fl-border flex items-center justify-between border-b px-6 py-4">
+        <div className="border-fl-border/60 flex items-center justify-between border-b px-6 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <span className="text-fl-label text-fl-accent font-bold">●</span>
+            <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
               {t('step2', { questionNumber, totalQuestions })}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-fl-hint text-fl-muted-3 border-fl-border border px-2 py-1 font-mono tracking-widest uppercase">
+            <span className="text-fl-hint text-fl-muted-3 border-fl-border rounded-full border px-2.5 py-1 font-mono font-semibold tracking-widest uppercase">
               {question.difficulty}
             </span>
-            <span className="text-fl-hint text-fl-muted-3 border-fl-border border px-2 py-1 font-mono tracking-widest uppercase">
+            <span className="text-fl-hint text-fl-muted-3 border-fl-border rounded-full border px-2.5 py-1 font-mono font-semibold tracking-widest uppercase">
               {skillLabelMap[question.skill] ?? question.skill}
             </span>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="bg-fl-border h-px">
+        <div className="bg-fl-border/60 h-1.5 overflow-hidden rounded-full">
           <div
-            className="bg-fl-fg h-px transition-all duration-300"
+            className="bg-fl-accent h-1.5 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -69,16 +69,16 @@ export default function AdaptiveQuizCard({
           </TargetLanguageText>
 
           {/* Options */}
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {question.options.map((option, i) => {
               const labels = ['A', 'B', 'C', 'D']
               return (
                 <button
                   key={option}
                   onClick={() => onAnswer(option)}
-                  className="border-fl-border text-fl-muted-1 hover:border-fl-border-2 hover:text-fl-fg hover:bg-fl-surface-2 flex w-full items-start gap-3 border px-4 py-3 text-left transition-colors"
+                  className="neu-button text-fl-muted-1 hover:text-fl-fg flex w-full items-start gap-3 rounded-xl px-4 py-3 text-left"
                 >
-                  <span className="text-fl-label text-fl-muted-3 shrink-0 font-mono">
+                  <span className="text-fl-label text-fl-muted-3 shrink-0 font-mono font-bold">
                     {labels[i]}.
                   </span>
                   <TargetLanguageText languageCode={languageCode}>
@@ -92,7 +92,7 @@ export default function AdaptiveQuizCard({
           {/* Declared gap — kept apart from A-D so it does not read as a fifth option */}
           <button
             onClick={() => onAnswer(DONT_KNOW_ANSWER)}
-            className="text-fl-caption text-fl-muted-1 hover:text-fl-fg w-full py-3 font-mono tracking-widest uppercase transition-colors"
+            className="neu-button text-fl-caption text-fl-muted-1 hover:text-fl-fg w-full rounded-xl py-3 font-mono font-bold tracking-widest uppercase"
           >
             {t('dontKnow')}
           </button>

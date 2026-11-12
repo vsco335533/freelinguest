@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Dostępne w chmurze, bez instalacji, lub na własnym serwerze.",
       "compare": "Porównaj opcje",
-      "accounts": "Każda instalacja ma własne konta i postępy. Główny przycisk otwiera tę instalację; link FreeLingo Cloud prowadzi do oficjalnej usługi.",
-      "title": "Dwa sposoby korzystania z FreeLingo",
+      "accounts": "Każda instalacja ma własne konta i postępy. Główny przycisk otwiera tę instalację; link Linguist Cloud prowadzi do oficjalnej usługi.",
+      "title": "Dwa sposoby korzystania z Linguist",
       "cloud": {
         "title": "Cloud · My zarządzamy",
-        "description": "Ucz się w przeglądarce dzięki zarządzanej usłudze FreeLingo.",
+        "description": "Ucz się w przeglądarce dzięki zarządzanej usłudze Linguist.",
         "setup": "Hosting, utrzymanie i aktualizacje w cenie usługi.",
         "access": "AI i funkcje głosowe w ramach limitów Twojego planu.",
         "cost": "Zacznij od darmowego planu i wybierz Premium, aby ćwiczyć więcej.",
-        "cta": "Otwórz FreeLingo Cloud"
+        "cta": "Otwórz Linguist Cloud"
       },
       "selfHosted": {
         "title": "Własny serwer · Ty zarządzasz",
-        "description": "Zainstaluj FreeLingo we własnej infrastrukturze i wybierz dostawców AI oraz usług głosowych.",
+        "description": "Zainstaluj Linguist we własnej infrastrukturze i wybierz dostawców AI oraz usług głosowych.",
         "setup": "Kontroluj instalację, konfigurację i przechowywanie danych.",
         "access": "Wolne i bezpłatne oprogramowanie na licencji AGPL-3.0.",
         "cost": "Pokrywasz koszty infrastruktury, utrzymania i ewentualnych usług zewnętrznych.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Czym różni się chmura od własnego hostingu?",
-        "answer": "FreeLingo Cloud to zarządzana usługa na freelingo.app: załóż konto i ucz się bez zarządzania serwerem. Przy własnym hostingu instalujesz i utrzymujesz FreeLingo we własnej infrastrukturze oraz konfigurujesz usługi AI i głosowe. Dostępne możliwości zależą od konfiguracji."
+        "answer": "Linguist Cloud to zarządzana usługa na freelingo.app: załóż konto i ucz się bez zarządzania serwerem. Przy własnym hostingu instalujesz i utrzymujesz Linguist we własnej infrastrukturze oraz konfigurujesz usługi AI i głosowe. Dostępne możliwości zależą od konfiguracji."
       },
       "free": {
         "question": "Czy mogę zacząć za darmo? Czy potrzebuję karty?",
         "answer": "Rejestracja nie wymaga karty. Jeśli instalacja oferuje początkowy dostęp Premium, zaczyna się on przy rejestracji; potem korzystasz bezpłatnie z limitami, jeśli nie wykupisz subskrypcji. Płatna subskrypcja zaczyna się przy zakupie, chyba że plan wyraźnie oferuje dodatkowe dni próbne. Ta próba jest niezależna od okresu początkowego i wymaga metody płatności."
       },
       "hosting": {
-        "question": "Czego potrzebuję do własnego hostingu FreeLingo?",
+        "question": "Czego potrzebuję do własnego hostingu Linguist?",
         "answer": "Potrzebujesz serwera, Docker Compose oraz skonfigurowanych usług AI i głosowych. Odpowiadasz za instalację, aktualizacje i kopie zapasowe. Oprogramowanie AGPL-3.0 jest bezpłatne; infrastruktura i dostawcy zewnętrzni mogą generować koszty. Wymagania sprzętowe i obsługiwane języki głosowe zależą od wybranych dostawców."
       },
       "data": {
         "question": "Gdzie są przechowywane i przetwarzane moje dane?",
-        "answer": "W Cloud zespół FreeLingo zarządza przechowywaniem i wysyła treści AI oraz głosowe do dostawców usługi w celu przetwarzania. Przy własnym hostingu kontrolujesz przechowywanie i dostawców: zewnętrzne usługi AI lub głosowe otrzymują odpowiednie treści. Własny hosting nie oznacza automatycznie wyłącznie lokalnego przetwarzania."
+        "answer": "W Cloud zespół Linguist zarządza przechowywaniem i wysyła treści AI oraz głosowe do dostawców usługi w celu przetwarzania. Przy własnym hostingu kontrolujesz przechowywanie i dostawców: zewnętrzne usługi AI lub głosowe otrzymują odpowiednie treści. Własny hosting nie oznacza automatycznie wyłącznie lokalnego przetwarzania."
       },
       "languages": {
         "question": "Jakich języków mogę się uczyć?",
@@ -61,10 +61,10 @@
     "heroSub": "Twoja droga do nauki języków: lekcje na Twoim poziomie, ćwiczenia i gry utrwalające wiedzę oraz rozmowy głosowe z towarzyszem nauki opartym na AI.",
     "startFree": "Zacznij uczyć się za darmo",
     "freeNote": "Bez karty płatniczej. Bezpłatny dostęp ma limity użytkowania; możesz go rozszerzyć dzięki Premium.",
-    "seoTitle": "FreeLingo: ucz się języków z planem i Lingu",
+    "seoTitle": "Linguist: ucz się języków z planem i Lingu",
     "seoDescription": "Ucz się języków od A1 do C2 z indywidualnym planem, ćwiczeniami i grami. Wykorzystuj wiedzę w rozmowach z Lingu, twoim tutorem AI.",
     "journey": {
-      "title": "Jak działa FreeLingo",
+      "title": "Jak działa Linguist",
       "learnTitle": "Ucz się we własnym tempie",
       "learnDesc": "Poznaj swój poziom dzięki testowi i rozpocznij plan dopasowany do Ciebie. Przechodź kolejne lekcje w uporządkowanym programie od A1 do C2.",
       "practiceTitle": "Ćwicz i utrwalaj wiedzę",
@@ -123,7 +123,7 @@
     "start": "Rozpocznij",
     "retry": "Spróbuj ponownie",
     "or": "lub",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "dni",
     "logout": "Wyloguj",
     "logoutConfirmTitle": "Wyloguj się",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Notatki do zwrotów",
     "nativeHelpStudyTips": "Wskazówki do nauki",
     "nativeHelpWordNotes": "Notatki do słów",
-    "nativeHelpPractice": "Ćwiczenie"
+    "nativeHelpPractice": "Ćwiczenie",
+    "aiTutor": "Tutor AI",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "brak",
+    "baseLanguageSelect": "Język bazowy",
+    "loaderLearn": "UCZ SIĘ.",
+    "loaderSpeak": "MÓW.",
+    "loaderRead": "CZYTAJ.",
+    "loaderWrite": "PISZ",
+    "lessonTitlePattern": "{title} - Lekcja {n}",
+    "completionTestTitle": "Test poziomu {level}",
+    "unitTitles": {
+      "a1-unit-1": "Tożsamość i powitania",
+      "a1-unit-2": "Mój świat",
+      "a1-unit-3": "Codzienne życie",
+      "a1-unit-4": "Miejsca i położenie",
+      "a1-unit-5": "Czynności w tej chwili",
+      "a1-unit-6": "Wczoraj",
+      "a1-unit-7": "Umiejętności i życzenia",
+      "a1-unit-8": "Utrwalenie A1",
+      "a2-unit-1": "Czasowniki nieregularne i opowieści o przeszłości",
+      "a2-unit-2": "Plany i przyszłość",
+      "a2-unit-3": "Porównania",
+      "a2-unit-4": "Umiejętność i pozwolenie",
+      "a2-unit-5": "Ilość i zakupy",
+      "a2-unit-6": "Zdrowie i ciało",
+      "a2-unit-7": "Podróże i transport",
+      "a2-unit-8": "Utrwalenie A2",
+      "b1-unit-1": "Aspekty czasu Present Perfect",
+      "b1-unit-2": "Tryby warunkowe zero, pierwszy i drugi",
+      "b1-unit-3": "Strona bierna",
+      "b1-unit-4": "Zdania przydawkowe, łączniki i czasowniki frazowe",
+      "b1-unit-5": "Czasowniki modalne, rady i pytania rozłączne",
+      "b1-unit-6": "Mowa zależna",
+      "b1-unit-7": "Past Perfect, życzenia i żal",
+      "b1-unit-8": "Utrwalenie B1",
+      "b2-unit-1": "Narracja przeszła i kolejność zdarzeń",
+      "b2-unit-2": "Zaawansowane życzenia: Wish + Would/Could",
+      "b2-unit-3": "Tryby warunkowe 2 i 3",
+      "b2-unit-4": "Konstrukcje Have/Get, strona bierna z modalami i bezokoliczniki bierne",
+      "b2-unit-5": "Gerundium, bezokoliczniki i czasowniki frazowe",
+      "b2-unit-6": "Mowa zależna i konstrukcje modalne w przeszłości",
+      "b2-unit-7": "Ustępstwo, kontrast i dyskurs akademicki",
+      "b2-unit-8": "Utrwalenie B2",
+      "c1-unit-1": "Mieszane tryby warunkowe i spekulacja",
+      "c1-unit-2": "Zdania imiesłowowe",
+      "c1-unit-3": "Łagodzenie wypowiedzi i rejestr formalny",
+      "c1-unit-4": "Emfaza: inwersja i zdania rozszczepione",
+      "c1-unit-5": "Elipsa, substytucja i spójność tekstu",
+      "c1-unit-6": "Zaawansowane zdania przydawkowe, myślenie krytyczne i czasowniki frazowe",
+      "c1-unit-7": "Argumentacja i retoryka",
+      "c1-unit-8": "Utrwalenie C1",
+      "c2-unit-1": "Znaczniki dyskursu i spójność tekstu",
+      "c2-unit-2": "Nominalizacja i styl akademicki",
+      "c2-unit-3": "Język idiomatyczny i przenośny",
+      "c2-unit-4": "Wysunięcie na początek, emfaza i środki stylistyczne",
+      "c2-unit-5": "Czytanie krytyczne i pisanie akademickie",
+      "c2-unit-6": "Brytyjska pragmatyka i styl mówiony",
+      "c2-unit-7": "Środki retoryczne i zaawansowana struktura tekstu",
+      "c2-unit-8": "Utrwalenie C2"
+    }
   },
   "detective": {
     "title": "Detektyw błędów",
@@ -466,7 +528,7 @@
     "cardProductReview": "Recenzja produktu",
     "cardLegalDocuments": "Dokumenty prawne",
     "sectionReview": "Recenzja",
-    "reviewDescription": "Podziel się swoim doświadczeniem z FreeLingo. Jeśli edytujesz już zatwierdzoną recenzję, wróci ona do moderacji przed publicznym wyświetleniem.",
+    "reviewDescription": "Podziel się swoim doświadczeniem z Linguist. Jeśli edytujesz już zatwierdzoną recenzję, wróci ona do moderacji przed publicznym wyświetleniem.",
     "reviewPending": "Oczekuje na zatwierdzenie",
     "reviewUpdate": "Aktualizuj",
     "reviewSaved": "Recenzja zapisana.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Regulamin",
-      "seoDescription": "Poznaj zasady FreeLingo dotyczące kont, dozwolonego użytkowania, bezpłatnego dostępu i subskrypcji platformy do nauki języków.",
+      "seoDescription": "Poznaj zasady Linguist dotyczące kont, dozwolonego użytkowania, bezpłatnego dostępu i subskrypcji platformy do nauki języków.",
       "updated": "Ostatnia aktualizacja: sierpień 2026",
-      "s1Title": "1. O FreeLingo",
-      "s1Body": "FreeLingo to platforma do nauki języków wspierana przez AI, dostępna w dwóch trybach: (1) samodzielnie hostowana, gdzie uruchamiasz ją na własnej infrastrukturze bezpłatnie, oraz (2) jako usługa hostowana prowadzona przez zespół FreeLingo, z darmowym planem i płatnymi subskrypcjami. Korzystając z tej usługi w dowolnym trybie, wyrażasz zgodę na niniejszy Regulamin.",
+      "s1Title": "1. O Linguist",
+      "s1Body": "Linguist to platforma do nauki języków wspierana przez AI, dostępna w dwóch trybach: (1) samodzielnie hostowana, gdzie uruchamiasz ją na własnej infrastrukturze bezpłatnie, oraz (2) jako usługa hostowana prowadzona przez zespół Linguist, z darmowym planem i płatnymi subskrypcjami. Korzystając z tej usługi w dowolnym trybie, wyrażasz zgodę na niniejszy Regulamin.",
       "s2Title": "2. Dopuszczalne użytkowanie",
-      "s2Intro": "Możesz korzystać z FreeLingo wyłącznie do osobistych celów nauki języków. Zgadzasz się nie:",
+      "s2Intro": "Możesz korzystać z Linguist wyłącznie do osobistych celów nauki języków. Zgadzasz się nie:",
       "s2i1": "Próbować uzyskać nieautoryzowanego dostępu do jakiejkolwiek części systemu.",
       "s2i2": "Przesyłać złośliwych treści ani próbować zakłócać działanie usługi.",
       "s2i3": "Udostępniać swoich danych logowania stronom trzecim.",
       "s2i4": "Używać automatycznych skryptów lub botów do nadużywania funkcji korepetytora AI.",
       "s3Title": "3. Konta użytkowników",
-      "s3Body": "Aby utworzyć konto i korzystać z FreeLingo, musisz mieć ukończone 16 lat. Rejestrując się, potwierdzasz, że spełniasz ten wymóg wiekowy. Jeśli dowiemy się, że konto należy do osoby poniżej 16. roku życia, usuniemy je wraz ze wszystkimi powiązanymi danymi bez powiadomienia. Jesteś odpowiedzialny(-a) za zachowanie poufności swoich danych logowania i za wszelką aktywność na swoim koncie.",
+      "s3Body": "Aby utworzyć konto i korzystać z Linguist, musisz mieć ukończone 16 lat. Rejestrując się, potwierdzasz, że spełniasz ten wymóg wiekowy. Jeśli dowiemy się, że konto należy do osoby poniżej 16. roku życia, usuniemy je wraz ze wszystkimi powiązanymi danymi bez powiadomienia. Jesteś odpowiedzialny(-a) za zachowanie poufności swoich danych logowania i za wszelką aktywność na swoim koncie.",
       "s4Title": "4. Treści i interakcje z AI",
-      "s4Body": "Rozmowy z korepetytorem AI są przechowywane w bazie danych dla ciągłości nauki. W usłudze hostowanej czat AI i funkcje głosowe są przetwarzane za pośrednictwem API OpenAI, a Twoje treści podlegają zasadom użytkowania OpenAI. AI może generować niedokładne odpowiedzi — zawsze stosuj własny osąd. FreeLingo nie ponosi odpowiedzialności za treści generowane przez modele językowe. Treści generowane przez korepetytora AI (ćwiczenia, poprawki, wyjaśnienia i inne materiały) należą do Ciebie do użytku osobistego. FreeLingo nie rości sobie praw własności do Twoich rozmów ani do treści z nich generowanych.",
+      "s4Body": "Rozmowy z korepetytorem AI są przechowywane w bazie danych dla ciągłości nauki. W usłudze hostowanej czat AI i funkcje głosowe są przetwarzane za pośrednictwem API OpenAI, a Twoje treści podlegają zasadom użytkowania OpenAI. AI może generować niedokładne odpowiedzi — zawsze stosuj własny osąd. Linguist nie ponosi odpowiedzialności za treści generowane przez modele językowe. Treści generowane przez korepetytora AI (ćwiczenia, poprawki, wyjaśnienia i inne materiały) należą do Ciebie do użytku osobistego. Linguist nie rości sobie praw własności do Twoich rozmów ani do treści z nich generowanych.",
       "s5Title": "5. Tryby usługi",
-      "s5Body": "Wdrożenia samodzielnie hostowane są bezpłatne, a operator zachowuje pełną kontrolę nad swoimi danymi i infrastrukturą. Usługa hostowana prowadzona przez zespół FreeLingo oferuje darmowy plan z limitami użytkowania oraz płatne subskrypcje na nielimitowany dostęp, dostępne w cyklu miesięcznym lub rocznym. Darmowy plan obejmuje 7-dniowy okres próbny z pełnym dostępem (bez podawania metody płatności), a następnie ograniczone dzienne limity na lekcje i czat AI oraz tygodniowe limity na ćwiczenia ze słuchania, czytania i rozmowy głosowe. Płatne subskrypcje znoszą wszystkie limity użytkowania tych funkcji. W usłudze hostowanej Twoje dane są przechowywane na serwerach zarządzanych przez zespół FreeLingo. Aktualne limity użytkowania Twojego konta są dostępne na pulpicie nawigacyjnym.",
+      "s5Body": "Wdrożenia samodzielnie hostowane są bezpłatne, a operator zachowuje pełną kontrolę nad swoimi danymi i infrastrukturą. Usługa hostowana prowadzona przez zespół Linguist oferuje darmowy plan z limitami użytkowania oraz płatne subskrypcje na nielimitowany dostęp, dostępne w cyklu miesięcznym lub rocznym. Darmowy plan obejmuje 7-dniowy okres próbny z pełnym dostępem (bez podawania metody płatności), a następnie ograniczone dzienne limity na lekcje i czat AI oraz tygodniowe limity na ćwiczenia ze słuchania, czytania i rozmowy głosowe. Płatne subskrypcje znoszą wszystkie limity użytkowania tych funkcji. W usłudze hostowanej Twoje dane są przechowywane na serwerach zarządzanych przez zespół Linguist. Aktualne limity użytkowania Twojego konta są dostępne na pulpicie nawigacyjnym.",
       "s6Title": "6. Subskrypcja i płatności",
       "s6Body": "Darmowy plan zapewnia ograniczony dostęp do funkcji AI z 7-dniowym pełnym okresem próbnym dla nowych użytkowników. Płatne subskrypcje są miesięczne lub roczne i odnawiają się automatycznie, o ile nie zostaną wcześniej anulowane. Możesz anulować je w Ustawieniach ze skutkiem na koniec bieżącego okresu. Operator może też anulować odnowienia lub subskrypcje, jeśli usługa zostanie zmieniona lub zamknięta. Jeśli usługa zakończy się przed końcem opłaconego okresu, zastosowanie ma zwrot wymagany prawem konsumenckim.",
       "s7Title": "7. Dostępność",
-      "s7Body": "Usługa hostowana jest świadczona bez gwarancji ciągłości lub dostępności. Operator może ją zmienić, zawiesić lub zamknąć w dowolnym momencie z przyczyn technicznych, finansowych lub innych. Planowane zamknięcie zostanie, w miarę rozsądnych możliwości, ogłoszone w aplikacji lub e-mailem. Po wskazanej dacie konta i dane operacyjne mogą zostać usunięte bez możliwości odzyskania. FreeLingo nie zapewnia usługi kopii zapasowych ani automatycznego eksportu.",
+      "s7Body": "Usługa hostowana jest świadczona bez gwarancji ciągłości lub dostępności. Operator może ją zmienić, zawiesić lub zamknąć w dowolnym momencie z przyczyn technicznych, finansowych lub innych. Planowane zamknięcie zostanie, w miarę rozsądnych możliwości, ogłoszone w aplikacji lub e-mailem. Po wskazanej dacie konta i dane operacyjne mogą zostać usunięte bez możliwości odzyskania. Linguist nie zapewnia usługi kopii zapasowych ani automatycznego eksportu.",
       "s8Title": "8. Ograniczenie odpowiedzialności",
-      "s8Body": "FreeLingo i jego współpracownicy nie ponoszą odpowiedzialności za żadne bezpośrednie, pośrednie, przypadkowe ani wtórne szkody wynikające z korzystania lub niemożności korzystania z tej usługi. Zgadzasz się zwolnić FreeLingo i jego współpracowników z odpowiedzialności oraz pokryć wszelkie roszczenia, szkody lub koszty osób trzecich wynikające z korzystania z usługi z naruszeniem niniejszych warunków.",
+      "s8Body": "Linguist i jego współpracownicy nie ponoszą odpowiedzialności za żadne bezpośrednie, pośrednie, przypadkowe ani wtórne szkody wynikające z korzystania lub niemożności korzystania z tej usługi. Zgadzasz się zwolnić Linguist i jego współpracowników z odpowiedzialności oraz pokryć wszelkie roszczenia, szkody lub koszty osób trzecich wynikające z korzystania z usługi z naruszeniem niniejszych warunków.",
       "s9Title": "9. Prawo właściwe",
       "s9Body": "Niniejszy regulamin podlega prawu Hiszpanii. Wszelkie spory wynikające z niniejszego regulaminu podlegają wyłącznej jurysdykcji sądów Hiszpanii.",
       "s10Title": "10. Zmiany regulaminu",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Polityka prywatności",
       "linkBack": "Wróć do rejestracji",
       "linkBackSettings": "Wróć do ustawień",
-      "linkContact": "W sprawach regulaminu użyj formularza freelingo.app, dopóki jest dostępny, lub kanału kontaktowego opublikowanego w repozytorium FreeLingo na GitHubie."
+      "linkContact": "W sprawach regulaminu użyj formularza freelingo.app, dopóki jest dostępny, lub kanału kontaktowego opublikowanego w repozytorium Linguist na GitHubie."
     },
     "privacy": {
       "pageTitle": "Polityka prywatności",
-      "seoDescription": "Dowiedz się, jak FreeLingo przetwarza dane osobowe, pamięć przeglądarki i anonimowe statystyki oraz jak korzystać z praw do prywatności.",
+      "seoDescription": "Dowiedz się, jak Linguist przetwarza dane osobowe, pamięć przeglądarki i anonimowe statystyki oraz jak korzystać z praw do prywatności.",
       "updated": "Ostatnia aktualizacja: 10 października 2026",
       "s1Title": "1. Przegląd",
-      "s1Body": "FreeLingo jest dostępny jako aplikacja samodzielnie hostowana i jako usługa hostowana. W przypadku wdrożeń samodzielnie hostowanych wszystkie dane są przechowywane wyłącznie na serwerze operatora, a autorzy projektu FreeLingo nie mają do nich dostępu.",
+      "s1Body": "Linguist jest dostępny jako aplikacja samodzielnie hostowana i jako usługa hostowana. W przypadku wdrożeń samodzielnie hostowanych wszystkie dane są przechowywane wyłącznie na serwerze operatora, a autorzy projektu Linguist nie mają do nich dostępu.",
       "s2Title": "2. Dane, które zbieramy",
-      "s2Intro": "FreeLingo nie jest skierowany do dzieci poniżej 16. roku życia. Gdy tworzysz konto i korzystasz z FreeLingo, przechowywane są następujące dane:",
+      "s2Intro": "Linguist nie jest skierowany do dzieci poniżej 16. roku życia. Gdy tworzysz konto i korzystasz z Linguist, przechowywane są następujące dane:",
       "s2i1": "Nazwa użytkownika, wyświetlana nazwa i adres e-mail.",
       "s2i2": "Zahaszowane hasło (bcrypt — Twoje hasło w postaci zwykłego tekstu nigdy nie jest przechowywane).",
       "s2i3": "Preferencje językowe i ustawienia nauki.",
@@ -532,7 +594,7 @@
       "s2i9": "Globalne wspomnienia i preferencje konta, których korepetytor AI uczy się podczas rozmów lub które dodajesz ręcznie, aby personalizować interakcje we wszystkich językach.",
       "s2i10": "Propozycje funkcji, zgłoszenia błędów, komentarze i głosy przesyłane za pośrednictwem tablicy sugestii. Publicznie wyświetlana jest tylko Twoja nazwa użytkownika; wszyscy użytkownicy mogą przeglądać opublikowane sugestie i zgłoszenia.",
       "s3Title": "3. Jak wykorzystujemy Twoje dane",
-      "s3Intro": "Twoje dane są wykorzystywane wyłącznie w celu świadczenia usługi nauki FreeLingo:",
+      "s3Intro": "Twoje dane są wykorzystywane wyłącznie w celu świadczenia usługi nauki Linguist:",
       "s3i1": "Uwierzytelnianie i utrzymywanie sesji.",
       "s3i2": "Personalizacja planu nauki i interakcji z korepetytorem.",
       "s3i3": "Śledzenie postępów w nauce w czasie.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Zewnętrzne usługi AI",
       "s4Body": "W usłudze hostowanej czat AI, synteza mowy (TTS) i transkrypcja mowy (STT) są świadczone za pośrednictwem API OpenAI. Treści rozmów i dźwięk są wysyłane do OpenAI w celu przetworzenia, zgodnie z Polityką prywatności OpenAI (openai.com/privacy). Przetwarzanie płatności jest obsługiwane przez Stripe, Inc. (USA); Stripe przetwarza dane płatnicze bezpośrednio i nie przechowujemy danych kart płatniczych na naszych serwerach — Twoje dane transakcyjne podlegają Polityce prywatności Stripe (stripe.com/privacy). W przypadku wdrożeń samodzielnie hostowanych operator wybiera dostawcę AI; domyślnie używana jest lokalna instancja Ollama i żadne dane nie opuszczają serwera.",
       "s5Title": "5. Pliki cookie, pamięć lokalna i analityka",
-      "s5Body": "FreeLingo używa technicznych plików cookie i plików preferencji: refresh_token (httpOnly, domyślnie 30 dni) do utrzymywania sesji oraz NEXT_LOCALE i LOCALE_DETECTED (do jednego roku) do zapamiętywania języka interfejsu i zarządzania nim. Pamięć lokalna przeglądarki przechowuje również preferencje interfejsu i głosu oraz stan powiadomień i przewodników, a pamięć sesji zapewnia tymczasową ciągłość funkcji. Wartości lokalne pozostają do czasu usunięcia ich przez aplikację lub przez Ciebie; wartości sesji są usuwane po wykorzystaniu lub zamknięciu karty. W usłudze hostowanej korzystamy z Umami, otwartoźródłowego narzędzia analitycznego hostowanego samodzielnie na tej samej infrastrukturze co FreeLingo, aby uzyskiwać anonimowe, zagregowane statystyki dotyczące korzystania z usługi i jej działania oraz ulepszać doświadczenie nauki. Analityka wykorzystuje techniczne dane o użytkowaniu, nie używa plików cookie, nie jest powiązana z kontami i nie służy tworzeniu indywidualnych profili ani reklamie. Dane analityczne nie są sprzedawane, przekazywane ani udostępniane podmiotom trzecim. Statystyki Umami nie są automatycznie usuwane i pozostają do czasu ręcznego usunięcia. W instalacjach samodzielnie hostowanych za konfigurację analityki odpowiada operator instancji. Powiadomienie o plikach cookie ma charakter informacyjny; jego zamknięcie zapisuje tylko fakt zamknięcia.",
+      "s5Body": "Linguist używa technicznych plików cookie i plików preferencji: refresh_token (httpOnly, domyślnie 30 dni) do utrzymywania sesji oraz NEXT_LOCALE i LOCALE_DETECTED (do jednego roku) do zapamiętywania języka interfejsu i zarządzania nim. Pamięć lokalna przeglądarki przechowuje również preferencje interfejsu i głosu oraz stan powiadomień i przewodników, a pamięć sesji zapewnia tymczasową ciągłość funkcji. Wartości lokalne pozostają do czasu usunięcia ich przez aplikację lub przez Ciebie; wartości sesji są usuwane po wykorzystaniu lub zamknięciu karty. W usłudze hostowanej korzystamy z Umami, otwartoźródłowego narzędzia analitycznego hostowanego samodzielnie na tej samej infrastrukturze co Linguist, aby uzyskiwać anonimowe, zagregowane statystyki dotyczące korzystania z usługi i jej działania oraz ulepszać doświadczenie nauki. Analityka wykorzystuje techniczne dane o użytkowaniu, nie używa plików cookie, nie jest powiązana z kontami i nie służy tworzeniu indywidualnych profili ani reklamie. Dane analityczne nie są sprzedawane, przekazywane ani udostępniane podmiotom trzecim. Statystyki Umami nie są automatycznie usuwane i pozostają do czasu ręcznego usunięcia. W instalacjach samodzielnie hostowanych za konfigurację analityki odpowiada operator instancji. Powiadomienie o plikach cookie ma charakter informacyjny; jego zamknięcie zapisuje tylko fakt zamknięcia.",
       "s6Title": "6. Twoje prawa (RODO)",
-      "s6Body": "W Europejskim Obszarze Gospodarczym masz prawa RODO do dostępu, sprostowania, usunięcia, sprzeciwu i przenoszenia danych. Konto możesz usunąć w Ustawieniach. Inne wnioski są obsługiwane ręcznie przez kontakt z sekcji 8; FreeLingo nie zapewnia automatycznego eksportu. Dane są przetwarzane w celu świadczenia usługi (Art. 6 ust. 1 lit. b RODO). OpenAI i Stripe mogą przetwarzać dane w USA z zastosowaniem właściwych zabezpieczeń transferów międzynarodowych. Możesz złożyć skargę do właściwego organu nadzorczego.",
+      "s6Body": "W Europejskim Obszarze Gospodarczym masz prawa RODO do dostępu, sprostowania, usunięcia, sprzeciwu i przenoszenia danych. Konto możesz usunąć w Ustawieniach. Inne wnioski są obsługiwane ręcznie przez kontakt z sekcji 8; Linguist nie zapewnia automatycznego eksportu. Dane są przetwarzane w celu świadczenia usługi (Art. 6 ust. 1 lit. b RODO). OpenAI i Stripe mogą przetwarzać dane w USA z zastosowaniem właściwych zabezpieczeń transferów międzynarodowych. Możesz złożyć skargę do właściwego organu nadzorczego.",
       "s7Title": "7. Przechowywanie i usuwanie danych",
-      "s7Body": "Dane operacyjne są przechowywane, dopóki istnieje konto i działa usługa hostowana. W Ustawieniach możesz usunąć wspomnienia, języki lub całe konto. Przy zamknięciu usługi operator może po rozsądnym możliwym powiadomieniu usunąć wszystkie konta i dane. Usunięcie jest nieodwracalne. Po usunięciu systemów i kopii kontrolowanych przez operatora FreeLingo nie będzie przechowywać danych osobowych. Stripe może zachować informacje o płatnościach i transakcjach zgodnie z własną polityką i obowiązkami prawnymi.",
+      "s7Body": "Dane operacyjne są przechowywane, dopóki istnieje konto i działa usługa hostowana. W Ustawieniach możesz usunąć wspomnienia, języki lub całe konto. Przy zamknięciu usługi operator może po rozsądnym możliwym powiadomieniu usunąć wszystkie konta i dane. Usunięcie jest nieodwracalne. Po usunięciu systemów i kopii kontrolowanych przez operatora Linguist nie będzie przechowywać danych osobowych. Stripe może zachować informacje o płatnościach i transakcjach zgodnie z własną polityką i obowiązkami prawnymi.",
       "s8Title": "8. Kontakt",
-      "s8Body": "W sprawach prywatności usługi hostowanej użyj formularza freelingo.app, dopóki jest dostępny. Po zamknięciu użyj kanału kontaktowego w repozytorium FreeLingo na GitHubie i nie publikuj danych osobowych w publicznych zgłoszeniach. Przy samodzielnym hostingu skontaktuj się z administratorem instancji.",
+      "s8Body": "W sprawach prywatności usługi hostowanej użyj formularza freelingo.app, dopóki jest dostępny. Po zamknięciu użyj kanału kontaktowego w repozytorium Linguist na GitHubie i nie publikuj danych osobowych w publicznych zgłoszeniach. Przy samodzielnym hostingu skontaktuj się z administratorem instancji.",
       "s9Title": "9. Rozdzielność",
       "s9Body": "Jeśli którekolwiek postanowienie niniejszej polityki zostanie uznane za nieważne lub niewykonalne, zostanie ono ograniczone w minimalnym zakresie, a pozostałe pozostaną w mocy.",
       "linkTerms": "Regulamin",
@@ -802,7 +864,8 @@
     "noPlanLabel": "ZACZNIJ",
     "noPlanTitle": "Stwórz plan nauki",
     "noPlanDesc": "Wykonaj szybką ocenę, aby poznać swój poziom i otrzymać spersonalizowaną ścieżkę nauki.",
-    "noPlanHint": "Zajmuje około 10 minut"
+    "noPlanHint": "Zajmuje około 10 minut",
+    "loadFailed": "Nie udało się załadować planu nauki"
   },
   "lesson": {
     "loading": "Ładowanie lekcji...",
@@ -1275,7 +1338,13 @@
         "sv": "Szwedzki",
         "da": "Duński",
         "fi": "Fiński",
-        "hr": "Chorwacki"
+        "hr": "Chorwacki",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamilski",
+        "ml": "Malajalam",
+        "or": "Orija",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Używaj fiszek do trenowania słownictwa równolegle",
     "workflowStep6": "Ćwicz swobodną rozmowę z Lingu",
     "q_language": "Jakiego języka będę się uczyć?",
-    "a_language": "FreeLingo obsługuje obecnie kilka języków ({languages}) i z czasem będziemy dodawać kolejne. Gdy nowy język będzie dostępny, znajdziesz go w Ustawieniach → Moje języki — dodaj go i zacznij się uczyć od razu.",
+    "a_language": "Linguist obsługuje obecnie kilka języków ({languages}) i z czasem będziemy dodawać kolejne. Gdy nowy język będzie dostępny, znajdziesz go w Ustawieniach → Moje języki — dodaj go i zacznij się uczyć od razu.",
     "q_assessment": "Czym jest ocena poziomu?",
     "a_assessment": "Adaptacyjny test z maksymalnie 15 pytaniami z banku pytań dla języka nauki. Obejmuje gramatykę, słownictwo i czytanie ze zrozumieniem od A1 do C2. Wynik szacuje poziom CEFR i wskazuje mocne strony oraz obszary do ćwiczeń; przed utworzeniem planu możesz zmienić sugerowany poziom.",
     "q_studyPlan": "Czym jest plan nauki i jak go wygenerować?",
@@ -1311,7 +1380,7 @@
     "a_listening": "W sekcji <strong>Listening</strong> Lingu przygotowuje ćwiczenia ze słuchu dopasowane do Twojego poziomu CEFR. Odsłuchaj nagranie i odpowiedz na 5 pytań sprawdzających rozumienie. Po przesłaniu otrzymujesz wynik (0–5), XP, poprawne odpowiedzi i pełną transkrypcję. Możesz generować nowe ćwiczenia na żądanie.",
     "q_reading": "Jak działają ćwiczenia z czytania?",
     "a_reading": "Sekcja <strong>Reading</strong> generuje teksty na Twoim poziomie CEFR — ogłoszenia, e-maile, artykuły, wpisy na blogu i więcej. Przeczytaj tekst i odpowiedz na 5 pytań wielokrotnego wyboru. Po przesłaniu otrzymujesz wynik (0–5) i XP. Nowe ćwiczenia mogą być generowane na żądanie.",
-    "q_providers": "Jakich dostawców AI obsługuje FreeLingo?",
+    "q_providers": "Jakich dostawców AI obsługuje Linguist?",
     "a_providers_intro": "Konfigurowane w <code>.env</code> przez <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Lokalny, bezpłatny. Wymaga Ollama działającego na hoście. Zalecany model: gemma4:e4b.",
     "provider_openai": "Usługa OpenAI z modelem skonfigurowanym przez administratora. Wymaga OPENAI_API_KEY i może generować koszty użytkowania.",
@@ -1424,7 +1493,10 @@
       "Plany na weekend",
       "Praca i cele zawodowe",
       "Praca zdalna"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Nagraj",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Lekcje",
     "flashcardsLabel": "Fiszki",
     "viewDetails": "Zobacz szczegóły",
-    "supportedLanguages": "Dostępne języki"
+    "supportedLanguages": "Dostępne języki",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Szwedzki",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Bezpłatny okres próbny",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Zacznij od {days} dni za darmo",
-    "trialTitleTrialUsed": "Aktywuj FreeLingo Premium",
+    "trialTitleTrialUsed": "Aktywuj Linguist Premium",
     "trialDesc": "Uzyskaj dostęp do Lingu, ćwiczeń głosowych, słuchania i czytania przed pierwszą płatnością.",
     "trialDescTrialUsed": "Wybierz plan, aby odblokować Lingu, ćwiczenia głosowe, listening i reading.",
     "trialCtaMonthly": "Wypróbuj za darmo, potem {price}€/mies.",
@@ -1576,7 +1658,7 @@
     "audioError": "Nie udało się odtworzyć dźwięku. Spróbuj ponownie.",
     "step1": {
       "label": "Witaj",
-      "title": "Witaj w FreeLingo",
+      "title": "Witaj w Linguist",
       "desc": "Cześć! Jestem Lingu, Twój towarzysz nauki języków. Pokażę Ci, jak możemy uczyć się razem."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Ćwicz dalej z grami",
     "paywallGamesDesc": "Darmowy limit został wyczerpany lub gry wymagają Premium. Możesz wznowić istniejące rozgrywki.",
     "paywallLabel": "Wymagane Premium",
-    "paywallTitle": "Odblokuj FreeLingo Premium",
+    "paywallTitle": "Odblokuj Linguist Premium",
     "paywallDesc": "Rozpocznij bezpłatny okres próbny na {days} dni i odblokuj wszystkie tryby Premium przed pierwszą płatnością.",
     "paywallDescTrialUsed": "Odblokuj wszystkie tryby Premium i sprawdź kwotę przed potwierdzeniem.",
     "paywallChatTitle": "Ćwicz z Lingu bez limitów",
@@ -1636,7 +1718,7 @@
     "planYearly": "Najlepsza oferta · {price}€/rok · 2 miesiące gratis →",
     "checkoutError": "Nie można uruchomić płatności. Spróbuj ponownie.",
     "pricingTitle": "Plany i ceny",
-    "pricingContext": "Te plany dotyczą tej instalacji. Własny hosting nie wymaga subskrypcji FreeLingo Cloud; administrator konfiguruje dostęp i limity.",
+    "pricingContext": "Te plany dotyczą tej instalacji. Własny hosting nie wymaga subskrypcji Linguist Cloud; administrator konfiguruje dostęp i limity.",
     "pricingDesc": "Dodatkowa próba przy zakupie subskrypcji: {days} dni · wymagana karta · potem obowiązuje cena planu",
     "pricingDescTrialUsed": "Płatna subskrypcja miesięczna lub roczna od zakupu. Anuluj kiedy chcesz.",
     "planMonthlyName": "Miesięczny",
@@ -1668,7 +1750,7 @@
       "l5": "7 dni pełnego dostępu"
     },
     "successLabel": "Płatność potwierdzona",
-    "successTitle": "Witaj w FreeLingo Premium!",
+    "successTitle": "Witaj w Linguist Premium!",
     "successDesc": "Twoja subskrypcja jest aktywna. Ciesz się nieograniczonym dostępem do wszystkich funkcji.",
     "successCheckingLabel": "Potwierdzanie subskrypcji",
     "successCheckingTitle": "Sprawdzamy subskrypcję",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "Płynniejsze korzystanie",
-      "desc": "Poprawiliśmy też drobne błędy i dopracowaliśmy kilka szczegółów, aby codzienna nauka z FreeLingo była jeszcze przyjemniejsza."
+      "desc": "Poprawiliśmy też drobne błędy i dopracowaliśmy kilka szczegółów, aby codzienna nauka z Linguist była jeszcze przyjemniejsza."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Nie udało się sprawdzić statusu Twojej recenzji. Spróbuj ponownie później.",
     "ratingRequiredError": "Wybierz ocenę przed wysłaniem.",
     "saveError": "Nie udało się zapisać recenzji. Spróbuj ponownie.",
-    "eyebrow": "Oceń FreeLingo",
+    "eyebrow": "Oceń Linguist",
     "title": "Jakie są Twoje wrażenia?",
     "closeLabel": "Zamknij prośbę o recenzję",
     "checking": "Sprawdzanie statusu recenzji...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Historie uczących się",
     "title": "Naukę widać lepiej, gdy opowiadasz o niej samodzielnie",
-    "subtitle": "Recenzje uczniów, którzy już ćwiczą z Lingu na FreeLingo.",
+    "subtitle": "Recenzje uczniów, którzy już ćwiczą z Lingu na Linguist.",
     "averageLabel": "{average}/5 · {count, plural, one {# ocena} few {# oceny} many {# ocen} other {# oceny}}",
     "ratingCount": "{count, plural, one {# ocena} few {# oceny} many {# ocen} other {# oceny}}",
     "carouselLabel": "Opinie uczących się",
@@ -1960,7 +2042,7 @@
     "readLess": "Zwiń",
     "learningLanguage": "Nauka: {language}",
     "starsLabel": "{rating} z 5 gwiazdek",
-    "ratingOnly": "Zweryfikowana ocena FreeLingo."
+    "ratingOnly": "Zweryfikowana ocena Linguist."
   },
   "adminReviews": {
     "title": "Recenzje",

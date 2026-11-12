@@ -22,7 +22,7 @@ export function FlashcardError({ onRetry }: { onRetry: () => void }) {
         {t('errorMessage')}
       </p>
       <button
-        className="border-fl-border text-fl-fg border px-4 py-2 text-sm"
+        className="neu-button text-fl-fg rounded-xl px-5 py-2.5 text-sm font-semibold"
         onClick={onRetry}
       >
         {t('retry')}

@@ -80,7 +80,7 @@ export function ConfirmDialog({
     >
       <div
         ref={dialogRef}
-        className="border-fl-border bg-fl-surface w-full max-w-sm border shadow-2xl"
+        className="neu-glass-card w-full max-w-sm overflow-hidden rounded-2xl"
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
         aria-modal="true"
@@ -118,12 +118,12 @@ export function ConfirmDialog({
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2 px-6 pb-6">
+        <div className="flex gap-2.5 px-6 pb-6">
           <button
             ref={cancelRef}
             onClick={onCancel}
             disabled={confirming}
-            className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+            className="neu-button text-fl-muted-2 hover:text-fl-fg flex-1 rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all"
           >
             {cancelLabel ?? tCommon('cancel')}
           </button>
@@ -131,10 +131,10 @@ export function ConfirmDialog({
             onClick={onConfirm}
             disabled={confirming}
             aria-busy={confirming}
-            className={`flex-1 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors ${
+            className={`flex-1 rounded-xl py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all ${
               danger
-                ? 'bg-fl-error text-fl-fg-bright hover:bg-fl-error-hover'
-                : 'bg-fl-fg text-fl-bg hover:bg-fl-fg-bright'
+                ? 'bg-fl-error text-fl-fg-bright hover:bg-fl-error-hover shadow-md'
+                : 'neu-button-primary text-white'
             }`}
           >
             {confirmLabel}

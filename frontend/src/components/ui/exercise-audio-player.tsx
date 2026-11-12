@@ -99,19 +99,19 @@ export function ExerciseAudioPlayer({
   const label = state === 'playing' ? 'Pause' : 'Play'
 
   return (
-    <div className="border-fl-border bg-fl-surface space-y-2 border p-4">
+    <div className="neu-card space-y-2 rounded-2xl p-4">
       <div className="flex items-center gap-4">
         <button
           onClick={handlePlayPause}
           disabled={state === 'loading'}
           aria-label={label}
-          className="text-fl-fg hover:text-fl-fg-bright w-8 shrink-0 text-center font-mono text-base transition-colors disabled:opacity-40"
+          className="neu-button text-fl-fg flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-mono text-sm disabled:opacity-40"
         >
           {icon}
         </button>
 
         <div
-          className="bg-fl-border relative h-1.5 flex-1 cursor-pointer"
+          className="bg-fl-border/60 relative h-2 flex-1 cursor-pointer overflow-hidden rounded-full"
           onClick={handleSeek}
           role="progressbar"
           aria-valuenow={Math.round(progress)}
@@ -119,13 +119,13 @@ export function ExerciseAudioPlayer({
           aria-valuemax={100}
         >
           <div
-            className="bg-fl-accent h-full transition-all"
+            className="bg-fl-accent h-full rounded-full transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {duration > 0 && (
-          <span className="text-fl-label text-fl-muted-3 shrink-0 font-mono tabular-nums">
+          <span className="text-fl-label text-fl-muted-2 shrink-0 font-mono font-semibold tabular-nums">
             {Math.ceil(duration)}s
           </span>
         )}

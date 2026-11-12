@@ -93,14 +93,43 @@ export default function LinguScene({
           return
         }
         model = gltf.scene
+
+        // Transform green robot enamel, LEDs, and screen to vibrant blue colors
+        model.traverse((object) => {
+          if (object instanceof Mesh) {
+            const materials = Array.isArray(object.material)
+              ? object.material
+              : [object.material]
+            materials.forEach((material) => {
+              const name = (material.name || '').toLowerCase()
+              if (
+                name.includes('verde') ||
+                name.includes('green') ||
+                name.includes('esmalte')
+              ) {
+                if ('color' in material && material.color) {
+                  if (name.includes('led') || name.includes('pantalla')) {
+                    material.color.setHex(0x38bdf8)
+                  } else {
+                    material.color.setHex(0x1d4ed8)
+                  }
+                }
+                if ('emissive' in material && material.emissive) {
+                  material.emissive.setHex(0x0284c7)
+                }
+              }
+            })
+          }
+        })
+
         const scene = new Scene()
         scene.add(model)
-        // Keep studio-style contrast without washing out Lingu's green enamel.
-        scene.add(new HemisphereLight(0xffffff, 0x527080, 2))
+        // Keep studio-style contrast tailored for Lingu's blue enamel.
+        scene.add(new HemisphereLight(0xffffff, 0x1e3a5f, 2))
         const key = new DirectionalLight(0xffffff, 4)
         key.position.set(5, 12, 10)
         scene.add(key)
-        const fill = new DirectionalLight(0xc5e4ff, 3)
+        const fill = new DirectionalLight(0xbbe1fa, 3)
         fill.position.set(-6, 7, 4)
         scene.add(fill)
         mixer = new AnimationMixer(model)

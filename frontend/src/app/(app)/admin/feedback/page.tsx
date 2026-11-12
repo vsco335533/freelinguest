@@ -409,12 +409,12 @@ function AdminFeedbackContent() {
       </div>
 
       {error && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-fl-error/40 text-fl-error glass-card rounded-2xl border px-4 py-3 font-mono text-xs font-semibold">
           {error}
           <button
             onClick={() => setReload((value) => value + 1)}
             disabled={loading}
-            className="ml-3 underline disabled:opacity-50"
+            className="neu-button ml-3 rounded-lg px-2.5 py-1 disabled:opacity-50"
           >
             {tCommon('retry')}
           </button>
@@ -427,18 +427,18 @@ function AdminFeedbackContent() {
           <div className="flex items-center gap-2">
             {loading && (
               <Loader2
-                className="text-fl-muted-3 size-3.5 animate-spin"
+                className="text-fl-accent size-3.5 animate-spin"
                 aria-hidden="true"
               />
             )}
-            <span className="text-fl-hint text-fl-muted-4 font-mono tracking-widest uppercase">
+            <span className="text-fl-hint text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
               {entries.length} / {total}
             </span>
           </div>
         }
       >
-        <div className="border-fl-border grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
-          <div className="flex min-w-0">
+        <div className="border-fl-border/60 grid gap-2 border-b px-5 py-3 lg:grid-cols-[minmax(14rem,1fr)_auto_auto_auto_auto]">
+          <div className="flex min-w-0 gap-1.5">
             <input
               type="search"
               placeholder={tAdmin('feedbackSearchPlaceholder')}
@@ -450,12 +450,12 @@ function AdminFeedbackContent() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 min-w-0 flex-1 border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+              className="neu-input text-fl-fg placeholder:text-fl-muted-3 min-w-0 flex-1 rounded-xl px-4 py-2 font-mono text-xs font-medium transition-all focus:outline-none"
             />
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-fl-bg border-fl-border text-fl-muted-3 hover:text-fl-fg hover:border-fl-border-2 -ml-px inline-flex w-10 shrink-0 items-center justify-center border transition-colors"
+              className="neu-button text-fl-fg inline-flex w-10 shrink-0 items-center justify-center rounded-xl transition-all"
               aria-label={tAdmin('feedbackSearchAction')}
             >
               <Search className="size-3.5" aria-hidden="true" />
@@ -468,7 +468,7 @@ function AdminFeedbackContent() {
               setPage(0)
               setTypeFilter(e.target.value as TypeFilter)
             }}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input text-fl-fg appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all focus:outline-none"
             aria-label={tAdmin('feedbackTypeFilter')}
           >
             {typeFilterOptions.map((o) => (
@@ -484,7 +484,7 @@ function AdminFeedbackContent() {
               setPage(0)
               setStatusFilter(e.target.value)
             }}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input text-fl-fg appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all focus:outline-none"
             aria-label={t('filterStatus')}
           >
             {statusFilterOptions.map((o) => (
@@ -500,7 +500,7 @@ function AdminFeedbackContent() {
               setPage(0)
               setSortFilter(e.target.value as SortFilter)
             }}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-4 py-2 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input text-fl-fg appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all focus:outline-none"
             aria-label={t('sortBy')}
           >
             {sortFilterOptions.map((o) => (
@@ -514,7 +514,7 @@ function AdminFeedbackContent() {
             type="button"
             onClick={clearFilters}
             disabled={!hasFilters}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 inline-flex items-center justify-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+            className="neu-button text-fl-label text-fl-fg inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-40"
           >
             <FilterX className="size-3.5" aria-hidden="true" />
             {tAdmin('clearFilters')}
@@ -531,7 +531,7 @@ function AdminFeedbackContent() {
         {entries.length === 0 ? (
           !loading &&
           !error && (
-            <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs">
+            <p className="text-fl-muted-2 px-6 py-10 text-center font-mono text-xs font-semibold">
               {hasFilters ? tAdmin('noFilteredFeedback') : t('noEntries')}
             </p>
           )
@@ -540,20 +540,20 @@ function AdminFeedbackContent() {
             <div className="hidden lg:block">
               <table className="w-full table-fixed border-collapse">
                 <thead>
-                  <tr className="border-fl-border border-b">
-                    <th className="text-fl-label text-fl-muted-4 w-[42%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                  <tr className="border-fl-border/60 border-b">
+                    <th className="text-fl-label text-fl-muted-2 w-[42%] px-5 py-3 text-left font-mono font-bold tracking-widest uppercase">
                       {tAdmin('feedbackItem')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[13%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-fl-label text-fl-muted-2 w-[13%] px-5 py-3 text-left font-mono font-bold tracking-widest uppercase">
                       {tAdmin('type')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[18%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-fl-label text-fl-muted-2 w-[18%] px-5 py-3 text-left font-mono font-bold tracking-widest uppercase">
                       {tAdmin('status')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[13%] px-5 py-3 text-left font-mono tracking-widest uppercase">
+                    <th className="text-fl-label text-fl-muted-2 w-[13%] px-5 py-3 text-left font-mono font-bold tracking-widest uppercase">
                       {tAdmin('signals')}
                     </th>
-                    <th className="text-fl-label text-fl-muted-4 w-[14%] px-5 py-3 text-right font-mono tracking-widest uppercase">
+                    <th className="text-fl-label text-fl-muted-2 w-[14%] px-5 py-3 text-right font-mono font-bold tracking-widest uppercase">
                       {tAdmin('actions')}
                     </th>
                   </tr>
@@ -562,16 +562,16 @@ function AdminFeedbackContent() {
                   {entries.map((entry) => (
                     <tr
                       key={entry.id}
-                      className="border-fl-border hover:bg-fl-bg/60 border-b last:border-0"
+                      className="border-fl-border/60 border-b transition-colors last:border-0 hover:bg-white/40 dark:hover:bg-white/5"
                     >
                       <td className="px-5 py-4 align-top">
-                        <p className="text-fl-fg line-clamp-1 font-mono text-sm">
+                        <p className="text-fl-fg line-clamp-1 font-mono text-sm font-bold">
                           {entry.title}
                         </p>
-                        <p className="text-fl-muted-2 mt-1 line-clamp-2 font-mono text-xs leading-relaxed">
+                        <p className="text-fl-muted-2 mt-1 line-clamp-2 font-mono text-xs font-medium leading-relaxed">
                           {entry.description}
                         </p>
-                        <p className="text-fl-label text-fl-muted-4 mt-2 flex flex-wrap items-center gap-x-1 font-mono">
+                        <p className="text-fl-label text-fl-muted-2 mt-2 flex flex-wrap items-center gap-x-1 font-mono font-medium">
                           <span>
                             {t('by')} {entry.author.display_name}
                           </span>
@@ -607,7 +607,7 @@ function AdminFeedbackContent() {
                               savingStatus !== null ||
                               deletingId !== null
                             }
-                            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                            className="neu-input text-fl-fg appearance-none rounded-xl px-3 py-2 font-mono text-xs font-semibold transition-all focus:outline-none disabled:opacity-50"
                             aria-label={tAdmin('feedbackStatusAction')}
                           >
                             {feedbackStatusOptions.map((option) => (
@@ -619,7 +619,7 @@ function AdminFeedbackContent() {
                         </div>
                       </td>
                       <td className="px-5 py-4 align-top">
-                        <div className="text-fl-muted-2 space-y-2 font-mono text-xs">
+                        <div className="text-fl-muted-2 space-y-2 font-mono text-xs font-semibold">
                           <p>▲ {entry.vote_count}</p>
                           <p>◌ {entry.comment_count}</p>
                         </div>
@@ -632,7 +632,7 @@ function AdminFeedbackContent() {
                             savingStatus !== null ||
                             deletingId !== null
                           }
-                          className="border-fl-error/30 text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex size-8 items-center justify-center border transition-colors disabled:opacity-40"
+                          className="neu-button border-fl-error/30 text-fl-error-fg hover:text-fl-error inline-flex size-8 items-center justify-center rounded-xl transition-all disabled:opacity-40"
                           aria-label={tAdmin('delete')}
                           title={tAdmin('delete')}
                         >
@@ -642,7 +642,9 @@ function AdminFeedbackContent() {
                               aria-hidden="true"
                             />
                           ) : (
-                            <span className="text-xs leading-none">X</span>
+                            <span className="text-xs font-bold leading-none">
+                              X
+                            </span>
                           )}
                         </button>
                       </td>
@@ -656,7 +658,7 @@ function AdminFeedbackContent() {
               {entries.map((entry, i) => (
                 <div
                   key={entry.id}
-                  className={`space-y-3 px-4 py-4 ${i < entries.length - 1 ? 'border-fl-border border-b' : ''}`}
+                  className={`space-y-3 px-4 py-4 ${i < entries.length - 1 ? 'border-fl-border/60 border-b' : ''}`}
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <AdminBadge
@@ -674,13 +676,13 @@ function AdminFeedbackContent() {
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-fl-fg font-mono text-sm">
+                    <p className="text-fl-fg font-mono text-sm font-bold">
                       {entry.title}
                     </p>
-                    <p className="text-fl-muted-2 mt-1 line-clamp-3 font-mono text-xs leading-relaxed">
+                    <p className="text-fl-muted-2 mt-1 line-clamp-3 font-mono text-xs font-medium leading-relaxed">
                       {entry.description}
                     </p>
-                    <p className="text-fl-label text-fl-muted-4 mt-2 flex flex-wrap items-center gap-x-1 font-mono">
+                    <p className="text-fl-label text-fl-muted-2 mt-2 flex flex-wrap items-center gap-x-1 font-mono font-medium">
                       <span>
                         {t('by')} {entry.author.display_name}
                       </span>
@@ -689,7 +691,7 @@ function AdminFeedbackContent() {
                     </p>
                   </div>
 
-                  <div className="text-fl-muted-3 flex flex-wrap items-center gap-3 font-mono text-xs">
+                  <div className="text-fl-muted-2 flex flex-wrap items-center gap-3 font-mono text-xs font-semibold">
                     <span>▲ {entry.vote_count}</span>
                     <span>◌ {entry.comment_count}</span>
                   </div>
@@ -703,7 +705,7 @@ function AdminFeedbackContent() {
                       disabled={
                         loading || savingStatus !== null || deletingId !== null
                       }
-                      className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 appearance-none border px-3 py-2 font-mono text-xs transition-colors focus:outline-none disabled:opacity-50"
+                      className="neu-input text-fl-fg appearance-none rounded-xl px-3 py-2 font-mono text-xs font-semibold transition-all focus:outline-none disabled:opacity-50"
                       aria-label={tAdmin('feedbackStatusAction')}
                     >
                       {feedbackStatusOptions.map((option) => (
@@ -717,7 +719,7 @@ function AdminFeedbackContent() {
                       disabled={
                         loading || savingStatus !== null || deletingId !== null
                       }
-                      className="border-fl-error/30 text-fl-label text-fl-error-fg hover:border-fl-error hover:text-fl-error inline-flex items-center justify-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase transition-colors disabled:opacity-40"
+                      className="neu-button border-fl-error/30 text-fl-label text-fl-error-fg hover:text-fl-error inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase transition-all disabled:opacity-40"
                     >
                       {deletingId === entry.id ? (
                         <Loader2

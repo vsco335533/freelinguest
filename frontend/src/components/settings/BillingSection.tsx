@@ -22,32 +22,32 @@ export function BillingSection() {
   if (!stripeEnabled) return null
 
   return (
-    <div className="border-fl-border bg-fl-surface border p-6">
-      <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="glass-card rounded-2xl p-6">
+      <div className="border-fl-border/60 mb-4 flex items-center gap-2 border-b pb-4">
+        <span className="text-fl-accent text-fl-label">●</span>
+        <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
           {tBilling('section')}
         </span>
       </div>
       <div className="space-y-4">
         {/* Status badge */}
         <div className="flex items-center justify-between">
-          <span className="text-fl-muted-1 font-mono text-xs tracking-widest uppercase">
+          <span className="text-fl-fg font-mono text-xs font-semibold tracking-widest uppercase">
             {tBilling('status')}
           </span>
           <span
-            className={`border px-2.5 py-1 font-mono text-xs font-bold tracking-widest uppercase ${
+            className={`rounded-full border px-3 py-1 font-mono text-xs font-bold tracking-widest uppercase ${
               user?.subscription_status === 'active' &&
               !user?.cancel_at_period_end
-                ? 'border-green-600/40 text-green-500'
+                ? 'border-green-600/40 bg-green-500/10 text-green-700 dark:text-green-400'
                 : user?.subscription_status === 'active' &&
                     user?.cancel_at_period_end
-                  ? 'border-fl-accent/40 text-fl-accent'
+                  ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
                   : user?.subscription_status === 'trialing'
-                    ? 'border-fl-accent/40 text-fl-accent'
+                    ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
                     : paymentRecovery
-                      ? 'border-yellow-500/40 text-yellow-500'
-                      : 'border-fl-border text-fl-muted-3'
+                      ? 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-400'
+                      : 'border-fl-border text-fl-muted-2 bg-white/40 dark:bg-white/5'
             }`}
           >
             {user?.subscription_status === 'active' &&
@@ -85,24 +85,24 @@ export function BillingSection() {
             user.cancel_at_period_end) &&
           new Date(user.subscription_ends_at) > new Date() && (
             <div className="flex items-center justify-between">
-              <span className="text-fl-muted-1 font-mono text-xs tracking-widest uppercase">
+              <span className="text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
                 {user.subscription_status === 'canceled' ||
                 user.cancel_at_period_end
                   ? tBilling('accessUntil')
                   : tBilling('nextBilling')}
               </span>
-              <span className="text-fl-muted-1 font-mono text-xs">
+              <span className="text-fl-fg font-mono text-xs font-semibold">
                 {new Date(user.subscription_ends_at).toLocaleDateString(locale)}
               </span>
             </div>
           )}
 
         {paymentRecovery && (
-          <div className="border border-yellow-500/30 bg-yellow-500/5 p-3">
-            <p className="font-mono text-xs font-bold tracking-widest text-yellow-500 uppercase">
+          <div className="glass-card rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-3.5">
+            <p className="font-mono text-xs font-bold tracking-widest text-yellow-700 uppercase dark:text-yellow-400">
               {tBilling('pastDueTitle')}
             </p>
-            <p className="text-fl-muted-1 mt-2 font-mono text-sm leading-relaxed">
+            <p className="text-fl-fg mt-2 font-mono text-sm font-medium leading-relaxed">
               {tBilling('pastDueDesc')}
             </p>
           </div>
@@ -113,7 +113,7 @@ export function BillingSection() {
           <button
             onClick={openPortal}
             disabled={portalLoading}
-            className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 w-full border py-2.5 font-mono text-sm tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="neu-button text-fl-fg w-full rounded-xl py-2.5 font-mono text-sm font-semibold tracking-widest uppercase transition-all disabled:opacity-50"
           >
             {portalLoading
               ? '...'

@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Tillgängligt i molnet utan installation eller på din egen server.",
       "compare": "Jämför alternativen",
-      "accounts": "Varje installation har egna konton och framsteg. Huvudknappen öppnar denna installation; FreeLingo Cloud-länken öppnar den officiella tjänsten.",
-      "title": "Två sätt att använda FreeLingo",
+      "accounts": "Varje installation har egna konton och framsteg. Huvudknappen öppnar denna installation; Linguist Cloud-länken öppnar den officiella tjänsten.",
+      "title": "Två sätt att använda Linguist",
       "cloud": {
         "title": "Cloud · Vi sköter driften",
-        "description": "Lär dig i webbläsaren med FreeLingos hanterade tjänst.",
+        "description": "Lär dig i webbläsaren med Linguists hanterade tjänst.",
         "setup": "Hosting, underhåll och uppdateringar ingår.",
         "access": "AI och röst ingår inom din plans användningsgränser.",
         "cost": "Börja gratis och välj Premium för att öva mer.",
-        "cta": "Öppna FreeLingo Cloud"
+        "cta": "Öppna Linguist Cloud"
       },
       "selfHosted": {
         "title": "Egen server · Du sköter driften",
-        "description": "Installera FreeLingo på din infrastruktur och välj leverantörer för AI och röst.",
+        "description": "Installera Linguist på din infrastruktur och välj leverantörer för AI och röst.",
         "setup": "Kontrollera installation, konfiguration och datalagring.",
         "access": "Fri och kostnadsfri programvara under AGPL-3.0.",
         "cost": "Du står för infrastruktur, underhåll och eventuella leverantörskostnader.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Vad är skillnaden mellan molnet och egen server?",
-        "answer": "FreeLingo Cloud är den hanterade tjänsten på freelingo.app: skapa ett konto och lär dig utan att sköta en server. Med egen server installerar och underhåller du FreeLingo på din infrastruktur och konfigurerar AI- och rösttjänster. Tillgängliga funktioner beror på din konfiguration."
+        "answer": "Linguist Cloud är den hanterade tjänsten på freelingo.app: skapa ett konto och lär dig utan att sköta en server. Med egen server installerar och underhåller du Linguist på din infrastruktur och konfigurerar AI- och rösttjänster. Tillgängliga funktioner beror på din konfiguration."
       },
       "free": {
         "question": "Kan jag börja gratis? Behöver jag ett kort?",
         "answer": "Registrering kräver inget kort. Om installationen erbjuder inledande Premium-åtkomst börjar den vid registrering; därefter fortsätter du gratis med gränser om du inte tecknar abonnemang. Betalabonnemanget börjar vid köpet, om planen inte uttryckligen erbjuder extra provdagar. Den provperioden är separat från den inledande perioden och kräver en betalningsmetod."
       },
       "hosting": {
-        "question": "Vad behöver jag för att köra FreeLingo på egen server?",
+        "question": "Vad behöver jag för att köra Linguist på egen server?",
         "answer": "Du behöver en server, Docker Compose och konfigurerade AI- och rösttjänster. Du ansvarar för installation, uppdateringar och säkerhetskopior. AGPL-3.0-programvaran är gratis; infrastruktur och externa leverantörer kan kosta pengar. Hårdvarukrav och stödda röstspråk beror på valda leverantörer."
       },
       "data": {
         "question": "Var lagras och behandlas mina data?",
-        "answer": "I Cloud hanterar FreeLingo-teamet lagringen och skickar AI- och röstinnehåll till tjänstens leverantörer för behandling. På egen server styr du lagring och leverantörer: externa AI- eller rösttjänster får relevant innehåll. Egen server innebär inte automatiskt att all behandling sker lokalt."
+        "answer": "I Cloud hanterar Linguist-teamet lagringen och skickar AI- och röstinnehåll till tjänstens leverantörer för behandling. På egen server styr du lagring och leverantörer: externa AI- eller rösttjänster får relevant innehåll. Egen server innebär inte automatiskt att all behandling sker lokalt."
       },
       "languages": {
         "question": "Vilka språk kan jag lära mig?",
@@ -61,10 +61,10 @@
     "heroSub": "En väg till språkinlärning: lektioner på din nivå, övningar och spel som stärker dina kunskaper och röstsamtal med din AI-studiekamrat.",
     "startFree": "Börja lära dig gratis",
     "freeNote": "Inget betalkort krävs. Gratis åtkomst har användningsgränser; du kan få mer med Premium.",
-    "seoTitle": "FreeLingo: lär dig språk med en plan och Lingu",
+    "seoTitle": "Linguist: lär dig språk med en plan och Lingu",
     "seoDescription": "Lär dig språk från A1 till C2 med en personlig studieplan, övningar och spel. Använd det du lär dig i samtal med Lingu, din AI-handledare.",
     "journey": {
-      "title": "Så fungerar FreeLingo",
+      "title": "Så fungerar Linguist",
       "learnTitle": "Lär dig i din egen takt",
       "learnDesc": "Hitta din nivå med en bedömning och börja med en plan som passar dig. Gå framåt lektion för lektion med en strukturerad kursplan från A1 till C2.",
       "practiceTitle": "Öva och stärk dina kunskaper",
@@ -123,7 +123,7 @@
     "start": "Starta",
     "retry": "Försök igen",
     "or": "eller",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "dagar",
     "logout": "Logga ut",
     "logoutConfirmTitle": "Logga ut",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Anteckningar om fraser",
     "nativeHelpStudyTips": "Studietips",
     "nativeHelpWordNotes": "Anteckningar om ord",
-    "nativeHelpPractice": "Övning"
+    "nativeHelpPractice": "Övning",
+    "aiTutor": "AI-lärare",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "saknas",
+    "baseLanguageSelect": "Basspråk",
+    "loaderLearn": "LÄR.",
+    "loaderSpeak": "TALA.",
+    "loaderRead": "LÄS.",
+    "loaderWrite": "SKRIV",
+    "lessonTitlePattern": "{title} – Lektion {n}",
+    "completionTestTitle": "Avslutande prov för nivå {level}",
+    "unitTitles": {
+      "a1-unit-1": "Identitet & hälsningar",
+      "a1-unit-2": "Min värld",
+      "a1-unit-3": "Vardagsliv",
+      "a1-unit-4": "Platser & läge",
+      "a1-unit-5": "Handlingar just nu",
+      "a1-unit-6": "Igår",
+      "a1-unit-7": "Förmågor & önskningar",
+      "a1-unit-8": "A1-konsolidering",
+      "a2-unit-1": "Oregelbundna verb & berättelser i dåtid",
+      "a2-unit-2": "Planer & framtid",
+      "a2-unit-3": "Jämförelser",
+      "a2-unit-4": "Förmåga & tillåtelse",
+      "a2-unit-5": "Mängd & shopping",
+      "a2-unit-6": "Hälsa & kropp",
+      "a2-unit-7": "Resor & transport",
+      "a2-unit-8": "A2-konsolidering",
+      "b1-unit-1": "Aspekter av Present Perfect",
+      "b1-unit-2": "Noll-, första och andra konditionalis",
+      "b1-unit-3": "Passiv form",
+      "b1-unit-4": "Relativa bisatser, sambandsord & partikelverb",
+      "b1-unit-5": "Modala hjälpverb, råd & påhängsfrågor",
+      "b1-unit-6": "Indirekt tal",
+      "b1-unit-7": "Pluskvamperfekt, önskningar & ånger",
+      "b1-unit-8": "B1-konsolidering",
+      "b2-unit-1": "Berättande i dåtid & tidsföljd",
+      "b2-unit-2": "Avancerade önskningar: Wish + Would/Could",
+      "b2-unit-3": "Konditionalis 2 & 3",
+      "b2-unit-4": "Kausativt Have/Get, modal passiv & passiva infinitiver",
+      "b2-unit-5": "Gerundium, infinitiver & partikelverb",
+      "b2-unit-6": "Indirekt tal & perfekta modala former",
+      "b2-unit-7": "Medgivande, kontrast & akademisk diskurs",
+      "b2-unit-8": "B2-konsolidering",
+      "c1-unit-1": "Blandad konditionalis & spekulation",
+      "c1-unit-2": "Participkonstruktioner",
+      "c1-unit-3": "Förbehåll & formellt register",
+      "c1-unit-4": "Betoning: inversion & klyvningskonstruktioner",
+      "c1-unit-5": "Ellips, substitution & textkohesion",
+      "c1-unit-6": "Avancerade relativsatser, kritiskt tänkande & partikelverb",
+      "c1-unit-7": "Argumentation & retorik",
+      "c1-unit-8": "C1-konsolidering",
+      "c2-unit-1": "Diskursmarkörer & textkohesion",
+      "c2-unit-2": "Nominalisering & akademisk stil",
+      "c2-unit-3": "Idiomatiskt & bildligt språk",
+      "c2-unit-4": "Framflyttning, emfas & stilgrepp",
+      "c2-unit-5": "Kritisk läsning & akademiskt skrivande",
+      "c2-unit-6": "Brittisk pragmatik & talspråklig stil",
+      "c2-unit-7": "Retoriska grepp & avancerad textstruktur",
+      "c2-unit-8": "C2-konsolidering"
+    }
   },
   "detective": {
     "title": "Feldetektiv",
@@ -466,7 +528,7 @@
     "cardProductReview": "Produktomdöme",
     "cardLegalDocuments": "Juridiska dokument",
     "sectionReview": "Omdöme",
-    "reviewDescription": "Berätta om din upplevelse av FreeLingo. Om du redigerar ett redan godkänt omdöme behöver det granskas igen innan det visas offentligt.",
+    "reviewDescription": "Berätta om din upplevelse av Linguist. Om du redigerar ett redan godkänt omdöme behöver det granskas igen innan det visas offentligt.",
     "reviewPending": "Väntar på godkännande",
     "reviewUpdate": "Uppdatera",
     "reviewSaved": "Omdömet har sparats.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Användarvillkor",
-      "seoDescription": "Läs FreeLingos villkor om konton, tillåten användning, gratis åtkomst och prenumerationer på plattformen för språkinlärning.",
+      "seoDescription": "Läs Linguists villkor om konton, tillåten användning, gratis åtkomst och prenumerationer på plattformen för språkinlärning.",
       "updated": "Senast uppdaterad: augusti 2026",
-      "s1Title": "1. Om FreeLingo",
-      "s1Body": "FreeLingo är en plattform med öppen källkod för språkinlärning med AI, tillgänglig på två sätt: (1) med egen drift, där du kör tjänsten på din egen infrastruktur utan kostnad, och (2) som en hostad tjänst som drivs av FreeLingo-teamet med en gratisplan och betalda prenumerationer. Genom att använda tjänsten på något av dessa sätt godkänner du dessa användarvillkor.",
+      "s1Title": "1. Om Linguist",
+      "s1Body": "Linguist är en plattform med öppen källkod för språkinlärning med AI, tillgänglig på två sätt: (1) med egen drift, där du kör tjänsten på din egen infrastruktur utan kostnad, och (2) som en hostad tjänst som drivs av Linguist-teamet med en gratisplan och betalda prenumerationer. Genom att använda tjänsten på något av dessa sätt godkänner du dessa användarvillkor.",
       "s2Title": "2. Tillåten användning",
-      "s2Intro": "Du får endast använda FreeLingo för personlig språkinlärning. Du förbinder dig att inte:",
+      "s2Intro": "Du får endast använda Linguist för personlig språkinlärning. Du förbinder dig att inte:",
       "s2i1": "Försöka få obehörig åtkomst till någon del av systemet.",
       "s2i2": "Ladda upp skadligt innehåll eller försöka störa tjänsten.",
       "s2i3": "Dela dina kontouppgifter med tredje part.",
       "s2i4": "Använda automatiserade skript eller bottar för att missbruka AI-handledarens funktioner.",
       "s3Title": "3. Användarkonton",
-      "s3Body": "Du måste vara minst 16 år för att skapa ett konto och använda FreeLingo. Genom att registrera dig bekräftar du att du uppfyller ålderskravet. Om vi får veta att ett konto tillhör någon under 16 år raderar vi kontot och alla tillhörande uppgifter utan föregående meddelande. Du ansvarar för att skydda dina inloggningsuppgifter och för all aktivitet på ditt konto. Den som driver instansen – du själv vid egen drift eller FreeLingo-teamet för den hostade tjänsten – kan stänga av eller avsluta konton som bryter mot dessa villkor.",
+      "s3Body": "Du måste vara minst 16 år för att skapa ett konto och använda Linguist. Genom att registrera dig bekräftar du att du uppfyller ålderskravet. Om vi får veta att ett konto tillhör någon under 16 år raderar vi kontot och alla tillhörande uppgifter utan föregående meddelande. Du ansvarar för att skydda dina inloggningsuppgifter och för all aktivitet på ditt konto. Den som driver instansen – du själv vid egen drift eller Linguist-teamet för den hostade tjänsten – kan stänga av eller avsluta konton som bryter mot dessa villkor.",
       "s4Title": "4. Innehåll och AI-interaktioner",
-      "s4Body": "Samtal med AI-handledaren lagras i databasen för att din inlärning ska kunna fortsätta över tid. I den hostade tjänsten behandlas AI-chatt och röstfunktioner via OpenAI:s API, och ditt innehåll omfattas av OpenAI:s användningspolicyer. AI kan ge felaktiga svar – använd alltid ditt eget omdöme. FreeLingo ansvarar inte för innehåll som genereras av underliggande språkmodeller. Det innehåll som AI-handledaren genererar (övningar, rättelser, förklaringar och annat material) tillhör dig för ditt personliga bruk. FreeLingo gör inga anspråk på äganderätten till dina samtal eller det innehåll som genereras från dem.",
+      "s4Body": "Samtal med AI-handledaren lagras i databasen för att din inlärning ska kunna fortsätta över tid. I den hostade tjänsten behandlas AI-chatt och röstfunktioner via OpenAI:s API, och ditt innehåll omfattas av OpenAI:s användningspolicyer. AI kan ge felaktiga svar – använd alltid ditt eget omdöme. Linguist ansvarar inte för innehåll som genereras av underliggande språkmodeller. Det innehåll som AI-handledaren genererar (övningar, rättelser, förklaringar och annat material) tillhör dig för ditt personliga bruk. Linguist gör inga anspråk på äganderätten till dina samtal eller det innehåll som genereras från dem.",
       "s5Title": "5. Tjänstens olika former",
-      "s5Body": "Installationer med egen drift är kostnadsfria och den som driver dem har full kontroll över sina data och sin infrastruktur. Den hostade tjänst som drivs av FreeLingo-teamet erbjuder en gratisplan med användningsgränser och betalda prenumerationer för obegränsad åtkomst, per månad eller år. Gratisplanen omfattar en sjudagars provperiod med full åtkomst (inget betalningsmedel krävs) och därefter begränsade dagliga kvoter för lektioner och AI-chatt samt veckovisa kvoter för hörförståelse, läsning och röstsamtal. Betalda prenumerationer tar bort alla användningsgränser för dessa funktioner. I den hostade tjänsten lagras dina data på servrar som drivs av FreeLingo-teamet. Aktuella användningsgränser för ditt konto visas på din översikt.",
+      "s5Body": "Installationer med egen drift är kostnadsfria och den som driver dem har full kontroll över sina data och sin infrastruktur. Den hostade tjänst som drivs av Linguist-teamet erbjuder en gratisplan med användningsgränser och betalda prenumerationer för obegränsad åtkomst, per månad eller år. Gratisplanen omfattar en sjudagars provperiod med full åtkomst (inget betalningsmedel krävs) och därefter begränsade dagliga kvoter för lektioner och AI-chatt samt veckovisa kvoter för hörförståelse, läsning och röstsamtal. Betalda prenumerationer tar bort alla användningsgränser för dessa funktioner. I den hostade tjänsten lagras dina data på servrar som drivs av Linguist-teamet. Aktuella användningsgränser för ditt konto visas på din översikt.",
       "s6Title": "6. Prenumeration och betalning",
       "s6Body": "Gratisplanen ger begränsad åtkomst till AI-funktioner med en sjudagars provperiod med full åtkomst för nya användare (inget betalningsmedel krävs). Betalda prenumerationer erbjuds per månad eller år och förnyas automatiskt om de inte sägs upp i förväg. Du kan när som helst säga upp prenumerationen under Inställningar; uppsägningen träder i kraft när den aktuella perioden löper ut. Operatören kan också avsluta förnyelser eller prenumerationer om tjänsten ändras eller stängs. Om tjänsten upphör innan en betald period är slut gäller eventuell återbetalning som krävs enligt konsumentlagstiftning. Ångerrätt och gällande priser visas och hanteras i enlighet med tillämplig lag.",
       "s7Title": "7. Tillgänglighet",
-      "s7Body": "Den hostade tjänsten tillhandahålls utan garantier för kontinuitet eller tillgänglighet. Operatören kan när som helst ändra, pausa eller stänga den av tekniska, ekonomiska eller andra skäl. Planerade nedstängningar meddelas genom appen eller via e-post när det är rimligen möjligt. Efter det angivna datumet kan konton och driftsdata raderas utan möjlighet till återställning. FreeLingo erbjuder ingen säkerhetskopieringstjänst eller något automatiserat exportverktyg.",
+      "s7Body": "Den hostade tjänsten tillhandahålls utan garantier för kontinuitet eller tillgänglighet. Operatören kan när som helst ändra, pausa eller stänga den av tekniska, ekonomiska eller andra skäl. Planerade nedstängningar meddelas genom appen eller via e-post när det är rimligen möjligt. Efter det angivna datumet kan konton och driftsdata raderas utan möjlighet till återställning. Linguist erbjuder ingen säkerhetskopieringstjänst eller något automatiserat exportverktyg.",
       "s8Title": "8. Ansvarsbegränsning",
-      "s8Body": "FreeLingo och dess bidragsgivare ansvarar inte för direkta, indirekta, tillfälliga eller efterföljande skador som uppstår genom din användning av, eller oförmåga att använda, tjänsten. I den utsträckning tillämplig lag tillåter får det sammanlagda ansvaret inte överstiga det belopp du betalat under de tre månader som föregick anspråket. Du förbinder dig att hålla FreeLingo och dess bidragsgivare skadeslösa från tredje parts anspråk, skador eller kostnader som uppstår genom att du använder tjänsten i strid med dessa villkor.",
+      "s8Body": "Linguist och dess bidragsgivare ansvarar inte för direkta, indirekta, tillfälliga eller efterföljande skador som uppstår genom din användning av, eller oförmåga att använda, tjänsten. I den utsträckning tillämplig lag tillåter får det sammanlagda ansvaret inte överstiga det belopp du betalat under de tre månader som föregick anspråket. Du förbinder dig att hålla Linguist och dess bidragsgivare skadeslösa från tredje parts anspråk, skador eller kostnader som uppstår genom att du använder tjänsten i strid med dessa villkor.",
       "s9Title": "9. Tillämplig lag",
       "s9Body": "Dessa villkor regleras av spansk lag. Tvister som uppstår till följd av villkoren ska avgöras exklusivt av domstolar i Spanien, om inte tvingande konsumentskyddslagstiftning i ditt bosättningsland föreskriver annat.",
       "s10Title": "10. Ändringar av villkoren",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Integritetspolicy",
       "linkBack": "Tillbaka till registreringen",
       "linkBackSettings": "Tillbaka till Inställningar",
-      "linkContact": "Om du har frågor om villkoren kan du använda kontaktformuläret på freelingo.app så länge det finns tillgängligt eller kontaktvägen som anges i FreeLingos GitHub-arkiv."
+      "linkContact": "Om du har frågor om villkoren kan du använda kontaktformuläret på freelingo.app så länge det finns tillgängligt eller kontaktvägen som anges i Linguists GitHub-arkiv."
     },
     "privacy": {
       "pageTitle": "Integritetspolicy",
-      "seoDescription": "Läs hur FreeLingo hanterar personuppgifter, webbläsarlagring och anonym statistik och hur du kan utöva dina integritetsrättigheter.",
+      "seoDescription": "Läs hur Linguist hanterar personuppgifter, webbläsarlagring och anonym statistik och hur du kan utöva dina integritetsrättigheter.",
       "updated": "Senast uppdaterad: 10 oktober 2026",
       "s1Title": "1. Översikt",
-      "s1Body": "FreeLingo finns som en app för egen drift och som en hostad tjänst. Vid egen drift lagras alla data uteslutande på operatörens server och FreeLingo-projektets upphovspersoner har inte tillgång till dem. För den hostade tjänsten är FreeLingo-teamet personuppgiftsansvarigt, och denna policy beskriver hur dina personuppgifter samlas in, används och skyddas.",
+      "s1Body": "Linguist finns som en app för egen drift och som en hostad tjänst. Vid egen drift lagras alla data uteslutande på operatörens server och Linguist-projektets upphovspersoner har inte tillgång till dem. För den hostade tjänsten är Linguist-teamet personuppgiftsansvarigt, och denna policy beskriver hur dina personuppgifter samlas in, används och skyddas.",
       "s2Title": "2. Uppgifter vi samlar in",
-      "s2Intro": "FreeLingo riktar sig inte till barn under 16 år. Vi samlar inte medvetet in personuppgifter från personer under 16 år. Om du är under 16 år ska du inte skapa ett konto eller lämna personuppgifter. När du skapar ett konto och använder FreeLingo lagras följande uppgifter:",
+      "s2Intro": "Linguist riktar sig inte till barn under 16 år. Vi samlar inte medvetet in personuppgifter från personer under 16 år. Om du är under 16 år ska du inte skapa ett konto eller lämna personuppgifter. När du skapar ett konto och använder Linguist lagras följande uppgifter:",
       "s2i1": "Användarnamn, visningsnamn och e-postadress.",
       "s2i2": "Hashat lösenord (bcrypt – ditt lösenord i klartext lagras aldrig).",
       "s2i3": "Val av modersmål och inlärningsinställningar.",
@@ -532,7 +594,7 @@
       "s2i9": "Globala kontominnen och preferenser som AI-handledaren lär sig under samtal eller som du själv lägger till för att anpassa framtida interaktioner på alla inlärningsspråk.",
       "s2i10": "Funktionsförslag, felrapporter, kommentarer och röster som du skickar in via feedbacktavlan. Endast ditt användarnamn visas offentligt; alla användare kan se publicerade förslag och rapporter.",
       "s3Title": "3. Hur vi använder dina uppgifter",
-      "s3Intro": "Dina uppgifter används uteslutande för att ge dig FreeLingos inlärningsupplevelse:",
+      "s3Intro": "Dina uppgifter används uteslutande för att ge dig Linguists inlärningsupplevelse:",
       "s3i1": "För att autentisera dig och upprätthålla din session.",
       "s3i2": "För att anpassa din studieplan och dina interaktioner med handledaren.",
       "s3i3": "För att följa dina inlärningsframsteg över tid.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Externa AI-tjänster",
       "s4Body": "I den hostade tjänsten tillhandahålls AI-chatt, röstsyntes (TTS) och taltranskribering (STT) via OpenAI:s API. Ditt samtalsinnehåll och ljud skickas till OpenAI för behandling enligt OpenAI:s integritetspolicy (openai.com/privacy). Betalningar hanteras av Stripe, Inc. (USA); Stripe behandlar betalningsuppgifter direkt och vi lagrar inga betalkortsuppgifter på våra servrar – dina transaktionsuppgifter omfattas av Stripes integritetspolicy (stripe.com/privacy). Vid egen drift väljer operatören AI-leverantör; som standard används en lokal Ollama-instans och inga uppgifter lämnar servern.",
       "s5Title": "5. Kakor, lokal lagring och analys",
-      "s5Body": "FreeLingo använder tekniska kakor och inställningskakor: refresh_token (httpOnly, som standard 30 dagar) för att behålla din session samt NEXT_LOCALE och LOCALE_DETECTED (upp till ett år) för att komma ihåg och hantera gränssnittets språk. Webbläsarens lokala lagring sparar även gränssnitts- och röstinställningar samt status för meddelanden och guider, medan sessionslagring ger tillfällig kontinuitet i funktioner. Lokala värden finns kvar tills appen eller du tar bort dem; sessionsvärden tas bort efter användning eller när fliken stängs. I den hostade tjänsten använder vi Umami, ett analysverktyg med öppen källkod som vi själva driver på samma infrastruktur som FreeLingo, för anonym och aggregerad statistik om tjänstens användning och funktion och för att förbättra inlärningsupplevelsen. Analysen använder tekniska användningsdata, använder inga kakor, kopplas inte till konton och används inte för att skapa individuella profiler eller för reklam. Analysdata säljs, överlåts eller delas inte med tredje part. Umami-statistiken raderas inte automatiskt utan sparas tills den tas bort manuellt. I installationer med egen drift ansvarar instansens operatör för analysinställningarna. Meddelandet om kakor är informativt; när det stängs sparas endast att det har stängts.",
+      "s5Body": "Linguist använder tekniska kakor och inställningskakor: refresh_token (httpOnly, som standard 30 dagar) för att behålla din session samt NEXT_LOCALE och LOCALE_DETECTED (upp till ett år) för att komma ihåg och hantera gränssnittets språk. Webbläsarens lokala lagring sparar även gränssnitts- och röstinställningar samt status för meddelanden och guider, medan sessionslagring ger tillfällig kontinuitet i funktioner. Lokala värden finns kvar tills appen eller du tar bort dem; sessionsvärden tas bort efter användning eller när fliken stängs. I den hostade tjänsten använder vi Umami, ett analysverktyg med öppen källkod som vi själva driver på samma infrastruktur som Linguist, för anonym och aggregerad statistik om tjänstens användning och funktion och för att förbättra inlärningsupplevelsen. Analysen använder tekniska användningsdata, använder inga kakor, kopplas inte till konton och används inte för att skapa individuella profiler eller för reklam. Analysdata säljs, överlåts eller delas inte med tredje part. Umami-statistiken raderas inte automatiskt utan sparas tills den tas bort manuellt. I installationer med egen drift ansvarar instansens operatör för analysinställningarna. Meddelandet om kakor är informativt; när det stängs sparas endast att det har stängts.",
       "s6Title": "6. Dina rättigheter (GDPR)",
-      "s6Body": "Om du befinner dig inom Europeiska ekonomiska samarbetsområdet har du enligt GDPR rätt till tillgång, rättelse, radering, invändning och dataportabilitet. Du kan själv radera ditt konto i Inställningar. Andra förfrågningar hanteras manuellt via kontakten i avsnitt 8; FreeLingo erbjuder inget automatiserat exportverktyg. Vi behandlar personuppgifter för att tillhandahålla tjänsten (artikel 6.1 b i GDPR). OpenAI och Stripe kan behandla uppgifter i USA enligt de skyddsåtgärder som gäller för internationella överföringar. Du kan lämna klagomål till den spanska dataskyddsmyndigheten (aepd.es) eller tillsynsmyndigheten i ditt land.",
+      "s6Body": "Om du befinner dig inom Europeiska ekonomiska samarbetsområdet har du enligt GDPR rätt till tillgång, rättelse, radering, invändning och dataportabilitet. Du kan själv radera ditt konto i Inställningar. Andra förfrågningar hanteras manuellt via kontakten i avsnitt 8; Linguist erbjuder inget automatiserat exportverktyg. Vi behandlar personuppgifter för att tillhandahålla tjänsten (artikel 6.1 b i GDPR). OpenAI och Stripe kan behandla uppgifter i USA enligt de skyddsåtgärder som gäller för internationella överföringar. Du kan lämna klagomål till den spanska dataskyddsmyndigheten (aepd.es) eller tillsynsmyndigheten i ditt land.",
       "s7Title": "7. Lagring och radering av uppgifter",
-      "s7Body": "Driftsdata sparas så länge ditt konto finns och den hostade tjänsten är aktiv. Du kan radera minnen, språk eller hela kontot i Inställningar. Operatören kan också radera alla konton och uppgifter om tjänsten stängs, efter ett skäligt meddelande när det är möjligt. Radering kan inte ångras. Efter att system och kopior under operatörens kontroll har raderats behåller FreeLingo inga personuppgifter. Stripe kan behålla betalnings- och transaktionsuppgifter enligt egna regler och rättsliga skyldigheter.",
+      "s7Body": "Driftsdata sparas så länge ditt konto finns och den hostade tjänsten är aktiv. Du kan radera minnen, språk eller hela kontot i Inställningar. Operatören kan också radera alla konton och uppgifter om tjänsten stängs, efter ett skäligt meddelande när det är möjligt. Radering kan inte ångras. Efter att system och kopior under operatörens kontroll har raderats behåller Linguist inga personuppgifter. Stripe kan behålla betalnings- och transaktionsuppgifter enligt egna regler och rättsliga skyldigheter.",
       "s8Title": "8. Kontakt",
-      "s8Body": "För integritetsfrågor om den hostade tjänsten kan du använda kontaktformuläret på freelingo.app så länge det finns tillgängligt. Efter en nedstängning använder du kontaktvägen som anges i FreeLingos GitHub-arkiv och lägger inte upp personuppgifter i offentliga ärenden. Vid egen drift kontaktar du instansens administratör.",
+      "s8Body": "För integritetsfrågor om den hostade tjänsten kan du använda kontaktformuläret på freelingo.app så länge det finns tillgängligt. Efter en nedstängning använder du kontaktvägen som anges i Linguists GitHub-arkiv och lägger inte upp personuppgifter i offentliga ärenden. Vid egen drift kontaktar du instansens administratör.",
       "s9Title": "9. Ogiltiga bestämmelser",
       "s9Body": "Om en bestämmelse i denna policy bedöms vara ogiltig eller inte kan verkställas, ska den begränsas eller tas bort i minsta möjliga utsträckning och övriga bestämmelser fortsätta att gälla fullt ut.",
       "linkTerms": "Användarvillkor",
@@ -802,7 +864,8 @@
     "noPlanLabel": "KOM IGÅNG",
     "noPlanTitle": "Skapa din studieplan",
     "noPlanDesc": "Gör en kort nivåbedömning för att upptäcka din nivå och få en personlig lärandeplan.",
-    "noPlanHint": "Tar cirka 10 minuter"
+    "noPlanHint": "Tar cirka 10 minuter",
+    "loadFailed": "Kunde inte läsa in studieplanen"
   },
   "lesson": {
     "loading": "Laddar lektion...",
@@ -1275,7 +1338,13 @@
         "sv": "Svenska",
         "da": "Danska",
         "fi": "Finska",
-        "hr": "Kroatiska"
+        "hr": "Kroatiska",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamil",
+        "ml": "Malayalam",
+        "or": "Odia",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Använd gloskort för att öva ordförråd parallellt",
     "workflowStep6": "Öva fria samtal med Lingu",
     "q_language": "Vilket språk kommer jag att lära mig?",
-    "a_language": "FreeLingo stöder för närvarande flera språk ({languages}), och vi kommer att lägga till fler med tiden. När ett nytt språk blir tillgängligt hittar du det under Inställningar → Mina språk – lägg till det och börja lära dig direkt.",
+    "a_language": "Linguist stöder för närvarande flera språk ({languages}), och vi kommer att lägga till fler med tiden. När ett nytt språk blir tillgängligt hittar du det under Inställningar → Mina språk – lägg till det och börja lära dig direkt.",
     "q_assessment": "Vad är nivåbedömningen?",
     "a_assessment": "Ett adaptivt test med högst 15 frågor från en frågebank för ditt studiespråk. Det omfattar grammatik, ordförråd och läsförståelse från A1 till C2. Resultatet uppskattar din GERS-nivå och visar styrkor och övningsområden; du kan ändra den föreslagna nivån innan du skapar planen.",
     "q_studyPlan": "Vad är studieplanen och hur skapar jag en?",
@@ -1311,7 +1380,7 @@
     "a_listening": "Under <strong>Hörförståelse</strong> förbereder Lingu hörövningar som passar din GERS-nivå. Lyssna och svara sedan på fem förståelsefrågor. När du skickat in får du ditt resultat (0–5), XP, rätt svar och hela transkriptionen. Du kan skapa nya övningar när du vill.",
     "q_reading": "Hur fungerar läsövningar?",
     "a_reading": "Under <strong>Läsning</strong> skapas texter på din GERS-nivå – meddelanden, e-post, artiklar, blogginlägg med mera. Läs texten och svara på fem flervalsfrågor. När du skickat in får du ditt resultat (0–5) och XP. Du kan skapa nya övningar när du vill.",
-    "q_providers": "Vilka AI-leverantörer stöder FreeLingo?",
+    "q_providers": "Vilka AI-leverantörer stöder Linguist?",
     "a_providers_intro": "Konfigureras i <code>.env</code> med <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Lokalt och kostnadsfritt. Kräver att Ollama körs på värddatorn. Rekommenderad modell: gemma4:e4b. Kan vara långsam utan GPU.",
     "provider_openai": "OpenAI-tjänst med modellen som administratören har valt. Kräver OPENAI_API_KEY och kan medföra användningskostnader.",
@@ -1424,7 +1493,10 @@
       "Helgplaner",
       "Arbete och karriärmål",
       "Att arbeta hemifrån"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Spela in",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Lektioner",
     "flashcardsLabel": "Gloskort",
     "viewDetails": "Visa detaljer",
-    "supportedLanguages": "Tillgängliga språk"
+    "supportedLanguages": "Tillgängliga språk",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Svenska",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Gratis provperiod",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Börja med {days} dagar gratis",
-    "trialTitleTrialUsed": "Aktivera FreeLingo Premium",
+    "trialTitleTrialUsed": "Aktivera Linguist Premium",
     "trialDesc": "Få full åtkomst till Lingu, röstövningar, hörförståelse och läsning före din första betalning.",
     "trialDescTrialUsed": "Välj en plan för att låsa upp Lingu, röstövningar, hörförståelse och läsning.",
     "trialCtaMonthly": "Prova gratis, därefter €{price}/månad",
@@ -1576,7 +1658,7 @@
     "audioError": "Ljudet kunde inte spelas upp. Du kan försöka igen.",
     "step1": {
       "label": "Välkommen",
-      "title": "Välkommen till FreeLingo",
+      "title": "Välkommen till Linguist",
       "desc": "Hej! Jag är Lingu, din kompis när du lär dig språk. Jag visar dig hur vi kan lära oss tillsammans."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Fortsätt öva med spel",
     "paywallGamesDesc": "Din gratis spelkvot är slut eller spelen kräver Premium. Du kan fortsätta befintliga spel.",
     "paywallLabel": "Premium krävs",
-    "paywallTitle": "Lås upp FreeLingo Premium",
+    "paywallTitle": "Lås upp Linguist Premium",
     "paywallDesc": "Börja din gratis provperiod på {days} dagar och lås upp alla Premium-övningar före din första betalning.",
     "paywallDescTrialUsed": "Lås upp alla Premium-övningar och granska beloppet innan du bekräftar.",
     "paywallChatTitle": "Öva med Lingu utan begränsningar",
@@ -1636,7 +1718,7 @@
     "planYearly": "Bästa värdet · €{price}/år · 2 månader gratis →",
     "checkoutError": "Det gick inte att starta betalningen. Försök igen.",
     "pricingTitle": "Planer och priser",
-    "pricingContext": "Dessa planer gäller denna installation. Egen server kräver inget FreeLingo Cloud-abonnemang; administratören ställer in åtkomst och gränser.",
+    "pricingContext": "Dessa planer gäller denna installation. Egen server kräver inget Linguist Cloud-abonnemang; administratören ställer in åtkomst och gränser.",
     "pricingDesc": "Extra provperiod när du tecknar abonnemang: {days} dagar · kort krävs · därefter gäller planens pris",
     "pricingDescTrialUsed": "Betalt månads- eller årsabonnemang från köptillfället. Avsluta när du vill.",
     "planMonthlyName": "Månadsvis",
@@ -1668,7 +1750,7 @@
       "l5": "7 dagars provperiod med full åtkomst"
     },
     "successLabel": "Betalningen bekräftad",
-    "successTitle": "Välkommen till FreeLingo Premium!",
+    "successTitle": "Välkommen till Linguist Premium!",
     "successDesc": "Din prenumeration är nu aktiv. Njut av obegränsad åtkomst till alla funktioner.",
     "successCheckingLabel": "Bekräftar prenumeration",
     "successCheckingTitle": "Kontrollerar din prenumeration",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "En smidigare upplevelse",
-      "desc": "Vi har också rättat mindre fel och förbättrat några detaljer så att det blir ännu roligare att lära sig med FreeLingo varje dag."
+      "desc": "Vi har också rättat mindre fel och förbättrat några detaljer så att det blir ännu roligare att lära sig med Linguist varje dag."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Vi kunde inte kontrollera statusen för ditt omdöme. Försök igen senare.",
     "ratingRequiredError": "Välj ett betyg innan du skickar in.",
     "saveError": "Det gick inte att spara ditt omdöme. Försök igen.",
-    "eyebrow": "Recensera FreeLingo",
+    "eyebrow": "Recensera Linguist",
     "title": "Hur var din upplevelse?",
     "closeLabel": "Stäng omdömesrutan",
     "checking": "Kontrollerar omdömesstatus...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Elevernas berättelser",
     "title": "Lärandet blir verkligare när du själv berättar om det",
-    "subtitle": "Omdömen från elever som redan övar med Lingu på FreeLingo.",
+    "subtitle": "Omdömen från elever som redan övar med Lingu på Linguist.",
     "averageLabel": "{average}/5 · {count, plural, one {# betyg} other {# betyg}}",
     "ratingCount": "{count, plural, one {# betyg} other {# betyg}}",
     "carouselLabel": "Omdömen från studenter",
@@ -1960,7 +2042,7 @@
     "readLess": "Visa mindre",
     "learningLanguage": "Lär sig {language}",
     "starsLabel": "{rating} av 5 stjärnor",
-    "ratingOnly": "Verifierat FreeLingo-betyg."
+    "ratingOnly": "Verifierat Linguist-betyg."
   },
   "adminReviews": {
     "title": "Omdömen",

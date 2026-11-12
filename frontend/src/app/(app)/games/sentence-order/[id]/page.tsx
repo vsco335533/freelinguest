@@ -17,7 +17,7 @@ import { useLanguageStore } from '@/store/language'
 import { useFreemiumStore } from '@/store/freemium'
 
 const button =
-  'border-fl-border hover:border-fl-border-2 text-fl-fg border px-4 py-2 text-sm disabled:opacity-40'
+  'neu-button text-fl-fg inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold disabled:opacity-40'
 
 export default function SentenceOrderSessionPage() {
   const { id } = useParams<{ id: string }>()
@@ -222,7 +222,7 @@ export default function SentenceOrderSessionPage() {
       )}
       {session?.status === 'ready' && challenge && (
         <section
-          className="border-fl-border bg-fl-surface space-y-6 border p-6"
+          className="neu-glass-card space-y-6 rounded-3xl p-6"
           aria-busy={busy}
         >
           <h2 className="font-semibold">
@@ -230,7 +230,7 @@ export default function SentenceOrderSessionPage() {
           </h2>
           <p
             lang={session.native_language}
-            className="text-fl-muted-2 leading-relaxed"
+            className="text-fl-muted-2 leading-relaxed font-medium"
           >
             {challenge.clue}
           </p>
@@ -240,7 +240,7 @@ export default function SentenceOrderSessionPage() {
               <div
                 role="group"
                 aria-label={t('yourSentence')}
-                className="border-fl-border min-h-20 space-y-3 border p-4"
+                className="neu-input min-h-20 space-y-3 rounded-2xl p-4"
               >
                 {order.length === 0 && (
                   <p className="text-fl-muted-2 text-sm">
@@ -358,7 +358,7 @@ export default function SentenceOrderSessionPage() {
             .filter((c) => c.order !== null)
             .map((c) => (
               <div
-                className="border-fl-border bg-fl-surface space-y-3 border p-5"
+                className="glass-card space-y-3 rounded-2xl p-5"
                 key={c.index}
               >
                 <p

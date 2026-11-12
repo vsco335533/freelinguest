@@ -87,12 +87,12 @@ export default function UnitCard({
 
   return (
     <div
-      className={`w-full border transition-colors ${
+      className={`w-full overflow-hidden rounded-2xl transition-all ${
         status.locked
-          ? 'border-fl-border opacity-40'
+          ? 'glass-card opacity-55'
           : status.active
-            ? 'border-fl-fg bg-fl-surface'
-            : 'border-fl-border bg-fl-surface'
+            ? 'neu-card ring-fl-accent/40 ring-2'
+            : 'glass-card'
       }`}
     >
       {/* Clickable card header — opens drawer */}
@@ -100,11 +100,7 @@ export default function UnitCard({
         onClick={onClick}
         disabled={status.locked}
         className={`group focus-visible:outline-fl-fg w-full text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${
-          status.locked
-            ? 'cursor-default'
-            : status.active
-              ? 'hover:bg-fl-surface-2'
-              : 'hover:border-fl-border-2'
+          status.locked ? 'cursor-default' : 'hover:bg-fl-surface-2/40'
         }`}
         aria-label={t('unitAriaLabel', { index: index + 1, title })}
         aria-describedby={statusId}
@@ -129,27 +125,27 @@ export default function UnitCard({
             </div>
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
               {status.active && !status.isLevelTest && (
-                <span className="text-fl-hint text-fl-accent border-fl-accent/30 border px-1.5 py-0.5 font-mono tracking-widest uppercase">
+                <span className="text-fl-hint text-fl-accent border-fl-accent/40 bg-fl-accent/10 rounded-full border px-2 py-0.5 font-mono font-bold tracking-widest uppercase">
                   {t('currentUnit')}
                 </span>
               )}
-              <span className="text-fl-caption text-fl-muted-1 font-mono">
+              <span className="text-fl-caption text-fl-muted-1 font-mono font-medium">
                 {t('nLessons', { count: lessonCount })}
               </span>
               {grammarCount > 0 && (
-                <span className="text-fl-caption text-fl-muted-1 font-mono">
+                <span className="text-fl-caption text-fl-muted-1 font-mono font-medium">
                   {t('nGrammar', { count: grammarCount })}
                 </span>
               )}
               {status.isLevelTest && (
-                <span className="text-fl-hint text-fl-muted-2 border-fl-border border px-1.5 py-0.5 font-mono tracking-widest uppercase">
+                <span className="text-fl-hint text-fl-muted-2 border-fl-border rounded-full border px-2 py-0.5 font-mono font-bold tracking-widest uppercase">
                   {t('levelTestLabel')}
                 </span>
               )}
             </div>
           </div>
           {!status.locked && (
-            <span className="text-fl-caption text-fl-muted-1 shrink-0 font-mono">
+            <span className="text-fl-caption text-fl-muted-1 shrink-0 font-mono font-semibold">
               {barWidth}%
             </span>
           )}
@@ -157,9 +153,9 @@ export default function UnitCard({
 
         {/* Progress bar */}
         {!status.locked && (
-          <div className="bg-fl-border h-1">
+          <div className="bg-fl-border/60 h-1.5 w-full overflow-hidden rounded-full">
             <div
-              className="bg-fl-fg h-full transition-[width] duration-300 motion-reduce:transition-none"
+              className="bg-fl-accent h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none"
               style={{ width: `${barWidth}%` }}
             />
           </div>
@@ -168,10 +164,10 @@ export default function UnitCard({
 
       {/* EMPEZAR CTA — only shown on the active unit when a lesson is ready */}
       {status.active && onStartLesson && (
-        <div className="border-fl-fg/30 flex justify-end border-t px-4 py-2.5">
+        <div className="border-fl-border/50 flex justify-end border-t px-4 py-3">
           <button
             onClick={onStartLesson}
-            className="bg-fl-fg text-fl-bg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="neu-button-primary focus-visible:outline-fl-fg rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest text-white uppercase focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {tCommon('start')} →
           </button>

@@ -91,7 +91,7 @@ export function ReviewForm({
     <>
       <div className="space-y-5 px-5 py-5">
         <div>
-          <p className="text-fl-label text-fl-muted-2 mb-3 font-mono tracking-widest uppercase">
+          <p className="text-fl-label text-fl-fg mb-3 font-mono font-bold tracking-widest uppercase">
             {t('ratingLabel')}
           </p>
           <div
@@ -107,10 +107,10 @@ export function ReviewForm({
                 aria-checked={rating === value}
                 aria-label={tStars('starsLabel', { rating: value })}
                 onClick={() => setRating(value)}
-                className={`border px-3 py-2 transition-colors ${
+                className={`rounded-xl px-3.5 py-2.5 transition-all ${
                   value <= rating
-                    ? 'border-yellow-400 text-yellow-400'
-                    : 'border-fl-border text-fl-muted-3 hover:text-fl-fg'
+                    ? 'neu-card text-amber-500 ring-2 ring-amber-400/60'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                 }`}
               >
                 <Star className="size-5 fill-current" />
@@ -122,7 +122,7 @@ export function ReviewForm({
         <div>
           <label
             htmlFor="review-comment"
-            className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase"
+            className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase"
           >
             {t('commentLabel')}
           </label>
@@ -132,20 +132,24 @@ export function ReviewForm({
             onChange={(event) => setComment(event.target.value)}
             maxLength={2000}
             rows={4}
-            className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-accent w-full resize-none border px-3 py-2 font-mono text-sm outline-none"
+            className="neu-input text-fl-fg placeholder:text-fl-muted-3 w-full resize-none rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium outline-none"
             placeholder={t('commentPlaceholder')}
           />
         </div>
 
-        {error && <p className="text-fl-error-fg font-mono text-xs">{error}</p>}
+        {error && (
+          <p className="text-fl-error-fg font-mono text-xs font-semibold">
+            {error}
+          </p>
+        )}
       </div>
 
-      <div className="flex gap-2 px-5 pb-5">
+      <div className="flex gap-2.5 px-5 pb-5">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="border-fl-border text-fl-muted-2 hover:text-fl-fg flex-1 border py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
+            className="neu-button text-fl-fg flex-1 rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all"
           >
             {cancelLabel ?? t('cancel')}
           </button>
@@ -154,7 +158,7 @@ export function ReviewForm({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 flex flex-1 items-center justify-center gap-2 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-60"
+          className="neu-button-primary flex flex-1 items-center justify-center gap-2 rounded-xl py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-60"
         >
           {submitting && <Loader2 className="size-3.5 animate-spin" />}
           {submitLabel ?? t('submit')}
@@ -211,21 +215,21 @@ export function ReviewPrompt({
   }
 
   return (
-    <div className="fixed inset-0 z-[180] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="border-fl-border bg-fl-surface w-full max-w-md border shadow-2xl">
-        <div className="border-fl-border flex items-center justify-between border-b px-5 py-4">
+    <div className="fixed inset-0 z-[180] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+      <div className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl">
+        <div className="border-fl-border/60 flex items-center justify-between border-b px-5 py-4">
           <div>
-            <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            <p className="text-fl-label text-fl-accent font-mono font-bold tracking-widest uppercase">
               {t('eyebrow')}
             </p>
-            <h2 className="text-fl-fg mt-1 font-sans text-lg font-semibold tracking-tight">
+            <h2 className="text-fl-fg mt-1 font-sans text-lg font-bold tracking-tight">
               {t('title')}
             </h2>
           </div>
           <button
             type="button"
             onClick={handleCancel}
-            className="text-fl-muted-2 hover:text-fl-fg p-2 transition-colors"
+            className="neu-button text-fl-fg rounded-full p-2 transition-all"
             aria-label={t('closeLabel')}
           >
             <X className="size-4" />
@@ -234,13 +238,15 @@ export function ReviewPrompt({
 
         {checking ? (
           <div className="px-5 py-5">
-            <div className="text-fl-muted-2 flex items-center gap-2 font-mono text-xs">
+            <div className="text-fl-muted-2 flex items-center gap-2 font-mono text-xs font-medium">
               <Loader2 className="size-4 animate-spin" /> {t('checking')}
             </div>
           </div>
         ) : statusCheckFailed ? (
           <div className="px-5 py-5">
-            <p className="text-fl-error-fg font-mono text-xs">{error}</p>
+            <p className="text-fl-error-fg font-mono text-xs font-semibold">
+              {error}
+            </p>
           </div>
         ) : (
           <ReviewForm

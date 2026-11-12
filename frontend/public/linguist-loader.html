@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linguist Loader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ln-blue:#2E86C1;      /* brand background */
+    --ln-iris:#5BB0F7;      /* light eye blue   */
+    --ln-white:#FFFFFF;
+    --ln-ease:cubic-bezier(.34,1.56,.64,1); /* overshoot "pop" */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--ln-blue)}
+
+  /* ---------- Full-screen loader ---------- */
+  .ln-loader{
+    position:fixed;inset:0;z-index:9999;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:clamp(8px,2vh,18px);
+    background:var(--ln-blue);color:var(--ln-white);
+    transition:opacity .5s ease, transform .5s ease;
+    padding:16px;
+  }
+  .ln-loader.is-hidden{opacity:0;transform:scale(1.06);pointer-events:none}
+
+  .ln-mark{width:min(62vw,300px);height:auto;overflow:visible}
+
+  /* SVG parts animate from their own centre */
+  .ln-mark *{transform-box:fill-box;transform-origin:center}
+
+  /* 1. Face pops in */
+  .ln-face{animation:ln-pop .7s var(--ln-ease) both}
+  /* 2. Headband draws itself */
+  .ln-band{
+    fill:none;stroke:var(--ln-white);stroke-width:92;stroke-linecap:butt;
+    stroke-dasharray:1160;stroke-dashoffset:1160;
+    animation:ln-draw .8s .35s ease-out forwards;
+  }
+  /* 3. Ear cups slide in */
+  .ln-cup-l{animation:ln-cup-l .55s .9s var(--ln-ease) both}
+  .ln-cup-r{animation:ln-cup-r .55s .9s var(--ln-ease) both}
+  /* 4. Features */
+  .ln-eye{animation:ln-pop .5s 1.05s var(--ln-ease) both, ln-blink 4.2s 3s infinite}
+  .ln-eye.r{animation-delay:1.15s,3s}
+  .ln-look{animation:ln-look 6s 3.2s ease-in-out infinite}
+  .ln-nose{transform-origin:top;animation:ln-grow .45s 1.25s ease-out both}
+  .ln-smile{animation:ln-smile .5s 1.4s var(--ln-ease) both}
+  /* 5. Sound waves pulse from the ear cups (loop) */
+  .ln-wave{fill:none;stroke:var(--ln-white);stroke-width:22;stroke-linecap:round;opacity:0}
+  .ln-wave.w1{animation:ln-wave 1.6s 2.3s ease-out infinite}
+  .ln-wave.w2{animation:ln-wave 1.6s 2.55s ease-out infinite}
+
+  /* Wordmark */
+  .ln-word{
+    font:700 clamp(44px,13vw,84px)/1 'Comfortaa',system-ui,sans-serif;
+    letter-spacing:.01em;display:flex;
+  }
+  .ln-word span{display:inline-block;animation:ln-rise .5s var(--ln-ease) both}
+  .ln-tag{
+    font:600 clamp(10px,2.6vw,15px)/1 'Montserrat',system-ui,sans-serif;
+    letter-spacing:.42em;display:flex;margin-right:-.42em;
+  }
+  .ln-tag span{opacity:0;animation:ln-fade .4s ease-out forwards}
+
+  /* Indeterminate progress bar */
+  .ln-bar{
+    margin-top:clamp(14px,4vh,32px);
+    width:min(46vw,180px);height:4px;border-radius:4px;
+    background:rgba(255,255,255,.25);overflow:hidden;
+    opacity:0;animation:ln-fade .4s 2.4s forwards;
+  }
+  .ln-bar::after{
+    content:"";display:block;width:40%;height:100%;border-radius:4px;background:var(--ln-white);
+    animation:ln-slide 1.2s 2.4s ease-in-out infinite;
+  }
+
+  /* ---------- Keyframes ---------- */
+  @keyframes ln-pop{from{transform:scale(0)}to{transform:scale(1)}}
+  @keyframes ln-draw{to{stroke-dashoffset:0}}
+  @keyframes ln-cup-l{from{transform:translateX(-140px);opacity:0}to{transform:none;opacity:1}}
+  @keyframes ln-cup-r{from{transform:translateX(140px);opacity:0}to{transform:none;opacity:1}}
+  @keyframes ln-grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes ln-smile{from{transform:scale(.2,0);opacity:0}to{transform:none;opacity:1}}
+  @keyframes ln-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+  @keyframes ln-look{
+    0%,18%,100%{transform:translate(0,0)}
+    25%,40%{transform:translate(22px,-6px)}
+    50%,65%{transform:translate(-22px,-6px)}
+    75%,90%{transform:translate(0,14px)}
+  }
+  @keyframes ln-wave{0%{opacity:0;transform:scale(.8)}30%{opacity:.9}100%{opacity:0;transform:scale(1.25)}}
+  @keyframes ln-rise{from{transform:translateY(40px) scale(.6);opacity:0}to{transform:none;opacity:1}}
+  @keyframes ln-fade{to{opacity:1}}
+  @keyframes ln-slide{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+
+  @media (prefers-reduced-motion:reduce){
+    .ln-loader *{animation:none!important;opacity:1!important;stroke-dashoffset:0!important}
+    .ln-bar::after{animation:ln-fade 1s infinite alternate!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="ln-loader" id="lnLoader" role="status" aria-label="Loading Linguist">
+  <svg class="ln-mark" viewBox="300 60 1376 1110" aria-hidden="true">
+    <!-- Sound waves (left & right) -->
+    <path class="ln-wave w1" d="M360,600 Q320,700 360,800"/>
+    <path class="ln-wave w2" d="M320,560 Q260,700 320,840"/>
+    <path class="ln-wave w1" d="M1616,600 Q1656,700 1616,800"/>
+    <path class="ln-wave w2" d="M1656,560 Q1716,700 1656,840"/>
+
+    <!-- Headband -->
+    <path class="ln-band" d="M537,438 A486,486 0 0 1 1439,438"/>
+
+    <!-- Ear cups -->
+    <path class="ln-cup-l" fill="#fff" d="M515,508 C455,512 415,545 415,600 V820 C415,870 460,895 520,895 C495,820 490,760 490,700 C490,640 495,570 515,508 Z"/>
+    <path class="ln-cup-r" fill="#fff" d="M1461,508 C1521,512 1561,545 1561,600 V820 C1561,870 1516,895 1456,895 C1481,820 1486,760 1486,700 C1486,640 1481,570 1461,508 Z"/>
+
+    <!-- Face -->
+    <g class="ln-face">
+      <circle cx="988" cy="695" r="423" fill="#fff"/>
+
+      <g class="ln-eye l">
+        <circle cx="771" cy="581" r="120" fill="var(--ln-blue)"/>
+        <g class="ln-look">
+          <circle cx="769" cy="580" r="55" fill="var(--ln-iris)"/>
+          <circle cx="743" cy="552" r="22" fill="#fff"/>
+        </g>
+      </g>
+      <g class="ln-eye r">
+        <circle cx="1206" cy="581" r="120" fill="var(--ln-blue)"/>
+        <g class="ln-look">
+          <circle cx="1204" cy="580" r="55" fill="var(--ln-iris)"/>
+          <circle cx="1178" cy="552" r="22" fill="#fff"/>
+        </g>
+      </g>
+
+      <rect class="ln-nose" x="955" y="532" width="65" height="348" rx="32" fill="var(--ln-blue)"/>
+
+      <path class="ln-smile" fill="var(--ln-blue)"
+        d="M820,912 L878,912 Q990,1000 1105,912 L1163,912 C1120,1010 1060,1035 990,1035 C918,1035 860,1010 820,912 Z"/>
+    </g>
+  </svg>
+
+  <div class="ln-word" aria-hidden="true"></div>
+  <div class="ln-tag" aria-hidden="true"></div>
+  <div class="ln-bar"></div>
+</div>
+
+<script>
+  /* Build staggered letters / tagline */
+  (function(){
+    const word = document.querySelector('.ln-word');
+    [...'Linguist'].forEach((ch,i)=>{
+      const s=document.createElement('span');s.textContent=ch;
+      s.style.animationDelay=(1.55+i*0.07)+'s';word.appendChild(s);
+    });
+    const tag=document.querySelector('.ln-tag');
+    ['LEARN.','SPEAK.','READ.','WRITE'].forEach((w,i)=>{
+      const s=document.createElement('span');s.textContent=w;
+      s.style.animationDelay=(2.15+i*0.18)+'s';tag.appendChild(s);
+    });
+  })();
+
+  /* Public API: call LinguistLoader.hide() once your app is ready */
+  window.LinguistLoader = {
+    hide(){
+      const el=document.getElementById('lnLoader');
+      if(!el) return;
+      el.classList.add('is-hidden');
+      el.addEventListener('transitionend',()=>el.remove(),{once:true});
+    },
+    show(){ document.getElementById('lnLoader')?.classList.remove('is-hidden'); }
+  };
+
+  /* Demo only: auto-hide after the page loads + 4s. Remove in production. */
+  // window.addEventListener('load', () => setTimeout(LinguistLoader.hide, 4000));
+</script>
+</body>
+</html>

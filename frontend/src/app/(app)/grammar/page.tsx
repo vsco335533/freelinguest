@@ -14,21 +14,21 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.slug}`}
-      className="border-fl-border bg-fl-surface hover:border-fl-border-2 hover:bg-fl-surface-2 group block border transition-colors"
+      className="glass-card hover:border-fl-accent/50 group block rounded-2xl transition-all hover:-translate-y-0.5"
     >
-      <div className="space-y-2 px-4 py-4">
+      <div className="space-y-2.5 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-fl-fg group-hover:text-fl-fg-bright font-mono text-xs leading-snug font-bold tracking-wide transition-colors">
+          <p className="text-fl-fg group-hover:text-fl-accent font-mono text-xs leading-snug font-bold tracking-wide transition-colors">
             {topic.title}
           </p>
-          <span className="border-fl-border text-fl-label text-fl-muted-3 shrink-0 border px-1.5 py-0.5 font-mono tracking-widest uppercase">
+          <span className="glass-card text-fl-label text-fl-fg shrink-0 rounded-full px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase">
             {topic.level}
           </span>
         </div>
-        <p className="text-fl-label text-fl-muted-2 font-mono leading-relaxed">
+        <p className="text-fl-label text-fl-muted-2 font-mono font-medium leading-relaxed">
           {topic.summary}
         </p>
-        <span className="border-fl-border text-fl-label text-fl-muted-3 inline-block border px-2 py-0.5 font-mono tracking-widest uppercase">
+        <span className="glass-card text-fl-label text-fl-muted-2 inline-block rounded-full px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase">
           {topic.category}
         </span>
       </div>
@@ -160,15 +160,15 @@ export default function GrammarIndexPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-6">
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">{'\u25cf'}</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-accent text-fl-label">{'\u25cf'}</span>
+          <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
+          <p className="text-fl-muted-2 font-mono text-xs font-medium leading-relaxed">
             {t('topicsFound', { count: topics.length })} · A1 – C2
           </p>
           <input
@@ -176,16 +176,15 @@ export default function GrammarIndexPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('searchPlaceholder')}
-            className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full max-w-sm border px-4 py-2.5 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input text-fl-fg placeholder:text-fl-muted-3 w-full max-w-sm rounded-xl px-4 py-2.5 font-mono text-xs font-medium transition-all focus:outline-none"
           />
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveCategory('All')}
-              className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
-                activeCategory === 'All'
-                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
-              }`}
+              className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${activeCategory === 'All'
+                  ? 'neu-button-primary'
+                  : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                }`}
             >
               {t('allCategories')}
             </button>
@@ -195,11 +194,10 @@ export default function GrammarIndexPage() {
                 onClick={() =>
                   setActiveCategory(activeCategory === cat ? 'All' : cat)
                 }
-                className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
-                  activeCategory === cat
-                    ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                    : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
-                }`}
+                className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${activeCategory === cat
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                  }`}
               >
                 {cat}
               </button>
@@ -209,7 +207,7 @@ export default function GrammarIndexPage() {
       </div>
 
       {(search || activeCategory !== 'All') && (
-        <p className="text-fl-label text-fl-muted-3 font-mono">
+        <p className="text-fl-label text-fl-muted-2 font-mono font-semibold">
           {t('topicsFound', { count: filtered.length })}
         </p>
       )}
@@ -223,8 +221,8 @@ export default function GrammarIndexPage() {
               <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-fl-border h-px flex-1" />
-              <span className="text-fl-label text-fl-muted-3 font-mono">
+              <div className="bg-fl-border/60 h-px flex-1" />
+              <span className="text-fl-label text-fl-muted-2 font-mono font-semibold">
                 {t('topicsFound', { count: levelTopics.length })}
               </span>
             </div>
@@ -238,8 +236,8 @@ export default function GrammarIndexPage() {
       })}
 
       {filtered.length === 0 && (
-        <div className="border-fl-border bg-fl-surface space-y-4 border px-6 py-10 text-center">
-          <p className="text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
+        <div className="glass-card space-y-4 rounded-2xl px-6 py-10 text-center">
+          <p className="text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
             {t('noResults')}
           </p>
           {(search || activeCategory !== 'All') && (
@@ -248,7 +246,7 @@ export default function GrammarIndexPage() {
                 setSearch('')
                 setActiveCategory('All')
               }}
-              className="text-fl-label border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-label text-fl-fg rounded-xl px-4 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
             >
               {tCommon('clearFilters')}
             </button>

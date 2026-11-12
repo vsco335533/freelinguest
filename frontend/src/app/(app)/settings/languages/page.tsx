@@ -128,14 +128,14 @@ export default function MyLanguagesPage() {
       {/* Toast */}
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
-          <div className="animate-in fade-in slide-in-from-top-2 border-fl-border bg-fl-surface text-fl-muted-1 pointer-events-auto border px-4 py-2 font-mono text-xs tracking-widest uppercase shadow-lg motion-reduce:animate-none">
+          <div className="animate-in fade-in slide-in-from-top-2 neu-glass-card text-fl-fg pointer-events-auto rounded-full px-5 py-2.5 font-mono text-xs font-semibold tracking-widest uppercase motion-reduce:animate-none">
             {toast}
           </div>
         </div>
       )}
 
       {/* Breadcrumb */}
-      <nav className="text-fl-label text-fl-muted-3 mb-8 flex items-center gap-2 font-mono">
+      <nav className="text-fl-label text-fl-muted-2 mb-8 flex items-center gap-2 font-mono font-semibold">
         <Link
           href="/settings"
           className="hover:text-fl-fg tracking-widest uppercase transition-colors"
@@ -143,20 +143,20 @@ export default function MyLanguagesPage() {
           {tSettings('title')}
         </Link>
         <span>›</span>
-        <span className="text-fl-fg tracking-widest uppercase">
+        <span className="text-fl-fg font-bold tracking-widest uppercase">
           {t('myLanguages')}
         </span>
       </nav>
 
       {/* Header + Add button */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between gap-3">
         <h1 className="text-fl-fg font-mono text-xl font-bold tracking-widest uppercase">
           {t('myLanguages')}
         </h1>
         {!loading && !failed && unusedCodes.length > 0 && (
           <button
             onClick={() => setAddModalOpen(true)}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+            className="neu-button-primary rounded-xl px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-all"
           >
             + {t('addLanguage')}
           </button>
@@ -167,21 +167,21 @@ export default function MyLanguagesPage() {
       {loading ? (
         <PageLoading fullScreen={false} />
       ) : failed ? (
-        <div className="border-fl-border bg-fl-surface space-y-3 border p-6">
-          <p role="alert" className="text-fl-error-fg text-sm">
+        <div className="glass-card space-y-3 rounded-2xl p-6">
+          <p role="alert" className="text-fl-error-fg text-sm font-semibold">
             {tCommon('errorMessage')}
           </p>
           <button
             type="button"
             onClick={load}
-            className="text-fl-accent text-sm underline"
+            className="neu-button rounded-xl px-4 py-2 text-sm font-semibold"
           >
             {tCommon('retry')}
           </button>
         </div>
       ) : userLanguages.length === 0 ? (
-        <div className="border-fl-border bg-fl-surface border px-6 py-10 text-center">
-          <p className="text-fl-muted-2 font-mono text-sm">
+        <div className="glass-card rounded-2xl px-6 py-10 text-center">
+          <p className="text-fl-muted-2 font-mono text-sm font-semibold">
             {t('noLanguages')}
           </p>
         </div>
@@ -202,8 +202,10 @@ export default function MyLanguagesPage() {
               return (
                 <div
                   key={ulang.target_language}
-                  className={`bg-fl-surface border p-5 ${
-                    isActive ? 'border-fl-accent/50' : 'border-fl-border'
+                  className={`rounded-2xl p-5 ${
+                    isActive
+                      ? 'neu-glass-card ring-fl-accent/40 ring-2'
+                      : 'glass-card'
                   }`}
                 >
                   {/* Top row: flag + name + status */}
@@ -214,18 +216,18 @@ export default function MyLanguagesPage() {
                         alt={lang.code}
                         width={28}
                         height={20}
-                        className="shrink-0 object-cover"
+                        className="shrink-0 rounded-sm object-cover"
                       />
                     )}
                     <span className="text-fl-fg flex-1 font-mono text-sm font-bold">
                       {tTarget(ulang.target_language)}
                     </span>
                     {isActive ? (
-                      <span className="text-fl-label bg-fl-accent/20 text-fl-accent px-2 py-0.5 font-mono text-xs tracking-widest uppercase">
+                      <span className="text-fl-label bg-fl-accent/15 text-fl-accent rounded-full px-3 py-0.5 font-mono text-xs font-bold tracking-widest uppercase">
                         {t('activeLanguage')}
                       </span>
                     ) : plan?.cefr_level ? (
-                      <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+                      <span className="text-fl-label glass-card text-fl-fg rounded-full px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase">
                         {plan.cefr_level}
                       </span>
                     ) : null}
@@ -233,7 +235,7 @@ export default function MyLanguagesPage() {
 
                   {/* Stats */}
                   {plan && (
-                    <div className="text-fl-muted-1 mb-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs">
+                    <div className="text-fl-muted-2 mb-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs font-medium">
                       <span>
                         {t('levelLabel')}: {plan.cefr_level ?? '—'}
                       </span>
@@ -258,11 +260,11 @@ export default function MyLanguagesPage() {
                   )}
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {isActive ? (
                       <button
                         onClick={() => router.push(`/plan`)}
-                        className="text-fl-label text-fl-muted-2 hover:text-fl-fg font-mono text-xs tracking-widest uppercase transition-colors"
+                        className="neu-button text-fl-label text-fl-fg rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
                       >
                         {t('viewDetails')} →
                       </button>
@@ -271,7 +273,7 @@ export default function MyLanguagesPage() {
                         <button
                           onClick={() => handleSwitch(ulang)}
                           disabled={isSwitching}
-                          className="text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-3 py-1 font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
+                          className="neu-button-primary rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
                         >
                           {switchingCode === ulang.target_language
                             ? '...'
@@ -280,7 +282,7 @@ export default function MyLanguagesPage() {
                         {hasMultiple && (
                           <button
                             onClick={() => setDeleteTarget(ulang)}
-                            className="text-fl-label text-fl-muted-3 hover:text-fl-error font-mono text-xs tracking-widest uppercase transition-colors"
+                            className="neu-button text-fl-label text-fl-muted-2 hover:text-fl-error rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
                           >
                             {t('removeLanguage')}
                           </button>
@@ -296,8 +298,8 @@ export default function MyLanguagesPage() {
 
       {/* Add language modal */}
       {addModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-fl-bg border-fl-border w-full max-w-lg border p-6 shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+          <div className="neu-glass-card w-full max-w-lg rounded-3xl p-6">
             <h2 className="text-fl-fg mb-4 font-mono text-sm font-bold tracking-widest uppercase">
               {t('selectLanguage')}
             </h2>
@@ -306,17 +308,17 @@ export default function MyLanguagesPage() {
               onChange={setAddingCode}
               availableCodes={unusedCodes}
             />
-            <div className="mt-5 flex justify-end gap-2">
+            <div className="mt-5 flex justify-end gap-2.5">
               <button
                 onClick={() => setAddModalOpen(false)}
-                className="text-fl-label text-fl-muted-3 hover:text-fl-fg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-label text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
               >
                 {tCommon('cancel')}
               </button>
               <button
                 onClick={handleAdd}
                 disabled={!addingCode}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="neu-button-primary rounded-xl px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
               >
                 {t('addLanguage')}
               </button>

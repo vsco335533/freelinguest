@@ -60,10 +60,10 @@ export default function DurationSelector({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center p-6">
-      <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-label text-fl-accent font-bold">●</span>
+          <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
             {t('step3')}
           </span>
         </div>
@@ -71,18 +71,18 @@ export default function DurationSelector({
         <div className="space-y-8 p-8">
           {/* Duration */}
           <div>
-            <p className="text-fl-hint text-fl-muted-3 mb-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-hint text-fl-muted-3 mb-3 font-mono font-bold tracking-widest uppercase">
               {t('howManyWeeks', { cefr_level })}
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               {DURATION_OPTIONS.map((opt) => (
                 <button
                   key={opt.weeks}
                   onClick={() => onSelectDuration(opt)}
-                  className={`border px-4 py-3 text-left transition-colors ${
+                  className={`rounded-xl px-4 py-3 text-left transition-all ${
                     selectedWeeks === opt.weeks
-                      ? 'bg-fl-fg text-fl-bg border-fl-fg'
-                      : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'neu-button-primary text-white'
+                      : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                   }`}
                 >
                   <p className="font-mono text-xs font-bold tracking-widest uppercase">
@@ -91,7 +91,7 @@ export default function DurationSelector({
                   <p
                     className={`text-fl-hint mt-0.5 font-mono ${
                       selectedWeeks === opt.weeks
-                        ? 'opacity-70'
+                        ? 'text-white/90'
                         : 'text-fl-muted-3'
                     }`}
                   >
@@ -101,7 +101,7 @@ export default function DurationSelector({
                   <p
                     className={`text-fl-hint mt-0.5 font-mono ${
                       selectedWeeks === opt.weeks
-                        ? 'opacity-60'
+                        ? 'text-white/85'
                         : 'text-fl-muted-3'
                     }`}
                   >
@@ -114,7 +114,7 @@ export default function DurationSelector({
 
           {/* Goals */}
           <div>
-            <p className="text-fl-hint text-fl-muted-3 mb-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-hint text-fl-muted-3 mb-3 font-mono font-bold tracking-widest uppercase">
               {t('mainGoals')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -122,10 +122,10 @@ export default function DurationSelector({
                 <button
                   key={g.id}
                   onClick={() => onToggleGoal(g.id)}
-                  className={`border px-3 py-1.5 font-mono text-xs tracking-widest uppercase transition-colors ${
+                  className={`rounded-full px-3.5 py-1.5 font-mono text-xs font-bold tracking-widest uppercase transition-all ${
                     selectedGoals.includes(g.id)
-                      ? 'bg-fl-fg text-fl-bg border-fl-fg'
-                      : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'neu-button-primary text-white'
+                      : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                   }`}
                 >
                   {selectedGoals.includes(g.id) ? '✓ ' : ''}
@@ -138,24 +138,24 @@ export default function DurationSelector({
           </div>
 
           {/* Summary */}
-          <div className="border-fl-border text-fl-label text-fl-muted-1 space-y-1 border px-4 py-3 font-mono tracking-wide">
+          <div className="glass-card text-fl-label text-fl-muted-1 space-y-1 rounded-2xl px-4 py-3 font-mono font-medium tracking-wide">
             <p>
               {t('summaryLevel')}:{' '}
               <span className="text-fl-fg font-bold">{cefr_level}</span>
             </p>
             <p>
               {t('summaryDuration')}:{' '}
-              <span className="text-fl-fg">
+              <span className="text-fl-fg font-semibold">
                 {t('nWeeks', { count: selected.weeks })}
               </span>
               {' · '}
-              <span className="text-fl-fg">
+              <span className="text-fl-fg font-semibold">
                 {t('daysPerWeek', { count: selected.daysPerWeek })}
               </span>
             </p>
             <p>
               {t('summaryGoals')}:{' '}
-              <span className="text-fl-fg">
+              <span className="text-fl-fg font-semibold">
                 {selectedGoals.length > 0
                   ? selectedGoals
                       .map((g) =>
@@ -169,17 +169,17 @@ export default function DurationSelector({
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2.5">
             <button
               onClick={onBack}
-              className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-muted-1 hover:text-fl-fg flex-1 rounded-xl py-3 font-mono text-xs font-bold tracking-widest uppercase"
             >
               ← {tCommon('back')}
             </button>
             <button
               onClick={onConfirm}
               disabled={loading || selectedGoals.length === 0}
-              className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright flex-[2] py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="neu-button-primary flex-[2] rounded-xl py-3 font-mono text-sm font-bold tracking-widest text-white uppercase disabled:opacity-40"
             >
               {loading ? t('buildingPlan') : `${t('startMyPlan')} →`}
             </button>

@@ -2,9 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
+import {
+  AuthBackdropOrbs,
+  LinguistBrandHeader,
+} from '@/components/ui/LinguistBrandHeader'
 import { apiFetch, restoreAccessToken } from '@/lib/api'
 import { createCheckout } from '@/lib/billing'
 import { splitYearlyCta, type BillingInterval } from '@/lib/billing-copy'
@@ -45,7 +48,6 @@ export default function OnboardingPage() {
   const setUser = useAuthStore((s) => s.setUser)
   const user = useAuthStore((s) => s.user)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
-  const stripeTrialDays = useConfigStore((s) => s.stripeTrialDays)
   const priceMonthly = useConfigStore((s) => s.priceMonthly)
   const priceYearly = useConfigStore((s) => s.priceYearly)
   const loadConfig = useConfigStore((s) => s.load)
@@ -74,7 +76,7 @@ export default function OnboardingPage() {
 
   const targetLanguageName = tLang(
     getLanguageByCode(targetLanguage)?.iso639 ??
-      DEFAULT_TARGET_LANGUAGE.split('-')[0]
+    DEFAULT_TARGET_LANGUAGE.split('-')[0]
   )
 
   useEffect(() => {
@@ -103,7 +105,7 @@ export default function OnboardingPage() {
   const subscribed = isSubscribed(user, stripeEnabled)
   const showTrial = stripeEnabled && !subscribed
   const freemiumTrialActive = isFreemiumTrialActive(user, stripeEnabled)
-  const totalSteps = showTrial || freemiumTrialActive ? 3 : 2
+  const totalSteps = !freemiumTrialActive && showTrial ? 3 : 2
 
   async function handleStep2() {
     const { sessionVersion } = useAuthStore.getState()
@@ -125,8 +127,7 @@ export default function OnboardingPage() {
       const mapped = mapUser(updated, user)
       setUser(mapped)
       const trialActive = isFreemiumTrialActive(mapped, stripeEnabled)
-      if (trialActive || showTrial) {
-        setStep(3)
+      if (!trialActive && showTrial) {
         setStep(3)
       } else {
         router.push('/dashboard')
@@ -173,37 +174,23 @@ export default function OnboardingPage() {
 
   const checkoutPlans: BillingInterval[] =
     selectedPlan === 'monthly' ? ['monthly', 'yearly'] : ['yearly', 'monthly']
-  const trialEligible = stripeTrialDays > 0 && !user?.trial_used
   const yearlyCta = splitYearlyCta(
-    t(trialEligible ? 'trialCtaYearly' : 'trialCtaYearlyTrialUsed', {
+    t('trialCtaYearlyTrialUsed', {
       price: new Intl.NumberFormat(locale).format(priceYearly),
     })
   )
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-10 flex flex-col items-center">
-          <Image
-            src="/logo.png"
-            alt="FreeLingo"
-            width={80}
-            height={80}
-            className="mb-4"
-          />
-          <h1 className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-          <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
-            {tCommon('tagline')}
-          </p>
-        </div>
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader subtitle={tCommon('tagline')} />
 
-        <div className="border-fl-border bg-fl-surface border p-8">
+        <div className="neu-glass-card animate-fade-up p-8">
           {/* Step indicator */}
-          <div className="border-fl-border mb-6 flex items-center justify-between gap-2 border-b pb-4">
+          <div className="border-fl-border/60 mb-6 flex items-center justify-between gap-2 border-b pb-4">
             <div className="flex items-center gap-2">
-              <span className="text-fl-label text-fl-muted-2">●</span>
+              <span className="text-fl-label text-blue-500">●</span>
               <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
                 {step === 1
                   ? isNewLanguage
@@ -211,11 +198,7 @@ export default function OnboardingPage() {
                     : t('title')
                   : step === 2
                     ? t('goals.title')
-                    : t(
-                        trialEligible
-                          ? 'trialHeadline'
-                          : 'trialHeadlineTrialUsed'
-                      )}
+                    : t('trialHeadlineTrialUsed')}
               </span>
             </div>
             <span className="text-fl-hint text-fl-muted-4 font-mono tabular-nums">
@@ -224,7 +207,7 @@ export default function OnboardingPage() {
           </div>
 
           {error && (
-            <div className="border-fl-error/40 text-fl-error mb-5 border px-4 py-3 font-mono text-xs tracking-wide">
+            <div className="border-fl-error/40 bg-fl-error/5 text-fl-error mb-5 rounded-xl border px-4 py-3 font-mono text-xs tracking-wide">
               ✕ {error}
             </div>
           )}
@@ -269,7 +252,7 @@ export default function OnboardingPage() {
               </div>
               <button
                 type="submit"
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+                className="neu-button-primary w-full py-3 font-mono text-sm font-bold tracking-widest uppercase"
               >
                 {tCommon('next')}
               </button>
@@ -282,7 +265,7 @@ export default function OnboardingPage() {
               <p className="text-fl-fg font-mono text-sm">
                 {t('goals.subtitle', { language: targetLanguageName })}
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2.5">
                 {LEARNING_GOALS.map((goal) => {
                   const active = selectedGoals.includes(goal)
                   return (
@@ -290,11 +273,10 @@ export default function OnboardingPage() {
                       key={goal}
                       type="button"
                       onClick={() => toggleGoal(goal)}
-                      className={`text-fl-label border px-3 py-3 text-left font-mono tracking-widest uppercase transition-colors ${
-                        active
-                          ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-                          : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
-                      }`}
+                      className={`text-fl-label px-3 py-3 text-left font-mono tracking-widest uppercase transition-all ${active
+                          ? 'neu-button-primary font-bold'
+                          : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                        }`}
                     >
                       {t(`goals.${goal}`)}
                     </button>
@@ -305,7 +287,7 @@ export default function OnboardingPage() {
                 type="button"
                 disabled={loading}
                 onClick={() => handleStep2()}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="neu-button-primary w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-40"
               >
                 {loading ? (
                   <>
@@ -327,55 +309,14 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {/* Step 3: Trial confirmation */}
-          {step === 3 && freemiumTrialActive && (
-            <div className="space-y-5 text-center">
-              <h2 className="text-fl-fg font-mono text-base font-bold">
-                {t('freemiumTrialTitle')}
-              </h2>
-              <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
-                {t('freemiumTrialDesc')}
-              </p>
-              <ul className="text-fl-muted-2 space-y-1.5 text-left font-mono text-xs">
-                <li className="flex items-start gap-2">
-                  <span className="text-fl-accent shrink-0">✓</span>
-                  {t('freemiumChatLabel')}
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-fl-accent shrink-0">✓</span>
-                  {t('freemiumVoiceLabel')}
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-fl-accent shrink-0">✓</span>
-                  {t('freemiumListeningLabel')}
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-fl-accent shrink-0">✓</span>
-                  {t('freemiumReadingLabel')}
-                </li>
-              </ul>
-              <button
-                type="button"
-                onClick={() => router.push('/dashboard')}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
-              >
-                {t('goToDashboard')}
-              </button>
-            </div>
-          )}
-
           {/* Step 3: Stripe subscription */}
           {step === 3 && !freemiumTrialActive && (
             <div className="space-y-5 text-center">
               <h2 className="text-fl-fg font-mono text-base font-bold">
-                {t(trialEligible ? 'trialTitle' : 'trialTitleTrialUsed', {
-                  days: stripeTrialDays,
-                })}
+                {t('trialTitleTrialUsed')}
               </h2>
               <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
-                {t(trialEligible ? 'trialDesc' : 'trialDescTrialUsed', {
-                  days: stripeTrialDays,
-                })}
+                {t('trialDescTrialUsed')}
               </p>
               <div className="flex flex-col gap-3">
                 {checkoutPlans.map((plan, index) => {
@@ -386,35 +327,28 @@ export default function OnboardingPage() {
                       type="button"
                       disabled={checkoutLoading !== null}
                       onClick={() => handleCheckout(plan)}
-                      className={`w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50 ${
-                        isPrimary
-                          ? 'bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90'
-                          : 'border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border'
-                      }`}
+                      className={`w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-50 ${isPrimary
+                          ? 'neu-button-primary'
+                          : 'neu-button text-fl-muted-1 hover:text-fl-fg'
+                        }`}
                     >
                       {checkoutLoading === plan ? (
                         '...'
                       ) : plan === 'monthly' ? (
-                        t(
-                          trialEligible
-                            ? 'trialCtaMonthly'
-                            : 'trialCtaMonthlyTrialUsed',
-                          {
-                            price: new Intl.NumberFormat(locale).format(
-                              priceMonthly
-                            ),
-                          }
-                        )
+                        t('trialCtaMonthlyTrialUsed', {
+                          price: new Intl.NumberFormat(locale).format(
+                            priceMonthly
+                          ),
+                        })
                       ) : (
                         <span className="flex flex-col items-center gap-0.5 leading-relaxed">
                           <span>{yearlyCta.main}</span>
                           {yearlyCta.savings && (
                             <span
-                              className={`text-xs ${
-                                isPrimary
+                              className={`text-xs ${isPrimary
                                   ? 'text-fl-accent-fg'
                                   : 'text-fl-muted-3'
-                              }`}
+                                }`}
                             >
                               {yearlyCta.savings}
                             </span>
@@ -431,7 +365,7 @@ export default function OnboardingPage() {
                 </p>
               )}
               <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
-                {t(trialEligible ? 'trialNoCharge' : 'trialNoChargeTrialUsed')}
+                {t('trialNoChargeTrialUsed')}
               </p>
               <button
                 type="button"

@@ -134,28 +134,28 @@ export default function SettingsMemoriesPage() {
         </h1>
       </nav>
 
-      <div className="border-fl-border bg-fl-surface border p-6">
-        <div className="border-fl-border mb-4 flex items-center gap-2 border-b pb-4">
-          <span aria-hidden="true" className="text-fl-label text-fl-muted-2">
+      <div className="glass-card rounded-2xl p-6">
+        <div className="border-fl-border/60 mb-4 flex items-center gap-2 border-b pb-4">
+          <span aria-hidden="true" className="text-fl-accent text-fl-label">
             ●
           </span>
-          <h2 className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+          <h2 className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('sectionMemory')}
           </h2>
         </div>
 
-        <p className="text-fl-muted-2 mb-5 font-mono text-sm leading-relaxed">
+        <p className="text-fl-muted-2 mb-5 font-mono text-sm font-medium leading-relaxed">
           {t('memoryDescription')}
         </p>
 
         <form
           onSubmit={handleAdd}
           aria-busy={adding}
-          className="border-fl-border mb-6 border-b pb-6"
+          className="border-fl-border/60 mb-6 border-b pb-6"
         >
           <label
             htmlFor="memory-content"
-            className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase"
+            className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase"
           >
             {t('memoryInputLabel')}
           </label>
@@ -168,16 +168,19 @@ export default function SettingsMemoriesPage() {
             required
             aria-describedby="memory-hint"
             placeholder={t('memoryInputPlaceholder')}
-            className="border-fl-border bg-fl-bg text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 mb-2 w-full resize-y border p-3 font-mono text-sm outline-none"
+            className="neu-input text-fl-fg placeholder:text-fl-muted-3 mb-2 w-full resize-y rounded-xl p-3 font-mono text-sm font-medium outline-none"
           />
           <div className="flex items-center justify-between gap-4">
-            <p id="memory-hint" className="text-fl-muted-3 font-mono text-xs">
+            <p
+              id="memory-hint"
+              className="text-fl-muted-2 font-mono text-xs font-medium"
+            >
               {t('memoryInputHint', { max: 200 })}
             </p>
             <button
               type="submit"
               disabled={loading || loadError || mutating || !content.trim()}
-              className="bg-fl-fg text-fl-bg hover:bg-fl-fg-bright flex min-w-28 items-center justify-center gap-2 px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+              className="neu-button-primary flex min-w-28 items-center justify-center gap-2 rounded-xl px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:cursor-not-allowed disabled:opacity-50"
             >
               {adding && (
                 <Loader2
@@ -194,7 +197,7 @@ export default function SettingsMemoriesPage() {
           {message && (
             <p
               role={message.type === 'error' ? 'alert' : 'status'}
-              className={`mb-4 font-mono text-xs ${message.type === 'error' ? 'text-fl-error-fg' : 'text-fl-success'}`}
+              className={`mb-4 font-mono text-xs font-semibold ${message.type === 'error' ? 'text-fl-error-fg' : 'text-fl-success'}`}
             >
               {message.text}
             </p>
@@ -204,19 +207,22 @@ export default function SettingsMemoriesPage() {
         {loading ? (
           <PageLoading fullScreen={false} />
         ) : loadError ? (
-          <div role="alert" className="border-fl-error/40 border p-4">
-            <p className="text-fl-error-fg mb-3 font-mono text-xs">
+          <div
+            role="alert"
+            className="border-fl-error/40 glass-card rounded-xl border p-4"
+          >
+            <p className="text-fl-error-fg mb-3 font-mono text-xs font-semibold">
               {t('memoryLoadError')}
             </p>
             <button
               onClick={() => void loadMemories()}
-              className="border-fl-border text-fl-muted-1 hover:text-fl-fg border px-4 py-2 font-mono text-xs tracking-widest uppercase"
+              className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase"
             >
               {tCommon('retry')}
             </button>
           </div>
         ) : memories.length === 0 ? (
-          <p className="text-fl-hint text-fl-muted-2 font-mono">
+          <p className="text-fl-hint text-fl-muted-2 font-mono font-medium">
             {t('memoryEmpty')}
           </p>
         ) : (
@@ -225,13 +231,13 @@ export default function SettingsMemoriesPage() {
               {memories.map((memory) => (
                 <li
                   key={memory.id}
-                  className="border-fl-border flex items-start justify-between gap-3 border p-3"
+                  className="glass-card flex items-start justify-between gap-3 rounded-xl p-3.5"
                 >
                   <div className="flex-1 space-y-1">
-                    <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+                    <p className="text-fl-fg font-mono text-xs font-medium leading-relaxed">
                       {memory.content}
                     </p>
-                    <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+                    <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
                       {sourceLabel(memory.source)}
                     </p>
                   </div>
@@ -242,7 +248,7 @@ export default function SettingsMemoriesPage() {
                       content: memory.content,
                     })}
                     aria-busy={deletingId === memory.id}
-                    className="text-fl-muted-2 hover:text-fl-error shrink-0 p-2 transition-colors disabled:opacity-50"
+                    className="neu-button text-fl-muted-2 hover:text-fl-error shrink-0 rounded-xl p-2 transition-all disabled:opacity-50"
                   >
                     {deletingId === memory.id ? (
                       <Loader2
@@ -262,7 +268,7 @@ export default function SettingsMemoriesPage() {
                 setClearConfirm(true)
               }}
               disabled={mutating}
-              className="text-fl-hint text-fl-muted-2 border-fl-border hover:text-fl-error hover:border-fl-error/40 w-full border py-2 font-mono tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-hint text-fl-fg hover:text-fl-error border-fl-error/30 w-full rounded-xl py-2.5 font-mono font-semibold tracking-widest uppercase transition-all"
             >
               {t('memoryClearAll')}
             </button>

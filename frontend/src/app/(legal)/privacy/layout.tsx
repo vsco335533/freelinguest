@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('legal.privacy')
   return createPublicMetadata({
     path: '/privacy',
-    title: `${t('pageTitle')} | FreeLingo`,
+    title: `${t('pageTitle')} | Linguist`,
     description: t('seoDescription'),
     locale: await getLocale(),
   })

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import Image from 'next/image'
 import { useTranslations, useMessages } from 'next-intl'
 import { CircleDot } from 'lucide-react'
 import { TOUR_STORAGE_KEY } from '@/lib/onboarding-tour'
+import { LinguistLogoMark } from '@/components/ui/LinguistLogoMark'
 
 export const WHATS_NEW_VERSION = 'v1.12.5'
 const STORAGE_KEY = `fl_whats_new_seen_${WHATS_NEW_VERSION}`
@@ -52,16 +52,12 @@ export default function WhatsNew() {
       />
 
       {/* Modal */}
-      <div className="border-fl-border bg-fl-surface relative z-10 w-full max-w-md border shadow-2xl">
+      <div className="neu-glass-card relative z-10 w-full max-w-md shadow-2xl">
         {/* Header */}
-        <div className="border-fl-border flex items-center gap-3 border-b px-5 pt-5 pb-4">
-          <Image
-            src="/logo_update.png"
-            alt=""
-            width={85}
-            height={85}
-            className="h-[85px] w-[85px] shrink-0 object-contain"
-          />
+        <div className="border-fl-border/60 flex items-center gap-4 border-b px-5 pt-5 pb-4">
+          <div className="neu-logo-badge flex shrink-0 items-center justify-center rounded-2xl p-3">
+            <LinguistLogoMark size={44} animated />
+          </div>
           <div>
             <p className="text-fl-label text-fl-muted-2 font-sans tracking-widest uppercase">
               {t('title')}
@@ -99,10 +95,10 @@ export default function WhatsNew() {
         </div>
 
         {/* Footer */}
-        <div className="border-fl-border flex justify-end border-t px-5 pt-3 pb-5">
+        <div className="border-fl-border/60 flex justify-end border-t px-5 pt-3 pb-5">
           <button
             onClick={dismiss}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 py-2 font-mono text-sm tracking-widest uppercase transition-colors"
+            className="neu-button-primary px-5 py-2 font-mono text-sm tracking-widest uppercase"
           >
             {t('cta')} →
           </button>

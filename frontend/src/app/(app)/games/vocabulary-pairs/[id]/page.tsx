@@ -14,7 +14,7 @@ import { useLanguageStore } from '@/store/language'
 import { useFreemiumStore } from '@/store/freemium'
 
 const button =
-  'border-fl-border hover:border-fl-border-2 text-fl-fg border px-4 py-2 text-sm disabled:opacity-40'
+  'neu-button text-fl-fg inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold disabled:opacity-40'
 
 export default function VocabularyPairsSessionPage() {
   const { id } = useParams<{ id: string }>()
@@ -219,7 +219,7 @@ export default function VocabularyPairsSessionPage() {
                 return (
                   <button
                     key={m.index}
-                    className={`${button} w-full break-words ${meaning === m.index ? 'bg-fl-surface-2 border-fl-border-2' : ''}`}
+                    className={`${button} w-full rounded-xl break-words ${meaning === m.index ? 'ring-fl-accent/70 bg-fl-accent/15 ring-2' : ''}`}
                     aria-pressed={meaning === m.index}
                     disabled={busy || error || solved}
                     onClick={() =>
@@ -292,7 +292,7 @@ export default function VocabularyPairsSessionPage() {
             {matched.map((c) => (
               <div
                 key={c.index}
-                className="border-fl-border bg-fl-surface space-y-3 border p-5"
+                className="glass-card space-y-3 rounded-2xl p-5"
               >
                 <div className="flex flex-wrap items-center gap-3">
                   <TargetLanguageText

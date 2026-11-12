@@ -18,6 +18,7 @@ import { FreemiumQuotaBanner } from '@/components/billing/FreemiumQuotaBanner'
 import { PaywallBanner } from '@/components/billing/PaywallBanner'
 import { MaintenanceGate } from '@/components/billing/MaintenanceBanner'
 import { apiFetch } from '@/lib/api'
+import { localizeLessonTitle } from '@/lib/curriculum-i18n'
 import { useLanguageStore } from '@/store/language'
 import { useConfigStore } from '@/store/config'
 import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
@@ -38,6 +39,8 @@ const ConversationMode = dynamic(
 interface LessonPractice {
   id: number
   title: string
+  unitId?: string | null
+  lessonType?: string | null
   cefrLevel: string
   targetLanguage: string
 }
@@ -90,9 +93,21 @@ function LessonConversationPage({ lessonId }: { lessonId: string }) {
           throw new Error('Invalid lesson context')
         }
         if (!cancelled) {
+          const rawUnitId =
+            typeof data.lesson?.unit_id === 'string' && data.lesson.unit_id
+              ? data.lesson.unit_id
+              : typeof data.lesson?.content?.unit_id === 'string' &&
+                  data.lesson.content.unit_id
+                ? data.lesson.content.unit_id
+                : null
           setPractice({
             id,
             title: data.lesson.title,
+            unitId: rawUnitId,
+            lessonType:
+              typeof data.lesson?.lesson_type === 'string'
+                ? data.lesson.lesson_type
+                : null,
             cefrLevel: data.lesson.cefr_level,
             targetLanguage: data.target_language,
           })
@@ -141,6 +156,7 @@ function LessonConversationPage({ lessonId }: { lessonId: string }) {
 }
 
 function ConversationPageContent({ practice }: { practice?: LessonPractice }) {
+  const tCommon = useTranslations('common')
   const activeLanguage = useLanguageStore((s) => s.activeLanguage)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const user = useAuthStore((s) => s.user)
@@ -302,7 +318,20 @@ function ConversationPageContent({ practice }: { practice?: LessonPractice }) {
           cefrLevel={cefrLevel}
           targetLanguage={practice?.targetLanguage ?? activeLanguage?.code}
           lessonId={practice?.id}
-          lessonTitle={practice?.title}
+          lessonTitle={
+            practice
+              ? localizeLessonTitle(
+                  {
+                    title: practice.title,
+                    unitId: practice.unitId,
+                    lessonType: practice.lessonType,
+                    cefrLevel: practice.cefrLevel,
+                    targetLanguage: practice.targetLanguage,
+                  },
+                  tCommon
+                )
+              : undefined
+          }
           freemiumVoiceRemaining={
             showFreemiumVoicePill ? freemiumVoiceRemaining : undefined
           }

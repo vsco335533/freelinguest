@@ -595,7 +595,7 @@ export default function AssessmentPage() {
           {tCommon('errorMessage')}
         </p>
         <button
-          className="border-fl-border text-fl-fg hover:bg-fl-surface-2 border px-4 py-2 text-sm"
+          className="neu-button text-fl-fg rounded-xl px-5 py-2.5 text-sm font-semibold"
           disabled={submitting}
           onClick={async () => {
             const flow = completedFlow.current
@@ -639,7 +639,7 @@ export default function AssessmentPage() {
           {error}
         </p>
         <button
-          className="border-fl-border text-fl-fg hover:bg-fl-surface-2 border px-4 py-2 text-sm"
+          className="neu-button text-fl-fg rounded-xl px-5 py-2.5 text-sm font-semibold"
           onClick={() => void evaluateQuiz()}
         >
           {tCommon('retry')}
@@ -660,65 +660,65 @@ export default function AssessmentPage() {
     )
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-accent font-bold">●</span>
+            <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
               {t('title')}
             </span>
           </div>
           <div className="space-y-6 p-8 text-center">
             <div>
-              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
                 {t('currentLevel')}
               </p>
               <p className="text-fl-fg font-mono text-6xl font-bold tracking-widest">
                 {existingPlan.cefr_level}
               </p>
             </div>
-            <div className="border-fl-border border py-3">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <div className="glass-card rounded-2xl py-3">
+              <p className="text-fl-label text-fl-muted-3 font-mono font-bold tracking-widest uppercase">
                 {t('assessedOn')}
               </p>
-              <p className="text-fl-muted-1 mt-1 font-mono text-xs">
+              <p className="text-fl-muted-1 mt-1 font-mono text-xs font-semibold">
                 {assessedDate}
               </p>
             </div>
-            <p className="text-fl-label text-fl-muted-3 font-mono leading-relaxed">
+            <p className="text-fl-label text-fl-muted-2 font-mono leading-relaxed font-medium">
               {t('alreadyHasPlan')}
             </p>
             {canOfferVoiceTrial && (
-              <div className="border-fl-border bg-fl-surface-2 space-y-3 border px-4 py-5">
+              <div className="neu-card space-y-3 rounded-2xl px-4 py-5">
                 <p className="text-fl-fg font-mono text-sm font-bold">
                   {t('voiceTrialTitle')}
                 </p>
-                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+                <p className="text-fl-muted-1 font-mono text-xs leading-relaxed font-medium">
                   {t('voiceTrialDesc', { minutes: 5 })}
                 </p>
                 <button
                   onClick={requestVoiceTrial}
                   disabled={trialLoading}
-                  className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                  className="neu-button-primary w-full rounded-xl py-3 font-mono text-sm font-bold tracking-widest text-white uppercase disabled:opacity-50"
                 >
                   {trialLoading ? '...' : `${t('voiceTrialStart')} →`}
                 </button>
               </div>
             )}
             {error && (
-              <div className="border-fl-error/40 text-fl-error-fg border px-4 py-3 font-mono text-xs">
+              <div className="border-fl-error/40 text-fl-error-fg rounded-xl border px-4 py-3 font-mono text-xs">
                 ✕ {error}
               </div>
             )}
-            <div className="flex gap-2">
+            <div className="flex gap-2.5">
               <button
                 onClick={() => router.push('/dashboard')}
-                className="border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg flex-1 border px-3 py-3 font-mono text-xs tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-muted-1 hover:text-fl-fg flex-1 rounded-xl px-3 py-3 font-mono text-xs font-bold tracking-widest uppercase"
               >
                 ← {tCommon('backToDashboard')}
               </button>
               <button
                 onClick={() => setStep('beginner-gate')}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 flex-[1.75] px-3 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+                className="neu-button-primary flex-[1.75] rounded-xl px-3 py-3 font-mono text-sm font-bold tracking-widest text-white uppercase"
               >
                 {t('retake')}
               </button>
@@ -785,41 +785,43 @@ export default function AssessmentPage() {
     const levelChanged = selectedLevel !== aiLevel
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-accent font-bold">●</span>
+            <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
               {t('resultStep')}
             </span>
           </div>
           <div className="space-y-6 p-8 text-center">
             <div>
-              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
                 {t('cefrLevel')}
               </p>
               <p className="text-fl-fg font-mono text-6xl font-bold tracking-widest">
                 {aiLevel}
               </p>
             </div>
-            <div className="border-fl-border border py-3">
-              <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <div className="glass-card rounded-2xl py-3">
+              <p className="text-fl-label text-fl-muted-3 font-mono font-bold tracking-widest uppercase">
                 {tCommon('score')}
               </p>
-              <p className="text-fl-fg-2 mt-1 font-mono text-2xl">{score}%</p>
+              <p className="text-fl-fg-2 mt-1 font-mono text-2xl font-bold">
+                {score}%
+              </p>
             </div>
             <div>
-              <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+              <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
                 {t('overrideLevel')}
               </p>
-              <div className="flex flex-wrap justify-center gap-1">
+              <div className="flex flex-wrap justify-center gap-1.5">
                 {CEFR_LEVELS.map((lvl) => (
                   <button
                     key={lvl}
                     onClick={() => setSelectedLevel(lvl)}
-                    className={`border px-3 py-1.5 font-mono text-xs font-bold tracking-widest transition-colors ${
+                    className={`rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold tracking-widest transition-all ${
                       selectedLevel === lvl
-                        ? 'bg-fl-accent text-fl-accent-fg border-fl-accent'
-                        : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
+                        ? 'neu-button-primary text-white'
+                        : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                     }`}
                   >
                     {lvl}
@@ -827,21 +829,21 @@ export default function AssessmentPage() {
                 ))}
               </div>
               {levelChanged && (
-                <p className="text-fl-hint text-fl-muted-1 mt-2 font-mono">
+                <p className="text-fl-hint text-fl-muted-1 mt-2 font-mono font-medium">
                   {t('suggestedLevel', { aiLevel, selectedLevel })}
                 </p>
               )}
             </div>
             {result.strengths.length > 0 && (
               <div>
-                <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+                <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
                   {t('strengths')}
                 </p>
-                <div className="flex flex-wrap justify-center gap-1">
+                <div className="flex flex-wrap justify-center gap-1.5">
                   {result.strengths.map((s) => (
                     <span
                       key={s}
-                      className="border-fl-border text-fl-label text-fl-muted-1 border px-3 py-1 font-mono tracking-widest uppercase"
+                      className="border-fl-border text-fl-label text-fl-muted-1 rounded-full border px-3 py-1 font-mono font-semibold tracking-widest uppercase"
                     >
                       {s}
                     </span>
@@ -851,14 +853,14 @@ export default function AssessmentPage() {
             )}
             {result.weaknesses.length > 0 && (
               <div>
-                <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+                <p className="text-fl-hint text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
                   {t('needsWork')}
                 </p>
-                <div className="flex flex-wrap justify-center gap-1">
+                <div className="flex flex-wrap justify-center gap-1.5">
                   {result.weaknesses.map((w) => (
                     <span
                       key={w}
-                      className="border-fl-error/30 text-fl-label text-fl-error-dim border px-3 py-1 font-mono tracking-widest uppercase"
+                      className="border-fl-error/30 text-fl-label text-fl-error-dim rounded-full border px-3 py-1 font-mono font-semibold tracking-widest uppercase"
                     >
                       {w}
                     </span>
@@ -867,13 +869,13 @@ export default function AssessmentPage() {
               </div>
             )}
             {error && (
-              <div className="border-fl-error/40 text-fl-error-fg border px-4 py-3 font-mono text-xs">
+              <div className="border-fl-error/40 text-fl-error-fg rounded-xl border px-4 py-3 font-mono text-xs">
                 ✕ {error}
               </div>
             )}
             <button
               onClick={() => setStep('duration')}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+              className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest text-white uppercase"
             >
               {t('createPlan')} →
             </button>
@@ -916,39 +918,39 @@ export default function AssessmentPage() {
     const minutes = Math.round((voiceTrial?.duration_seconds ?? 300) / 60)
     return (
       <div className="flex min-h-[60vh] items-center justify-center p-6">
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border">
-          <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-            <span className="text-fl-label text-fl-muted-3">●</span>
-            <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+        <div className="neu-glass-card w-full max-w-md overflow-hidden rounded-3xl">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+            <span className="text-fl-label text-fl-accent font-bold">●</span>
+            <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
               {t('voiceTrialLabel')}
             </span>
           </div>
           <div className="space-y-6 p-8 text-center">
             <div>
-              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono tracking-widest uppercase">
+              <p className="text-fl-label text-fl-muted-3 mb-2 font-mono font-bold tracking-widest uppercase">
                 {t('cefrLevel')}
               </p>
               <p className="text-fl-fg font-mono text-6xl font-bold tracking-widest">
                 {selectedLevel}
               </p>
             </div>
-            <div className="border-fl-border bg-fl-surface-2 border px-4 py-5">
+            <div className="glass-card rounded-2xl px-4 py-5">
               <p className="text-fl-fg mb-2 font-mono text-base font-bold">
                 {t('voiceTrialTitle')}
               </p>
-              <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+              <p className="text-fl-muted-1 font-mono text-xs leading-relaxed font-medium">
                 {t('voiceTrialDesc', { minutes })}
               </p>
             </div>
             <button
               onClick={startVoiceTrial}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+              className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest text-white uppercase"
             >
               {t('voiceTrialStart')} →
             </button>
             <button
               onClick={() => router.push('/plan')}
-              className="text-fl-hint text-fl-muted-4 hover:text-fl-muted-2 w-full font-mono tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-hint text-fl-muted-2 hover:text-fl-fg w-full rounded-xl py-2.5 font-mono font-bold tracking-widest uppercase"
             >
               {t('voiceTrialSkip')}
             </button>

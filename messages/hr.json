@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Dostupno u oblaku bez instalacije ili na vlastitom poslužitelju.",
       "compare": "Usporedi mogućnosti",
-      "accounts": "Svaka instalacija ima vlastite račune i napredak. Glavni gumb otvara ovu instalaciju; poveznica FreeLingo Cloud otvara službenu uslugu.",
+      "accounts": "Svaka instalacija ima vlastite račune i napredak. Glavni gumb otvara ovu instalaciju; poveznica Linguist Cloud otvara službenu uslugu.",
       "title": "Dva načina korištenja FreeLinga",
       "cloud": {
         "title": "Cloud · Mi upravljamo",
-        "description": "Uči u pregledniku uz uslugu kojom upravlja FreeLingo.",
+        "description": "Uči u pregledniku uz uslugu kojom upravlja Linguist.",
         "setup": "Hosting, održavanje i ažuriranja su uključeni.",
         "access": "AI i glasovne značajke uključeni su unutar ograničenja tvog plana.",
         "cost": "Počni besplatno i odaberi Premium za više vježbanja.",
-        "cta": "Otvori FreeLingo Cloud"
+        "cta": "Otvori Linguist Cloud"
       },
       "selfHosted": {
         "title": "Vlastiti poslužitelj · Ti upravljaš",
-        "description": "Instaliraj FreeLingo na vlastitoj infrastrukturi i odaberi pružatelje AI i glasovnih usluga.",
+        "description": "Instaliraj Linguist na vlastitoj infrastrukturi i odaberi pružatelje AI i glasovnih usluga.",
         "setup": "Kontroliraj instalaciju, konfiguraciju i pohranu podataka.",
         "access": "Slobodan i besplatan softver pod licencijom AGPL-3.0.",
         "cost": "Ti pokrivaš infrastrukturu, održavanje i eventualne troškove pružatelja usluga.",
@@ -26,7 +26,7 @@
     "faq": {
       "modes": {
         "question": "Koja je razlika između oblaka i vlastitog poslužitelja?",
-        "answer": "FreeLingo Cloud je upravljana usluga na freelingo.app: izradi račun i uči bez upravljanja poslužiteljem. Na vlastitom poslužitelju instaliraš i održavaš FreeLingo na svojoj infrastrukturi te konfiguriraš AI i glasovne usluge. Dostupne mogućnosti ovise o konfiguraciji."
+        "answer": "Linguist Cloud je upravljana usluga na freelingo.app: izradi račun i uči bez upravljanja poslužiteljem. Na vlastitom poslužitelju instaliraš i održavaš Linguist na svojoj infrastrukturi te konfiguriraš AI i glasovne usluge. Dostupne mogućnosti ovise o konfiguraciji."
       },
       "free": {
         "question": "Mogu li početi besplatno? Trebam li karticu?",
@@ -38,7 +38,7 @@
       },
       "data": {
         "question": "Gdje se moji podaci pohranjuju i obrađuju?",
-        "answer": "U Cloudu tim FreeLingo upravlja pohranom i šalje AI i glasovne sadržaje pružateljima usluge na obradu. Na vlastitom poslužitelju kontroliraš pohranu i pružatelje: vanjske AI ili glasovne usluge primaju odgovarajući sadržaj. Vlastiti hosting ne znači automatski da je sva obrada lokalna."
+        "answer": "U Cloudu tim Linguist upravlja pohranom i šalje AI i glasovne sadržaje pružateljima usluge na obradu. Na vlastitom poslužitelju kontroliraš pohranu i pružatelje: vanjske AI ili glasovne usluge primaju odgovarajući sadržaj. Vlastiti hosting ne znači automatski da je sva obrada lokalna."
       },
       "languages": {
         "question": "Koje jezike mogu učiti?",
@@ -61,10 +61,10 @@
     "heroSub": "Put do učenja jezika: lekcije na tvojoj razini, vježbe i igre za utvrđivanje znanja te glasovni razgovori s tvojim AI partnerom za učenje.",
     "startFree": "Počni učiti besplatno",
     "freeNote": "Bez platne kartice. Besplatan pristup ima ograničenja korištenja; možeš ga proširiti uz Premium.",
-    "seoTitle": "FreeLingo: uči jezike uz plan i Lingua",
+    "seoTitle": "Linguist: uči jezike uz plan i Lingua",
     "seoDescription": "Uči jezike od A1 do C2 uz osobni plan, vježbe i igre. Primijeni naučeno u razgovorima s Linguom, svojim AI tutorom.",
     "journey": {
-      "title": "Kako funkcionira FreeLingo",
+      "title": "Kako funkcionira Linguist",
       "learnTitle": "Uči svojim tempom",
       "learnDesc": "Otkrij svoju razinu procjenom i započni plan prilagođen tebi. Napreduj lekciju po lekciju uz strukturirani kurikulum od A1 do C2.",
       "practiceTitle": "Vježbaj i učvrsti znanje",
@@ -123,7 +123,7 @@
     "start": "Započni",
     "retry": "Pokušaj ponovno",
     "or": "ili",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "dana",
     "logout": "Odjavi se",
     "logoutConfirmTitle": "Odjava",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Napomene o izrazima",
     "nativeHelpStudyTips": "Savjeti za učenje",
     "nativeHelpWordNotes": "Napomene o riječima",
-    "nativeHelpPractice": "Vježba"
+    "nativeHelpPractice": "Vježba",
+    "aiTutor": "AI mentor",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "n/p",
+    "baseLanguageSelect": "Osnovni jezik",
+    "loaderLearn": "UČI.",
+    "loaderSpeak": "GOVORI.",
+    "loaderRead": "ČITAJ.",
+    "loaderWrite": "PIŠI",
+    "lessonTitlePattern": "{title} - Lekcija {n}",
+    "completionTestTitle": "Završni test razine {level}",
+    "unitTitles": {
+      "a1-unit-1": "Identitet i pozdravi",
+      "a1-unit-2": "Moj svijet",
+      "a1-unit-3": "Svakodnevni život",
+      "a1-unit-4": "Mjesta i položaj",
+      "a1-unit-5": "Radnje upravo sada",
+      "a1-unit-6": "Jučer",
+      "a1-unit-7": "Sposobnosti i želje",
+      "a1-unit-8": "Sažimanje A1",
+      "a2-unit-1": "Nepravilni glagoli i prošle priče",
+      "a2-unit-2": "Planovi i budućnost",
+      "a2-unit-3": "Usporedbe",
+      "a2-unit-4": "Sposobnost i dopuštenje",
+      "a2-unit-5": "Količina i kupnja",
+      "a2-unit-6": "Zdravlje i tijelo",
+      "a2-unit-7": "Putovanja i prijevoz",
+      "a2-unit-8": "Sažimanje A2",
+      "b1-unit-1": "Aspekti Present Perfecta",
+      "b1-unit-2": "Nulti, prvi i drugi kondicional",
+      "b1-unit-3": "Pasiv",
+      "b1-unit-4": "Odnosne rečenice, veznici i frazni glagoli",
+      "b1-unit-5": "Modalni glagoli, savjeti i upitni privjesci",
+      "b1-unit-6": "Neupravni govor",
+      "b1-unit-7": "Past Perfect, želje i žaljenja",
+      "b1-unit-8": "Sažimanje B1",
+      "b2-unit-1": "Prošle priče i redoslijed radnji",
+      "b2-unit-2": "Napredne želje: Wish + Would/Could",
+      "b2-unit-3": "Kondicionali 2 i 3",
+      "b2-unit-4": "Kauzativni Have/Get, modalni pasiv i pasivni infinitivi",
+      "b2-unit-5": "Gerundi, infinitivi i frazni glagoli",
+      "b2-unit-6": "Neupravni govor i perfektni modali",
+      "b2-unit-7": "Dopusnost, kontrast i akademski diskurs",
+      "b2-unit-8": "Sažimanje B2",
+      "c1-unit-1": "Mješoviti kondicionali i nagađanje",
+      "c1-unit-2": "Participne klauze",
+      "c1-unit-3": "Ograđivanje i formalni registar",
+      "c1-unit-4": "Isticanje: inverzija i rascijepljene rečenice",
+      "c1-unit-5": "Elipsa, zamjena i kohezija teksta",
+      "c1-unit-6": "Napredne odnosne rečenice, kritičko mišljenje i frazni glagoli",
+      "c1-unit-7": "Argumentacija i retorika",
+      "c1-unit-8": "Sažimanje C1",
+      "c2-unit-1": "Diskursni označitelji i kohezija teksta",
+      "c2-unit-2": "Nominalizacija i akademski stil",
+      "c2-unit-3": "Idiomatski i figurativni jezik",
+      "c2-unit-4": "Prednje isticanje, naglasak i stilska sredstva",
+      "c2-unit-5": "Kritičko čitanje i akademsko pisanje",
+      "c2-unit-6": "Britanska pragmatika i govorni stil",
+      "c2-unit-7": "Retorička sredstva i napredna struktura teksta",
+      "c2-unit-8": "Sažimanje C2"
+    }
   },
   "detective": {
     "title": "Detektiv pogrešaka",
@@ -466,7 +528,7 @@
     "cardProductReview": "Recenzija proizvoda",
     "cardLegalDocuments": "Pravni dokumenti",
     "sectionReview": "Recenzija",
-    "reviewDescription": "Podijeli svoje iskustvo s FreeLingom. Ako urediš već odobrenu recenziju, morat će proći ponovni pregled prije javnog prikazivanja.",
+    "reviewDescription": "Podijeli svoje iskustvo s Linguistm. Ako urediš već odobrenu recenziju, morat će proći ponovni pregled prije javnog prikazivanja.",
     "reviewPending": "Čeka odobrenje",
     "reviewUpdate": "Ažuriraj",
     "reviewSaved": "Recenzija je spremljena.",
@@ -483,25 +545,25 @@
       "seoDescription": "Pročitaj uvjete FreeLinga o računima, dopuštenoj upotrebi, besplatnom pristupu i pretplatama na platformu za učenje jezika.",
       "updated": "Posljednje ažuriranje: kolovoz 2026.",
       "s1Title": "1. O FreeLingu",
-      "s1Body": "FreeLingo je platforma otvorenog koda za učenje jezika uz AI, dostupna na dva načina: (1) samostalnim hostanjem, kada je besplatno pokrećeš na vlastitoj infrastrukturi, i (2) kao hostirana usluga kojom upravlja tim FreeLingo, s besplatnim i plaćenim planovima. Korištenjem usluge na bilo koji od tih načina prihvaćaš ove Uvjete korištenja.",
+      "s1Body": "Linguist je platforma otvorenog koda za učenje jezika uz AI, dostupna na dva načina: (1) samostalnim hostanjem, kada je besplatno pokrećeš na vlastitoj infrastrukturi, i (2) kao hostirana usluga kojom upravlja tim Linguist, s besplatnim i plaćenim planovima. Korištenjem usluge na bilo koji od tih načina prihvaćaš ove Uvjete korištenja.",
       "s2Title": "2. Dopuštena upotreba",
-      "s2Intro": "FreeLingo smiješ koristiti isključivo za osobno učenje jezika. Obvezuješ se da nećeš:",
+      "s2Intro": "Linguist smiješ koristiti isključivo za osobno učenje jezika. Obvezuješ se da nećeš:",
       "s2i1": "Pokušati neovlašteno pristupiti bilo kojem dijelu sustava.",
       "s2i2": "Učitati štetan sadržaj ili pokušati ometati uslugu.",
       "s2i3": "Dijeliti podatke za prijavu s trećim stranama.",
       "s2i4": "Koristiti automatizirane skripte ili botove za zloupotrebu funkcija AI učitelja.",
       "s3Title": "3. Korisnički računi",
-      "s3Body": "Moraš imati najmanje 16 godina da bi stvorio račun i koristio FreeLingo. Registracijom potvrđuješ da ispunjavaš taj dobni uvjet. Ako saznamo da račun pripada osobi mlađoj od 16 godina, izbrisat ćemo ga i sve povezane podatke bez prethodne obavijesti. Odgovoran si za čuvanje svojih pristupnih podataka i sve aktivnosti na računu. Upravitelj instance – ti pri samostalnom hostanju ili tim FreeLingo za hostiranu uslugu – može privremeno ili trajno zatvoriti račune koji krše ove uvjete.",
+      "s3Body": "Moraš imati najmanje 16 godina da bi stvorio račun i koristio Linguist. Registracijom potvrđuješ da ispunjavaš taj dobni uvjet. Ako saznamo da račun pripada osobi mlađoj od 16 godina, izbrisat ćemo ga i sve povezane podatke bez prethodne obavijesti. Odgovoran si za čuvanje svojih pristupnih podataka i sve aktivnosti na računu. Upravitelj instance – ti pri samostalnom hostanju ili tim Linguist za hostiranu uslugu – može privremeno ili trajno zatvoriti račune koji krše ove uvjete.",
       "s4Title": "4. Sadržaj i interakcije s AI-jem",
-      "s4Body": "Razgovori s AI učiteljem pohranjuju se u bazu podataka radi kontinuiteta učenja. U hostiranoj usluzi AI chat i glasovne funkcije obrađuju se putem OpenAI API-ja, a tvoj sadržaj podliježe pravilima korištenja OpenAI-ja. AI može dati netočne odgovore – uvijek prosuđuj sam. FreeLingo ne odgovara za sadržaj koji stvaraju temeljni jezični modeli. Sadržaj koji stvara AI učitelj (vježbe, ispravci, objašnjenja i drugi materijali) pripada tebi za osobnu upotrebu. FreeLingo ne polaže pravo vlasništva nad tvojim razgovorima ni sadržajem nastalim iz njih.",
+      "s4Body": "Razgovori s AI učiteljem pohranjuju se u bazu podataka radi kontinuiteta učenja. U hostiranoj usluzi AI chat i glasovne funkcije obrađuju se putem OpenAI API-ja, a tvoj sadržaj podliježe pravilima korištenja OpenAI-ja. AI može dati netočne odgovore – uvijek prosuđuj sam. Linguist ne odgovara za sadržaj koji stvaraju temeljni jezični modeli. Sadržaj koji stvara AI učitelj (vježbe, ispravci, objašnjenja i drugi materijali) pripada tebi za osobnu upotrebu. Linguist ne polaže pravo vlasništva nad tvojim razgovorima ni sadržajem nastalim iz njih.",
       "s5Title": "5. Načini pružanja usluge",
-      "s5Body": "Samostalno hostane instalacije besplatne su i upravitelj ima potpunu kontrolu nad svojim podacima i infrastrukturom. Hostirana usluga tima FreeLingo nudi besplatan plan s ograničenjima upotrebe i plaćene mjesečne ili godišnje pretplate za neograničen pristup. Besplatan plan uključuje sedmodnevnu probnu upotrebu s punim pristupom (bez potrebe za načinom plaćanja), a nakon toga dnevna ograničenja za lekcije i AI chat te tjedna za vježbe slušanja, čitanja i glasovne razgovore. Plaćene pretplate uklanjaju sva ograničenja tih funkcija. U hostiranoj usluzi tvoji se podaci čuvaju na poslužiteljima kojima upravlja tim FreeLingo. Trenutačna ograničenja svojeg računa možeš vidjeti na nadzornoj ploči.",
+      "s5Body": "Samostalno hostane instalacije besplatne su i upravitelj ima potpunu kontrolu nad svojim podacima i infrastrukturom. Hostirana usluga tima Linguist nudi besplatan plan s ograničenjima upotrebe i plaćene mjesečne ili godišnje pretplate za neograničen pristup. Besplatan plan uključuje sedmodnevnu probnu upotrebu s punim pristupom (bez potrebe za načinom plaćanja), a nakon toga dnevna ograničenja za lekcije i AI chat te tjedna za vježbe slušanja, čitanja i glasovne razgovore. Plaćene pretplate uklanjaju sva ograničenja tih funkcija. U hostiranoj usluzi tvoji se podaci čuvaju na poslužiteljima kojima upravlja tim Linguist. Trenutačna ograničenja svojeg računa možeš vidjeti na nadzornoj ploči.",
       "s6Title": "6. Pretplata i naplata",
       "s6Body": "Besplatan plan pruža ograničen pristup AI funkcijama, uz sedmodnevnu probnu upotrebu s punim pristupom za nove korisnike (bez potrebe za načinom plaćanja). Plaćene pretplate dostupne su mjesečno ili godišnje i automatski se obnavljaju ako ih prethodno ne otkažeš. Pretplatu možeš otkazati u bilo kojem trenutku u Postavkama; otkazivanje stupa na snagu krajem tekućeg razdoblja. Upravitelj također može otkazati obnove ili pretplate ako se usluga promijeni ili zatvori. Ako usluga prestane prije isteka plaćenog razdoblja, primjenjuje se povrat koji zahtijeva zakon o zaštiti potrošača. Pravo na odustajanje i važeće cijene prikazuju se i obrađuju u skladu s važećim zakonom.",
       "s7Title": "7. Dostupnost",
-      "s7Body": "Hostirana usluga pruža se bez jamstva neprekidnog rada ili dostupnosti. Upravitelj je može promijeniti, privremeno obustaviti ili zatvoriti u bilo kojem trenutku zbog tehničkih, financijskih ili drugih razloga. Planirana zatvaranja objavit će se u aplikaciji ili e-poštom kada je to razumno moguće. Nakon objavljenog datuma računi i operativni podaci mogu se nepovratno izbrisati. FreeLingo ne pruža uslugu sigurnosnog kopiranja ni automatizirani alat za izvoz.",
+      "s7Body": "Hostirana usluga pruža se bez jamstva neprekidnog rada ili dostupnosti. Upravitelj je može promijeniti, privremeno obustaviti ili zatvoriti u bilo kojem trenutku zbog tehničkih, financijskih ili drugih razloga. Planirana zatvaranja objavit će se u aplikaciji ili e-poštom kada je to razumno moguće. Nakon objavljenog datuma računi i operativni podaci mogu se nepovratno izbrisati. Linguist ne pruža uslugu sigurnosnog kopiranja ni automatizirani alat za izvoz.",
       "s8Title": "8. Ograničenje odgovornosti",
-      "s8Body": "FreeLingo i njegovi suradnici ne odgovaraju za izravnu, neizravnu, slučajnu ili posljedičnu štetu nastalu korištenjem ove usluge ili nemogućnošću njezina korištenja. U najvećoj mjeri dopuštenoj mjerodavnim pravom, ukupna odgovornost ne može biti veća od iznosa koji si platio tijekom tri mjeseca prije podnošenja zahtjeva. Obvezuješ se obeštetiti FreeLingo i njegove suradnike te ih zaštititi od zahtjeva trećih osoba, štete ili troškova proizašlih iz tvojeg korištenja usluge protivno ovim uvjetima.",
+      "s8Body": "Linguist i njegovi suradnici ne odgovaraju za izravnu, neizravnu, slučajnu ili posljedičnu štetu nastalu korištenjem ove usluge ili nemogućnošću njezina korištenja. U najvećoj mjeri dopuštenoj mjerodavnim pravom, ukupna odgovornost ne može biti veća od iznosa koji si platio tijekom tri mjeseca prije podnošenja zahtjeva. Obvezuješ se obeštetiti Linguist i njegove suradnike te ih zaštititi od zahtjeva trećih osoba, štete ili troškova proizašlih iz tvojeg korištenja usluge protivno ovim uvjetima.",
       "s9Title": "9. Mjerodavno pravo",
       "s9Body": "Na ove uvjete primjenjuju se zakoni Španjolske. Za sporove proizašle iz ovih uvjeta isključivo su nadležni sudovi u Španjolskoj, osim ako obvezni propisi o zaštiti potrošača u tvojoj državi prebivališta određuju drukčije.",
       "s10Title": "10. Izmjene uvjeta",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Pravila privatnosti",
       "linkBack": "Natrag na registraciju",
       "linkBackSettings": "Natrag na Postavke",
-      "linkContact": "Za pitanja o ovim uvjetima upotrijebi kontaktni obrazac na freelingo.app dok je dostupan ili kontaktni kanal naveden u FreeLingovu repozitoriju na GitHubu."
+      "linkContact": "Za pitanja o ovim uvjetima upotrijebi kontaktni obrazac na freelingo.app dok je dostupan ili kontaktni kanal naveden u Linguistvu repozitoriju na GitHubu."
     },
     "privacy": {
       "pageTitle": "Pravila privatnosti",
-      "seoDescription": "Saznaj kako FreeLingo obrađuje osobne podatke, pohranu preglednika i anonimnu statistiku te kako ostvariti svoja prava na privatnost.",
+      "seoDescription": "Saznaj kako Linguist obrađuje osobne podatke, pohranu preglednika i anonimnu statistiku te kako ostvariti svoja prava na privatnost.",
       "updated": "Posljednje ažuriranje: 10. listopada 2026.",
       "s1Title": "1. Pregled",
-      "s1Body": "FreeLingo je dostupan kao aplikacija za samostalno hostanje i kao hostirana usluga. Pri samostalnom hostanju svi se podaci pohranjuju isključivo na poslužitelju upravitelja i autori projekta FreeLingo nemaju pristup njima. Za hostiranu uslugu tim FreeLingo voditelj je obrade podataka; ova pravila objašnjavaju kako se tvoji osobni podaci prikupljaju, koriste i štite.",
+      "s1Body": "Linguist je dostupan kao aplikacija za samostalno hostanje i kao hostirana usluga. Pri samostalnom hostanju svi se podaci pohranjuju isključivo na poslužitelju upravitelja i autori projekta Linguist nemaju pristup njima. Za hostiranu uslugu tim Linguist voditelj je obrade podataka; ova pravila objašnjavaju kako se tvoji osobni podaci prikupljaju, koriste i štite.",
       "s2Title": "2. Podaci koje prikupljamo",
-      "s2Intro": "FreeLingo nije namijenjen djeci mlađoj od 16 godina. Ne prikupljamo svjesno osobne podatke osoba mlađih od 16 godina. Ako si mlađi od 16 godina, nemoj stvarati račun ni davati osobne podatke. Kada stvoriš račun i koristiš FreeLingo, pohranjuju se sljedeći podaci:",
+      "s2Intro": "Linguist nije namijenjen djeci mlađoj od 16 godina. Ne prikupljamo svjesno osobne podatke osoba mlađih od 16 godina. Ako si mlađi od 16 godina, nemoj stvarati račun ni davati osobne podatke. Kada stvoriš račun i koristiš Linguist, pohranjuju se sljedeći podaci:",
       "s2i1": "Korisničko ime, ime za prikaz i adresa e-pošte.",
       "s2i2": "Lozinka pohranjena kao sažetak (bcrypt – tvoja lozinka u običnom tekstu nikada se ne pohranjuje).",
       "s2i3": "Odabrani materinski jezik i postavke učenja.",
@@ -532,7 +594,7 @@
       "s2i9": "Opće uspomene i postavke računa koje AI učitelj nauči tijekom razgovora ili ih samostalno dodaš kako bi prilagodio buduće interakcije na svim jezicima koje učiš.",
       "s2i10": "Prijedlozi značajki, prijave pogrešaka, komentari i glasovi koje šalješ putem ploče za povratne informacije. Javno se prikazuje samo tvoje korisničko ime; svi korisnici mogu vidjeti objavljene prijedloge i prijave.",
       "s3Title": "3. Kako koristimo tvoje podatke",
-      "s3Intro": "Tvoji se podaci koriste isključivo za pružanje FreeLingova iskustva učenja:",
+      "s3Intro": "Tvoji se podaci koriste isključivo za pružanje Linguistva iskustva učenja:",
       "s3i1": "Za provjeru identiteta i održavanje sesije.",
       "s3i2": "Za prilagodbu plana učenja i razgovora s učiteljem.",
       "s3i3": "Za praćenje napretka u učenju tijekom vremena.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Vanjske AI usluge",
       "s4Body": "U hostiranoj usluzi AI chat, sinteza govora (TTS) i transkripcija govora (STT) pružaju se putem OpenAI API-ja. Sadržaj tvojih razgovora i zvuk šalju se OpenAI-ju na obradu u skladu s njegovim Pravilima privatnosti (openai.com/privacy). Plaćanja obrađuje Stripe, Inc. (SAD); Stripe izravno obrađuje podatke o plaćanju, a mi ne pohranjujemo podatke o karticama na svojim poslužiteljima – na podatke o transakcijama primjenjuju se Stripeova Pravila privatnosti (stripe.com/privacy). Pri samostalnom hostanju upravitelj bira AI pružatelja; zadano se koristi lokalna instanca Ollame i podaci ne napuštaju poslužitelj.",
       "s5Title": "5. Kolačići, lokalna pohrana i analitika",
-      "s5Body": "FreeLingo koristi tehničke kolačiće i kolačiće postavki: refresh_token (httpOnly, prema zadanim postavkama 30 dana) za održavanje sesije te NEXT_LOCALE i LOCALE_DETECTED (do jedne godine) za pamćenje i upravljanje jezikom sučelja. Lokalna pohrana preglednika čuva i postavke sučelja i glasa te stanje obavijesti i vodiča, dok pohrana sesije omogućuje privremeni kontinuitet funkcija. Lokalne vrijednosti ostaju dok ih aplikacija ili ti ne izbrišete; vrijednosti sesije uklanjaju se nakon upotrebe ili zatvaranja kartice. U hostiranoj usluzi koristimo Umami, alat za analitiku otvorenog koda koji samostalno hostamo na istoj infrastrukturi kao FreeLingo, kako bismo dobili anonimne, zbirne statistike o upotrebi i radu usluge te poboljšali iskustvo učenja. Analitika koristi tehničke podatke o upotrebi, ne koristi kolačiće, nije povezana s računima i ne služi za izradu pojedinačnih profila ni oglašavanje. Analitički podaci ne prodaju se, ne ustupaju niti dijele s trećim stranama. Statistike Umamija ne brišu se automatski i čuvaju se do ručnog uklanjanja. U samostalno hostanim instalacijama za konfiguraciju analitike odgovoran je upravitelj instance. Obavijest o kolačićima je informativna; njezinim zatvaranjem bilježi se samo da je zatvorena.",
+      "s5Body": "Linguist koristi tehničke kolačiće i kolačiće postavki: refresh_token (httpOnly, prema zadanim postavkama 30 dana) za održavanje sesije te NEXT_LOCALE i LOCALE_DETECTED (do jedne godine) za pamćenje i upravljanje jezikom sučelja. Lokalna pohrana preglednika čuva i postavke sučelja i glasa te stanje obavijesti i vodiča, dok pohrana sesije omogućuje privremeni kontinuitet funkcija. Lokalne vrijednosti ostaju dok ih aplikacija ili ti ne izbrišete; vrijednosti sesije uklanjaju se nakon upotrebe ili zatvaranja kartice. U hostiranoj usluzi koristimo Umami, alat za analitiku otvorenog koda koji samostalno hostamo na istoj infrastrukturi kao Linguist, kako bismo dobili anonimne, zbirne statistike o upotrebi i radu usluge te poboljšali iskustvo učenja. Analitika koristi tehničke podatke o upotrebi, ne koristi kolačiće, nije povezana s računima i ne služi za izradu pojedinačnih profila ni oglašavanje. Analitički podaci ne prodaju se, ne ustupaju niti dijele s trećim stranama. Statistike Umamija ne brišu se automatski i čuvaju se do ručnog uklanjanja. U samostalno hostanim instalacijama za konfiguraciju analitike odgovoran je upravitelj instance. Obavijest o kolačićima je informativna; njezinim zatvaranjem bilježi se samo da je zatvorena.",
       "s6Title": "6. Tvoja prava (GDPR)",
-      "s6Body": "Ako si u Europskom gospodarskom prostoru, prema GDPR-u imaš pravo na pristup, ispravak, brisanje, prigovor i prenosivost podataka. Račun možeš izbrisati u Postavkama. Ostali zahtjevi obrađuju se ručno putem kontakta iz odjeljka 8; FreeLingo nema automatizirani alat za izvoz. Podatke obrađujemo radi pružanja usluge (čl. 6. st. 1. t. b GDPR-a). OpenAI i Stripe mogu obrađivati podatke u SAD-u uz zaštitne mjere primjenjive na međunarodne prijenose. Možeš podnijeti pritužbu španjolskom tijelu za zaštitu podataka (aepd.es) ili lokalnom nadzornom tijelu.",
+      "s6Body": "Ako si u Europskom gospodarskom prostoru, prema GDPR-u imaš pravo na pristup, ispravak, brisanje, prigovor i prenosivost podataka. Račun možeš izbrisati u Postavkama. Ostali zahtjevi obrađuju se ručno putem kontakta iz odjeljka 8; Linguist nema automatizirani alat za izvoz. Podatke obrađujemo radi pružanja usluge (čl. 6. st. 1. t. b GDPR-a). OpenAI i Stripe mogu obrađivati podatke u SAD-u uz zaštitne mjere primjenjive na međunarodne prijenose. Možeš podnijeti pritužbu španjolskom tijelu za zaštitu podataka (aepd.es) ili lokalnom nadzornom tijelu.",
       "s7Title": "7. Čuvanje i brisanje podataka",
-      "s7Body": "Operativni podaci čuvaju se dok tvoj račun postoji i hostirana usluga radi. U Postavkama možeš izbrisati uspomene, jezike ili cijeli račun. Upravitelj također može izbrisati sve račune i podatke pri zatvaranju usluge, uz razumnu najavu kada je moguća. Brisanje se ne može poništiti. Nakon brisanja sustava i kopija pod upraviteljevom kontrolom FreeLingo više ne čuva osobne podatke. Stripe može zadržati podatke o plaćanjima i transakcijama u skladu sa svojim pravilima i zakonskim obvezama.",
+      "s7Body": "Operativni podaci čuvaju se dok tvoj račun postoji i hostirana usluga radi. U Postavkama možeš izbrisati uspomene, jezike ili cijeli račun. Upravitelj također može izbrisati sve račune i podatke pri zatvaranju usluge, uz razumnu najavu kada je moguća. Brisanje se ne može poništiti. Nakon brisanja sustava i kopija pod upraviteljevom kontrolom Linguist više ne čuva osobne podatke. Stripe može zadržati podatke o plaćanjima i transakcijama u skladu sa svojim pravilima i zakonskim obvezama.",
       "s8Title": "8. Kontakt",
-      "s8Body": "Za pitanja o privatnosti hostirane usluge upotrijebi kontaktni obrazac na freelingo.app dok je dostupan. Nakon zatvaranja koristi kontaktni kanal objavljen u FreeLingovu repozitoriju na GitHubu i ne objavljuj osobne podatke u javnim prijavama. Za samostalno hostane instalacije obrati se upravitelju te instance.",
+      "s8Body": "Za pitanja o privatnosti hostirane usluge upotrijebi kontaktni obrazac na freelingo.app dok je dostupan. Nakon zatvaranja koristi kontaktni kanal objavljen u Linguistvu repozitoriju na GitHubu i ne objavljuj osobne podatke u javnim prijavama. Za samostalno hostane instalacije obrati se upravitelju te instance.",
       "s9Title": "9. Djelomična ništetnost",
       "s9Body": "Ako se utvrdi da je neka odredba ovih pravila nevažeća ili neprovediva, ograničit će se ili ukloniti u najmanjoj potrebnoj mjeri, a ostale odredbe ostat će na snazi.",
       "linkTerms": "Uvjeti korištenja",
@@ -802,7 +864,8 @@
     "noPlanLabel": "ZAPOČNI",
     "noPlanTitle": "Stvori svoj plan učenja",
     "noPlanDesc": "Riješi kratku procjenu kako bi saznao svoju razinu i dobio osobni put učenja.",
-    "noPlanHint": "Traje oko 10 minuta"
+    "noPlanHint": "Traje oko 10 minuta",
+    "loadFailed": "Učitavanje plana učenja nije uspjelo"
   },
   "lesson": {
     "loading": "Učitavanje lekcije...",
@@ -1275,7 +1338,13 @@
         "sv": "Švedski",
         "da": "Danski",
         "fi": "Finski",
-        "hr": "Hrvatski"
+        "hr": "Hrvatski",
+        "hi": "Hindski",
+        "te": "Telugu",
+        "ta": "Tamilski",
+        "ml": "Malajalamski",
+        "or": "Orijski",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Istodobno vježbaj rječnik karticama",
     "workflowStep6": "Vježbaj slobodan razgovor s Linguom",
     "q_language": "Koji ću jezik učiti?",
-    "a_language": "FreeLingo trenutačno podržava više jezika ({languages}), a s vremenom ćemo dodati još jezika. Kad novi jezik postane dostupan, pronaći ćeš ga pod Postavke → Moji jezici – dodaj ga i odmah počni učiti.",
+    "a_language": "Linguist trenutačno podržava više jezika ({languages}), a s vremenom ćemo dodati još jezika. Kad novi jezik postane dostupan, pronaći ćeš ga pod Postavke → Moji jezici – dodaj ga i odmah počni učiti.",
     "q_assessment": "Što je procjena razine?",
     "a_assessment": "Prilagodljivi test s najviše 15 pitanja iz banke pitanja za jezik koji učiš. Obuhvaća gramatiku, rječnik i razumijevanje pročitanog od A1 do C2. Rezultat procjenjuje CEFR razinu i pokazuje prednosti i područja za vježbu; predloženu razinu možeš prilagoditi prije izrade plana.",
     "q_studyPlan": "Što je plan učenja i kako ga stvaram?",
@@ -1311,7 +1380,7 @@
     "a_listening": "U odjeljku <strong>Slušanje</strong> Lingu priprema vježbe slušanja prilagođene tvojoj CEFR razini. Poslušaj i odgovori na pet pitanja za provjeru razumijevanja. Nakon slanja dobit ćeš rezultat (0–5), XP, točne odgovore i cijeli prijepis. Nove vježbe možeš stvarati kad poželiš.",
     "q_reading": "Kako funkcioniraju vježbe čitanja?",
     "a_reading": "Odjeljak <strong>Čitanje</strong> stvara tekstove na tvojoj CEFR razini – obavijesti, e-poruke, članke, objave na blogu i drugo. Pročitaj tekst i odgovori na pet pitanja s višestrukim odabirom. Nakon slanja dobit ćeš rezultat (0–5) i XP. Nove vježbe možeš stvarati kad poželiš.",
-    "q_providers": "Koje AI pružatelje FreeLingo podržava?",
+    "q_providers": "Koje AI pružatelje Linguist podržava?",
     "a_providers_intro": "Postavlja se u datoteci <code>.env</code> putem <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Lokalno i besplatno. Ollama mora biti pokrenuta na poslužitelju. Preporučeni model: gemma4:e4b. Bez GPU-a može biti sporo.",
     "provider_openai": "Usluga OpenAI s modelom koji je konfigurirao administrator. Zahtijeva OPENAI_API_KEY i može stvarati troškove korištenja.",
@@ -1424,7 +1493,10 @@
       "Planovi za vikend",
       "Posao i ciljevi u karijeri",
       "Rad od kuće"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Snimi",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Lekcije",
     "flashcardsLabel": "Kartice",
     "viewDetails": "Pogledaj detalje",
-    "supportedLanguages": "Dostupni jezici"
+    "supportedLanguages": "Dostupni jezici",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Švedski",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Besplatno probno razdoblje",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Počni s {days} besplatnih dana",
-    "trialTitleTrialUsed": "Aktiviraj FreeLingo Premium",
+    "trialTitleTrialUsed": "Aktiviraj Linguist Premium",
     "trialDesc": "Dobij puni pristup Lingu, govornim vježbama, slušanju i čitanju prije prve uplate.",
     "trialDescTrialUsed": "Odaberi plan kako bi otključao Lingu, govorne vježbe, slušanje i čitanje.",
     "trialCtaMonthly": "Isprobaj besplatno, zatim €{price}/mjesečno",
@@ -1576,7 +1658,7 @@
     "audioError": "Zvuk nije moguće reproducirati. Možeš pokušati ponovno.",
     "step1": {
       "label": "Dobrodošli",
-      "title": "Dobrodošli u FreeLingo",
+      "title": "Dobrodošli u Linguist",
       "desc": "Bok! Ja sam Lingu, tvoj suputnik u učenju jezika. Pokazat ću ti kako možemo učiti zajedno."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Nastavi vježbati uz igre",
     "paywallGamesDesc": "Besplatna kvota je potrošena ili igre zahtijevaju Premium. Možeš nastaviti postojeće igre.",
     "paywallLabel": "Potreban je Premium",
-    "paywallTitle": "Otključaj FreeLingo Premium",
+    "paywallTitle": "Otključaj Linguist Premium",
     "paywallDesc": "Započni besplatno probno razdoblje od {days} dana i otključaj sve Premium vježbe prije prve uplate.",
     "paywallDescTrialUsed": "Otključaj sve Premium vježbe i provjeri iznos prije potvrde.",
     "paywallChatTitle": "Vježbaj s Linguom bez ograničenja",
@@ -1636,7 +1718,7 @@
     "planYearly": "Najbolja vrijednost · €{price}/godišnje · 2 mjeseca gratis →",
     "checkoutError": "Plaćanje nije bilo moguće pokrenuti. Pokušaj ponovno.",
     "pricingTitle": "Planovi i cijene",
-    "pricingContext": "Ovi planovi vrijede za ovu instalaciju. Vlastiti hosting ne zahtijeva pretplatu na FreeLingo Cloud; administrator konfigurira pristup i ograničenja.",
+    "pricingContext": "Ovi planovi vrijede za ovu instalaciju. Vlastiti hosting ne zahtijeva pretplatu na Linguist Cloud; administrator konfigurira pristup i ograničenja.",
     "pricingDesc": "Dodatno probno razdoblje pri pretplati: {days} dana · potrebna kartica · zatim vrijedi cijena plana",
     "pricingDescTrialUsed": "Plaćena mjesečna ili godišnja pretplata od kupnje. Otkaži kad god želiš.",
     "planMonthlyName": "Mjesečno",
@@ -1668,7 +1750,7 @@
       "l5": "Sedmodnevno probno razdoblje s punim pristupom"
     },
     "successLabel": "Plaćanje je potvrđeno",
-    "successTitle": "Dobrodošli u FreeLingo Premium!",
+    "successTitle": "Dobrodošli u Linguist Premium!",
     "successDesc": "Tvoja pretplata sada je aktivna. Uživaj u neograničenom pristupu svim značajkama.",
     "successCheckingLabel": "Potvrda pretplate",
     "successCheckingTitle": "Provjeravamo tvoju pretplatu",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "Ugodnije iskustvo",
-      "desc": "Ispravili smo i manje pogreške te doradili pojedinosti kako bi svakodnevno učenje uz FreeLingo bilo ugodnije."
+      "desc": "Ispravili smo i manje pogreške te doradili pojedinosti kako bi svakodnevno učenje uz Linguist bilo ugodnije."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Nismo mogli provjeriti status tvoje recenzije. Pokušaj poslije.",
     "ratingRequiredError": "Odaberi ocjenu prije slanja.",
     "saveError": "Nismo mogli spremiti tvoju recenziju. Pokušaj ponovno.",
-    "eyebrow": "Ocijeni FreeLingo",
+    "eyebrow": "Ocijeni Linguist",
     "title": "Kakvo je bilo tvoje iskustvo?",
     "closeLabel": "Zatvori obrazac za recenziju",
     "checking": "Provjera statusa recenzije...",
@@ -1960,7 +2042,7 @@
     "readLess": "Prikaži manje",
     "learningLanguage": "Uči jezik: {language}",
     "starsLabel": "Ocjena: {rating} od 5",
-    "ratingOnly": "Potvrđena ocjena za FreeLingo."
+    "ratingOnly": "Potvrđena ocjena za Linguist."
   },
   "adminReviews": {
     "title": "Recenzije",

@@ -3,31 +3,17 @@
 import { Suspense, useCallback, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
+import {
+  AuthBackdropOrbs,
+  LinguistBrandHeader,
+} from '@/components/ui/LinguistBrandHeader'
 import { apiFetch } from '@/lib/api'
+import { ORDERED_BASE_LOCALES as LANGUAGES, persistLocaleCookies } from '@/lib/locale-cookie'
 import { useAuthStore } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 import { PageLoading } from '@/components/ui/page-loading'
-
-const LANGUAGES = [
-  'en',
-  'es',
-  'fr',
-  'pt',
-  'de',
-  'it',
-  'pl',
-  'nl',
-  'ro',
-  'ru',
-  'tr',
-  'sv',
-  'da',
-  'fi',
-  'hr',
-] as const
 
 type SelectedPlan = 'monthly' | 'yearly'
 
@@ -36,6 +22,7 @@ function getSelectedPlan(plan: string | null): SelectedPlan | null {
 }
 
 function RegisterForm() {
+  const activeLocale = useLocale()
   const t = useTranslations('auth.register')
   const tLang = useTranslations('languages')
   const tCommon = useTranslations('common')
@@ -52,7 +39,7 @@ function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [displayName, setDisplayName] = useState('')
-  const [nativeLanguage, setNativeLanguage] = useState('es')
+  const [nativeLanguage, setNativeLanguage] = useState<string>(activeLocale)
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -123,10 +110,17 @@ function RegisterForm() {
           throw new Error(msg)
         }
         const data = await res.json()
+        persistLocaleCookies(nativeLanguage)
         startSession(data.access_token)
-        router.push(
-          selectedPlan ? `/onboarding?plan=${selectedPlan}` : '/onboarding'
-        )
+        const nextUrl = selectedPlan
+          ? `/onboarding?plan=${selectedPlan}`
+          : '/onboarding'
+        if (nativeLanguage !== activeLocale) {
+          window.location.assign(nextUrl)
+          return
+        }
+        router.push(nextUrl)
+        router.refresh()
       } catch (err: unknown) {
         const knownErrors = [
           t('error'),
@@ -153,6 +147,7 @@ function RegisterForm() {
       confirmPassword,
       displayName,
       nativeLanguage,
+      activeLocale,
       termsAccepted,
       invite,
       selectedPlan,
@@ -163,27 +158,14 @@ function RegisterForm() {
   )
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-10 flex flex-col items-center">
-          <Image
-            src="/logo.png"
-            alt="FreeLingo"
-            width={100}
-            height={100}
-            className="mb-4"
-          />
-          <h1 className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-          <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
-            {tCommon('tagline')}
-          </p>
-        </div>
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader subtitle={tCommon('tagline')} />
 
-        <div className="border-fl-border bg-fl-surface border p-8">
-          <div className="border-fl-border mb-6 flex items-center gap-2 border-b pb-4">
-            <span className="text-fl-label text-fl-muted-2">●</span>
+        <div className="neu-glass-card animate-fade-up p-8">
+          <div className="border-fl-border/60 mb-6 flex items-center gap-2 border-b pb-4">
+            <span className="text-fl-label text-blue-500">●</span>
             <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
               {t('title')}
             </span>
@@ -195,7 +177,7 @@ function RegisterForm() {
           </div>
 
           {error && (
-            <div className="border-fl-error/40 text-fl-error mb-5 border px-4 py-3 font-mono text-xs tracking-wide">
+            <div className="border-fl-error/40 bg-fl-error/5 text-fl-error mb-5 rounded-xl border px-4 py-3 font-mono text-xs tracking-wide">
               ✕ {error}
             </div>
           )}
@@ -240,7 +222,7 @@ function RegisterForm() {
                   autoCorrect={field.type === 'email' ? 'off' : undefined}
                   autoCapitalize={field.type === 'email' ? 'none' : undefined}
                   spellCheck={field.type === 'email' ? false : undefined}
-                  className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+                  className="neu-input text-fl-fg placeholder:text-fl-muted-4 w-full px-4 py-3 font-mono text-sm"
                 />
               </div>
             ))}
@@ -258,7 +240,7 @@ function RegisterForm() {
                   autoCorrect="off"
                   autoCapitalize="none"
                   spellCheck={false}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 pr-11 font-mono text-sm transition-colors focus:outline-none"
+                  className="neu-input text-fl-fg w-full px-4 py-3 pr-11 font-mono text-sm"
                 />
                 <button
                   type="button"
@@ -317,7 +299,7 @@ function RegisterForm() {
                   autoCorrect="off"
                   autoCapitalize="none"
                   spellCheck={false}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 pr-11 font-mono text-sm transition-colors focus:outline-none"
+                  className="neu-input text-fl-fg w-full px-4 py-3 pr-11 font-mono text-sm"
                 />
                 <button
                   type="button"
@@ -408,7 +390,7 @@ function RegisterForm() {
               <select
                 value={nativeLanguage}
                 onChange={(e) => setNativeLanguage(e.target.value)}
-                className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+                className="neu-input text-fl-fg w-full appearance-none px-4 py-3 font-mono text-sm"
               >
                 {[...LANGUAGES]
                   .sort((a, b) => tLang(a).localeCompare(tLang(b)))
@@ -423,7 +405,7 @@ function RegisterForm() {
             <button
               type="submit"
               disabled={loading}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 mt-2 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="neu-button-primary mt-2 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-40"
             >
               {loading ? (
                 <>
@@ -468,36 +450,23 @@ function RegistrationGate() {
   if (configLoading) return <PageLoading />
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-10 flex flex-col items-center">
-          <Image
-            src="/logo.png"
-            alt="FreeLingo"
-            width={100}
-            height={100}
-            className="mb-4"
-          />
-          <h1 className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-          <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
-            {tCommon('tagline')}
-          </p>
-        </div>
-        <div className="border-fl-border bg-fl-surface border p-8">
-          <div className="border-fl-border mb-6 flex items-center gap-2 border-b pb-4">
-            <span className="text-fl-label text-fl-muted-2">●</span>
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader subtitle={tCommon('tagline')} />
+        <div className="neu-glass-card animate-fade-up p-8">
+          <div className="border-fl-border/60 mb-6 flex items-center gap-2 border-b pb-4">
+            <span className="text-fl-label text-blue-500">●</span>
             <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
               {t('title')}
             </span>
           </div>
-          <p className="border-fl-border bg-fl-bg text-fl-muted-1 mb-5 border px-4 py-4 text-center font-mono text-xs leading-relaxed">
+          <p className="glass-card text-fl-muted-1 mb-5 rounded-xl border px-4 py-4 text-center font-mono text-xs leading-relaxed">
             {t('registrationClosed')}
           </p>
           <Link
             href="/login"
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block py-3 text-center font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+            className="neu-button-primary block py-3 text-center font-mono text-sm font-bold tracking-widest uppercase"
           >
             {t('login')}
           </Link>

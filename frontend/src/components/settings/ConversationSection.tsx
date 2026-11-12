@@ -63,17 +63,17 @@ export function ConversationSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="border-fl-border bg-fl-surface border p-6">
-      <div className="border-fl-border mb-5 flex items-center gap-2 border-b pb-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="glass-card rounded-2xl p-6">
+      <div className="border-fl-border/60 mb-5 flex items-center gap-2 border-b pb-4">
+        <span className="text-fl-accent text-fl-label">●</span>
+        <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
           {title ?? t('sectionConversation')}
         </span>
       </div>
 
       <div className="space-y-5">
         <div>
-          <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+          <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
             {t('conversationMaxDuration')}
           </label>
           <div className="flex gap-2">
@@ -82,11 +82,10 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvMaxDuration(val)}
-                className={`flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
-                  convMaxDuration === val
-                    ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-                    : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
-                }`}
+                className={`flex-1 rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convMaxDuration === val
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                  }`}
               >
                 {val === 900 ? t('min15') : t('min30')}
               </button>
@@ -95,7 +94,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         </div>
 
         <div>
-          <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+          <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
             {t('conversationInactivityTimeout')}
           </label>
           <div className="flex gap-2">
@@ -104,11 +103,10 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvInactivityTimeout(val)}
-                className={`flex-1 border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
-                  convInactivityTimeout === val
-                    ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-                    : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
-                }`}
+                className={`flex-1 rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convInactivityTimeout === val
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                  }`}
               >
                 {val === 60 ? t('min1') : val === 180 ? t('min3') : t('min5')}
               </button>
@@ -117,7 +115,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         </div>
 
         <div>
-          <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+          <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
             {t('conversationSpeechPause')}
           </label>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -126,11 +124,10 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvSpeechPause(val)}
-                className={`border py-3 font-mono text-xs tracking-widest uppercase transition-colors ${
-                  convSpeechPause === val
-                    ? 'border-fl-accent bg-fl-accent text-fl-accent-fg'
-                    : 'border-fl-border text-fl-muted-2 hover:border-fl-border-2 hover:text-fl-fg'
-                }`}
+                className={`rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convSpeechPause === val
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                  }`}
               >
                 {val === 0
                   ? t('speechPauseAuto')
@@ -142,14 +139,14 @@ export function ConversationSection({ title }: { title?: string } = {}) {
               </button>
             ))}
           </div>
-          <p className="text-fl-hint text-fl-muted-4 mt-2 font-mono">
+          <p className="text-fl-hint text-fl-muted-2 mt-2 font-mono font-medium">
             {t('conversationSpeechPauseHint')}
           </p>
         </div>
 
         {convMessage && (
           <div
-            className={`border px-4 py-3 font-mono text-xs ${convMessage.type === 'ok' ? 'border-fl-border text-fl-muted-1' : 'border-fl-error/40 text-fl-error'}`}
+            className={`glass-card rounded-xl border px-4 py-3 font-mono text-xs font-semibold ${convMessage.type === 'ok' ? 'border-fl-border text-fl-fg' : 'border-fl-error/40 text-fl-error'}`}
           >
             {convMessage.type === 'ok' ? '✓ ' : '✕ '}
             {convMessage.text}
@@ -159,7 +156,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         <button
           onClick={handleSaveConversation}
           disabled={savingConv}
-          className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+          className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
         >
           {savingConv ? t('saving') : t('saveConversation')}
         </button>

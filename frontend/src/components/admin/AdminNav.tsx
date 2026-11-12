@@ -24,7 +24,7 @@ export function AdminNav() {
   const t = useTranslations('admin')
 
   return (
-    <div className="border-fl-border bg-fl-surface flex flex-wrap items-center gap-1 border p-1">
+    <div className="glass-card flex flex-wrap items-center gap-1.5 rounded-2xl p-1.5">
       {items.map((item) => {
         const Icon = item.icon
         const active =
@@ -34,10 +34,10 @@ export function AdminNav() {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex min-h-9 items-center gap-2 px-3 py-2 font-mono text-xs tracking-widest uppercase transition-colors ${
+            className={`flex min-h-9 items-center gap-2 rounded-xl px-3.5 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
               active
-                ? 'bg-fl-bg text-fl-fg border-fl-accent border-l-2'
-                : 'text-fl-muted-2 hover:bg-fl-bg hover:text-fl-fg border-l-2 border-transparent'
+                ? 'neu-button-primary'
+                : 'text-fl-muted-2 hover:text-fl-fg hover:bg-white/60 dark:hover:bg-white/10'
             }`}
           >
             <Icon className="size-3.5" aria-hidden="true" />

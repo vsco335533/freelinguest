@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Available in the cloud, with no installation, or self-hosted on your server.",
       "compare": "Compare options",
-      "accounts": "Each installation has its own accounts and progress. The main button opens this installation; the FreeLingo Cloud link opens the official service.",
-      "title": "Two ways to use FreeLingo",
+      "accounts": "Each installation has its own accounts and progress. The main button opens this installation; the Linguist Cloud link opens the official service.",
+      "title": "Two ways to use Linguist",
       "cloud": {
         "title": "Cloud · We manage it",
-        "description": "Learn in your browser with FreeLingo's managed service.",
+        "description": "Learn in your browser with Linguist's managed service.",
         "setup": "Hosting, maintenance and updates included.",
         "access": "AI and voice included within your plan's usage limits.",
         "cost": "Start with a free plan, with Premium available for more practice.",
-        "cta": "Access FreeLingo Cloud"
+        "cta": "Access Linguist Cloud"
       },
       "selfHosted": {
         "title": "Self-hosted · You manage it",
-        "description": "Run FreeLingo on your infrastructure and choose your AI and voice providers.",
+        "description": "Run Linguist on your infrastructure and choose your AI and voice providers.",
         "setup": "Control your installation, configuration and data storage.",
         "access": "Free, open-source software under AGPL-3.0.",
         "cost": "You cover infrastructure, maintenance and any external provider costs.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "What is the difference between cloud and self-hosted?",
-        "answer": "FreeLingo Cloud is the managed service at freelingo.app: create an account and learn without managing a server. With self-hosting, you install and maintain FreeLingo on your infrastructure and configure its AI and voice services. Available capabilities depend on your configuration."
+        "answer": "Linguist Cloud is the managed service at freelingo.app: create an account and learn without managing a server. With self-hosting, you install and maintain Linguist on your infrastructure and configure its AI and voice services. Available capabilities depend on your configuration."
       },
       "free": {
         "question": "Can I start for free? Do I need a card?",
         "answer": "Signup does not require a card. If the installation offers initial Premium access, it starts at registration; afterwards you stay free with usage limits unless you subscribe. A paid subscription starts when you take it out, unless the plan explicitly offers additional trial days. That subscription trial is separate from the initial signup period and requires a payment method."
       },
       "hosting": {
-        "question": "What do I need to self-host FreeLingo?",
+        "question": "What do I need to self-host Linguist?",
         "answer": "You need a server, Docker Compose and configured AI and voice services. You handle setup, updates and backups. The AGPL-3.0 software is free; infrastructure and external providers may cost money. Hardware requirements and supported voice languages depend on the providers you choose."
       },
       "data": {
         "question": "Where is my data stored and processed?",
-        "answer": "In Cloud, the FreeLingo team manages storage, and AI and voice content is sent to the service's providers for processing. With self-hosting, you control storage and providers: using external AI or voice services sends the relevant content to them. Self-hosting does not automatically mean all processing is local."
+        "answer": "In Cloud, the Linguist team manages storage, and AI and voice content is sent to the service's providers for processing. With self-hosting, you control storage and providers: using external AI or voice services sends the relevant content to them. Self-hosting does not automatically mean all processing is local."
       },
       "languages": {
         "question": "Which languages can I learn?",
@@ -61,10 +61,10 @@
     "heroSub": "A path to learning languages: lessons at your level, exercises and games to reinforce them, and voice conversations with your AI learning companion.",
     "startFree": "Start learning for free",
     "freeNote": "No card required. Free access has usage limits; you can upgrade to Premium.",
-    "seoTitle": "FreeLingo: learn languages with a plan and Lingu",
+    "seoTitle": "Linguist: learn languages with a plan and Lingu",
     "seoDescription": "Learn languages from A1 to C2 with a personalised study plan, exercises and games. Practise what you learn in conversations with Lingu, your AI tutor.",
     "journey": {
-      "title": "How FreeLingo works",
+      "title": "How Linguist works",
       "learnTitle": "Learn at your own pace",
       "learnDesc": "Discover your level with an assessment and start a plan tailored to you. Progress lesson by lesson with a structured curriculum from A1 to C2.",
       "practiceTitle": "Practise and reinforce",
@@ -123,7 +123,7 @@
     "start": "Start",
     "retry": "Retry",
     "or": "or",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "days",
     "logout": "Logout",
     "logoutConfirmTitle": "Log Out",
@@ -164,7 +164,368 @@
     "nativeHelpPhraseNotes": "Phrase notes",
     "nativeHelpStudyTips": "Study tips",
     "nativeHelpWordNotes": "Word notes",
-    "nativeHelpPractice": "Practice"
+    "nativeHelpPractice": "Practice",
+    "aiTutor": "AI Tutor",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "N/A",
+    "baseLanguageSelect": "Base language",
+    "loaderLearn": "LEARN.",
+    "loaderSpeak": "SPEAK.",
+    "loaderRead": "READ.",
+    "loaderWrite": "WRITE",
+    "lessonTitlePattern": "{title} - Lesson {n}",
+    "completionTestTitle": "Level {level} Completion Test",
+    "unitTitles": {
+      "a1-unit-1": "Identity & Greetings",
+      "a1-unit-2": "My World",
+      "a1-unit-3": "Daily Life",
+      "a1-unit-4": "Places & Location",
+      "a1-unit-5": "Actions Right Now",
+      "a1-unit-6": "Yesterday",
+      "a1-unit-7": "Abilities & Wishes",
+      "a1-unit-8": "A1 Consolidation",
+      "a2-unit-1": "Irregular Verbs & Past Narratives",
+      "a2-unit-2": "Plans & Future",
+      "a2-unit-3": "Comparisons",
+      "a2-unit-4": "Ability & Permission",
+      "a2-unit-5": "Quantity & Shopping",
+      "a2-unit-6": "Health & Body",
+      "a2-unit-7": "Travel & Transport",
+      "a2-unit-8": "A2 Consolidation",
+      "b1-unit-1": "Present Perfect Aspects",
+      "b1-unit-2": "Zero, First & Second Conditionals",
+      "b1-unit-3": "Passive Voice",
+      "b1-unit-4": "Relative Clauses, Connectors & Phrasal Verbs",
+      "b1-unit-5": "Modals, Advice & Question Tags",
+      "b1-unit-6": "Reported Speech",
+      "b1-unit-7": "Past Perfect, Wishes & Regrets",
+      "b1-unit-8": "B1 Consolidation",
+      "b2-unit-1": "Past Narratives & Sequencing",
+      "b2-unit-2": "Advanced Wishes: Wish + Would/Could",
+      "b2-unit-3": "Conditionals 2 & 3",
+      "b2-unit-4": "Causative Have/Get, Modal Passive & Passive Infinitives",
+      "b2-unit-5": "Gerunds, Infinitives & Phrasal Verbs",
+      "b2-unit-6": "Reported Speech & Modal Perfects",
+      "b2-unit-7": "Concession, Contrast & Academic Discourse",
+      "b2-unit-8": "B2 Consolidation",
+      "c1-unit-1": "Mixed Conditionals & Speculation",
+      "c1-unit-2": "Participle Clauses",
+      "c1-unit-3": "Hedging & Formal Register",
+      "c1-unit-4": "Emphasis: Inversion & Cleft Sentences",
+      "c1-unit-5": "Ellipsis, Substitution & Textual Cohesion",
+      "c1-unit-6": "Advanced Relative Clauses, Critical Thinking & Phrasal Verbs",
+      "c1-unit-7": "Argumentation & Rhetoric",
+      "c1-unit-8": "C1 Consolidation",
+      "c2-unit-1": "Discourse Markers & Text Cohesion",
+      "c2-unit-2": "Nominalisation & Academic Style",
+      "c2-unit-3": "Idiomatic & Figurative Language",
+      "c2-unit-4": "Fronting, Emphasis & Stylistic Devices",
+      "c2-unit-5": "Critical Reading & Academic Writing",
+      "c2-unit-6": "British Pragmatics & Spoken Style",
+      "c2-unit-7": "Rhetorical Devices & Advanced Text Structure",
+      "c2-unit-8": "C2 Consolidation"
+    },
+    "unitChecklists": {
+      "a1-unit-1": {
+        "0": "Introduce yourself (name, age, nationality)",
+        "1": "Ask and answer simple personal questions",
+        "2": "Understand basic greeting phrases"
+      },
+      "a1-unit-2": {
+        "0": "Describe family members and possessions",
+        "1": "Use a/an/the correctly in simple sentences",
+        "2": "Name common colours and basic adjectives",
+        "3": "Form regular and common irregular plurals when describing people and possessions"
+      },
+      "a1-unit-3": {
+        "0": "Talk about daily routines using present simple with adverbs of frequency",
+        "1": "Tell the time and use time expressions",
+        "2": "Ask for information using what, where, when, who, why, how",
+        "3": "Name common foods and drinks"
+      },
+      "a1-unit-4": {
+        "0": "Describe where things are using prepositions",
+        "1": "Use there is/are to describe places",
+        "2": "Name rooms in a house and places in a city",
+        "3": "Use this, that, these, and those to identify nearby and distant objects"
+      },
+      "a1-unit-5": {
+        "0": "Describe what is happening right now",
+        "1": "Distinguish present simple from present continuous",
+        "2": "Name clothes and common actions",
+        "3": "Use object pronouns after verbs and prepositions in simple descriptions"
+      },
+      "a1-unit-6": {
+        "0": "Talk about completed actions in the past",
+        "1": "Use regular and common irregular past forms",
+        "2": "Use past time expressions (yesterday, last week, ago)"
+      },
+      "a1-unit-7": {
+        "0": "Express ability and inability with can/can't",
+        "1": "Ask for and give permission",
+        "2": "Talk about hobbies and free-time activities"
+      },
+      "a1-unit-8": {
+        "0": "Consolidate all A1 grammar with mixed practice",
+        "1": "Read and understand simple everyday texts",
+        "2": "Write a short paragraph about yourself"
+      },
+      "a2-unit-1": {
+        "0": "Uses 40+ common irregular past forms correctly",
+        "1": "Narrates a sequence of past events in a short paragraph",
+        "2": "Asks past questions using Did, Where did, When did",
+        "3": "Contrasts past continuous background actions with past simple events using when and while"
+      },
+      "a2-unit-2": {
+        "0": "Distinguishes going to (planned intention) from will (spontaneous decision)",
+        "1": "Uses present continuous for fixed future arrangements ('I'm meeting John tomorrow')",
+        "2": "Makes predictions about the weather using will",
+        "3": "Describes personal plans for the week using going to"
+      },
+      "a2-unit-3": {
+        "0": "Compare two or more people, places, or things",
+        "1": "Use -er/-est and more/most correctly",
+        "2": "Describe places using superlatives"
+      },
+      "a2-unit-4": {
+        "0": "Express past ability using could",
+        "1": "Ask for and grant permission politely",
+        "2": "Use may/can/could in requests"
+      },
+      "a2-unit-5": {
+        "0": "Use some/any/much/many with countable and uncountable nouns",
+        "1": "Follow a shopping conversation",
+        "2": "Write a simple shopping list or order"
+      },
+      "a2-unit-6": {
+        "0": "Uses should / shouldn't for advice",
+        "1": "Uses must / mustn't for obligation and prohibition",
+        "2": "Describes symptoms and gives health advice in a dialogue"
+      },
+      "a2-unit-7": {
+        "0": "Uses at, on, in for time expressions (at 3pm, on Monday, in June)",
+        "1": "Uses adverbs of manner correctly (quickly, carefully, loudly)",
+        "2": "Gives and follows directions using transport vocabulary"
+      },
+      "a2-unit-8": {
+        "0": "Reads and understands a text (150–200 words) on a familiar topic",
+        "1": "Writes a short email or message (80–100 words) using past and future tenses",
+        "2": "Demonstrates all A2 grammar in a mixed-tense writing task"
+      },
+      "b1-unit-1": {
+        "0": "Use present perfect simple for experiences, recent events, and unfinished time",
+        "1": "Use present perfect continuous to emphasise duration or a recently stopped action",
+        "2": "Distinguish present perfect simple (completed result) from continuous (ongoing process)",
+        "3": "Apply ever, never, just, already, yet, since, for correctly"
+      },
+      "b1-unit-2": {
+        "0": "Form and use zero, first, and second conditionals correctly",
+        "1": "Distinguish real from hypothetical conditions",
+        "2": "Write sentences speculating about the future or imagined situations"
+      },
+      "b1-unit-3": {
+        "0": "Form passive sentences in present and past tenses",
+        "1": "Choose when to use passive over active voice",
+        "2": "Describe processes and news events using the passive"
+      },
+      "b1-unit-4": {
+        "0": "Use defining and non-defining relative clauses",
+        "1": "Connect ideas with although/however/therefore/as a result",
+        "2": "Use common separable and inseparable phrasal verbs correctly",
+        "3": "Write a structured paragraph with clear links between ideas"
+      },
+      "b1-unit-5": {
+        "0": "Use must/have to/should/ought to correctly",
+        "1": "Give and respond to advice",
+        "2": "Express obligation, prohibition, and recommendation",
+        "3": "Form and use question tags correctly, including with modals ('She can swim, can't she?')"
+      },
+      "b1-unit-6": {
+        "0": "Report what someone said with correct tense backshift",
+        "1": "Use reporting verbs (say, tell, ask, explain)",
+        "2": "Summarise a short news item or conversation"
+      },
+      "b1-unit-7": {
+        "0": "Use past perfect to sequence two past events correctly",
+        "1": "Express present and past wishes using wish/if only + past simple/past perfect",
+        "2": "Use third conditional to talk about hypothetical past situations and regrets",
+        "3": "Write about a decision you would change, combining past perfect and third conditional"
+      },
+      "b1-unit-8": {
+        "0": "Consolidate all B1 grammar in mixed tasks",
+        "1": "Read and understand intermediate informational texts",
+        "2": "Write a coherent piece of 100–150 words"
+      },
+      "b2-unit-1": {
+        "0": "Uses the past perfect to sequence two past events correctly",
+        "1": "Does not use the past perfect when the sequence is already clear from context",
+        "2": "Uses time connectors (prior to, subsequently, meanwhile) to organise a narrative",
+        "3": "Writes a coherent 150-word past narrative with correct verb forms",
+        "4": "Distinguishes past simple (simple past action) from past perfect (earlier action)"
+      },
+      "b2-unit-2": {
+        "0": "Uses \"I wish + past simple\" for present wishes correctly",
+        "1": "Uses \"I wish + past perfect\" for past regrets correctly",
+        "2": "Uses \"I wish + would\" to express a complaint about behaviour",
+        "3": "Uses \"if only\" for emphasis without changing the underlying structure",
+        "4": "Expresses nuanced emotions (remorse, yearning, nostalgia) in writing"
+      },
+      "b2-unit-3": {
+        "0": "Forms the second conditional without \"would\" in the if-clause",
+        "1": "Forms the third conditional with past perfect + would have correctly",
+        "2": "Uses \"could/might\" in the main clause as alternatives to \"would\"",
+        "3": "Speculates using hypothetical language (scenario, likelihood, presumably)",
+        "4": "Does not confuse second and third conditional time frames"
+      },
+      "b2-unit-4": {
+        "0": "Forms causative \"have/get + object + past participle\" correctly",
+        "1": "Uses modal passive (must be, should be, can be + past participle)",
+        "2": "Uses passive infinitives (to be + past participle) after verbs like want, expect",
+        "3": "Describes industrial or manufacturing processes using the passive",
+        "4": "Selects \"have\" (formal) vs \"get\" (informal) appropriately in causative structures"
+      },
+      "b2-unit-5": {
+        "0": "Correctly uses gerunds after enjoy, avoid, deny, suggest, consider",
+        "1": "Correctly uses infinitives after want, decide, manage, refuse, hope",
+        "2": "Identifies the meaning difference in \"remember doing\" vs \"remember to do\"",
+        "3": "Uses a gerund after prepositions (interested in doing, used to doing)",
+        "4": "Uses bare infinitive after \"make\" and \"let\""
+      },
+      "b2-unit-6": {
+        "0": "Applies full tense backshift (past perfect, would, could) in reported speech",
+        "1": "Reports questions with if/whether and normal (non-inverted) word order",
+        "2": "Uses must have, can't have, should have, could have correctly",
+        "3": "Distinguishes \"must have\" (deduction) from \"should have\" (regret/criticism)",
+        "4": "Reports a news story using appropriate verbs (said, told, added, denied)"
+      },
+      "b2-unit-7": {
+        "0": "Uses although/even though to link two contrasting clauses in one sentence",
+        "1": "Uses despite/in spite of with a noun or gerund (not a full clause)",
+        "2": "Uses however/nevertheless to start a new contrasting sentence with a comma",
+        "3": "Uses whereas to contrast two equal and opposite facts",
+        "4": "Writes a structured argument with concession phrases to acknowledge counter-views"
+      },
+      "b2-unit-8": {
+        "0": "Writes a 200-word discursive essay with a clear thesis, concessions, and conclusion",
+        "1": "Demonstrates B2 grammar range: conditionals, passives, modal perfects, gerunds",
+        "2": "Reports a short news story correctly using reported speech and modal perfects",
+        "3": "Reads a 250-word text and correctly answers inferential comprehension questions"
+      },
+      "c1-unit-1": {
+        "0": "Construct mixed conditional sentences combining past and present time frames.",
+        "1": "Speculate about past events and their present consequences.",
+        "2": "Use abstract vocabulary to discuss hypothetical scenarios.",
+        "3": "Evaluate the appropriateness of conditional structures in formal writing.",
+        "4": "Identify mixed conditionals in authentic academic and literary texts."
+      },
+      "c1-unit-2": {
+        "0": "Use present and past participle clauses to reduce relative clauses.",
+        "1": "Replace adverbial clauses with participial equivalents for conciseness.",
+        "2": "Apply perfect participle clauses to express sequence of events.",
+        "3": "Produce formal written texts using participle constructions naturally.",
+        "4": "Distinguish between correct and ambiguous participle clause usage."
+      },
+      "c1-unit-3": {
+        "0": "Hedge claims appropriately in academic and professional writing.",
+        "1": "Use formal connectors and discourse phrases accurately.",
+        "2": "Distinguish between formal and informal register in written texts.",
+        "3": "Produce a paragraph of formal writing using hedging language throughout.",
+        "4": "Identify hedging devices in academic articles and reports."
+      },
+      "c1-unit-4": {
+        "0": "Use subject–auxiliary inversion after negative and restrictive adverbials.",
+        "1": "Construct it-cleft and wh-cleft sentences for emphasis.",
+        "2": "Employ advanced idiomatic expressions naturally in spoken interaction.",
+        "3": "Recognise and produce emphasis structures in formal speeches and essays.",
+        "4": "Correct common errors in inversion and cleft constructions."
+      },
+      "c1-unit-5": {
+        "0": "Apply ellipsis and substitution to avoid repetition in formal writing.",
+        "1": "Use academic cohesion vocabulary to link arguments across paragraphs.",
+        "2": "Analyse how cohesive devices contribute to text unity.",
+        "3": "Produce an academic paragraph demonstrating effective use of ellipsis and reference.",
+        "4": "Identify ellipsis and substitution in edited academic prose."
+      },
+      "c1-unit-6": {
+        "0": "Use non-defining, sentential, and reduced relative clauses correctly.",
+        "1": "Master formal and advanced phrasal verbs (bring about, stem from, rule out).",
+        "2": "Express viewpoints using critical thinking vocabulary with precision.",
+        "3": "Evaluate the validity and bias of arguments encountered in texts.",
+        "4": "Debate a topic using counterargument and concession language."
+      },
+      "c1-unit-7": {
+        "0": "Build a persuasive argument using assertion, evidence, and refutation.",
+        "1": "Employ rhetorical devices (inversion, concession, emphasis) in speeches.",
+        "2": "Use debate and rhetoric vocabulary to express agreement, challenge, and concession.",
+        "3": "Write a 300-word opinion essay at C1 standard.",
+        "4": "Deliver a 2-minute spoken argument on a complex topic."
+      },
+      "c1-unit-8": {
+        "0": "Produce a sustained piece of formal writing integrating all C1 grammar structures.",
+        "1": "Demonstrate flexible control of register in both formal and semi-formal contexts.",
+        "2": "Discuss abstract and complex topics fluently with appropriate hedging.",
+        "3": "Identify and correct errors across all C1 grammar areas.",
+        "4": "Pass a C1-level CEFR assessment covering all four skills."
+      },
+      "c2-unit-1": {
+        "0": "Use a wide range of discourse markers to organise arguments at paragraph and essay level.",
+        "1": "Identify how discourse markers signal logical relationships in sophisticated texts.",
+        "2": "Employ nuanced C2 adjectives to add precision and depth to writing.",
+        "3": "Produce a cohesive analytical essay of 400+ words using advanced connectors.",
+        "4": "Evaluate the rhetorical effect of discourse marker choices in published writing."
+      },
+      "c2-unit-2": {
+        "0": "Convert verb and adjective phrases into noun phrases using nominalisation.",
+        "1": "Produce academic writing with the impersonal, dense style characteristic of C2.",
+        "2": "Use formal register vocabulary accurately in professional correspondence.",
+        "3": "Identify and correct inappropriate register in academic texts.",
+        "4": "Write an abstract or executive summary using nominalisation throughout."
+      },
+      "c2-unit-3": {
+        "0": "Use a wide range of idiomatic expressions naturally in spoken and written English.",
+        "1": "Interpret figurative language in authentic literary and journalistic texts.",
+        "2": "Employ fronting for rhetorical emphasis in spoken and written contexts.",
+        "3": "Explain the meaning and cultural context of complex idioms.",
+        "4": "Avoid inappropriate use of idioms in formal written registers."
+      },
+      "c2-unit-4": {
+        "0": "Use object fronting, adverbial fronting, and concessive fronting for effect.",
+        "1": "Identify and deploy literary devices (metaphor, irony, juxtaposition) in writing.",
+        "2": "Adapt writing style consciously for different purposes and audiences.",
+        "3": "Analyse how stylistic choices shape meaning and tone in literary texts.",
+        "4": "Produce a piece of creative or journalistic writing demonstrating stylistic variation."
+      },
+      "c2-unit-5": {
+        "0": "Read and critically evaluate complex academic and professional texts.",
+        "1": "Use critical analysis vocabulary (paradigm, empirical, discourse, posit) accurately.",
+        "2": "Construct a structured critical analysis essay of 500+ words.",
+        "3": "Interrogate the assumptions, bias, and methodology of academic arguments.",
+        "4": "Demonstrate near-native precision of vocabulary and grammar in academic prose."
+      },
+      "c2-unit-6": {
+        "0": "Understand and deploy British pragmatic conventions: understatement, implicature, irony.",
+        "1": "Interpret indirect speech acts and implied meaning in British social and professional contexts.",
+        "2": "Use the vocabulary of British social interaction (banter, self-deprecation, hedging) naturally.",
+        "3": "Analyse how context determines meaning beyond the literal content of utterances.",
+        "4": "Produce a spoken or written text that demonstrates authentic British register and tone."
+      },
+      "c2-unit-7": {
+        "0": "Identify and use rhetorical devices (anaphora, chiasmus, antithesis) in persuasive writing.",
+        "1": "Produce a text with sophisticated thematic and structural cohesion across paragraphs.",
+        "2": "Use advanced concessive structures (Much as..., For all..., Be that as it may) naturally.",
+        "3": "Use precise verbs of thought and argument (posit, contend, refute, problematise) accurately.",
+        "4": "Analyse the rhetorical strategy of a published speech or editorial."
+      },
+      "c2-unit-8": {
+        "0": "Demonstrate mastery of all C2 grammar structures in extended writing tasks.",
+        "1": "Use the full range of C2 vocabulary with precision and appropriate register.",
+        "2": "Produce and deliver a coherent, sophisticated extended argument (spoken and written).",
+        "3": "Critically evaluate a complex text and respond with a counter-argument in writing.",
+        "4": "Achieve a score consistent with C2 proficiency on a Cambridge Proficiency-style assessment."
+      }
+    }
   },
   "detective": {
     "title": "Error Detective",
@@ -466,7 +827,7 @@
     "cardProductReview": "Product review",
     "cardLegalDocuments": "Legal documents",
     "sectionReview": "Review",
-    "reviewDescription": "Share your experience with FreeLingo. If you edit an already approved review, it will go back to review before appearing publicly.",
+    "reviewDescription": "Share your experience with Linguist. If you edit an already approved review, it will go back to review before appearing publicly.",
     "reviewPending": "Pending approval",
     "reviewUpdate": "Update",
     "reviewSaved": "Review saved.",
@@ -480,28 +841,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Terms of Service",
-      "seoDescription": "Read FreeLingo's terms of service for accounts, acceptable use, free access and paid subscriptions to the language learning platform.",
+      "seoDescription": "Read Linguist's terms of service for accounts, acceptable use, free access and paid subscriptions to the language learning platform.",
       "updated": "Last updated: August 2026",
-      "s1Title": "1. About FreeLingo",
-      "s1Body": "FreeLingo is an open-source AI-powered language learning platform available in two modes: (1) self-hosted, where you run it on your own infrastructure at no cost, and (2) as a hosted service operated by the FreeLingo team with a free plan and paid subscriptions. By using this service in either mode, you agree to these Terms of Service.",
+      "s1Title": "1. About Linguist",
+      "s1Body": "Linguist is an open-source AI-powered language learning platform available in two modes: (1) self-hosted, where you run it on your own infrastructure at no cost, and (2) as a hosted service operated by the Linguist team with a free plan and paid subscriptions. By using this service in either mode, you agree to these Terms of Service.",
       "s2Title": "2. Acceptable Use",
-      "s2Intro": "You may use FreeLingo solely for personal language learning purposes. You agree not to:",
+      "s2Intro": "You may use Linguist solely for personal language learning purposes. You agree not to:",
       "s2i1": "Attempt to gain unauthorized access to any part of the system.",
       "s2i2": "Upload malicious content or attempt to disrupt the service.",
       "s2i3": "Share your account credentials with third parties.",
       "s2i4": "Use automated scripts or bots to abuse the AI tutoring features.",
       "s3Title": "3. User Accounts",
-      "s3Body": "You must be at least 16 years old to create an account and use FreeLingo. By registering, you confirm that you meet this age requirement. If we become aware that an account belongs to a person under 16, we will delete it and all associated data without notice. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account. The operator of the instance — yourself for self-hosted deployments, or the FreeLingo team for the hosted service — may suspend or terminate accounts that violate these terms.",
+      "s3Body": "You must be at least 16 years old to create an account and use Linguist. By registering, you confirm that you meet this age requirement. If we become aware that an account belongs to a person under 16, we will delete it and all associated data without notice. You are responsible for maintaining the confidentiality of your credentials and for all activity under your account. The operator of the instance — yourself for self-hosted deployments, or the Linguist team for the hosted service — may suspend or terminate accounts that violate these terms.",
       "s4Title": "4. Content & AI Interactions",
-      "s4Body": "Conversations with the AI tutor are stored in the database for learning continuity. In the hosted service, AI chat and voice features are processed via OpenAI's API and your content is subject to OpenAI's usage policies. The AI may produce inaccurate responses — always apply your own judgement. FreeLingo is not responsible for content generated by underlying language models. The content generated by the AI tutor (exercises, corrections, explanations, and other materials) belongs to you for your personal use. FreeLingo does not claim ownership over your conversations or the content generated from them.",
+      "s4Body": "Conversations with the AI tutor are stored in the database for learning continuity. In the hosted service, AI chat and voice features are processed via OpenAI's API and your content is subject to OpenAI's usage policies. The AI may produce inaccurate responses — always apply your own judgement. Linguist is not responsible for content generated by underlying language models. The content generated by the AI tutor (exercises, corrections, explanations, and other materials) belongs to you for your personal use. Linguist does not claim ownership over your conversations or the content generated from them.",
       "s5Title": "5. Service Modalities",
-      "s5Body": "Self-hosted deployments are free and the operator retains full control over their data and infrastructure. The hosted service operated by the FreeLingo team offers a free plan with usage limits and paid subscriptions for unlimited access, available on a monthly or yearly basis. The free plan includes a 7-day full-access trial (no payment method required) and thereafter limited daily quotas for lessons and AI chat, plus weekly quotas for listening exercises, reading exercises, and voice conversations. Paid subscriptions remove all usage limits on these features. In the hosted service your data is stored on servers operated by the FreeLingo team. Current usage limits for your account are available on your dashboard.",
+      "s5Body": "Self-hosted deployments are free and the operator retains full control over their data and infrastructure. The hosted service operated by the Linguist team offers a free plan with usage limits and paid subscriptions for unlimited access, available on a monthly or yearly basis. The free plan includes a 7-day full-access trial (no payment method required) and thereafter limited daily quotas for lessons and AI chat, plus weekly quotas for listening exercises, reading exercises, and voice conversations. Paid subscriptions remove all usage limits on these features. In the hosted service your data is stored on servers operated by the Linguist team. Current usage limits for your account are available on your dashboard.",
       "s6Title": "6. Subscription & Billing",
       "s6Body": "The free plan provides limited access to AI features with a 7-day full-access trial for new users (no payment method required). Paid subscriptions are available monthly or yearly and renew automatically unless cancelled beforehand. You may cancel from Settings at any time, effective at the end of the current period. The operator may also cancel renewals or subscriptions if the service is changed or closed. If the service ends before a paid period finishes, any refund required by consumer law will apply. Withdrawal rights and applicable prices are displayed and handled in accordance with current law.",
       "s7Title": "7. Availability",
-      "s7Body": "The hosted service is provided without continuity or availability guarantees. The operator may change, suspend, or close it at any time for technical, financial, or any other reasons. Where reasonably possible, planned closures will be announced through the application or by email. After the announced date, accounts and operational data may be deleted without recovery. FreeLingo does not provide a backup service or an automated export tool.",
+      "s7Body": "The hosted service is provided without continuity or availability guarantees. The operator may change, suspend, or close it at any time for technical, financial, or any other reasons. Where reasonably possible, planned closures will be announced through the application or by email. After the announced date, accounts and operational data may be deleted without recovery. Linguist does not provide a backup service or an automated export tool.",
       "s8Title": "8. Limitation of Liability",
-      "s8Body": "FreeLingo and its contributors are not liable for any direct, indirect, incidental or consequential damages arising from your use of, or inability to use, this service. To the maximum extent permitted by applicable law, total liability shall not exceed the amount paid by you in the three months preceding the claim. You agree to indemnify and hold harmless FreeLingo and its contributors from any third-party claims, damages, or expenses arising from your use of the service in violation of these terms.",
+      "s8Body": "Linguist and its contributors are not liable for any direct, indirect, incidental or consequential damages arising from your use of, or inability to use, this service. To the maximum extent permitted by applicable law, total liability shall not exceed the amount paid by you in the three months preceding the claim. You agree to indemnify and hold harmless Linguist and its contributors from any third-party claims, damages, or expenses arising from your use of the service in violation of these terms.",
       "s9Title": "9. Governing Law",
       "s9Body": "These terms are governed by the laws of Spain. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of Spain, unless mandatory consumer protection law in your country of residence provides otherwise.",
       "s10Title": "10. Changes to These Terms",
@@ -511,16 +872,16 @@
       "linkPrivacy": "Privacy Policy",
       "linkBack": "Back to Register",
       "linkBackSettings": "Back to Settings",
-      "linkContact": "For questions about these terms, use the contact form at freelingo.app while available or the contact channel published in the FreeLingo GitHub repository."
+      "linkContact": "For questions about these terms, use the contact form at freelingo.app while available or the contact channel published in the Linguist GitHub repository."
     },
     "privacy": {
       "pageTitle": "Privacy Policy",
-      "seoDescription": "Learn how FreeLingo handles personal data, browser storage and anonymous analytics, and how to exercise your privacy rights.",
+      "seoDescription": "Learn how Linguist handles personal data, browser storage and anonymous analytics, and how to exercise your privacy rights.",
       "updated": "Last updated: October 10, 2026",
       "s1Title": "1. Overview",
-      "s1Body": "FreeLingo is available as a self-hosted application and as a hosted service. For self-hosted deployments, all data is stored exclusively on the operator's server and the FreeLingo project authors have no access to it. For the hosted service, the FreeLingo team acts as the data controller and this policy describes how your personal data is collected, used, and protected.",
+      "s1Body": "Linguist is available as a self-hosted application and as a hosted service. For self-hosted deployments, all data is stored exclusively on the operator's server and the Linguist project authors have no access to it. For the hosted service, the Linguist team acts as the data controller and this policy describes how your personal data is collected, used, and protected.",
       "s2Title": "2. Data We Collect",
-      "s2Intro": "FreeLingo is not directed at children under 16. We do not knowingly collect personal data from anyone under 16 years of age. If you are under 16, do not create an account or provide any personal data. When you create an account and use FreeLingo, the following data is stored:",
+      "s2Intro": "Linguist is not directed at children under 16. We do not knowingly collect personal data from anyone under 16 years of age. If you are under 16, do not create an account or provide any personal data. When you create an account and use Linguist, the following data is stored:",
       "s2i1": "Username, display name, and email address.",
       "s2i2": "Hashed password (bcrypt — your plain-text password is never stored).",
       "s2i3": "Native language preference and learning settings.",
@@ -532,7 +893,7 @@
       "s2i9": "Global account memories and preferences that the AI tutor learns during conversations or that you add manually to personalize future interactions across learning languages.",
       "s2i10": "Feature requests, bug reports, comments, and votes you submit through the feedback board. Only your username is shown publicly; all users can see published suggestions and reports.",
       "s3Title": "3. How We Use Your Data",
-      "s3Intro": "Your data is used exclusively to provide the FreeLingo learning experience:",
+      "s3Intro": "Your data is used exclusively to provide the Linguist learning experience:",
       "s3i1": "Authenticating you and maintaining your session.",
       "s3i2": "Personalizing your study plan and tutor interactions.",
       "s3i3": "Tracking your learning progress over time.",
@@ -543,13 +904,13 @@
       "s4Title": "4. External AI Services",
       "s4Body": "In the hosted service, AI chat, voice synthesis (TTS), and voice transcription (STT) are provided via OpenAI's API. Your conversation content and audio are sent to OpenAI for processing, subject to OpenAI's Privacy Policy (openai.com/privacy). Payment processing is handled by Stripe, Inc. (USA); Stripe processes payment data directly and we do not store payment card details on our servers — your transaction data is subject to Stripe's Privacy Policy (stripe.com/privacy). For self-hosted deployments, the operator chooses the AI provider; by default a local Ollama instance is used and no data leaves the server.",
       "s5Title": "5. Cookies, Local Storage & Analytics",
-      "s5Body": "FreeLingo uses technical and preference cookies: refresh_token (httpOnly, 30 days by default) to maintain your session, and NEXT_LOCALE and LOCALE_DETECTED (up to one year) to remember and manage the interface language. It also uses browser local storage for interface and voice preferences and the state of notices and guides, as well as session storage for temporary continuity of features. Local values remain until the application or you remove them; session values are removed when consumed or when the tab is closed. In the hosted service, we use Umami, an open-source analytics tool self-hosted on the same infrastructure as FreeLingo, to obtain anonymous, aggregate statistics about service usage and operation and improve the learning experience. This analytics uses technical usage data, does not use cookies, is not linked to accounts, and is not used to create individual profiles or for advertising. Analytics data is not sold, transferred, or shared with third parties. Umami statistics are not automatically deleted and are retained until manually removed. In self-hosted installations, analytics configuration is the responsibility of the instance operator. The cookie notice is informational; dismissing it only records that it has been dismissed.",
+      "s5Body": "Linguist uses technical and preference cookies: refresh_token (httpOnly, 30 days by default) to maintain your session, and NEXT_LOCALE and LOCALE_DETECTED (up to one year) to remember and manage the interface language. It also uses browser local storage for interface and voice preferences and the state of notices and guides, as well as session storage for temporary continuity of features. Local values remain until the application or you remove them; session values are removed when consumed or when the tab is closed. In the hosted service, we use Umami, an open-source analytics tool self-hosted on the same infrastructure as Linguist, to obtain anonymous, aggregate statistics about service usage and operation and improve the learning experience. This analytics uses technical usage data, does not use cookies, is not linked to accounts, and is not used to create individual profiles or for advertising. Analytics data is not sold, transferred, or shared with third parties. Umami statistics are not automatically deleted and are retained until manually removed. In self-hosted installations, analytics configuration is the responsibility of the instance operator. The cookie notice is informational; dismissing it only records that it has been dismissed.",
       "s6Title": "6. Your Rights (GDPR)",
-      "s6Body": "If you are in the European Economic Area, you have the GDPR rights of access, correction, deletion, objection, and data portability. You can delete your account directly from Settings. Other requests are handled manually through the contact in section 8; FreeLingo does not provide an automated export tool. We process data to provide the service (Art. 6(1)(b) GDPR). OpenAI and Stripe may process data in the USA under the safeguards applicable to international transfers. You may complain to the Spanish Data Protection Authority (aepd.es) or your local supervisory authority.",
+      "s6Body": "If you are in the European Economic Area, you have the GDPR rights of access, correction, deletion, objection, and data portability. You can delete your account directly from Settings. Other requests are handled manually through the contact in section 8; Linguist does not provide an automated export tool. We process data to provide the service (Art. 6(1)(b) GDPR). OpenAI and Stripe may process data in the USA under the safeguards applicable to international transfers. You may complain to the Spanish Data Protection Authority (aepd.es) or your local supervisory authority.",
       "s7Title": "7. Data Retention & Deletion",
-      "s7Body": "Operational data is kept while your account exists and the hosted service remains active. You can delete memories, languages, or your entire account from Settings. The operator may also delete all accounts and their data when closing the service, after whatever reasonable notice is possible. Deletion cannot be undone. After deleting the systems and copies under the operator's control, FreeLingo will not retain personal data. Stripe may retain payment and transaction information under its own policy and legal obligations.",
+      "s7Body": "Operational data is kept while your account exists and the hosted service remains active. You can delete memories, languages, or your entire account from Settings. The operator may also delete all accounts and their data when closing the service, after whatever reasonable notice is possible. Deletion cannot be undone. After deleting the systems and copies under the operator's control, Linguist will not retain personal data. Stripe may retain payment and transaction information under its own policy and legal obligations.",
       "s8Title": "8. Contact",
-      "s8Body": "For hosted-service privacy questions, use the contact form at freelingo.app while available. After closure, use the contact channel published in the FreeLingo GitHub repository and do not post personal data in public issues. For self-hosted deployments, contact that instance's administrator.",
+      "s8Body": "For hosted-service privacy questions, use the contact form at freelingo.app while available. After closure, use the contact channel published in the Linguist GitHub repository and do not post personal data in public issues. For self-hosted deployments, contact that instance's administrator.",
       "s9Title": "9. Severability",
       "s9Body": "If any provision of this policy is found to be invalid or unenforceable, that provision will be limited to the minimum extent necessary and the remaining provisions will remain in full force and effect.",
       "linkTerms": "Terms of Service",
@@ -802,7 +1163,8 @@
     "noPlanLabel": "GET STARTED",
     "noPlanTitle": "Create your study plan",
     "noPlanDesc": "Take a quick assessment to discover your level and get a personalized learning path.",
-    "noPlanHint": "Takes about 10 minutes"
+    "noPlanHint": "Takes about 10 minutes",
+    "loadFailed": "Failed to load study plan"
   },
   "lesson": {
     "loading": "Loading lesson...",
@@ -1275,7 +1637,13 @@
         "sv": "Swedish",
         "da": "Danish",
         "fi": "Finnish",
-        "hr": "Croatian"
+        "hr": "Croatian",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamil",
+        "ml": "Malayalam",
+        "or": "Odia",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1660,7 @@
     "workflowStep5": "Use Flashcards to train vocabulary in parallel",
     "workflowStep6": "Practice free conversation with Lingu",
     "q_language": "What language will I learn?",
-    "a_language": "FreeLingo currently supports several languages ({languages}), and we will keep adding more over time. When a new language becomes available, you will find it in Settings → My Languages — add it and start learning right away.",
+    "a_language": "Linguist currently supports several languages ({languages}), and we will keep adding more over time. When a new language becomes available, you will find it in Settings → My Languages — add it and start learning right away.",
     "q_assessment": "What is the Assessment?",
     "a_assessment": "An adaptive quiz with up to 15 questions from a bank specific to your study language. It covers grammar, vocabulary and reading comprehension from A1 to C2. The result estimates your CEFR level and highlights strengths and areas to practise; you can adjust the suggested level before creating your plan.",
     "q_studyPlan": "What is the Study Plan and how do I generate one?",
@@ -1311,7 +1679,7 @@
     "a_listening": "In <strong>Listening</strong>, Lingu prepares listening exercises tailored to your CEFR level. Listen to the audio, then answer 5 comprehension questions. After submitting, you get your score (0–5), XP, correct answers, and the full transcript. You can generate new exercises on demand.",
     "q_reading": "How do reading exercises work?",
     "a_reading": "The <strong>Reading</strong> section generates texts at your CEFR level — notices, emails, articles, blog posts, and more. Read the passage and answer 5 multiple-choice questions. After submitting, you get your score (0–5) and XP. New exercises can be generated on demand.",
-    "q_providers": "Which AI providers does FreeLingo support?",
+    "q_providers": "Which AI providers does Linguist support?",
     "a_providers_intro": "Configurable in <code>.env</code> via <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Local, free. Requires Ollama running on the host. Recommended model: gemma4:e4b. May be slow without a GPU.",
     "provider_openai": "OpenAI service using the model configured by the administrator. Requires OPENAI_API_KEY and may incur usage costs.",
@@ -1424,7 +1792,10 @@
       "Weekend plans",
       "Work & career goals",
       "Working from home"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ses",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok"
   },
   "voiceRecorder": {
     "record": "Record",
@@ -1476,7 +1847,17 @@
     "lessonsLabel": "Lessons",
     "flashcardsLabel": "Flashcards",
     "viewDetails": "View details",
-    "supportedLanguages": "Available languages"
+    "supportedLanguages": "Available languages",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Swedish",
@@ -1545,7 +1926,7 @@
     "trialHeadline": "Free trial",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Start with {days} days free",
-    "trialTitleTrialUsed": "Activate FreeLingo Premium",
+    "trialTitleTrialUsed": "Activate Linguist Premium",
     "trialDesc": "Get full access to Lingu, voice practice, listening and reading before your first payment.",
     "trialDescTrialUsed": "Choose a plan to unlock Lingu, voice practice, listening and reading.",
     "trialCtaMonthly": "Try free, then €{price}/month",
@@ -1576,7 +1957,7 @@
     "audioError": "The audio could not be played. You can try again.",
     "step1": {
       "label": "Welcome",
-      "title": "Welcome to FreeLingo",
+      "title": "Welcome to Linguist",
       "desc": "Hi! I'm Lingu, your language-learning companion. Let me show you how we can learn together."
     },
     "step2": {
@@ -1615,7 +1996,7 @@
     "paywallGamesTitle": "Keep practising with games",
     "paywallGamesDesc": "Your free game allowance is used up or games require Premium. Existing games remain available to resume.",
     "paywallLabel": "Premium required",
-    "paywallTitle": "Unlock FreeLingo Premium",
+    "paywallTitle": "Unlock Linguist Premium",
     "paywallDesc": "Start your {days}-day free trial and unlock every Premium practice mode before your first payment.",
     "paywallDescTrialUsed": "Unlock every Premium practice mode and review the amount before confirming.",
     "paywallChatTitle": "Practise with Lingu without limits",
@@ -1636,7 +2017,7 @@
     "planYearly": "Best value · €{price}/year · 2 months free →",
     "checkoutError": "Unable to start checkout. Please try again.",
     "pricingTitle": "Plans and pricing",
-    "pricingContext": "These plans apply to this installation. Self-hosting FreeLingo does not require a FreeLingo Cloud subscription; the administrator configures access and limits.",
+    "pricingContext": "These plans apply to this installation. Self-hosting Linguist does not require a Linguist Cloud subscription; the administrator configures access and limits.",
     "pricingDesc": "Additional trial when subscribing: {days} days · Card required · The plan price applies afterwards",
     "pricingDescTrialUsed": "Monthly or yearly paid subscription starting at purchase. Cancel anytime.",
     "planMonthlyName": "Monthly",
@@ -1668,7 +2049,7 @@
       "l5": "7-day full access trial"
     },
     "successLabel": "Payment confirmed",
-    "successTitle": "Welcome to FreeLingo Premium!",
+    "successTitle": "Welcome to Linguist Premium!",
     "successDesc": "Your subscription is now active. Enjoy unlimited access to all features.",
     "successCheckingLabel": "Confirming subscription",
     "successCheckingTitle": "Checking your subscription",
@@ -1795,7 +2176,7 @@
     },
     "entry4": {
       "label": "A smoother experience",
-      "desc": "We've also fixed minor bugs and polished a few details to make your everyday learning with FreeLingo more enjoyable."
+      "desc": "We've also fixed minor bugs and polished a few details to make your everyday learning with Linguist more enjoyable."
     }
   },
   "contact": {
@@ -1932,7 +2313,7 @@
     "statusError": "We could not check your review status. Please try again later.",
     "ratingRequiredError": "Please choose a rating before submitting.",
     "saveError": "We could not save your review. Please try again.",
-    "eyebrow": "Review FreeLingo",
+    "eyebrow": "Review Linguist",
     "title": "How was your experience?",
     "closeLabel": "Close review prompt",
     "checking": "Checking review status...",
@@ -1948,7 +2329,7 @@
   "landingReviews": {
     "eyebrow": "Learner stories",
     "title": "Learning feels more real when you tell it yourself",
-    "subtitle": "Reviews from students already practicing with Lingu on FreeLingo.",
+    "subtitle": "Reviews from students already practicing with Lingu on Linguist.",
     "averageLabel": "{average}/5 · {count, plural, one {# rating} other {# ratings}}",
     "ratingCount": "{count, plural, one {# rating} other {# ratings}}",
     "carouselLabel": "Student reviews",
@@ -1960,7 +2341,7 @@
     "readLess": "Read less",
     "learningLanguage": "Learning {language}",
     "starsLabel": "{rating} out of 5 stars",
-    "ratingOnly": "Verified FreeLingo rating."
+    "ratingOnly": "Verified Linguist rating."
   },
   "adminReviews": {
     "title": "Reviews",

@@ -7,6 +7,7 @@ import { Check } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { useBillingPortal } from '@/hooks/useBillingPortal'
 import { trackDashboardLink } from '@/lib/analytics'
+import { localizeLessonTitle } from '@/lib/curriculum-i18n'
 import {
   isSubscribed,
   needsPaymentRecovery,
@@ -34,6 +35,7 @@ interface TodayLessonItem {
   day: number
   objectives: string[]
   estimated_minutes: number
+  unit_id?: string
   is_completed: boolean
 }
 
@@ -46,6 +48,8 @@ interface CompletionState {
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
+  const tCommon = useTranslations('common')
+  const tLang = useTranslations('languages')
   const tAssessment = useTranslations('assessment')
   const tBilling = useTranslations('billing')
   const tNav = useTranslations('nav')
@@ -54,23 +58,7 @@ export default function DashboardPage() {
   const tError = useTranslations('error')
   const user = useAuthStore((s) => s.user)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
-  const stripeTrialDays = useConfigStore((s) => s.stripeTrialDays)
-  const trialEligible = stripeTrialDays > 0 && !user?.trial_used
   const freemiumTrialActive = isFreemiumTrialActive(user, stripeEnabled)
-  const [freemiumTrialDaysLeft, setFreemiumTrialDaysLeft] = useState(0)
-
-  useEffect(() => {
-    if (freemiumTrialActive && user?.freemium_trial_ends_at) {
-      const days = Math.max(
-        1,
-        Math.ceil(
-          (new Date(user.freemium_trial_ends_at).getTime() - Date.now()) /
-            86400000
-        )
-      )
-      setFreemiumTrialDaysLeft(days)
-    }
-  }, [freemiumTrialActive, user?.freemium_trial_ends_at])
 
   const {
     streak,
@@ -163,6 +151,7 @@ export default function DashboardPage() {
             day: l.day,
             objectives: l.objectives || [],
             estimatedMinutes: l.estimated_minutes || 25,
+            unitId: l.unit_id,
             isCompleted: l.is_completed,
           }))
         )
@@ -258,7 +247,8 @@ export default function DashboardPage() {
     : Math.min(progressDay + 1, totalDays)
   const vocabularyProgressPct = Math.round(vocabularyProgress * 100)
   const paymentRecovery = needsPaymentRecovery(user)
-  const showPremiumBanner = stripeEnabled && !isSubscribed(user, stripeEnabled)
+  const showPremiumBanner =
+    stripeEnabled && !isSubscribed(user, stripeEnabled) && !freemiumTrialActive
 
   function getPerformanceLabel(value: number) {
     if (value < 0.5) return t('performanceNeedsPractice')
@@ -282,7 +272,7 @@ export default function DashboardPage() {
         }}
       >
         {/* Header */}
-        <div className="border-fl-border mb-6 border-b pb-4">
+        <div className="glass-card animate-fade-up mb-6 rounded-2xl p-5 sm:p-6">
           <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
             {t('welcomeBack')}
           </p>
@@ -291,12 +281,34 @@ export default function DashboardPage() {
               <h1 className="text-fl-fg font-mono text-2xl font-bold tracking-tight">
                 {user?.displayName || user?.username}
               </h1>
-              {activeLanguage && (
-                <p className="text-fl-muted-1 mt-2 font-mono text-sm">
-                  {tTarget(activeLanguage.code)}
-                  {cefrLevel ? ` (${cefrLevel})` : ''}
-                </p>
-              )}
+              <div className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs sm:text-sm">
+                <span className="glass-card inline-flex items-center gap-2 rounded-full px-3 py-1 text-fl-muted-2">
+                  <span className="text-fl-hint tracking-wider uppercase text-fl-muted-3">
+                    {tLang('baseLanguageLabel')}:
+                  </span>
+                  <span className="text-fl-fg font-semibold">
+                    {tLang(user?.native_language || 'en')}
+                  </span>
+                  <span className="rounded-full border border-blue-500/25 bg-blue-500/12 px-2 py-0.5 text-[10px] font-semibold text-blue-500 uppercase">
+                    {tLang('fluentBadge')}
+                  </span>
+                </span>
+                <span className="text-blue-500/70">➔</span>
+                {activeLanguage && (
+                  <span className="glass-card inline-flex items-center gap-2 rounded-full px-3 py-1 text-fl-muted-2">
+                    <span className="text-fl-hint tracking-wider uppercase text-fl-muted-3">
+                      {tLang('targetLanguageLabel')}:
+                    </span>
+                    <span className="text-fl-fg font-semibold">
+                      {tTarget(activeLanguage.code)}
+                      {cefrLevel ? ` (${cefrLevel})` : ''}
+                    </span>
+                    <span className="rounded-full border border-sky-500/25 bg-sky-500/12 px-2 py-0.5 text-[10px] font-semibold text-sky-500 uppercase">
+                      {tLang('learningBadge')}
+                    </span>
+                  </span>
+                )}
+              </div>
             </div>
             {hasPlan && totalDays > 0 && (
               <p className="text-fl-hint text-fl-muted-2 font-mono tracking-widest uppercase">
@@ -312,7 +324,10 @@ export default function DashboardPage() {
         <DashboardAnnouncement />
 
         {/* Next step */}
-        <div className="border-fl-border bg-fl-surface mb-8 border p-5">
+        <div
+          className="neu-card animate-fade-up mb-8 rounded-2xl p-6"
+          style={{ animationDelay: '70ms' }}
+        >
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
             <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
               {t('nextStep')}
@@ -340,7 +355,7 @@ export default function DashboardPage() {
                 </p>
               </div>
               <Link href="/assessment">
-                <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                   {t('takeAssessmentArrow')}
                 </button>
               </Link>
@@ -362,13 +377,13 @@ export default function DashboardPage() {
               </div>
               {completion.next_level != null ? (
                 <Link href="/assessment">
-                  <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                     {tAssessment('retake')}
                   </button>
                 </Link>
               ) : (
                 <Link href="/plan">
-                  <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                     {t('goToMyPlan')}
                   </button>
                 </Link>
@@ -386,7 +401,7 @@ export default function DashboardPage() {
               </div>
               {planId != null && (
                 <Link href={`/assessment/level-test?plan=${planId}`}>
-                  <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                  <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                     {tPlan('beginLevelTest')}
                   </button>
                 </Link>
@@ -399,15 +414,26 @@ export default function DashboardPage() {
                   {t('lessonReady')}
                 </p>
                 <h2 className="text-fl-fg font-mono text-xl font-bold tracking-tight">
-                  {nextLesson.title}
+                  {localizeLessonTitle(
+                    {
+                      title: nextLesson.title,
+                      unitId: nextLesson.unitId,
+                      lessonType: nextLesson.lessonType,
+                      cefrLevel,
+                      targetLanguage: activeLanguage?.code,
+                    },
+                    tCommon
+                  )}
                 </h2>
                 <p className="text-fl-muted-2 mt-2 font-mono text-sm">
                   {tPlan(`lessonTypes.${nextLesson.lessonType}`)} ·{' '}
-                  {nextLesson.estimatedMinutes}min
+                  {tCommon('minutesShort', {
+                    minutes: nextLesson.estimatedMinutes,
+                  })}
                 </p>
               </div>
               <Link href={`/lesson/${nextLesson.id}`}>
-                <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                   {t('startLesson')}
                 </button>
               </Link>
@@ -425,7 +451,7 @@ export default function DashboardPage() {
                 </p>
               </div>
               <Link href="/plan">
-                <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                   {t('goToMyPlan')}
                 </button>
               </Link>
@@ -443,12 +469,15 @@ export default function DashboardPage() {
           total={totalExercises}
         />
 
-        <div className="bg-fl-border mb-8 grid gap-px sm:grid-cols-2">
+        <div className="mb-8 grid gap-5 sm:grid-cols-2">
           {/* Plan progress */}
-          <div className="bg-fl-surface p-5">
+          <div
+            className="glass-card animate-fade-up rounded-2xl p-6"
+            style={{ animationDelay: '140ms' }}
+          >
             <div className="mb-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-fl-label text-fl-muted-2">●</span>
+                <span className="text-fl-label text-blue-500">●</span>
                 <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
                   {t('planProgress')}
                 </span>
@@ -462,7 +491,7 @@ export default function DashboardPage() {
             {hasPlan && totalDays > 0 ? (
               <>
                 <div
-                  className="bg-fl-border mb-5 h-3 w-full"
+                  className="bg-fl-border/60 mb-5 h-3 w-full overflow-hidden rounded-full"
                   role="progressbar"
                   aria-label={t('planProgress')}
                   aria-valuemin={0}
@@ -470,12 +499,12 @@ export default function DashboardPage() {
                   aria-valuenow={planCompletion}
                 >
                   <div
-                    className="bg-fl-accent h-full transition-[width] duration-300 motion-reduce:transition-none"
+                    className="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-600 transition-[width] duration-500 motion-reduce:transition-none"
                     style={{ width: `${planCompletion}%` }}
                   />
                 </div>
-                <div className="bg-fl-border grid grid-cols-2 gap-px">
-                  <div className="bg-fl-bg p-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="neu-card rounded-xl p-3">
                     <p className="text-fl-hint text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
                       {t('currentDay')}
                     </p>
@@ -483,7 +512,7 @@ export default function DashboardPage() {
                       {currentDayDisplay} / {totalDays}
                     </p>
                   </div>
-                  <div className="bg-fl-bg p-3">
+                  <div className="neu-card rounded-xl p-3">
                     <p className="text-fl-hint text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
                       {t('daysRemaining')}
                     </p>
@@ -511,7 +540,7 @@ export default function DashboardPage() {
                       })}
                     </p>
                     <div
-                      className="bg-fl-border mt-3 h-2 w-full"
+                      className="bg-fl-border/60 mt-3 h-2 w-full overflow-hidden rounded-full"
                       role="progressbar"
                       aria-label={t('vocabularyProgress', {
                         level: vocabularyLevel ?? cefrLevel ?? '',
@@ -521,7 +550,7 @@ export default function DashboardPage() {
                       aria-valuenow={vocabularyProgressPct}
                     >
                       <div
-                        className="bg-fl-accent h-full transition-[width] duration-300 motion-reduce:transition-none"
+                        className="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-600 transition-[width] duration-500 motion-reduce:transition-none"
                         style={{ width: `${vocabularyProgressPct}%` }}
                       />
                     </div>
@@ -536,10 +565,13 @@ export default function DashboardPage() {
           </div>
 
           {/* Today's lessons */}
-          <div className="bg-fl-surface p-5">
+          <div
+            className="glass-card animate-fade-up rounded-2xl p-6"
+            style={{ animationDelay: '200ms' }}
+          >
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-fl-label text-fl-muted-2">●</span>
+                <span className="text-fl-label text-sky-500">●</span>
                 <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
                   {t('today')}
                 </span>
@@ -559,7 +591,7 @@ export default function DashboardPage() {
                     {todayLessons.map((lesson, index) => (
                       <div
                         key={index}
-                        className={`h-2 flex-1 transition-colors motion-reduce:transition-none ${(lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted ? 'bg-fl-accent' : 'bg-fl-border'}`}
+                        className={`h-2 flex-1 rounded-full transition-colors motion-reduce:transition-none ${(lesson.id && completedToday.includes(lesson.id)) || lesson.isCompleted ? 'bg-gradient-to-r from-sky-400 to-blue-600' : 'bg-fl-border/60'}`}
                       />
                     ))}
                   </div>
@@ -573,26 +605,36 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={i}
-                      className={`border px-4 py-3 ${
-                        isNext
-                          ? 'border-fl-accent/60 bg-fl-accent/5'
-                          : 'border-fl-border'
-                      }`}
+                      className={`rounded-xl border px-4 py-3 transition-all ${isNext
+                        ? 'border-blue-500/45 bg-blue-500/8 shadow-[0_6px_18px_rgba(37,99,235,0.12)]'
+                        : 'border-fl-border/70 bg-fl-bg/40'
+                        }`}
                     >
                       <div className="flex items-center justify-between gap-4">
                         <div>
                           <p className="text-fl-fg font-mono text-xs">
-                            {lesson.title}
+                            {localizeLessonTitle(
+                              {
+                                title: lesson.title,
+                                unitId: lesson.unitId,
+                                lessonType: lesson.lessonType,
+                                cefrLevel,
+                                targetLanguage: activeLanguage?.code,
+                              },
+                              tCommon
+                            )}
                           </p>
                           <p className="text-fl-label text-fl-muted-2 mt-0.5 font-mono tracking-wider uppercase">
                             {tPlan(`lessonTypes.${lesson.lessonType}`)} ·{' '}
-                            {lesson.estimatedMinutes}min
+                            {tCommon('minutesShort', {
+                              minutes: lesson.estimatedMinutes,
+                            })}
                           </p>
                         </div>
                         {isDone ? (
                           <span className="text-fl-label text-fl-muted-2 inline-flex items-center gap-1.5 font-mono tracking-widest uppercase">
                             <Check
-                              className="size-4 shrink-0"
+                              className="size-4 shrink-0 text-blue-500"
                               aria-hidden="true"
                             />
                             {t('lessonDone')}
@@ -600,11 +642,10 @@ export default function DashboardPage() {
                         ) : lesson.id ? (
                           <Link href={`/lesson/${lesson.id}`}>
                             <button
-                              className={`text-fl-caption focus-visible:outline-fl-fg px-3 py-1 font-mono tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                                isNext
-                                  ? 'text-fl-bg bg-fl-fg hover:bg-fl-fg/90 font-bold'
-                                  : 'text-fl-fg border-fl-border hover:border-fl-border-2 border'
-                              }`}
+                              className={`text-fl-caption rounded-lg px-3.5 py-1.5 font-mono tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${isNext
+                                ? 'neu-button-primary font-bold'
+                                : 'neu-button text-fl-fg'
+                                }`}
                             >
                               {t('startLesson')}
                             </button>
@@ -642,7 +683,7 @@ export default function DashboardPage() {
                 </p>
                 {!hasPlan && (
                   <Link href="/assessment">
-                    <button className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-4 py-2 font-mono text-sm font-bold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
+                    <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
                       {t('takeAssessmentArrow')}
                     </button>
                   </Link>
@@ -652,10 +693,13 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent performance */}
-          <div className="bg-fl-surface p-5 sm:col-span-2">
+          <div
+            className="glass-card animate-fade-up rounded-2xl p-6 sm:col-span-2"
+            style={{ animationDelay: '260ms' }}
+          >
             <div className="mb-4">
               <div className="mb-2 flex items-center gap-2">
-                <span className="text-fl-label text-fl-muted-2">●</span>
+                <span className="text-fl-label text-blue-500">●</span>
                 <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
                   {t('recentPerformance')}
                 </span>
@@ -681,9 +725,9 @@ export default function DashboardPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="bg-fl-border h-1 w-full">
+                    <div className="bg-fl-border/60 h-2 w-full overflow-hidden rounded-full">
                       <div
-                        className="bg-fl-accent h-full transition-[width] duration-300 motion-reduce:transition-none"
+                        className="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-600 transition-[width] duration-500 motion-reduce:transition-none"
                         style={{ width: `${value * 100}%` }}
                       />
                     </div>
@@ -699,7 +743,7 @@ export default function DashboardPage() {
         </div>
 
         {showPremiumBanner && (
-          <div className="border-fl-border bg-fl-surface mb-6 border p-5">
+          <div className="glass-card animate-fade-up mb-6 rounded-2xl p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex gap-3">
                 <span className="text-fl-accent font-mono text-sm leading-none">
@@ -707,89 +751,78 @@ export default function DashboardPage() {
                 </span>
                 <div>
                   <p className="text-fl-label text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
-                    {freemiumTrialActive
-                      ? t('freemiumTrialTitle', { days: freemiumTrialDaysLeft })
-                      : t(
-                          paymentRecovery
-                            ? 'premiumBannerPastDueTitle'
-                            : 'premiumBannerTitle'
-                        )}
+                    {t(
+                      paymentRecovery
+                        ? 'premiumBannerPastDueTitle'
+                        : 'premiumBannerTitle'
+                    )}
                   </p>
                   <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
-                    {freemiumTrialActive
-                      ? t('freemiumTrialDesc', { days: freemiumTrialDaysLeft })
-                      : paymentRecovery
-                        ? t('premiumBannerPastDueDesc')
-                        : t(
-                            trialEligible
-                              ? 'premiumBannerDesc'
-                              : 'premiumBannerDescTrialUsed'
-                          )}
+                    {t(
+                      paymentRecovery
+                        ? 'premiumBannerPastDueDesc'
+                        : 'premiumBannerDescTrialUsed'
+                    )}
                   </p>
                 </div>
               </div>
-              {!freemiumTrialActive && (
-                <span className="text-fl-label text-fl-accent border-fl-accent/30 border px-3 py-1.5 font-mono tracking-widest whitespace-nowrap uppercase">
-                  {paymentRecovery
-                    ? t('premiumBannerPastDueCta')
-                    : t(
-                        trialEligible
-                          ? 'premiumBannerCta'
-                          : 'premiumBannerCtaTrialUsed'
-                      )}
-                </span>
-              )}
+              <span className="text-fl-label text-fl-accent border-fl-accent/30 rounded-full border px-3 py-1.5 font-mono tracking-widest whitespace-nowrap uppercase">
+                {t(
+                  paymentRecovery
+                    ? 'premiumBannerPastDueCta'
+                    : 'premiumBannerCtaTrialUsed'
+                )}
+              </span>
             </div>
-            {!freemiumTrialActive &&
-              (paymentRecovery ? (
-                <div className="border-fl-border mt-4 border-t pt-4">
-                  <button
-                    onClick={openPortal}
-                    disabled={portalLoading}
-                    className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-2.5 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50 sm:w-auto"
-                  >
-                    {portalLoading ? '...' : tBilling('updatePayment')}
-                  </button>
-                  {portalError && (
-                    <p className="text-fl-hint mt-3 font-mono text-red-500">
-                      {portalError}
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <SubscriptionPlanButtons className="border-fl-border mt-4 border-t pt-4" />
-              ))}
+            {paymentRecovery ? (
+              <div className="border-fl-border mt-4 border-t pt-4">
+                <button
+                  onClick={openPortal}
+                  disabled={portalLoading}
+                  className="neu-button-primary w-full rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-50 sm:w-auto"
+                >
+                  {portalLoading ? '...' : tBilling('updatePayment')}
+                </button>
+                {portalError && (
+                  <p className="text-fl-hint mt-3 font-mono text-red-500">
+                    {portalError}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <SubscriptionPlanButtons className="border-fl-border mt-4 border-t pt-4" />
+            )}
           </div>
         )}
 
         {/* Quick actions */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {hasPlan && (
             <Link href="/plan">
-              <button className="text-fl-bg bg-fl-fg hover:bg-fl-accent/90 px-4 py-2 font-mono text-sm tracking-widest uppercase transition-colors">
+              <button className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase">
                 {t('goToMyPlan')}
               </button>
             </Link>
           )}
           {pendingCount > 0 && (
             <Link href="/plan">
-              <button className="text-fl-fg border-fl-accent/50 hover:border-fl-accent border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+              <button className="neu-button text-fl-fg rounded-xl px-4 py-2.5 font-mono text-xs tracking-widest uppercase">
                 {pendingCount} {t('pendingLessons')} →
               </button>
             </Link>
           )}
           <Link href="/flashcards">
-            <button className="text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+            <button className="neu-button text-fl-fg rounded-xl px-4 py-2.5 font-mono text-xs tracking-widest uppercase">
               {tNav('flashcards')}
             </button>
           </Link>
           <Link href="/chat">
-            <button className="text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+            <button className="neu-button text-fl-fg rounded-xl px-4 py-2.5 font-mono text-xs tracking-widest uppercase">
               {tNav('tutor')}
             </button>
           </Link>
           <Link href="/assessment">
-            <button className="text-fl-fg border-fl-border hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors">
+            <button className="neu-button text-fl-fg rounded-xl px-4 py-2.5 font-mono text-xs tracking-widest uppercase">
               {tNav('assessment')}
             </button>
           </Link>

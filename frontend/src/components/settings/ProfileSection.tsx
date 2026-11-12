@@ -7,6 +7,7 @@ import { clearAvatarCache } from '@/lib/avatar-cache'
 import { mapUser } from '@/lib/mappers'
 import { useAuthStore } from '@/store/auth'
 import { SUPPORTED_LOCALES } from '@/lib/locales'
+import { isSupportedLocale, persistLocaleCookies } from '@/lib/locale-cookie'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 
 const LANGUAGES = [
@@ -25,6 +26,12 @@ const LANGUAGES = [
   'da',
   'fi',
   'hr',
+  'hi',
+  'te',
+  'ta',
+  'ml',
+  'or',
+  'kn',
 ] as const
 
 function resizeImage(file: File, maxPx: number): Promise<Blob> {
@@ -175,9 +182,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       setPassword('')
       setConfirmPassword('')
 
-      const opts = `path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax${window.location.protocol === 'https:' ? '; Secure' : ''}`
-      document.cookie = `NEXT_LOCALE=${uiLocale}; ${opts}`
-      document.cookie = `LOCALE_DETECTED=1; ${opts}`
+      persistLocaleCookies(uiLocale)
       if (uiLocale !== currentLocale) {
         window.location.reload()
       }
@@ -192,10 +197,10 @@ export function ProfileSection({ title }: { title?: string } = {}) {
   }
 
   return (
-    <div className="border-fl-border bg-fl-surface space-y-5 border p-6">
-      <div className="border-fl-border flex items-center gap-2 border-b pb-4">
-        <span className="text-fl-label text-fl-muted-2">●</span>
-        <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+    <div className="glass-card space-y-5 rounded-2xl p-6">
+      <div className="border-fl-border/60 flex items-center gap-2 border-b pb-4">
+        <span className="text-fl-accent text-fl-label">●</span>
+        <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
           {title ?? t('sectionProfile')}
         </span>
       </div>
@@ -206,7 +211,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={avatarUploading}
-          className="border-fl-border hover:border-fl-border-2 relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border transition-colors focus:outline-none disabled:opacity-60"
+          className="neu-card relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full transition-all focus:outline-none disabled:opacity-60"
         >
           {user?.avatar ? (
             <AuthAvatarImage
@@ -217,7 +222,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               className="h-full w-full object-cover"
               fallback={
                 <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-                  <span className="text-fl-muted-1 font-mono text-xl select-none">
+                  <span className="text-fl-fg font-mono text-xl font-bold select-none">
                     {(user?.displayName ||
                       user?.username ||
                       '?')[0].toUpperCase()}
@@ -227,25 +232,25 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             />
           ) : (
             <div className="bg-fl-surface-2 flex h-full w-full items-center justify-center">
-              <span className="text-fl-muted-1 font-mono text-xl select-none">
+              <span className="text-fl-fg font-mono text-xl font-bold select-none">
                 {(user?.displayName || user?.username || '?')[0].toUpperCase()}
               </span>
             </div>
           )}
           {avatarUploading && (
             <div className="bg-fl-bg/70 absolute inset-0 flex items-center justify-center">
-              <span className="text-fl-hint text-fl-muted-2 animate-pulse font-mono">
+              <span className="text-fl-hint text-fl-fg animate-pulse font-mono font-semibold">
                 ...
               </span>
             </div>
           )}
         </button>
-        <div className="space-y-1">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={avatarUploading}
-            className="text-fl-muted-2 hover:text-fl-fg block font-mono text-xs tracking-widest uppercase transition-colors disabled:opacity-40"
+            className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all disabled:opacity-40"
           >
             {avatarUploading ? t('avatarUploading') : t('avatarChange')}
           </button>
@@ -253,7 +258,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             <button
               type="button"
               onClick={handleAvatarRemove}
-              className="text-fl-muted-4 hover:text-fl-error block font-mono text-xs tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-muted-2 hover:text-fl-error rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
             >
               {t('avatarRemove')}
             </button>
@@ -268,7 +273,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         />
       </div>
       {avatarError && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-fl-error/40 text-fl-error glass-card rounded-xl border px-4 py-3 font-mono text-xs font-semibold">
           ✕ {avatarError}
         </div>
       )}
@@ -283,7 +288,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
         { label: t('email'), value: email, onChange: setEmail, type: 'email' },
       ].map((field) => (
         <div key={field.label}>
-          <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+          <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
             {field.label}
           </label>
           <input
@@ -293,13 +298,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
             autoCorrect={field.type === 'email' ? 'off' : undefined}
             autoCapitalize={field.type === 'email' ? 'none' : undefined}
             spellCheck={field.type === 'email' ? false : undefined}
-            className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+            className="neu-input text-fl-fg w-full rounded-xl px-4 py-3 font-mono text-sm font-medium transition-all focus:outline-none"
           />
         </div>
       ))}
 
       <div>
-        <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+        <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
           {t('bio')}
         </label>
         <textarea
@@ -308,21 +313,27 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           rows={3}
           maxLength={500}
           placeholder={t('bioPlaceholder')}
-          className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 min-h-[74px] w-full resize-y border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="neu-input text-fl-fg placeholder:text-fl-muted-3 min-h-[74px] w-full resize-y rounded-xl px-4 py-3 font-mono text-sm font-medium transition-all focus:outline-none"
         />
-        <p className="text-fl-hint text-fl-muted-4 mt-1 font-mono">
+        <p className="text-fl-hint text-fl-muted-2 mt-1.5 font-mono font-medium">
           {t('bioHint')}
         </p>
       </div>
 
       <div>
-        <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+        <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
           {t('nativeLanguage')}
         </label>
         <select
           value={nativeLanguage}
-          onChange={(e) => setNativeLanguage(e.target.value)}
-          className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          onChange={(e) => {
+            const nextLang = e.target.value
+            setNativeLanguage(nextLang)
+            if (isSupportedLocale(nextLang)) {
+              setUiLocale(nextLang)
+            }
+          }}
+          className="neu-input text-fl-fg w-full appearance-none rounded-xl px-4 py-3 font-mono text-sm font-medium transition-all focus:outline-none"
         >
           {[...LANGUAGES]
             .sort((a, b) => tLang(a).localeCompare(tLang(b)))
@@ -335,13 +346,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       </div>
 
       <div>
-        <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+        <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
           {t('uiLocale')}
         </label>
         <select
           value={uiLocale}
           onChange={(e) => setUiLocale(e.target.value)}
-          className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full appearance-none border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="neu-input text-fl-fg w-full appearance-none rounded-xl px-4 py-3 font-mono text-sm font-medium transition-all focus:outline-none"
         >
           {[...SUPPORTED_LOCALES]
             .sort((a, b) => tLang(a).localeCompare(tLang(b)))
@@ -351,13 +362,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
               </option>
             ))}
         </select>
-        <p className="text-fl-hint text-fl-muted-4 mt-1 font-mono">
+        <p className="text-fl-hint text-fl-muted-2 mt-1.5 font-mono font-medium">
           {t('uiLocaleHint')}
         </p>
       </div>
 
       <div>
-        <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+        <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
           {t('newPassword')}
         </label>
         <input
@@ -368,12 +379,12 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           autoCorrect="off"
           autoCapitalize="none"
           spellCheck={false}
-          className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+          className="neu-input text-fl-fg placeholder:text-fl-muted-3 w-full rounded-xl px-4 py-3 font-mono text-sm font-medium transition-all focus:outline-none"
         />
       </div>
 
       <div>
-        <label className="text-fl-muted-2 mb-2 block font-mono text-xs tracking-widest uppercase">
+        <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
           {t('confirmPassword')}
         </label>
         <input
@@ -385,13 +396,13 @@ export function ProfileSection({ title }: { title?: string } = {}) {
           autoCorrect="off"
           autoCapitalize="none"
           spellCheck={false}
-          className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none disabled:opacity-30"
+          className="neu-input text-fl-fg placeholder:text-fl-muted-3 w-full rounded-xl px-4 py-3 font-mono text-sm font-medium transition-all focus:outline-none disabled:opacity-40"
         />
       </div>
 
       {message && (
         <div
-          className={`border px-4 py-3 font-mono text-xs ${message.type === 'ok' ? 'border-fl-border text-fl-muted-1' : 'border-fl-error/40 text-fl-error'}`}
+          className={`glass-card rounded-xl border px-4 py-3 font-mono text-xs font-semibold ${message.type === 'ok' ? 'border-fl-border text-fl-fg' : 'border-fl-error/40 text-fl-error'}`}
         >
           {message.type === 'ok' ? '✓ ' : '✕ '}
           {message.text}
@@ -401,7 +412,7 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       <button
         onClick={handleSave}
         disabled={saving}
-        className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+        className="neu-button-primary w-full rounded-xl py-3.5 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
       >
         {saving ? t('saving') : t('saveChanges')}
       </button>

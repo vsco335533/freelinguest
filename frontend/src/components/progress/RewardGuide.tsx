@@ -27,7 +27,7 @@ export function RewardGuide() {
 
   return (
     <details
-      className="border-fl-border bg-fl-surface group border"
+      className="glass-card group overflow-hidden rounded-2xl"
       onToggle={(event) => {
         if (event.currentTarget.open)
           trackBrowserEvent('progress_rewards_viewed')
@@ -44,7 +44,7 @@ export function RewardGuide() {
           aria-hidden="true"
         />
       </summary>
-      <div className="border-fl-border border-t p-5">
+      <div className="border-fl-border/60 border-t p-5">
         <p className="text-fl-muted-2 mb-5 text-sm leading-relaxed">
           {t('scope')}
         </p>

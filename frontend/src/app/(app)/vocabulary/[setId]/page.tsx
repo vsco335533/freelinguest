@@ -355,37 +355,37 @@ export default function VocabularySetPage({
       </nav>
 
       {/* Header */}
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-accent text-fl-label">●</span>
+          <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('vocabularySet')}
           </span>
         </div>
         <div className="space-y-3 px-6 py-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="border-fl-border text-fl-label text-fl-muted-3 border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="glass-card text-fl-label text-fl-fg rounded-full px-3 py-0.5 font-mono font-semibold tracking-widest uppercase">
               {vocabSet.level}
             </span>
-            <span className="border-fl-border text-fl-label text-fl-muted-3 border px-2 py-0.5 font-mono tracking-widest uppercase">
+            <span className="glass-card text-fl-label text-fl-muted-2 rounded-full px-3 py-0.5 font-mono font-semibold tracking-widest uppercase">
               {vocabSet.unit_ref}
             </span>
           </div>
           <h1 className="text-fl-fg font-mono text-xl font-bold tracking-wide">
             {vocabSet.topic}
           </h1>
-          <p className="text-fl-label text-fl-muted-3 font-mono">
+          <p className="text-fl-label text-fl-muted-2 font-mono font-semibold">
             {vocabSet.words.length} {t('words')}
           </p>
 
           {/* Add to flashcards */}
           {addedCount !== null ? (
-            <div className="border border-green-500 px-4 py-2">
-              <p className="font-mono text-xs text-green-600 dark:text-green-400">
+            <div className="glass-card rounded-xl border border-green-500/50 px-4 py-2.5">
+              <p className="font-mono text-xs font-semibold text-green-700 dark:text-green-400">
                 ✓ {t('cardsAdded', { count: addedCount })}{' '}
                 <button
                   onClick={() => router.push('/flashcards')}
-                  className="underline hover:no-underline"
+                  className="font-bold underline hover:no-underline"
                 >
                   {t('goToFlashcards')}
                 </button>
@@ -396,22 +396,26 @@ export default function VocabularySetPage({
               <button
                 onClick={handleAddAll}
                 disabled={adding}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                className="neu-button-primary rounded-xl px-5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
               >
                 {adding ? '...' : t('addAll', { count: vocabSet.words.length })}
               </button>
             </div>
           )}
-          {error && <p className="font-mono text-xs text-red-500">{error}</p>}
+          {error && (
+            <p className="font-mono text-xs font-semibold text-red-600">
+              {error}
+            </p>
+          )}
         </div>
       </div>
 
       {nativeLanguageName && (
-        <div className="border-fl-border bg-fl-surface border">
+        <div className="glass-card overflow-hidden rounded-2xl">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg flex w-full items-center justify-between border-b px-6 py-4 font-mono tracking-widest uppercase transition-colors"
+            className="border-fl-border/60 text-fl-label text-fl-fg flex w-full items-center justify-between border-b px-6 py-4 font-mono font-bold tracking-widest uppercase transition-colors hover:bg-white/40 dark:hover:bg-white/5"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -560,7 +564,7 @@ export default function VocabularySetPage({
       )}
 
       {/* Word list */}
-      <div className="border-fl-border bg-fl-surface divide-fl-border divide-y border">
+      <div className="glass-card divide-fl-border/60 divide-y overflow-hidden rounded-2xl">
         {vocabSet.words.map((word, i) => (
           <div key={i} className="space-y-1.5 px-5 py-4">
             <div className="flex items-baseline gap-3">
@@ -570,16 +574,16 @@ export default function VocabularySetPage({
               >
                 {word.word}
               </TargetLanguageText>
-              <span className="text-fl-label text-fl-muted-3 font-mono italic">
+              <span className="text-fl-label text-fl-muted-2 font-mono font-semibold italic">
                 {POS_LABELS[word.pos] ?? word.pos}
               </span>
               {word.ipa && (
-                <span className="text-fl-muted-1 font-sans text-sm">
+                <span className="text-fl-muted-2 font-sans text-sm font-medium">
                   {word.ipa}
                 </span>
               )}
               {word.frequency_rank && (
-                <span className="text-fl-label text-fl-muted-4 ml-auto font-mono">
+                <span className="text-fl-label text-fl-muted-3 ml-auto font-mono font-semibold">
                   #{word.frequency_rank}
                 </span>
               )}
@@ -587,14 +591,14 @@ export default function VocabularySetPage({
             <TargetLanguageText
               as="p"
               languageCode={targetLanguageCode}
-              className="text-fl-muted-1"
+              className="text-fl-fg"
             >
               {word.definition}
             </TargetLanguageText>
             <TargetLanguageText
               as="p"
               languageCode={targetLanguageCode}
-              className="text-fl-muted-1 italic"
+              className="text-fl-muted-2 font-medium italic"
             >
               &ldquo;{word.example}&rdquo;
             </TargetLanguageText>
@@ -604,7 +608,7 @@ export default function VocabularySetPage({
 
       <Link
         href="/vocabulary"
-        className="text-fl-label text-fl-muted-2 hover:text-fl-fg inline-block font-mono tracking-widest uppercase transition-colors"
+        className="neu-button text-fl-label text-fl-fg inline-block rounded-xl px-4 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
       >
         ← {t('backToVocabulary')}
       </Link>

@@ -15,10 +15,10 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         disabled
-        className="border-fl-border bg-fl-surface flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-40"
+        className="neu-card flex h-16 w-16 items-center justify-center rounded-full opacity-50"
         aria-label={t('statusLoading')}
       >
-        <span className="text-fl-muted-4 animate-pulse font-mono text-xl">
+        <span className="text-fl-muted-2 animate-pulse font-mono text-xl">
           ◌
         </span>
       </button>
@@ -29,10 +29,10 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         disabled
-        className="border-fl-border bg-fl-surface flex h-16 w-16 items-center justify-center rounded-full border-2 opacity-60"
+        className="neu-card flex h-16 w-16 items-center justify-center rounded-full opacity-75"
         aria-label={t('statusConnecting')}
       >
-        <span className="text-fl-muted-2 animate-pulse font-mono text-xl">
+        <span className="text-fl-muted-1 animate-pulse font-mono text-xl">
           ○
         </span>
       </button>
@@ -43,7 +43,7 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         onClick={() => onStart()}
-        className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-8 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
+        className="neu-button-primary rounded-full px-9 py-3.5 font-mono text-sm font-bold tracking-widest text-white uppercase"
       >
         {t('start')}
       </button>
@@ -54,7 +54,7 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         onClick={onStop}
-        className="border-fl-error/60 bg-fl-surface hover:bg-fl-error/10 group flex h-16 w-16 items-center justify-center rounded-full border-2 transition-colors"
+        className="neu-card border-fl-error/60 hover:bg-fl-error/10 group flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all"
         aria-label={t('stop')}
         title={t('stop')}
       >
@@ -69,7 +69,7 @@ export default function MicButton({ status, onStart, onStop }: Props) {
   return (
     <button
       onClick={() => onStart()}
-      className="border-fl-border text-fl-muted-2 hover:text-fl-fg hover:border-fl-border-2 border px-8 py-3 font-mono text-sm tracking-widest uppercase transition-colors"
+      className="neu-button text-fl-fg rounded-full px-8 py-3 font-mono text-sm font-bold tracking-widest uppercase"
     >
       {t('startNew')}
     </button>

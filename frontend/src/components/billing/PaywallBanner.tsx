@@ -65,7 +65,6 @@ export function PaywallBanner({
   const router = useRouter()
   const user = useAuthStore((s) => s.user)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
-  const trialDays = useConfigStore((s) => s.stripeTrialDays)
   const priceMonthly = useConfigStore((s) => s.priceMonthly)
   const priceYearly = useConfigStore((s) => s.priceYearly)
   const [loading, setLoading] = useState<BillingInterval | null>(null)
@@ -88,7 +87,6 @@ export function PaywallBanner({
 
   const context = PAYWALL_CONTEXT[feature] ?? PAYWALL_CONTEXT.chat
   const Icon = context.icon
-  const trialEligible = trialDays > 0 && !user?.trial_used
 
   async function handleCheckout(interval: BillingInterval) {
     if (loading) return
@@ -113,17 +111,17 @@ export function PaywallBanner({
   }
 
   const containerClass = compact
-    ? 'border-fl-border bg-fl-surface w-full border p-5 text-center'
+    ? 'glass-card w-full rounded-2xl p-5 text-center'
     : 'flex min-h-[60vh] flex-col items-center justify-center px-6 py-16 text-center'
 
   return (
     <div className={containerClass}>
       {compact ? (
-        <div className="border-fl-border bg-fl-surface mx-auto w-full max-w-md border p-8">
+        <div className="neu-glass-card mx-auto w-full max-w-md rounded-3xl p-8">
           <PaywallContent />
         </div>
       ) : (
-        <div className="border-fl-border bg-fl-surface w-full max-w-md border p-8">
+        <div className="neu-glass-card w-full max-w-md rounded-3xl p-8">
           <PaywallContent />
         </div>
       )}
@@ -134,31 +132,27 @@ export function PaywallBanner({
     return (
       <>
         <Icon
-          className="text-fl-muted-2 mx-auto mb-4 h-6 w-6"
+          className="text-fl-accent mx-auto mb-4 h-7 w-7"
           aria-hidden="true"
         />
 
-        <p className="text-fl-label text-fl-muted-2 mb-2 font-mono tracking-widest uppercase">
+        <p className="text-fl-label text-fl-accent mb-2 font-mono font-bold tracking-widest uppercase">
           {t('paywallLabel')}
         </p>
         <h2 className="text-fl-fg mb-3 font-mono text-base font-bold">
           {t(paymentRecovery ? 'pastDueTitle' : context.title)}
         </h2>
-        <p className="text-fl-muted-1 mb-6 font-mono text-sm leading-relaxed">
+        <p className="text-fl-muted-2 mb-6 font-mono text-sm font-medium leading-relaxed">
           {paymentRecovery
             ? t('pastDueDesc')
-            : t(
-                context.desc ??
-                  (trialEligible ? 'paywallDesc' : 'paywallDescTrialUsed'),
-                { days: trialDays }
-              )}
+            : t(context.desc ?? 'paywallDescTrialUsed')}
         </p>
 
         {paymentRecovery ? (
           <button
             onClick={openPortal}
             disabled={portalLoading}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors disabled:opacity-50"
+            className="neu-button-primary w-full rounded-xl px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-50"
           >
             {portalLoading ? '...' : t('updatePayment')}
           </button>
@@ -167,7 +161,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('yearly')}
               disabled={loading !== null}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="neu-button-primary w-full rounded-xl px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-50"
             >
               {loading === 'yearly' ? (
                 '...'
@@ -175,7 +169,7 @@ export function PaywallBanner({
                 <span className="flex flex-col items-center gap-0.5 leading-relaxed">
                   <span>{yearlyCta.main}</span>
                   {yearlyCta.savings && (
-                    <span className="text-fl-accent-fg text-xs">
+                    <span className="text-fl-accent-fg text-xs font-semibold">
                       {yearlyCta.savings}
                     </span>
                   )}
@@ -185,7 +179,7 @@ export function PaywallBanner({
             <button
               onClick={() => handleCheckout('monthly')}
               disabled={loading !== null}
-              className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm tracking-widest uppercase transition-colors disabled:opacity-50"
+              className="neu-button text-fl-fg w-full rounded-xl px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-50"
             >
               {loading === 'monthly'
                 ? '...'
@@ -204,7 +198,7 @@ export function PaywallBanner({
 
         {!paymentRecovery && (
           <p className="text-fl-hint text-fl-muted-3 mt-6 font-mono tracking-widest uppercase">
-            {t(trialEligible ? 'paywallNoCharge' : 'paywallNoChargeTrialUsed')}
+            {t('paywallNoChargeTrialUsed')}
           </p>
         )}
 

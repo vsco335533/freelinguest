@@ -3,15 +3,20 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
+import {
+  AuthBackdropOrbs,
+  LinguistBrandHeader,
+} from '@/components/ui/LinguistBrandHeader'
 import { apiFetch } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
+import { isSupportedLocale, persistLocaleCookies } from '@/lib/locale-cookie'
 import { useAuthStore } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 
 function LoginForm() {
+  const activeLocale = useLocale()
   const t = useTranslations('auth.login')
   const tCommon = useTranslations('common')
   const router = useRouter()
@@ -82,12 +87,21 @@ function LoginForm() {
         const meRes = await apiFetch('/api/auth/me', {
           signal: controller.signal,
         })
+        let preferredLocale: string | undefined
         if (meRes.ok) {
           const data = await meRes.json()
           if (obsolete()) return
           setUser(mapUser(data))
+          preferredLocale = data.ui_locale || data.native_language
+          if (isSupportedLocale(preferredLocale)) {
+            persistLocaleCookies(preferredLocale)
+          }
         }
         if (obsolete()) return
+        if (isSupportedLocale(preferredLocale) && preferredLocale !== activeLocale) {
+          window.location.assign('/dashboard')
+          return
+        }
         router.push('/dashboard')
       } catch (err: unknown) {
         if (obsolete()) return
@@ -105,41 +119,27 @@ function LoginForm() {
   )
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        {/* Brand */}
-        <div className="mb-10 flex flex-col items-center">
-          <Image
-            src="/logo.png"
-            alt="FreeLingo"
-            width={100}
-            height={100}
-            className="mb-4"
-          />
-          <h1 className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-          <p className="text-fl-caption text-fl-muted-2 mt-1 font-mono tracking-widest uppercase">
-            {tCommon('tagline')}
-          </p>
-        </div>
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader subtitle={tCommon('tagline')} />
 
-        <div className="border-fl-border bg-fl-surface border p-8">
+        <div className="neu-glass-card animate-fade-up p-8">
           {/* Header */}
-          <div className="border-fl-border mb-6 flex items-center gap-2 border-b pb-4">
-            <span className="text-fl-label text-fl-muted-2">●</span>
+          <div className="border-fl-border/60 mb-6 flex items-center gap-2 border-b pb-4">
+            <span className="text-fl-label text-blue-500">●</span>
             <span className="text-fl-muted-2 font-mono text-xs tracking-widest uppercase">
               {t('title')}
             </span>
           </div>
 
           {registered && (
-            <div className="border-fl-border text-fl-muted-1 mb-5 border px-4 py-3 font-mono text-xs tracking-wide">
+            <div className="glass-card text-fl-muted-1 mb-5 rounded-xl border px-4 py-3 font-mono text-xs tracking-wide">
               ✓ {t('accountCreated')}
             </div>
           )}
           {error && (
-            <div className="border-fl-error/40 text-fl-error mb-5 border px-4 py-3 font-mono text-xs tracking-wide">
+            <div className="border-fl-error/40 bg-fl-error/5 text-fl-error mb-5 rounded-xl border px-4 py-3 font-mono text-xs tracking-wide">
               ✕ {error}
             </div>
           )}
@@ -157,7 +157,7 @@ function LoginForm() {
                 autoCorrect="off"
                 autoCapitalize="none"
                 spellCheck={false}
-                className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-sm transition-colors focus:outline-none"
+                className="neu-input text-fl-fg w-full px-4 py-3 font-mono text-sm"
               />
             </div>
             <div>
@@ -173,7 +173,7 @@ function LoginForm() {
                   autoCorrect="off"
                   autoCapitalize="none"
                   spellCheck={false}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus:border-fl-border-2 w-full border px-4 py-3 pr-11 font-mono text-sm transition-colors focus:outline-none"
+                  className="neu-input text-fl-fg w-full px-4 py-3 pr-11 font-mono text-sm"
                 />
                 <button
                   type="button"
@@ -221,7 +221,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 mt-2 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+              className="neu-button-primary mt-2 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-40"
             >
               {loading ? (
                 <>

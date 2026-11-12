@@ -257,7 +257,7 @@ export function VoiceRecorder({
       onClick={handleClick}
       disabled={disabled && state === 'idle'}
       aria-label={state === 'recording' ? t('ariaStop') : t('ariaRecord')}
-      className={`border px-3 py-2 font-mono text-xs tracking-widest uppercase transition-colors ${colorClass} ${className}`}
+      className={`neu-button rounded-full px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase ${colorClass} ${className}`}
     >
       {label}
     </button>

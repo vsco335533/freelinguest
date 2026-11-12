@@ -334,10 +334,10 @@ function FlashcardsContent({
             {total} {t('total')} · {dueCards.length} {t('due')}
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5">
           <Link
             href="/flashcards/vocabulary"
-            className="border-fl-border text-fl-fg hover:bg-fl-surface-2 focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="neu-button text-fl-fg focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             <BookOpen className="size-4 shrink-0" aria-hidden="true" />
             {t('myVocabularyBtn')}
@@ -356,10 +356,10 @@ function FlashcardsContent({
             aria-expanded={showGenerate}
             aria-label={`+ ${t('generateBtn')}`}
             aria-controls="flashcard-generate-panel"
-            className={`focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${
+            className={`focus-visible:outline-fl-accent inline-flex min-h-11 items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${
               showGenerate
-                ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-fg'
-                : 'border-fl-border text-fl-fg hover:bg-fl-surface-2'
+                ? 'neu-button-primary text-white'
+                : 'neu-button text-fl-fg'
             }`}
           >
             <Plus className="size-4 shrink-0" aria-hidden="true" />
@@ -371,7 +371,7 @@ function FlashcardsContent({
       {generationResult && (
         <div
           role="status"
-          className="border-fl-accent/35 bg-fl-surface text-fl-muted-1 flex items-start gap-3 border p-4 text-sm"
+          className="glass-card text-fl-muted-1 flex items-start gap-3 rounded-2xl p-4 text-sm font-medium"
         >
           <Check
             className="text-fl-accent mt-0.5 size-5 shrink-0"
@@ -399,16 +399,16 @@ function FlashcardsContent({
       {showGenerate && (
         <div
           id="flashcard-generate-panel"
-          className="border-fl-border bg-fl-surface border"
+          className="glass-card overflow-hidden rounded-2xl"
         >
-          <div className="border-fl-border flex items-center gap-2 border-b px-5 py-4">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b px-5 py-4">
             <Sparkles className="text-fl-accent size-5" aria-hidden="true" />
             <h2 className="text-fl-fg font-semibold">{t('generate')}</h2>
           </div>
           {genError && (
             <div
               role="alert"
-              className="border-fl-error/40 text-fl-error-fg mx-5 mt-4 border px-4 py-3 text-sm"
+              className="border-fl-error/40 text-fl-error-fg mx-5 mt-4 rounded-xl border px-4 py-3 text-sm font-semibold"
             >
               ✕ {genError}
             </div>
@@ -417,7 +417,7 @@ function FlashcardsContent({
             <div>
               <label
                 htmlFor="flashcard-topic"
-                className="text-fl-muted-1 mb-2 block text-sm font-medium"
+                className="text-fl-muted-1 mb-2 block text-sm font-semibold"
               >
                 {t('topic')}
               </label>
@@ -428,14 +428,14 @@ function FlashcardsContent({
                 onChange={(e) => setGenTopic(e.target.value)}
                 required
                 placeholder={t('topicPlaceholder')}
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-2 focus-visible:outline-fl-accent w-full border px-4 py-3 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="neu-input text-fl-fg placeholder:text-fl-muted-3 focus-visible:outline-fl-accent w-full rounded-xl px-4 py-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label
                   htmlFor="flashcard-count"
-                  className="text-fl-muted-1 mb-2 block text-sm font-medium"
+                  className="text-fl-muted-1 mb-2 block text-sm font-semibold"
                 >
                   {t('count')}
                 </label>
@@ -443,7 +443,7 @@ function FlashcardsContent({
                   id="flashcard-count"
                   value={genCount}
                   onChange={(e) => setGenCount(Number(e.target.value))}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full border px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="neu-input text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -455,7 +455,7 @@ function FlashcardsContent({
               <div>
                 <label
                   htmlFor="flashcard-level"
-                  className="text-fl-muted-1 mb-2 block text-sm font-medium"
+                  className="text-fl-muted-1 mb-2 block text-sm font-semibold"
                 >
                   {t('level')}
                 </label>
@@ -466,7 +466,7 @@ function FlashcardsContent({
                     genLevelEdited.current = true
                     setGenCefr(e.target.value)
                   }}
-                  className="bg-fl-bg border-fl-border text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full border px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="neu-input text-fl-fg focus-visible:outline-fl-accent min-h-11 w-full rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
                   {CEFR_LEVELS.map((l) => (
                     <option key={l} value={l}>
@@ -486,7 +486,7 @@ function FlashcardsContent({
                 !genTopic.trim() ||
                 !genCefr
               }
-              className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 focus-visible:outline-fl-accent min-h-11 w-full px-5 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+              className="neu-button-primary focus-visible:outline-fl-accent min-h-11 w-full rounded-xl px-6 py-3 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
             >
               {generating ? t('generating') : t('submit')}
             </button>
@@ -496,7 +496,7 @@ function FlashcardsContent({
 
       {/* No cards */}
       {stage === 'setup' && dueCards.length === 0 && (
-        <div className="border-fl-border bg-fl-surface border px-6 py-12 text-center">
+        <div className="neu-glass-card rounded-3xl px-6 py-12 text-center">
           {total === 0 ? (
             <Layers
               className="text-fl-accent mx-auto mb-4 size-8"
@@ -510,14 +510,14 @@ function FlashcardsContent({
           )}
           <h2 className="text-fl-fg text-lg font-semibold">{t('noDue')}</h2>
           {total === 0 && (
-            <p className="text-fl-muted-2 mx-auto mt-2 max-w-md text-sm leading-relaxed">
+            <p className="text-fl-muted-2 mx-auto mt-2 max-w-md text-sm leading-relaxed font-medium">
               {t('noCardsHint')}
             </p>
           )}
           <button
             onClick={loadDue}
             disabled={generating}
-            className="border-fl-border text-fl-fg hover:bg-fl-surface-2 focus-visible:outline-fl-accent mt-6 inline-flex min-h-11 items-center gap-2 border px-5 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-40"
+            className="neu-button text-fl-fg focus-visible:outline-fl-accent mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-40"
           >
             <RotateCcw className="size-4" aria-hidden="true" />
             {t('refresh')}
@@ -527,36 +527,36 @@ function FlashcardsContent({
 
       {stage === 'setup' && dueCards.length > 0 && (
         <section
-          className="border-fl-accent/35 border-l-fl-accent bg-fl-surface space-y-6 border border-l-4 p-5 sm:p-8"
+          className="neu-glass-card border-l-fl-accent space-y-6 rounded-3xl border-l-4 p-5 sm:p-8"
           aria-labelledby="flashcard-session-title"
         >
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div className="space-y-2">
               <h2
                 id="flashcard-session-title"
-                className="text-fl-fg text-xl font-semibold"
+                className="text-fl-fg text-xl font-bold"
               >
                 {t('sessionTitle')}
               </h2>
-              <p className="text-fl-muted-1 text-sm leading-relaxed">
+              <p className="text-fl-muted-1 text-sm leading-relaxed font-medium">
                 {t('sessionComposition', {
                   new: dueCards.filter(isNewCard).length,
                   review: dueCards.filter((card) => !isNewCard(card)).length,
                 })}
               </p>
             </div>
-            <div className="bg-fl-accent/10 text-fl-accent min-w-24 px-4 py-3 text-center">
-              <p className="text-3xl font-semibold tabular-nums">
+            <div className="neu-card bg-fl-accent/10 text-fl-accent min-w-24 rounded-2xl px-4 py-3 text-center">
+              <p className="text-3xl font-bold tabular-nums">
                 {dueCards.length}
               </p>
-              <p className="mt-1 text-sm">{t('due')}</p>
+              <p className="mt-1 text-sm font-semibold">{t('due')}</p>
             </div>
           </div>
           <fieldset disabled={generating}>
-            <legend className="text-fl-muted-1 mb-3 text-sm font-medium">
+            <legend className="text-fl-muted-1 mb-3 text-sm font-semibold">
               {t('sessionSize')}
             </legend>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
               {['5', '10', 'all'].map((size) => (
                 <label
                   key={size}
@@ -570,7 +570,7 @@ function FlashcardsContent({
                     onChange={(event) => setSessionSize(event.target.value)}
                     className="peer sr-only"
                   />
-                  <span className="border-fl-border text-fl-muted-1 peer-checked:border-fl-accent peer-checked:bg-fl-accent/10 peer-checked:text-fl-fg peer-focus-visible:outline-fl-accent hover:bg-fl-surface-2 flex min-h-12 cursor-pointer items-center justify-center border px-3 py-3 text-center text-sm font-medium transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-40">
+                  <span className="neu-button text-fl-muted-1 peer-checked:border-fl-accent peer-checked:bg-fl-accent/15 peer-checked:text-fl-fg peer-focus-visible:outline-fl-accent flex min-h-12 cursor-pointer items-center justify-center rounded-xl px-3 py-3 text-center text-sm font-semibold transition-all peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-40">
                     {size === 'all' ? t('sessionAll') : `${size} ${t('cards')}`}
                   </span>
                 </label>
@@ -580,7 +580,7 @@ function FlashcardsContent({
           <button
             disabled={generating}
             onClick={startSession}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 focus-visible:outline-fl-accent inline-flex min-h-11 w-full items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+            className="neu-button-primary focus-visible:outline-fl-accent inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
           >
             <BookOpen className="size-4" aria-hidden="true" />
             {t('sessionStart')}
@@ -590,7 +590,7 @@ function FlashcardsContent({
 
       {stage === 'summary' && (
         <section
-          className="border-fl-border bg-fl-surface space-y-6 border p-5 sm:p-8"
+          className="neu-glass-card space-y-6 rounded-3xl p-5 sm:p-8"
           aria-labelledby="flashcard-summary-title"
         >
           <h2
@@ -623,32 +623,32 @@ function FlashcardsContent({
             ].map(({ label, value, icon: Icon }) => (
               <div
                 key={label}
-                className={`border p-4 sm:p-5 ${label === 'sessionXp' ? 'border-fl-accent/35 bg-fl-accent/10' : 'border-fl-border bg-fl-bg'}`}
+                className={`rounded-2xl p-4 sm:p-5 ${label === 'sessionXp' ? 'neu-card bg-fl-accent/10' : 'glass-card'}`}
               >
-                <dt className="text-fl-muted-1 flex items-center gap-2 text-sm">
+                <dt className="text-fl-muted-1 flex items-center gap-2 text-sm font-semibold">
                   <Icon
                     className="text-fl-accent size-4 shrink-0"
                     aria-hidden="true"
                   />
                   {t(label)}
                 </dt>
-                <dd className="text-fl-fg mt-3 text-3xl font-semibold tracking-tight tabular-nums">
+                <dd className="text-fl-fg mt-3 text-3xl font-bold tracking-tight tabular-nums">
                   {value}
                 </dd>
               </div>
             ))}
           </dl>
           {removed > 0 && (
-            <p className="text-fl-muted-2 text-sm">
+            <p className="text-fl-muted-2 text-sm font-medium">
               {t('sessionRemoved', { count: removed })}
             </p>
           )}
           {completed.some((item) => item.quality <= 3) && (
             <div className="space-y-2">
-              <h3 className="text-fl-fg font-medium">
+              <h3 className="text-fl-fg font-semibold">
                 {t('sessionDifficult')}
               </h3>
-              <ul className="border-fl-border divide-fl-border divide-y border">
+              <ul className="glass-card divide-fl-border/60 divide-y overflow-hidden rounded-2xl">
                 {completed
                   .filter((item) => item.quality <= 3)
                   .map((item) => (
@@ -659,7 +659,7 @@ function FlashcardsContent({
                       <TargetLanguageText languageCode={targetLanguageCode}>
                         {item.word}
                       </TargetLanguageText>
-                      <span className="border-fl-border bg-fl-bg border px-2 py-1 text-xs">
+                      <span className="border-fl-border bg-fl-surface-2 rounded-full border px-2.5 py-1 text-xs font-semibold">
                         {t(item.quality < 3 ? 'again' : 'hard')}
                       </span>
                     </li>
@@ -670,7 +670,7 @@ function FlashcardsContent({
           <button
             disabled={generating}
             onClick={() => void loadDue()}
-            className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 focus-visible:outline-fl-accent inline-flex min-h-11 w-full items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-40 sm:w-auto"
+            className="neu-button-primary focus-visible:outline-fl-accent inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-40 sm:w-auto"
           >
             <RotateCcw className="size-4" aria-hidden="true" />
             {t('sessionReturn')}
@@ -709,22 +709,22 @@ function FlashcardsContent({
               aria-valuenow={sessionProcessed}
               aria-valuemin={0}
               aria-valuemax={sessionTotal}
-              className="bg-fl-border h-1.5 overflow-hidden"
+              className="bg-fl-border/60 h-2 overflow-hidden rounded-full"
             >
               <div
-                className="bg-fl-accent h-full transition-[width] duration-300 motion-reduce:transition-none"
+                className="bg-fl-accent h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none"
                 style={{
                   width: `${sessionTotal ? Math.min(100, (sessionProcessed / sessionTotal) * 100) : 0}%`,
                 }}
               />
             </div>
           </div>
-          <div className="border-fl-border bg-fl-surface flex flex-wrap items-end justify-between gap-4 border p-4 sm:px-5">
+          <div className="glass-card flex flex-wrap items-end justify-between gap-4 rounded-2xl p-4 sm:px-5">
             {/* Mode toggle */}
             <div
               role="group"
               aria-label={t('reviewMode')}
-              className="border-fl-border flex max-w-full flex-wrap gap-1 border p-1"
+              className="border-fl-border/70 bg-fl-surface/50 flex max-w-full flex-wrap gap-1.5 rounded-xl border p-1"
             >
               <button
                 aria-pressed={!speakingMode}
@@ -739,7 +739,7 @@ function FlashcardsContent({
                   setSpeakingMode(false)
                   setFlipped(false)
                 }}
-                className={`focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${!speakingMode ? 'bg-fl-fg text-fl-bg' : 'text-fl-muted-1 hover:bg-fl-surface-2 hover:text-fl-fg'}`}
+                className={`focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${!speakingMode ? 'neu-button-primary text-white' : 'text-fl-muted-1 hover:bg-fl-surface-2 hover:text-fl-fg'}`}
               >
                 <BookOpen className="size-4 shrink-0" aria-hidden="true" />
                 {t('standardMode')}
@@ -757,7 +757,7 @@ function FlashcardsContent({
                   setSpeakingMode(true)
                   setFlipped(false)
                 }}
-                className={`focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${speakingMode ? 'bg-fl-fg text-fl-bg' : 'text-fl-muted-1 hover:bg-fl-surface-2 hover:text-fl-fg'}`}
+                className={`focus-visible:outline-fl-accent inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${speakingMode ? 'neu-button-primary text-white' : 'text-fl-muted-1 hover:bg-fl-surface-2 hover:text-fl-fg'}`}
               >
                 <Mic className="size-4 shrink-0" aria-hidden="true" />
                 {t('speakingMode')}
@@ -769,8 +769,8 @@ function FlashcardsContent({
           {/* ── Standard mode ── */}
           {!speakingMode && (
             <>
-              <div className="border-fl-accent/35 bg-fl-surface border">
-                <div className="border-fl-border flex items-center justify-between gap-3 border-b px-6 py-4">
+              <div className="neu-glass-card overflow-hidden rounded-3xl">
+                <div className="border-fl-border/60 flex items-center justify-between gap-3 border-b px-6 py-4">
                   <div className="flex items-center gap-2">
                     <span className="text-fl-muted-1 text-sm font-medium">
                       {flipped
@@ -859,18 +859,18 @@ function FlashcardsContent({
                   role="group"
                   aria-labelledby="flashcard-rating-title"
                   aria-describedby="flashcard-rating-help flashcard-rating-again"
-                  className="border-fl-border bg-fl-surface space-y-4 border p-4 sm:p-5"
+                  className="glass-card space-y-4 rounded-2xl p-4 sm:p-5"
                 >
                   <div className="space-y-1">
                     <p
                       id="flashcard-rating-title"
-                      className="text-fl-fg font-sans font-medium"
+                      className="text-fl-fg font-sans font-semibold"
                     >
                       {t('ratingTitle')}
                     </p>
                     <p
                       id="flashcard-rating-help"
-                      className="text-fl-muted-1 font-sans text-sm"
+                      className="text-fl-muted-1 font-sans text-sm font-medium"
                     >
                       {t('ratingHelp')}
                     </p>
@@ -889,7 +889,7 @@ function FlashcardsContent({
                           }
                           onClick={() => reviewCard(q)}
                           aria-describedby={`flashcard-rating-${key}-hint`}
-                          className="border-fl-border hover:border-fl-border-2 hover:bg-fl-surface-2 focus-visible:outline-fl-accent min-h-11 w-full border px-2 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+                          className="neu-button focus-visible:outline-fl-accent min-h-11 w-full rounded-xl px-2 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
                           style={{ color }}
                         >
                           {t(key)}
@@ -960,7 +960,7 @@ function FlashcardsContent({
               )}
             </div>
           )}
-          <div className="border-fl-border bg-fl-surface space-y-3 border p-4 sm:p-5">
+          <div className="glass-card space-y-3 rounded-2xl p-4 sm:p-5">
             <FlashcardActions
               key={cards[current].id}
               card={cards[current]}
@@ -980,12 +980,12 @@ function FlashcardsContent({
               }}
               onDelete={() => removeCurrent(true)}
             />
-            <p className="text-fl-muted-2 text-sm leading-relaxed">
+            <p className="text-fl-muted-2 text-sm leading-relaxed font-medium">
               {t('suspendHint')}
             </p>
           </div>
 
-          <details className="border-fl-border bg-fl-surface group border">
+          <details className="glass-card group overflow-hidden rounded-2xl">
             <summary className="text-fl-muted-1 focus-visible:outline-fl-accent flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
               {t('reviewDetails')}
               <ChevronDown

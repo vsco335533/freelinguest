@@ -2,16 +2,15 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'FreeLingo',
-    short_name: 'FreeLingo',
+    name: 'Linguist',
+    short_name: 'Linguist',
     description: 'AI-powered language learning platform',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0c1316',
-    theme_color: '#0c1316',
+    background_color: '#090d16',
+    theme_color: '#2563eb',
     icons: [
-      { src: '/favicon.png', sizes: '32x32', type: 'image/png' },
-      { src: '/logo.png', sizes: '72x72', type: 'image/png' },
+      { src: '/linguist-mark.svg', sizes: 'any', type: 'image/svg+xml' },
     ],
   }
 }

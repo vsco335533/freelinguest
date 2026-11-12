@@ -231,7 +231,7 @@ function AdminReviewsContent() {
               setPage(0)
               setApprovalFilter(event.target.value as ApprovalFilter)
             }}
-            className="border-fl-border bg-fl-bg text-fl-fg border px-3 py-2 font-mono text-sm"
+            className="neu-input text-fl-fg rounded-xl px-3.5 py-2 font-mono text-sm font-medium"
             aria-label={t('approvalFilter')}
           >
             {approvalFilterOptions.map((option) => (
@@ -246,7 +246,7 @@ function AdminReviewsContent() {
               setPage(0)
               setRatingFilter(event.target.value)
             }}
-            className="border-fl-border bg-fl-bg text-fl-fg border px-3 py-2 font-mono text-sm"
+            className="neu-input text-fl-fg rounded-xl px-3.5 py-2 font-mono text-sm font-medium"
             aria-label={t('ratingFilter')}
           >
             <option value="">{t('allRatings')}</option>
@@ -259,7 +259,7 @@ function AdminReviewsContent() {
           <button
             type="button"
             onClick={clearFilters}
-            className="border-fl-border text-fl-label text-fl-muted-2 hover:text-fl-fg flex items-center justify-center gap-2 border px-4 py-2 font-mono tracking-widest uppercase"
+            className="neu-button text-fl-label text-fl-fg flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-mono font-semibold tracking-widest uppercase"
           >
             <FilterX className="size-3.5" /> {t('clear')}
           </button>
@@ -267,12 +267,12 @@ function AdminReviewsContent() {
       </AdminPanel>
 
       {error && (
-        <div className="border-fl-error text-fl-error-fg border px-4 py-3 font-mono text-sm">
+        <div className="border-fl-error text-fl-error-fg glass-card rounded-2xl border px-4 py-3 font-mono text-sm font-semibold">
           {error}
           <button
             onClick={() => loadReviews(page, approvalFilter, ratingFilter)}
             disabled={loading}
-            className="ml-3 underline disabled:opacity-50"
+            className="neu-button ml-3 rounded-lg px-2.5 py-1 disabled:opacity-50"
           >
             {tCommon('retry')}
           </button>
@@ -293,12 +293,12 @@ function AdminReviewsContent() {
         {reviews.length === 0 ? (
           !loading &&
           !error && (
-            <div className="text-fl-muted-2 p-8 text-center font-mono text-sm">
+            <div className="text-fl-muted-2 p-8 text-center font-mono text-sm font-semibold">
               {t('empty')}
             </div>
           )
         ) : (
-          <div className="divide-fl-border divide-y">
+          <div className="divide-fl-border/60 divide-y">
             {reviews.map((review) => (
               <article
                 key={review.id}
@@ -306,7 +306,7 @@ function AdminReviewsContent() {
               >
                 <div className="min-w-0 space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-fl-fg font-sans text-sm font-semibold tracking-tight">
+                    <h2 className="text-fl-fg font-sans text-sm font-bold tracking-tight">
                       {review.user_display_name}
                     </h2>
                     <AdminBadge
@@ -315,7 +315,7 @@ function AdminReviewsContent() {
                       {review.is_approved ? t('approved') : t('pending')}
                     </AdminBadge>
                     <span
-                      className="text-fl-muted-2 font-mono text-xs"
+                      className="text-fl-muted-2 font-mono text-xs font-semibold"
                       aria-label={tStars('starsLabel', {
                         rating: review.rating,
                       })}
@@ -323,13 +323,13 @@ function AdminReviewsContent() {
                       {stars(review.rating)}
                     </span>
                   </div>
-                  <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+                  <p className="text-fl-hint text-fl-muted-2 font-mono font-medium tracking-widest uppercase">
                     {t('learningLanguage', {
                       language: languageLabel(review.target_language),
                     })}{' '}
                     · {formatDate(review.created_at, locale)}
                   </p>
-                  <p className="text-fl-muted-1 font-mono text-sm leading-relaxed">
+                  <p className="text-fl-fg font-mono text-sm leading-relaxed">
                     {review.comment || t('ratingOnly')}
                   </p>
                 </div>
@@ -340,7 +340,7 @@ function AdminReviewsContent() {
                     disabled={
                       loading || savingId !== null || deletingId !== null
                     }
-                    className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase disabled:opacity-60"
+                    className="neu-button text-fl-label text-fl-fg flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase disabled:opacity-60"
                   >
                     {savingId === review.id ? (
                       <Loader2 className="size-3.5 animate-spin" />
@@ -353,7 +353,7 @@ function AdminReviewsContent() {
                     disabled={
                       loading || savingId !== null || deletingId !== null
                     }
-                    className="border-fl-error/30 text-fl-error-fg text-fl-label hover:bg-fl-error/10 flex items-center gap-2 border px-3 py-2 font-mono tracking-widest uppercase disabled:opacity-60"
+                    className="neu-button border-fl-error/30 text-fl-error-fg text-fl-label flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono font-semibold tracking-widest uppercase disabled:opacity-60"
                   >
                     <Trash2 className="size-3.5" /> {t('delete')}
                   </button>

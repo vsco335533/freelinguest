@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { PageLoading } from '@/components/ui/page-loading'
 import { apiFetch } from '@/lib/api'
 import { getCurriculumUnits, type CurriculumUnit } from '@/data/curriculum'
+import { localizeLessonTitle, localizeUnitTitle } from '@/lib/curriculum-i18n'
 import { useLanguageStore } from '@/store/language'
 import { useAuthStore } from '@/store/auth'
 import type { TargetLanguage } from '@/lib/target-languages'
@@ -23,6 +24,7 @@ interface PendingLesson {
   lesson_type: string
   week_number: number
   day_number: number
+  unit_id?: string | null
 }
 
 interface PlanLesson extends PendingLesson {
@@ -145,7 +147,7 @@ function PlanLoadError({ onRetry }: { onRetry: () => void }) {
         {t('errorMessage')}
       </p>
       <button
-        className="border-fl-border text-fl-fg hover:bg-fl-surface-2 border px-4 py-2 text-sm"
+        className="neu-button text-fl-fg rounded-xl px-5 py-2.5 text-sm font-semibold"
         onClick={onRetry}
       >
         {t('retry')}
@@ -179,8 +181,11 @@ function PlanLanguageRecovery() {
 function PlanContent({ language }: { language: TargetLanguage }) {
   const t = useTranslations('plan')
   const tCommon = useTranslations('common')
+  const tTarget = useTranslations('targetLanguages')
   const router = useRouter()
-  const langName = language.name
+  const langName = tTarget.has(language.code)
+    ? tTarget(language.code)
+    : language.name
 
   const [plan, setPlan] = useState<StudyPlan | null>(null)
   const [loading, setLoading] = useState(true)
@@ -252,7 +257,7 @@ function PlanContent({ language }: { language: TargetLanguage }) {
             router.push('/assessment')
             return
           }
-          throw new Error(`Failed to load plan (${planRes.status})`)
+          throw new Error(t('loadFailed'))
         }
 
         const planData = (await planRes.json()) as StudyPlan | null
@@ -341,7 +346,7 @@ function PlanContent({ language }: { language: TargetLanguage }) {
           })
       } catch (err) {
         if (!obsolete())
-          setError(err instanceof Error ? err.message : 'Failed to load')
+          setError(err instanceof Error ? err.message : t('loadFailed'))
       } finally {
         if (!obsolete()) setLoading(false)
       }
@@ -399,10 +404,10 @@ function PlanContent({ language }: { language: TargetLanguage }) {
   return (
     <div className="mx-auto max-w-4xl space-y-6 px-4 py-8">
       {/* ── Header ── */}
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-label text-fl-accent font-bold">●</span>
+          <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
             {t('learningRoadmap')}
           </span>
         </div>
@@ -444,12 +449,12 @@ function PlanContent({ language }: { language: TargetLanguage }) {
         {unitsLoading ? (
           <PageLoading fullScreen={false} />
         ) : unitsError ? (
-          <div className="border-fl-border bg-fl-surface space-y-3 border px-6 py-10 text-center">
-            <p role="alert" className="text-fl-muted-1 text-sm">
+          <div className="glass-card space-y-3 rounded-2xl px-6 py-10 text-center">
+            <p role="alert" className="text-fl-muted-1 text-sm font-medium">
               {tCommon('errorMessage')}
             </p>
             <button
-              className="border-fl-border text-fl-fg hover:bg-fl-surface-2 border px-4 py-2 text-sm"
+              className="neu-button text-fl-fg rounded-xl px-5 py-2.5 text-sm font-semibold"
               onClick={() => {
                 setUnitsLoading(true)
                 setUnitsAttempt((value) => value + 1)
@@ -460,11 +465,11 @@ function PlanContent({ language }: { language: TargetLanguage }) {
           </div>
         ) : (
           units.length === 0 && (
-            <div className="border-fl-border bg-fl-surface space-y-3 border px-6 py-10 text-center">
-              <p className="text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
+            <div className="glass-card space-y-3 rounded-2xl px-6 py-10 text-center">
+              <p className="text-fl-muted-2 font-mono text-xs font-bold tracking-widest uppercase">
                 {t('noUnitsForLevel', { level })}
               </p>
-              <p className="text-fl-label text-fl-muted-4 font-mono">
+              <p className="text-fl-label text-fl-muted-3 font-mono font-medium">
                 {t('noUnitsDesc')}
               </p>
             </div>
@@ -490,7 +495,15 @@ function PlanContent({ language }: { language: TargetLanguage }) {
           return (
             <UnitCard
               key={unit.id}
-              title={unit.title}
+              title={localizeUnitTitle(
+                {
+                  unitId: unit.id,
+                  title: unit.title,
+                  cefrLevel: level,
+                  targetLanguage: language.code,
+                },
+                tCommon
+              )}
               index={i}
               lessonCount={unitLessons.length || unit.lesson_types.length}
               grammarCount={unit.grammar_points.length}
@@ -540,34 +553,51 @@ function PlanContent({ language }: { language: TargetLanguage }) {
 
       {/* ── Pending lessons ── */}
       {pendingLessons.length > 0 && (
-        <div className="border-fl-border bg-fl-surface border">
-          <div className="border-fl-border space-y-2 border-b px-6 py-4">
+        <div className="glass-card overflow-hidden rounded-2xl">
+          <div className="border-fl-border/60 space-y-2 border-b px-6 py-4">
             <div className="flex items-center gap-2">
-              <span className="text-fl-label text-fl-muted-3">●</span>
-              <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+              <span className="text-fl-label text-fl-accent font-bold">●</span>
+              <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
                 {pendingLessons.length} {t('pendingLessons')}
               </span>
             </div>
-            <p className="text-fl-caption text-fl-muted-1 font-mono">
+            <p className="text-fl-caption text-fl-muted-1 font-mono font-medium">
               {t('pendingReassurance')}
             </p>
           </div>
-          <div className="divide-fl-border divide-y">
+          <div className="divide-fl-border/60 divide-y">
             {pendingLessons.map((lesson) => (
               <div
                 key={lesson.id}
-                className="flex flex-wrap items-center justify-between gap-3 px-6 py-3"
+                className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5"
               >
                 <div>
-                  <p className="text-fl-fg font-mono text-xs">{lesson.title}</p>
+                  <p className="text-fl-fg font-mono text-xs font-semibold">
+                    {localizeLessonTitle(
+                      {
+                        title: lesson.title,
+                        unitId: lesson.unit_id,
+                        lessonType: lesson.lesson_type,
+                        cefrLevel: level,
+                        targetLanguage: language.code,
+                      },
+                      tCommon
+                    )}
+                  </p>
                   <p className="text-fl-hint text-fl-muted-3 mt-0.5 font-mono tracking-widest uppercase">
-                    W{lesson.week_number} D{lesson.day_number} ·{' '}
-                    {lesson.lesson_type}
+                    {t('weekDay', {
+                      week: lesson.week_number,
+                      day: lesson.day_number,
+                    })}{' '}
+                    ·{' '}
+                    {t.has(`lessonTypes.${lesson.lesson_type}`)
+                      ? t(`lessonTypes.${lesson.lesson_type}`)
+                      : lesson.lesson_type}
                   </p>
                 </div>
                 <button
                   onClick={() => router.push(`/lesson/${lesson.id}`)}
-                  className="text-fl-bg bg-fl-fg hover:bg-fl-fg/90 focus-visible:outline-fl-fg px-3 py-1 font-mono text-sm tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="neu-button-primary focus-visible:outline-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest text-white uppercase focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
                   {t('resume')}
                 </button>
@@ -584,7 +614,7 @@ function PlanContent({ language }: { language: TargetLanguage }) {
 
       {/* ── Completion test result ── */}
       {plan.completion_test_taken && (
-        <div className="border-fl-border bg-fl-surface space-y-2 border px-6 py-4">
+        <div className="glass-card space-y-2 rounded-2xl px-6 py-4">
           <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
             {t('levelTestResult')}
           </p>
@@ -593,7 +623,7 @@ function PlanContent({ language }: { language: TargetLanguage }) {
             <span className="font-bold">
               {plan.completion_test_score != null
                 ? `${Math.round(plan.completion_test_score * 100)}%`
-                : 'n/a'}
+                : tCommon('notAvailable')}
             </span>
           </p>
           {plan.completion_test_recommendation && (
@@ -612,6 +642,8 @@ function PlanContent({ language }: { language: TargetLanguage }) {
             ...l,
             completed: l.completed ?? false,
           }))}
+          targetLanguage={language.code}
+          cefrLevel={level}
           onClose={() => setActiveDrawer(null)}
           onStartLesson={(lessonId) => {
             setActiveDrawer(null)

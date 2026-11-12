@@ -4,19 +4,19 @@
     "modes": {
       "intro": "Käytä pilvessä ilman asennusta tai omalla palvelimellasi.",
       "compare": "Vertaa vaihtoehtoja",
-      "accounts": "Jokaisella asennuksella on omat tilit ja edistyminen. Pääpainike avaa tämän asennuksen; FreeLingo Cloud -linkki avaa virallisen palvelun.",
-      "title": "Kaksi tapaa käyttää FreeLingoa",
+      "accounts": "Jokaisella asennuksella on omat tilit ja edistyminen. Pääpainike avaa tämän asennuksen; Linguist Cloud -linkki avaa virallisen palvelun.",
+      "title": "Kaksi tapaa käyttää Linguista",
       "cloud": {
         "title": "Cloud · Me ylläpidämme",
-        "description": "Opiskele selaimessa FreeLingon ylläpitämällä palvelulla.",
+        "description": "Opiskele selaimessa Linguistn ylläpitämällä palvelulla.",
         "setup": "Palvelintila, ylläpito ja päivitykset sisältyvät palveluun.",
         "access": "Tekoäly ja puhetoiminnot sisältyvät tilauksesi käyttörajoihin.",
         "cost": "Aloita ilmaiseksi ja valitse Premium, kun haluat harjoitella enemmän.",
-        "cta": "Avaa FreeLingo Cloud"
+        "cta": "Avaa Linguist Cloud"
       },
       "selfHosted": {
         "title": "Oma palvelin · Sinä ylläpidät",
-        "description": "Asenna FreeLingo omaan ympäristöösi ja valitse tekoäly- ja puhepalveluntarjoajat.",
+        "description": "Asenna Linguist omaan ympäristöösi ja valitse tekoäly- ja puhepalveluntarjoajat.",
         "setup": "Hallitse asennusta, asetuksia ja tietojen tallennusta.",
         "access": "Vapaa ja maksuton ohjelmisto AGPL-3.0-lisenssillä.",
         "cost": "Vastaat infrastruktuurista, ylläpidosta ja mahdollisista palveluntarjoajien kuluista.",
@@ -26,19 +26,19 @@
     "faq": {
       "modes": {
         "question": "Mitä eroa pilvellä ja omalla palvelimella on?",
-        "answer": "FreeLingo Cloud on ylläpidetty palvelu osoitteessa freelingo.app: luo tili ja opiskele ilman palvelimen hallintaa. Omalla palvelimella asennat ja ylläpidät FreeLingoa omassa ympäristössäsi sekä määrität tekoäly- ja puhepalvelut. Käytettävissä olevat ominaisuudet riippuvat asetuksista."
+        "answer": "Linguist Cloud on ylläpidetty palvelu osoitteessa freelingo.app: luo tili ja opiskele ilman palvelimen hallintaa. Omalla palvelimella asennat ja ylläpidät Linguista omassa ympäristössäsi sekä määrität tekoäly- ja puhepalvelut. Käytettävissä olevat ominaisuudet riippuvat asetuksista."
       },
       "free": {
         "question": "Voinko aloittaa ilmaiseksi? Tarvitsenko maksukortin?",
         "answer": "Rekisteröityminen ei vaadi korttia. Jos asennus tarjoaa alkuvaiheen Premium-käytön, se alkaa rekisteröityessä; sen jälkeen käyttö jatkuu maksutta rajoituksin, ellet tilaa. Maksullinen tilaus alkaa ostosta, ellei siihen nimenomaisesti sisälly lisäkokeilupäiviä. Tämä tilauskokeilu on erillinen alkujaksosta ja vaatii maksutavan."
       },
       "hosting": {
-        "question": "Mitä tarvitsen FreeLingon ylläpitoon omalla palvelimella?",
+        "question": "Mitä tarvitsen Linguistn ylläpitoon omalla palvelimella?",
         "answer": "Tarvitset palvelimen, Docker Composen sekä määritetyt tekoäly- ja puhepalvelut. Vastaat asennuksesta, päivityksistä ja varmuuskopioista. AGPL-3.0-ohjelmisto on maksuton; infrastruktuuri ja ulkoiset palvelut voivat maksaa. Laitteistovaatimukset ja tuetut puhekielet riippuvat valituista palveluntarjoajista."
       },
       "data": {
         "question": "Missä tietojani tallennetaan ja käsitellään?",
-        "answer": "Cloudissa FreeLingo-tiimi hallinnoi tallennusta ja lähettää tekoäly- ja puhesisällöt palveluntarjoajille käsittelyä varten. Omalla palvelimella hallitset tallennusta ja palveluntarjoajia: ulkoiset tekoäly- tai puhepalvelut vastaanottavat niille kuuluvan sisällön. Oma palvelin ei tarkoita automaattisesti täysin paikallista käsittelyä."
+        "answer": "Cloudissa Linguist-tiimi hallinnoi tallennusta ja lähettää tekoäly- ja puhesisällöt palveluntarjoajille käsittelyä varten. Omalla palvelimella hallitset tallennusta ja palveluntarjoajia: ulkoiset tekoäly- tai puhepalvelut vastaanottavat niille kuuluvan sisällön. Oma palvelin ei tarkoita automaattisesti täysin paikallista käsittelyä."
       },
       "languages": {
         "question": "Mitä kieliä voin opiskella?",
@@ -61,10 +61,10 @@
     "heroSub": "Polku kielten oppimiseen: tasollesi sopivat oppitunnit, opittua vahvistavat harjoitukset ja pelit sekä äänikeskustelut tekoälyoppimiskumppanisi kanssa.",
     "startFree": "Aloita oppiminen ilmaiseksi",
     "freeNote": "Et tarvitse maksukorttia. Ilmaisella käytöllä on käyttörajat; Premium tarjoaa lisää käyttömahdollisuuksia.",
-    "seoTitle": "FreeLingo: opi kieliä suunnitelman ja Lingun avulla",
+    "seoTitle": "Linguist: opi kieliä suunnitelman ja Lingun avulla",
     "seoDescription": "Opi kieliä A1-tasolta C2-tasolle oman opintosuunnitelman, harjoitusten ja pelien avulla. Sovella oppimaasi keskusteluissa tekoälyohjaaja Lingun kanssa.",
     "journey": {
-      "title": "Näin FreeLingo toimii",
+      "title": "Näin Linguist toimii",
       "learnTitle": "Opi omaan tahtiisi",
       "learnDesc": "Selvitä tasosi arvioinnilla ja aloita sinulle sopiva suunnitelma. Etene oppitunti kerrallaan jäsennellyn opetussuunnitelman mukaan tasolta A1 tasolle C2.",
       "practiceTitle": "Harjoittele ja vahvista taitojasi",
@@ -123,7 +123,7 @@
     "start": "Aloita",
     "retry": "Yritä uudelleen",
     "or": "tai",
-    "appName": "FreeLingo",
+    "appName": "Linguist",
     "days": "päivää",
     "logout": "Kirjaudu ulos",
     "logoutConfirmTitle": "Kirjaudu ulos",
@@ -164,7 +164,69 @@
     "nativeHelpPhraseNotes": "Ilmausten huomioita",
     "nativeHelpStudyTips": "Opiskeluvinkit",
     "nativeHelpWordNotes": "Sanojen huomioita",
-    "nativeHelpPractice": "Harjoitus"
+    "nativeHelpPractice": "Harjoitus",
+    "aiTutor": "Tekoälyohjaaja",
+    "minutesShort": "{minutes} min",
+    "xpUnit": "XP",
+    "premiumBadge": "Premium",
+    "notAvailable": "ei saat.",
+    "baseLanguageSelect": "Peruskieli",
+    "loaderLearn": "OPI.",
+    "loaderSpeak": "PUHU.",
+    "loaderRead": "LUE.",
+    "loaderWrite": "KIRJOITA",
+    "lessonTitlePattern": "{title} - Oppitunti {n}",
+    "completionTestTitle": "Tason {level} päätöstesti",
+    "unitTitles": {
+      "a1-unit-1": "Identiteetti ja tervehdykset",
+      "a1-unit-2": "Minun maailmani",
+      "a1-unit-3": "Arki",
+      "a1-unit-4": "Paikat ja sijainti",
+      "a1-unit-5": "Tekeminen juuri nyt",
+      "a1-unit-6": "Eilen",
+      "a1-unit-7": "Kyvyt ja toiveet",
+      "a1-unit-8": "A1-kertaaminen",
+      "a2-unit-1": "Epäsäännölliset verbit ja menneen ajan tarinat",
+      "a2-unit-2": "Suunnitelmat ja tulevaisuus",
+      "a2-unit-3": "Vertailut",
+      "a2-unit-4": "Kyky ja lupa",
+      "a2-unit-5": "Määrä ja ostokset",
+      "a2-unit-6": "Terveys ja keho",
+      "a2-unit-7": "Matkustaminen ja liikenne",
+      "a2-unit-8": "A2-kertaaminen",
+      "b1-unit-1": "Perfektin näkökulmat",
+      "b1-unit-2": "Nolla-, ensimmäinen ja toinen konditionaali",
+      "b1-unit-3": "Passiivi",
+      "b1-unit-4": "Relatiivilauseet, sidossanat ja fraasiverbit",
+      "b1-unit-5": "Modaaliverbit, neuvot ja liitekysymykset",
+      "b1-unit-6": "Epäsuora kerronta",
+      "b1-unit-7": "Pluskvamperfekti, toiveet ja katumus",
+      "b1-unit-8": "B1-kertaaminen",
+      "b2-unit-1": "Menneen ajan kertomukset ja järjestys",
+      "b2-unit-2": "Edistyneet toiveet: Wish + Would/Could",
+      "b2-unit-3": "Konditionaalit 2 ja 3",
+      "b2-unit-4": "Kausatiivinen Have/Get, modaalipassiivi ja passiivi-infinitiivit",
+      "b2-unit-5": "Gerundit, infinitiivit ja fraasiverbit",
+      "b2-unit-6": "Epäsuora kerronta ja modaaliperfektit",
+      "b2-unit-7": "Myönnytys, vastakohta ja akateeminen teksti",
+      "b2-unit-8": "B2-kertaaminen",
+      "c1-unit-1": "Yhdistetyt konditionaalit ja pohdinta",
+      "c1-unit-2": "Partisiippilausekkeet",
+      "c1-unit-3": "Varovaiset ilmaukset ja muodollinen tyyli",
+      "c1-unit-4": "Korostus: inversio ja lohkolauseet",
+      "c1-unit-5": "Ellipsi, korvaus ja tekstin sidosteisuus",
+      "c1-unit-6": "Edistyneet relatiivilauseet, kriittinen ajattelu ja fraasiverbit",
+      "c1-unit-7": "Argumentointi ja retoriikka",
+      "c1-unit-8": "C1-kertaaminen",
+      "c2-unit-1": "Diskurssimerkit ja tekstin sidosteisuus",
+      "c2-unit-2": "Nominalisaatio ja akateeminen tyyli",
+      "c2-unit-3": "Idiomaattinen ja kuvaannollinen kieli",
+      "c2-unit-4": "Etualalle nosto, korostus ja tyylikeinot",
+      "c2-unit-5": "Kriittinen lukeminen ja akateeminen kirjoittaminen",
+      "c2-unit-6": "Brittiläinen pragmatiikka ja puhetyyli",
+      "c2-unit-7": "Retoriset keinot ja edistynyt tekstirakenne",
+      "c2-unit-8": "C2-kertaaminen"
+    }
   },
   "detective": {
     "title": "Virhe-etsivä",
@@ -466,7 +528,7 @@
     "cardProductReview": "Tuotearvostelu",
     "cardLegalDocuments": "Oikeudelliset asiakirjat",
     "sectionReview": "Arvostelu",
-    "reviewDescription": "Kerro kokemuksestasi FreeLingossa. Jos muokkaat jo hyväksyttyä arvostelua, se tarkistetaan uudelleen ennen julkista näyttämistä.",
+    "reviewDescription": "Kerro kokemuksestasi Linguistssa. Jos muokkaat jo hyväksyttyä arvostelua, se tarkistetaan uudelleen ennen julkista näyttämistä.",
     "reviewPending": "Odottaa hyväksyntää",
     "reviewUpdate": "Päivitä",
     "reviewSaved": "Arvostelu tallennettu.",
@@ -480,28 +542,28 @@
   "legal": {
     "terms": {
       "pageTitle": "Käyttöehdot",
-      "seoDescription": "Tutustu FreeLingon kieltenoppimisalustan käyttöehtoihin: käyttäjätilit, sallittu käyttö, maksuton käyttö ja maksulliset tilaukset.",
+      "seoDescription": "Tutustu Linguistn kieltenoppimisalustan käyttöehtoihin: käyttäjätilit, sallittu käyttö, maksuton käyttö ja maksulliset tilaukset.",
       "updated": "Päivitetty viimeksi: elokuu 2026",
-      "s1Title": "1. Tietoa FreeLingosta",
-      "s1Body": "FreeLingo on avoimen lähdekoodin tekoälypohjainen kieltenoppimisalusta, jota voi käyttää kahdella tavalla: (1) itse ylläpidettynä omassa infrastruktuurissasi maksutta tai (2) FreeLingo-tiimin ylläpitämänä palveluna, jossa on ilmainen suunnitelma ja maksullisia tilauksia. Käyttämällä palvelua kummalla tahansa tavalla hyväksyt nämä käyttöehdot.",
+      "s1Title": "1. Tietoa Linguiststa",
+      "s1Body": "Linguist on avoimen lähdekoodin tekoälypohjainen kieltenoppimisalusta, jota voi käyttää kahdella tavalla: (1) itse ylläpidettynä omassa infrastruktuurissasi maksutta tai (2) Linguist-tiimin ylläpitämänä palveluna, jossa on ilmainen suunnitelma ja maksullisia tilauksia. Käyttämällä palvelua kummalla tahansa tavalla hyväksyt nämä käyttöehdot.",
       "s2Title": "2. Sallittu käyttö",
-      "s2Intro": "Saat käyttää FreeLingoa vain henkilökohtaiseen kielten oppimiseen. Sitoudut olemaan:",
+      "s2Intro": "Saat käyttää Linguista vain henkilökohtaiseen kielten oppimiseen. Sitoudut olemaan:",
       "s2i1": "Yrittämättä päästä luvatta mihinkään järjestelmän osaan.",
       "s2i2": "Lataamatta haitallista sisältöä tai häiritsemättä palvelun toimintaa.",
       "s2i3": "Jakamatta tilisi kirjautumistietoja kolmansille osapuolille.",
       "s2i4": "Käyttämättä automatisoituja komentosarjoja tai botteja AI-opettajan toimintojen väärinkäyttöön.",
       "s3Title": "3. Käyttäjätilit",
-      "s3Body": "Sinun on oltava vähintään 16-vuotias luodaksesi tilin ja käyttääksesi FreeLingoa. Rekisteröitymällä vahvistat täyttäväsi ikävaatimuksen. Jos saamme tietää tilin kuuluvan alle 16-vuotiaalle, poistamme tilin ja siihen liittyvät tiedot ilmoittamatta siitä etukäteen. Vastaat kirjautumistietojesi salassapidosta ja kaikesta tililläsi tapahtuvasta toiminnasta. Palvelimen ylläpitäjä – itse ylläpidetyssä asennuksessa sinä tai ylläpidetyssä palvelussa FreeLingo-tiimi – voi keskeyttää tai sulkea tilin, joka rikkoo näitä ehtoja.",
+      "s3Body": "Sinun on oltava vähintään 16-vuotias luodaksesi tilin ja käyttääksesi Linguista. Rekisteröitymällä vahvistat täyttäväsi ikävaatimuksen. Jos saamme tietää tilin kuuluvan alle 16-vuotiaalle, poistamme tilin ja siihen liittyvät tiedot ilmoittamatta siitä etukäteen. Vastaat kirjautumistietojesi salassapidosta ja kaikesta tililläsi tapahtuvasta toiminnasta. Palvelimen ylläpitäjä – itse ylläpidetyssä asennuksessa sinä tai ylläpidetyssä palvelussa Linguist-tiimi – voi keskeyttää tai sulkea tilin, joka rikkoo näitä ehtoja.",
       "s4Title": "4. Sisältö ja tekoälyvuorovaikutus",
-      "s4Body": "Keskustelut AI-opettajan kanssa tallennetaan tietokantaan, jotta opiskelu voi jatkua myöhemmin. Ylläpidetyssä palvelussa AI-chat ja äänitoiminnot käsitellään OpenAI:n rajapinnan kautta, ja sisältöösi sovelletaan OpenAI:n käyttökäytäntöjä. Tekoäly voi antaa virheellisiä vastauksia – käytä aina omaa harkintaasi. FreeLingo ei vastaa taustalla olevien kielimallien tuottamasta sisällöstä. AI-opettajan luoma sisältö (harjoitukset, korjaukset, selitykset ja muu materiaali) kuuluu sinulle henkilökohtaiseen käyttöösi. FreeLingo ei vaadi omistusoikeutta keskusteluihisi tai niistä tuotettuun sisältöön.",
+      "s4Body": "Keskustelut AI-opettajan kanssa tallennetaan tietokantaan, jotta opiskelu voi jatkua myöhemmin. Ylläpidetyssä palvelussa AI-chat ja äänitoiminnot käsitellään OpenAI:n rajapinnan kautta, ja sisältöösi sovelletaan OpenAI:n käyttökäytäntöjä. Tekoäly voi antaa virheellisiä vastauksia – käytä aina omaa harkintaasi. Linguist ei vastaa taustalla olevien kielimallien tuottamasta sisällöstä. AI-opettajan luoma sisältö (harjoitukset, korjaukset, selitykset ja muu materiaali) kuuluu sinulle henkilökohtaiseen käyttöösi. Linguist ei vaadi omistusoikeutta keskusteluihisi tai niistä tuotettuun sisältöön.",
       "s5Title": "5. Palvelun käyttötavat",
-      "s5Body": "Itse ylläpidetyt asennukset ovat maksuttomia, ja ylläpitäjä hallitsee täysin tietojaan ja infrastruktuuriaan. FreeLingo-tiimin ylläpitämässä palvelussa on käyttörajoituksia sisältävä ilmainen suunnitelma sekä kuukausittaisia ja vuosittaisia maksullisia tilauksia rajattomaan käyttöön. Ilmaiseen suunnitelmaan sisältyy seitsemän päivän kokeilujakso täydellä käyttöoikeudella (maksutapaa ei vaadita), jonka jälkeen oppitunneille ja AI-chatille on päivittäiset sekä kuuntelu- ja lukuharjoituksille ja äänikeskusteluille viikoittaiset kiintiöt. Maksullisissa tilauksissa nämä käyttörajat poistuvat. Ylläpidetyssä palvelussa tietosi tallennetaan FreeLingo-tiimin ylläpitämille palvelimille. Tilisi nykyiset käyttörajat näkyvät koontinäytössä.",
+      "s5Body": "Itse ylläpidetyt asennukset ovat maksuttomia, ja ylläpitäjä hallitsee täysin tietojaan ja infrastruktuuriaan. Linguist-tiimin ylläpitämässä palvelussa on käyttörajoituksia sisältävä ilmainen suunnitelma sekä kuukausittaisia ja vuosittaisia maksullisia tilauksia rajattomaan käyttöön. Ilmaiseen suunnitelmaan sisältyy seitsemän päivän kokeilujakso täydellä käyttöoikeudella (maksutapaa ei vaadita), jonka jälkeen oppitunneille ja AI-chatille on päivittäiset sekä kuuntelu- ja lukuharjoituksille ja äänikeskusteluille viikoittaiset kiintiöt. Maksullisissa tilauksissa nämä käyttörajat poistuvat. Ylläpidetyssä palvelussa tietosi tallennetaan Linguist-tiimin ylläpitämille palvelimille. Tilisi nykyiset käyttörajat näkyvät koontinäytössä.",
       "s6Title": "6. Tilaus ja laskutus",
       "s6Body": "Ilmainen suunnitelma tarjoaa rajoitetun pääsyn tekoälytoimintoihin ja uusille käyttäjille seitsemän päivän kokeilujakson täydellä käyttöoikeudella (maksutapaa ei vaadita). Maksulliset tilaukset ovat kuukausittaisia tai vuosittaisia ja uusiutuvat automaattisesti, ellei niitä peruta etukäteen. Voit perua tilauksesi milloin tahansa Asetuksissa; peruutus tulee voimaan nykyisen kauden päättyessä. Ylläpitäjä voi myös päättää tilausten uusiutumisen tai tilaukset, jos palvelu muuttuu tai suljetaan. Jos palvelu päättyy ennen maksetun kauden loppua, kuluttajalainsäädännön vaatima hyvitys maksetaan. Peruuttamisoikeudet ja voimassa olevat hinnat näytetään ja käsitellään sovellettavan lain mukaisesti.",
       "s7Title": "7. Saatavuus",
-      "s7Body": "Ylläpidetty palvelu tarjotaan ilman takuuta jatkuvuudesta tai saatavuudesta. Ylläpitäjä voi milloin tahansa muuttaa palvelua, keskeyttää sen tai sulkea sen teknisistä, taloudellisista tai muista syistä. Suunnitelluista sulkemisista ilmoitetaan sovelluksessa tai sähköpostitse, kun se on kohtuudella mahdollista. Ilmoitetun päivän jälkeen tilit ja palvelun tiedot voidaan poistaa ilman palautusmahdollisuutta. FreeLingo ei tarjoa varmuuskopiointipalvelua eikä automaattista vientityökalua.",
+      "s7Body": "Ylläpidetty palvelu tarjotaan ilman takuuta jatkuvuudesta tai saatavuudesta. Ylläpitäjä voi milloin tahansa muuttaa palvelua, keskeyttää sen tai sulkea sen teknisistä, taloudellisista tai muista syistä. Suunnitelluista sulkemisista ilmoitetaan sovelluksessa tai sähköpostitse, kun se on kohtuudella mahdollista. Ilmoitetun päivän jälkeen tilit ja palvelun tiedot voidaan poistaa ilman palautusmahdollisuutta. Linguist ei tarjoa varmuuskopiointipalvelua eikä automaattista vientityökalua.",
       "s8Title": "8. Vastuunrajoitus",
-      "s8Body": "FreeLingo ja sen kehittäjät eivät vastaa suorista, epäsuorista, satunnaisista tai välillisistä vahingoista, jotka aiheutuvat palvelun käytöstä tai siitä, ettei sitä voi käyttää. Sovellettavan lain sallimissa rajoissa kokonaisvastuu on enintään vaatimusta edeltävien kolmen kuukauden aikana maksamasi summa. Sitoudut pitämään FreeLingon ja sen kehittäjät vahingoittumattomina kolmansien osapuolten vaatimuksista, vahingoista tai kuluista, jotka aiheutuvat ehtojen vastaisesta palvelun käytöstäsi.",
+      "s8Body": "Linguist ja sen kehittäjät eivät vastaa suorista, epäsuorista, satunnaisista tai välillisistä vahingoista, jotka aiheutuvat palvelun käytöstä tai siitä, ettei sitä voi käyttää. Sovellettavan lain sallimissa rajoissa kokonaisvastuu on enintään vaatimusta edeltävien kolmen kuukauden aikana maksamasi summa. Sitoudut pitämään Linguistn ja sen kehittäjät vahingoittumattomina kolmansien osapuolten vaatimuksista, vahingoista tai kuluista, jotka aiheutuvat ehtojen vastaisesta palvelun käytöstäsi.",
       "s9Title": "9. Sovellettava laki",
       "s9Body": "Näihin ehtoihin sovelletaan Espanjan lakia. Ehdoista johtuvat riidat kuuluvat yksinomaan Espanjan tuomioistuinten ratkaistaviksi, ellei asuinmaasi pakottava kuluttajansuojalainsäädäntö määrää toisin.",
       "s10Title": "10. Ehtojen muutokset",
@@ -511,16 +573,16 @@
       "linkPrivacy": "Tietosuojakäytäntö",
       "linkBack": "Takaisin rekisteröitymiseen",
       "linkBackSettings": "Takaisin Asetuksiin",
-      "linkContact": "Jos sinulla on kysyttävää ehdoista, käytä osoitteessa freelingo.app olevaa yhteydenottolomaketta sen ollessa saatavilla tai FreeLingon GitHub-arkistossa ilmoitettua yhteystapaa."
+      "linkContact": "Jos sinulla on kysyttävää ehdoista, käytä osoitteessa freelingo.app olevaa yhteydenottolomaketta sen ollessa saatavilla tai Linguistn GitHub-arkistossa ilmoitettua yhteystapaa."
     },
     "privacy": {
       "pageTitle": "Tietosuojakäytäntö",
-      "seoDescription": "Lue, miten FreeLingo käsittelee henkilötietoja, selaimen tallennustilaa ja anonyymejä tilastoja ja miten voit käyttää tietosuojaoikeuksiasi.",
+      "seoDescription": "Lue, miten Linguist käsittelee henkilötietoja, selaimen tallennustilaa ja anonyymejä tilastoja ja miten voit käyttää tietosuojaoikeuksiasi.",
       "updated": "Päivitetty viimeksi: 10. lokakuuta 2026",
       "s1Title": "1. Yleiskatsaus",
-      "s1Body": "FreeLingo on saatavilla itse ylläpidettävänä sovelluksena ja ylläpidettynä palveluna. Itse ylläpidettävässä asennuksessa kaikki tiedot tallennetaan yksinomaan ylläpitäjän palvelimelle eikä FreeLingo-projektin tekijöillä ole pääsyä niihin. Ylläpidetyssä palvelussa FreeLingo-tiimi toimii rekisterinpitäjänä. Tässä käytännössä kuvataan, miten henkilötietojasi kerätään, käytetään ja suojataan.",
+      "s1Body": "Linguist on saatavilla itse ylläpidettävänä sovelluksena ja ylläpidettynä palveluna. Itse ylläpidettävässä asennuksessa kaikki tiedot tallennetaan yksinomaan ylläpitäjän palvelimelle eikä Linguist-projektin tekijöillä ole pääsyä niihin. Ylläpidetyssä palvelussa Linguist-tiimi toimii rekisterinpitäjänä. Tässä käytännössä kuvataan, miten henkilötietojasi kerätään, käytetään ja suojataan.",
       "s2Title": "2. Keräämämme tiedot",
-      "s2Intro": "FreeLingoa ei ole suunnattu alle 16-vuotiaille. Emme tietoisesti kerää henkilötietoja alle 16-vuotiailta. Jos olet alle 16-vuotias, älä luo tiliä tai anna henkilötietoja. Kun luot tilin ja käytät FreeLingoa, seuraavat tiedot tallennetaan:",
+      "s2Intro": "Linguista ei ole suunnattu alle 16-vuotiaille. Emme tietoisesti kerää henkilötietoja alle 16-vuotiailta. Jos olet alle 16-vuotias, älä luo tiliä tai anna henkilötietoja. Kun luot tilin ja käytät Linguista, seuraavat tiedot tallennetaan:",
       "s2i1": "Käyttäjänimi, näyttönimi ja sähköpostiosoite.",
       "s2i2": "Tiivisteenä tallennettu salasana (bcrypt – salasanaasi ei koskaan tallenneta selväkielisenä).",
       "s2i3": "Äidinkielivalinta ja opiskeluasetukset.",
@@ -532,7 +594,7 @@
       "s2i9": "Kaikille kielille yhteiset tilin muistot ja mieltymykset, jotka AI-opettaja oppii keskusteluissa tai jotka lisäät itse tulevien keskustelujen mukauttamiseksi.",
       "s2i10": "Ominaisuusehdotukset, virheraportit, kommentit ja äänet, jotka lähetät palautetaulun kautta. Vain käyttäjänimesi näkyy julkisesti; kaikki käyttäjät näkevät julkaistut ehdotukset ja raportit.",
       "s3Title": "3. Tietojesi käyttö",
-      "s3Intro": "Tietojasi käytetään ainoastaan FreeLingon oppimiskokemuksen tarjoamiseen:",
+      "s3Intro": "Tietojasi käytetään ainoastaan Linguistn oppimiskokemuksen tarjoamiseen:",
       "s3i1": "Henkilöllisyytesi varmistamiseen ja istuntosi ylläpitämiseen.",
       "s3i2": "Opintosuunnitelmasi ja keskustelujesi mukauttamiseen.",
       "s3i3": "Oppimisesi edistymisen seuraamiseen.",
@@ -543,13 +605,13 @@
       "s4Title": "4. Ulkoiset tekoälypalvelut",
       "s4Body": "Ylläpidetyssä palvelussa AI-chat, puhesynteesi (TTS) ja puheen litterointi (STT) toteutetaan OpenAI:n rajapinnan kautta. Keskustelujesi sisältö ja ääni lähetetään OpenAI:lle käsiteltäväksi OpenAI:n tietosuojakäytännön mukaisesti (openai.com/privacy). Maksut käsittelee Stripe, Inc. (Yhdysvallat); Stripe käsittelee maksutiedot suoraan emmekä tallenna maksukorttitietoja palvelimillemme – maksutapahtumiasi koskee Stripen tietosuojakäytäntö (stripe.com/privacy). Itse ylläpidettävässä asennuksessa ylläpitäjä valitsee tekoälypalvelun; oletuksena käytetään paikallista Ollama-asennusta eivätkä tiedot poistu palvelimelta.",
       "s5Title": "5. Evästeet, paikallinen tallennus ja analytiikka",
-      "s5Body": "FreeLingo käyttää teknisiä evästeitä ja asetusevästeitä: refresh_token (httpOnly, oletuksena 30 päivää) ylläpitää istuntoasi, ja NEXT_LOCALE sekä LOCALE_DETECTED (enintään yksi vuosi) tallentavat ja hallitsevat käyttöliittymän kieltä. Selaimen paikalliseen tallennustilaan tallennetaan myös käyttöliittymä- ja ääniasetukset sekä ilmoitusten ja oppaiden tila, ja istuntotallennus mahdollistaa toimintojen tilapäisen jatkuvuuden. Paikalliset arvot säilyvät, kunnes sovellus tai sinä poistat ne; istuntoarvot poistetaan käytön jälkeen tai välilehden sulkeutuessa. Ylläpidetyssä palvelussa käytämme Umamia, avoimen lähdekoodin analytiikkatyökalua, jota ylläpidämme itse samalla infrastruktuurilla kuin FreeLingoa, saadaksemme anonyymejä, koottuja tilastoja palvelun käytöstä ja toiminnasta sekä parantaaksemme oppimiskokemusta. Analytiikka hyödyntää teknisiä käyttötietoja, ei käytä evästeitä, ei yhdisty käyttäjätileihin eikä sitä käytetä yksilöllisten profiilien luomiseen tai mainontaan. Analytiikkatietoja ei myydä, luovuteta eikä jaeta kolmansille osapuolille. Umami-tilastoja ei poisteta automaattisesti, vaan ne säilyvät manuaaliseen poistamiseen asti. Itse ylläpidetyissä asennuksissa analytiikan määrityksistä vastaa asennuksen ylläpitäjä. Evästeilmoitus on tiedottava; sen sulkeminen tallentaa vain tiedon siitä, että se on suljettu.",
+      "s5Body": "Linguist käyttää teknisiä evästeitä ja asetusevästeitä: refresh_token (httpOnly, oletuksena 30 päivää) ylläpitää istuntoasi, ja NEXT_LOCALE sekä LOCALE_DETECTED (enintään yksi vuosi) tallentavat ja hallitsevat käyttöliittymän kieltä. Selaimen paikalliseen tallennustilaan tallennetaan myös käyttöliittymä- ja ääniasetukset sekä ilmoitusten ja oppaiden tila, ja istuntotallennus mahdollistaa toimintojen tilapäisen jatkuvuuden. Paikalliset arvot säilyvät, kunnes sovellus tai sinä poistat ne; istuntoarvot poistetaan käytön jälkeen tai välilehden sulkeutuessa. Ylläpidetyssä palvelussa käytämme Umamia, avoimen lähdekoodin analytiikkatyökalua, jota ylläpidämme itse samalla infrastruktuurilla kuin Linguista, saadaksemme anonyymejä, koottuja tilastoja palvelun käytöstä ja toiminnasta sekä parantaaksemme oppimiskokemusta. Analytiikka hyödyntää teknisiä käyttötietoja, ei käytä evästeitä, ei yhdisty käyttäjätileihin eikä sitä käytetä yksilöllisten profiilien luomiseen tai mainontaan. Analytiikkatietoja ei myydä, luovuteta eikä jaeta kolmansille osapuolille. Umami-tilastoja ei poisteta automaattisesti, vaan ne säilyvät manuaaliseen poistamiseen asti. Itse ylläpidetyissä asennuksissa analytiikan määrityksistä vastaa asennuksen ylläpitäjä. Evästeilmoitus on tiedottava; sen sulkeminen tallentaa vain tiedon siitä, että se on suljettu.",
       "s6Title": "6. Oikeutesi (GDPR)",
-      "s6Body": "Jos olet Euroopan talousalueella, sinulla on GDPR:n mukaiset oikeudet saada pääsy tietoihisi, oikaista ja poistaa niitä, vastustaa käsittelyä ja siirtää tietoja. Voit poistaa tilisi itse Asetuksissa. Muut pyynnöt käsitellään manuaalisesti kohdassa 8 mainittua yhteystapaa käyttäen; FreeLingo ei tarjoa automaattista vientityökalua. Käsittelemme tietoja palvelun tarjoamiseksi (GDPR:n 6 artiklan 1 kohdan b alakohta). OpenAI ja Stripe voivat käsitellä tietoja Yhdysvalloissa kansainvälisiin siirtoihin sovellettavien suojatoimien mukaisesti. Voit valittaa Espanjan tietosuojaviranomaiselle (aepd.es) tai oman maasi valvontaviranomaiselle.",
+      "s6Body": "Jos olet Euroopan talousalueella, sinulla on GDPR:n mukaiset oikeudet saada pääsy tietoihisi, oikaista ja poistaa niitä, vastustaa käsittelyä ja siirtää tietoja. Voit poistaa tilisi itse Asetuksissa. Muut pyynnöt käsitellään manuaalisesti kohdassa 8 mainittua yhteystapaa käyttäen; Linguist ei tarjoa automaattista vientityökalua. Käsittelemme tietoja palvelun tarjoamiseksi (GDPR:n 6 artiklan 1 kohdan b alakohta). OpenAI ja Stripe voivat käsitellä tietoja Yhdysvalloissa kansainvälisiin siirtoihin sovellettavien suojatoimien mukaisesti. Voit valittaa Espanjan tietosuojaviranomaiselle (aepd.es) tai oman maasi valvontaviranomaiselle.",
       "s7Title": "7. Tietojen säilyttäminen ja poistaminen",
-      "s7Body": "Palvelun tietoja säilytetään niin kauan kuin tilisi on olemassa ja ylläpidetty palvelu toimii. Voit poistaa muistoja, kieliä tai koko tilisi Asetuksissa. Ylläpitäjä voi myös poistaa kaikki tilit ja niiden tiedot palvelun sulkemisen yhteydessä ilmoitettuaan siitä kohtuullisesti mahdollisuuksien mukaan. Poistamista ei voi perua. Poistettuaan hallinnassaan olevat järjestelmät ja kopiot FreeLingo ei säilytä henkilötietoja. Stripe voi säilyttää maksu- ja tapahtumatietoja omien käytäntöjensä ja lakisääteisten velvoitteidensa mukaisesti.",
+      "s7Body": "Palvelun tietoja säilytetään niin kauan kuin tilisi on olemassa ja ylläpidetty palvelu toimii. Voit poistaa muistoja, kieliä tai koko tilisi Asetuksissa. Ylläpitäjä voi myös poistaa kaikki tilit ja niiden tiedot palvelun sulkemisen yhteydessä ilmoitettuaan siitä kohtuullisesti mahdollisuuksien mukaan. Poistamista ei voi perua. Poistettuaan hallinnassaan olevat järjestelmät ja kopiot Linguist ei säilytä henkilötietoja. Stripe voi säilyttää maksu- ja tapahtumatietoja omien käytäntöjensä ja lakisääteisten velvoitteidensa mukaisesti.",
       "s8Title": "8. Yhteydenotto",
-      "s8Body": "Ylläpidetyn palvelun tietosuojaan liittyvissä kysymyksissä käytä osoitteessa freelingo.app olevaa yhteydenottolomaketta sen ollessa käytettävissä. Palvelun sulkemisen jälkeen käytä FreeLingon GitHub-arkistossa ilmoitettua yhteystapaa äläkä julkaise henkilötietoja julkisissa tiketeissä. Itse ylläpidettävässä asennuksessa ota yhteyttä sen ylläpitäjään.",
+      "s8Body": "Ylläpidetyn palvelun tietosuojaan liittyvissä kysymyksissä käytä osoitteessa freelingo.app olevaa yhteydenottolomaketta sen ollessa käytettävissä. Palvelun sulkemisen jälkeen käytä Linguistn GitHub-arkistossa ilmoitettua yhteystapaa äläkä julkaise henkilötietoja julkisissa tiketeissä. Itse ylläpidettävässä asennuksessa ota yhteyttä sen ylläpitäjään.",
       "s9Title": "9. Osittainen pätemättömyys",
       "s9Body": "Jos tämän käytännön jokin määräys todetaan pätemättömäksi tai täytäntöönpanokelvottomaksi, sitä rajoitetaan tai se poistetaan vain välttämättömässä laajuudessa, ja muut määräykset pysyvät täysin voimassa.",
       "linkTerms": "Käyttöehdot",
@@ -802,7 +864,8 @@
     "noPlanLabel": "ALOITA",
     "noPlanTitle": "Luo opintosuunnitelmasi",
     "noPlanDesc": "Tee lyhyt tasoarvio selvittääksesi tasosi ja saadaksesi henkilökohtaisen oppimispolun.",
-    "noPlanHint": "Kestää noin 10 minuuttia"
+    "noPlanHint": "Kestää noin 10 minuuttia",
+    "loadFailed": "Opintosuunnitelman lataaminen epäonnistui"
   },
   "lesson": {
     "loading": "Ladataan oppituntia...",
@@ -1275,7 +1338,13 @@
         "sv": "Ruotsi",
         "da": "Tanska",
         "fi": "Suomi",
-        "hr": "Kroatia"
+        "hr": "Kroatia",
+        "hi": "Hindi",
+        "te": "Telugu",
+        "ta": "Tamili",
+        "ml": "Malajalam",
+        "or": "Orija",
+        "kn": "Kannada"
       }
     }
   },
@@ -1292,7 +1361,7 @@
     "workflowStep5": "Harjoittele sanastoa muistikorteilla samalla",
     "workflowStep6": "Harjoittele vapaata keskustelua Lingun kanssa",
     "q_language": "Mitä kieltä voin oppia?",
-    "a_language": "FreeLingo tukee tällä hetkellä useita kieliä ({languages}), ja lisäämme kieliä ajan mittaan. Kun uusi kieli tulee saataville, löydät sen kohdasta Asetukset → Omat kielet – lisää se ja aloita opiskelu heti.",
+    "a_language": "Linguist tukee tällä hetkellä useita kieliä ({languages}), ja lisäämme kieliä ajan mittaan. Kun uusi kieli tulee saataville, löydät sen kohdasta Asetukset → Omat kielet – lisää se ja aloita opiskelu heti.",
     "q_assessment": "Mikä tasoarvio on?",
     "a_assessment": "Mukautuva testi, jossa on enintään 15 kysymystä opiskelukielen omasta kysymyspankista. Se kattaa kieliopin, sanaston ja luetun ymmärtämisen tasoilla A1–C2. Tulos arvioi CEFR-tasosi ja näyttää vahvuudet ja harjoittelukohteet; voit muuttaa ehdotettua tasoa ennen suunnitelman luomista.",
     "q_studyPlan": "Mikä opintosuunnitelma on ja miten luon sellaisen?",
@@ -1311,7 +1380,7 @@
     "a_listening": "<strong>Kuuntelu</strong>-osiossa Lingu valmistelee taitotasoosi sopivia kuunteluharjoituksia. Kuuntele ja vastaa viiteen ymmärtämiskysymykseen. Saat lähetettyäsi pistemäärän (0–5), XP-pisteet, oikeat vastaukset ja koko litteroinnin. Voit luoda uusia harjoituksia halutessasi.",
     "q_reading": "Miten lukuharjoitukset toimivat?",
     "a_reading": "<strong>Lukeminen</strong> sisältää tasosi mukaisia tekstejä – ilmoituksia, sähköposteja, artikkeleita, blogikirjoituksia ja muuta. Lue teksti ja vastaa viiteen monivalintakysymykseen. Saat lähetettyäsi pistemäärän (0–5) ja XP-pisteet. Voit luoda uusia harjoituksia halutessasi.",
-    "q_providers": "Mitä tekoälypalveluita FreeLingo tukee?",
+    "q_providers": "Mitä tekoälypalveluita Linguist tukee?",
     "a_providers_intro": "Määritä tiedostossa <code>.env</code> asetuksella <code>LLM_PROVIDER</code>:",
     "provider_ollama": "Paikallinen ja maksuton. Ollaman on oltava käynnissä palvelimella. Suositeltu malli: gemma4:e4b. Ilman GPU:ta toiminta voi olla hidasta.",
     "provider_openai": "OpenAI-palvelu ylläpitäjän määrittämällä mallilla. Vaatii OPENAI_API_KEY-avaimen ja voi aiheuttaa käyttökuluja.",
@@ -1424,7 +1493,10 @@
       "Viikonlopun suunnitelmat",
       "Työ ja uratavoitteet",
       "Etätyö"
-    ]
+    ],
+    "quotaSes": "{used}/{limit} ist.",
+    "quotaMin": "{used}/{limit} min",
+    "quotaTok": "{used}/{limit} tok."
   },
   "voiceRecorder": {
     "record": "Nauhoita",
@@ -1476,7 +1548,17 @@
     "lessonsLabel": "Oppitunnit",
     "flashcardsLabel": "Muistikortit",
     "viewDetails": "Näytä tiedot",
-    "supportedLanguages": "Saatavilla olevat kielet"
+    "supportedLanguages": "Saatavilla olevat kielet",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
+    "baseLanguageLabel": "Base Language",
+    "fluentBadge": "Fluent",
+    "targetLanguageLabel": "Target Language",
+    "learningBadge": "Learning"
   },
   "targetLanguages": {
     "sv-SE": "Ruotsi",
@@ -1545,7 +1627,7 @@
     "trialHeadline": "Ilmainen kokeilu",
     "trialHeadlineTrialUsed": "Premium",
     "trialTitle": "Aloita {days} päivän ilmaisella kokeilulla",
-    "trialTitleTrialUsed": "Ota FreeLingo Premium käyttöön",
+    "trialTitleTrialUsed": "Ota Linguist Premium käyttöön",
     "trialDesc": "Saat Lingun, puhe-, kuuntelu- ja lukuharjoitukset kokonaan käyttöösi ennen ensimmäistä maksua.",
     "trialDescTrialUsed": "Valitse tilaus avataksesi Lingun sekä puhe-, kuuntelu- ja lukuharjoitukset.",
     "trialCtaMonthly": "Kokeile ilmaiseksi, sitten €{price}/kk",
@@ -1576,7 +1658,7 @@
     "audioError": "Ääntä ei voitu toistaa. Voit yrittää uudelleen.",
     "step1": {
       "label": "Tervetuloa",
-      "title": "Tervetuloa FreeLingoon",
+      "title": "Tervetuloa Linguiston",
       "desc": "Hei! Olen Lingu, kieltenopiskelukaverisi. Näytän sinulle, miten voimme oppia yhdessä."
     },
     "step2": {
@@ -1615,7 +1697,7 @@
     "paywallGamesTitle": "Jatka harjoittelua peleillä",
     "paywallGamesDesc": "Ilmainen pelikiintiösi on käytetty tai pelit vaativat Premiumin. Voit jatkaa olemassa olevia pelejä.",
     "paywallLabel": "Premium vaaditaan",
-    "paywallTitle": "Avaa FreeLingo Premium",
+    "paywallTitle": "Avaa Linguist Premium",
     "paywallDesc": "Aloita {days} päivän ilmainen kokeilu ja avaa kaikki Premium-harjoitukset ennen ensimmäistä maksua.",
     "paywallDescTrialUsed": "Avaa kaikki Premium-harjoitukset ja tarkista summa ennen vahvistamista.",
     "paywallChatTitle": "Harjoittele Lingun kanssa rajattomasti",
@@ -1636,7 +1718,7 @@
     "planYearly": "Paras vastine · €{price}/vuosi · 2 kuukautta ilmaiseksi →",
     "checkoutError": "Maksua ei voitu aloittaa. Yritä uudelleen.",
     "pricingTitle": "Tilaukset ja hinnat",
-    "pricingContext": "Nämä tilaukset koskevat tätä asennusta. Oma palvelin ei vaadi FreeLingo Cloud -tilausta; ylläpitäjä määrittää pääsyn ja käyttörajat.",
+    "pricingContext": "Nämä tilaukset koskevat tätä asennusta. Oma palvelin ei vaadi Linguist Cloud -tilausta; ylläpitäjä määrittää pääsyn ja käyttörajat.",
     "pricingDesc": "Lisäkokeilu tilauksen yhteydessä: {days} päivää · kortti vaaditaan · sen jälkeen sovelletaan tilauksen hintaa",
     "pricingDescTrialUsed": "Maksullinen kuukausi- tai vuositilaus alkaa ostosta. Peruuta milloin tahansa.",
     "planMonthlyName": "Kuukausittain",
@@ -1668,7 +1750,7 @@
       "l5": "7 päivän täyden käyttöoikeuden kokeilu"
     },
     "successLabel": "Maksu vahvistettu",
-    "successTitle": "Tervetuloa FreeLingo Premiumiin!",
+    "successTitle": "Tervetuloa Linguist Premiumiin!",
     "successDesc": "Tilauksesi on nyt aktiivinen. Käytä kaikkia ominaisuuksia rajattomasti.",
     "successCheckingLabel": "Vahvistetaan tilausta",
     "successCheckingTitle": "Tarkistetaan tilaustasi",
@@ -1795,7 +1877,7 @@
     },
     "entry4": {
       "label": "Sujuvampi käyttökokemus",
-      "desc": "Korjasimme myös pieniä virheitä ja hioimme yksityiskohtia, jotta FreeLingolla oppiminen olisi joka päivä entistä mukavampaa."
+      "desc": "Korjasimme myös pieniä virheitä ja hioimme yksityiskohtia, jotta Linguistlla oppiminen olisi joka päivä entistä mukavampaa."
     }
   },
   "contact": {
@@ -1932,7 +2014,7 @@
     "statusError": "Arvostelusi tilaa ei voitu tarkistaa. Yritä myöhemmin uudelleen.",
     "ratingRequiredError": "Valitse arvosana ennen lähettämistä.",
     "saveError": "Arvosteluasi ei voitu tallentaa. Yritä uudelleen.",
-    "eyebrow": "Arvostele FreeLingo",
+    "eyebrow": "Arvostele Linguist",
     "title": "Millainen kokemuksesi oli?",
     "closeLabel": "Sulje arvostelukehote",
     "checking": "Tarkistetaan arvostelun tilaa...",
@@ -1948,7 +2030,7 @@
   "landingReviews": {
     "eyebrow": "Oppijoiden tarinoita",
     "title": "Oppiminen tuntuu todemmalta, kun kerrot siitä itse",
-    "subtitle": "Arvosteluja oppijoilta, jotka harjoittelevat jo Lingun kanssa FreeLingossa.",
+    "subtitle": "Arvosteluja oppijoilta, jotka harjoittelevat jo Lingun kanssa Linguistssa.",
     "averageLabel": "{average}/5 · {count, plural, one {# arvio} other {# arviota}}",
     "ratingCount": "{count, plural, one {# arvio} other {# arviota}}",
     "carouselLabel": "Opiskelijoiden arvostelut",
@@ -1960,7 +2042,7 @@
     "readLess": "Näytä vähemmän",
     "learningLanguage": "Opiskelee: {language}",
     "starsLabel": "{rating}/5 tähteä",
-    "ratingOnly": "Vahvistettu FreeLingo-arvosana."
+    "ratingOnly": "Vahvistettu Linguist-arvosana."
   },
   "adminReviews": {
     "title": "Arvostelut",

@@ -61,22 +61,22 @@ export function Pagination({
 
   return (
     <div
-      className={`border-fl-border bg-fl-surface flex items-center justify-between border px-6 py-3 ${className}`}
+      className={`glass-card flex items-center justify-between rounded-2xl px-6 py-3.5 ${className}`}
     >
       <button
         onClick={() => onPageChange(Math.max(0, page - 1))}
         disabled={isFirst || isDisabled}
-        className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+        className="neu-button text-fl-muted-1 hover:text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-30"
       >
         {prevLabel}
       </button>
-      <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest">
+      <span className="text-fl-label text-fl-muted-2 font-mono font-bold tracking-widest">
         {info}
       </span>
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={isLast || isDisabled}
-        className="border-fl-border text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-4 py-2 font-mono text-xs tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+        className="neu-button text-fl-muted-1 hover:text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase disabled:cursor-not-allowed disabled:opacity-30"
       >
         {nextLabel}
       </button>

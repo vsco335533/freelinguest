@@ -123,8 +123,8 @@ export default function FAQPage() {
   return (
     <div className="mx-auto max-w-4xl p-6">
       {/* Header */}
-      <div className="border-fl-border mb-8 border-b pb-4">
-        <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
+      <div className="border-fl-border/60 mb-8 border-b pb-4">
+        <p className="text-fl-label text-fl-accent mb-1 font-mono font-bold tracking-widest uppercase">
           {t('title')}
         </p>
         <h1 className="text-fl-fg font-mono text-2xl font-bold tracking-tight">
@@ -133,28 +133,28 @@ export default function FAQPage() {
       </div>
 
       {/* Accordion */}
-      <div className="border-fl-border border">
+      <div className="glass-card overflow-hidden rounded-2xl">
         {faqs.map((item, i) => (
           <div
             key={i}
-            className={i < faqs.length - 1 ? 'border-fl-border border-b' : ''}
+            className={i < faqs.length - 1 ? 'border-fl-border/60 border-b' : ''}
           >
             <button
               onClick={() => {
                 if (open !== i) trackBrowserEvent('faq_viewed')
                 setOpen(open === i ? null : i)
               }}
-              className="hover:bg-fl-surface flex w-full items-center justify-between px-5 py-4 text-left transition-colors"
+              className="flex w-full items-center justify-between rounded-none px-5 py-4 text-left transition-colors hover:bg-white/60 dark:hover:bg-white/5"
             >
-              <span className="text-fl-fg pr-4 font-mono text-xs tracking-wide">
+              <span className="text-fl-fg pr-4 font-mono text-xs font-semibold tracking-wide">
                 {item.q}
               </span>
-              <span className="text-fl-muted-2 shrink-0 font-mono text-sm">
+              <span className="text-fl-accent shrink-0 font-mono text-sm font-bold">
                 {open === i ? '−' : '+'}
               </span>
             </button>
             {open === i && (
-              <div className="text-fl-muted-1 border-fl-border bg-fl-bg-alt border-t px-5 pt-4 pb-5 font-mono text-xs leading-relaxed">
+              <div className="text-fl-fg border-fl-border/60 border-t bg-white/40 px-5 pt-4 pb-5 font-mono text-xs font-medium leading-relaxed dark:bg-slate-900/40">
                 {item.a}
               </div>
             )}

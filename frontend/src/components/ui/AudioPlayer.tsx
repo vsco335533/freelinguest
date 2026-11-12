@@ -244,7 +244,9 @@ export function AudioPlayer({
   }
 
   const sizeClass =
-    size === 'sm' ? 'px-2 py-1 text-fl-hint' : 'px-3 py-2 text-xs'
+    size === 'sm'
+      ? 'px-2.5 py-1 text-fl-hint rounded-full'
+      : 'px-3.5 py-2 text-xs rounded-full'
 
   const label =
     state === 'loading'
@@ -273,7 +275,7 @@ export function AudioPlayer({
         state === 'playing' ? t('ariaStop') : (listenLabel ?? t('ariaListen'))
       }
       aria-busy={state === 'loading'}
-      className={`border font-mono tracking-widest uppercase transition-colors ${colorClass} ${sizeClass} ${className}`}
+      className={`neu-button font-mono font-semibold tracking-widest uppercase ${colorClass} ${sizeClass} ${className}`}
     >
       {icon ? (
         state === 'loading' ? (

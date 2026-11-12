@@ -221,36 +221,36 @@ export default function AdminSystemPage() {
       <AdminNav />
 
       {maintenanceError && (
-        <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+        <div className="border-fl-error/40 text-fl-error glass-card rounded-2xl border px-4 py-3 font-mono text-xs font-semibold">
           {maintenanceError}
         </div>
       )}
 
       <div
-        className={`border px-5 py-4 ${maintenanceMode ? 'border-yellow-500/40 bg-yellow-500/5' : 'border-fl-border bg-fl-surface'}`}
+        className={`rounded-2xl border px-5 py-4 ${maintenanceMode ? 'glass-card border-yellow-500/50 bg-yellow-500/10' : 'glass-card'}`}
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
             <ShieldAlert
-              className={`mt-0.5 size-5 shrink-0 ${maintenanceMode ? 'text-yellow-500' : 'text-fl-muted-3'}`}
+              className={`mt-0.5 size-5 shrink-0 ${maintenanceMode ? 'text-yellow-500' : 'text-fl-accent'}`}
               aria-hidden="true"
             />
             <div>
               <div className="mb-1 flex flex-wrap items-center gap-2">
-                <span className="text-fl-muted-1 font-mono text-xs tracking-widest uppercase">
+                <span className="text-fl-fg font-mono text-xs font-bold tracking-widest uppercase">
                   {t('maintenanceTitle')}
                 </span>
                 <span
-                  className={`text-fl-hint border px-2 py-0.5 font-mono tracking-widest uppercase ${
+                  className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                     maintenanceMode
-                      ? 'border-yellow-500/40 text-yellow-500'
-                      : 'border-fl-border text-fl-muted-3'
+                      ? 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-400'
+                      : 'border-fl-border bg-white/40 text-fl-muted-2 dark:bg-white/5'
                   }`}
                 >
                   {maintenanceMode ? t('maintenanceOn') : t('maintenanceOff')}
                 </span>
               </div>
-              <p className="text-fl-hint text-fl-muted-2 font-mono">
+              <p className="text-fl-hint text-fl-muted-2 font-mono font-medium">
                 {t('maintenanceDesc')}
               </p>
             </div>
@@ -258,11 +258,7 @@ export default function AdminSystemPage() {
           <button
             onClick={toggleMaintenance}
             disabled={maintenanceLoading}
-            className={`inline-flex shrink-0 items-center justify-center gap-2 px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-colors ${
-              maintenanceMode
-                ? 'bg-fl-fg text-fl-bg hover:bg-fl-fg/90'
-                : 'bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90'
-            } disabled:opacity-50`}
+            className="neu-button-primary inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-50"
           >
             {maintenanceLoading && (
               <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
@@ -272,8 +268,8 @@ export default function AdminSystemPage() {
         </div>
       </div>
 
-      <section className="border-fl-border bg-fl-surface border p-5">
-        <div className="border-fl-border mb-5 flex gap-3 border-b pb-4">
+      <section className="glass-card rounded-2xl p-6">
+        <div className="border-fl-border/60 mb-5 flex gap-3 border-b pb-4">
           <Megaphone
             className="text-fl-accent mt-0.5 size-5 shrink-0"
             aria-hidden="true"
@@ -282,14 +278,14 @@ export default function AdminSystemPage() {
             <h2 className="text-fl-fg font-mono text-sm font-bold tracking-widest uppercase">
               {t('dashboardBanner.title')}
             </h2>
-            <p className="text-fl-muted-2 mt-1 font-mono text-xs">
+            <p className="text-fl-muted-2 mt-1 font-mono text-xs font-medium">
               {t('dashboardBanner.description')}
             </p>
           </div>
         </div>
 
         {bannerLoading ? (
-          <div className="text-fl-muted-2 flex items-center gap-2 font-mono text-xs">
+          <div className="text-fl-muted-2 flex items-center gap-2 font-mono text-xs font-medium">
             <Loader2 className="size-4 animate-spin" aria-hidden="true" />
             {t('dashboardBanner.loading')}
           </div>
@@ -298,20 +294,20 @@ export default function AdminSystemPage() {
             {bannerError && (
               <p
                 role="alert"
-                className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs"
+                className="border-fl-error/40 text-fl-error glass-card rounded-xl border px-4 py-3 font-mono text-xs font-semibold"
               >
                 {bannerError}
               </p>
             )}
             {bannerSuccess && (
-              <p className="border-fl-accent/40 text-fl-accent border px-4 py-3 font-mono text-xs">
+              <p className="border-fl-accent/40 text-fl-accent glass-card rounded-xl border px-4 py-3 font-mono text-xs font-semibold">
                 {bannerSuccess}
               </p>
             )}
 
             <div className="grid gap-4 md:grid-cols-[12rem_1fr]">
               <label className="space-y-2 font-mono text-xs">
-                <span className="text-fl-muted-2 block tracking-widest uppercase">
+                <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                   {t('dashboardBanner.sourceLocale')}
                 </span>
                 <select
@@ -321,7 +317,7 @@ export default function AdminSystemPage() {
                     setSourceLocale(locale)
                     setSource({ ...translations[locale] })
                   }}
-                  className="border-fl-border bg-fl-bg text-fl-fg w-full border px-3 py-2"
+                  className="neu-input text-fl-fg w-full rounded-xl px-3.5 py-2.5 font-medium"
                 >
                   {sortedBannerLocales.map((locale) => (
                     <option key={locale} value={locale}>
@@ -341,7 +337,7 @@ export default function AdminSystemPage() {
                   <span className="text-fl-fg block font-bold">
                     {t('dashboardBanner.activeLabel')}
                   </span>
-                  <span className="text-fl-muted-3 mt-1 block">
+                  <span className="text-fl-muted-2 mt-1 block font-medium">
                     {t('dashboardBanner.activeHint')}
                   </span>
                 </span>
@@ -350,7 +346,7 @@ export default function AdminSystemPage() {
 
             <div className="grid gap-4">
               <label className="space-y-2 font-mono text-xs">
-                <span className="text-fl-muted-2 block tracking-widest uppercase">
+                <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                   {t('dashboardBanner.fieldTitle')}
                 </span>
                 <input
@@ -362,11 +358,11 @@ export default function AdminSystemPage() {
                     }))
                   }
                   maxLength={160}
-                  className="border-fl-border bg-fl-bg text-fl-fg w-full border px-3 py-2 font-mono text-sm"
+                  className="neu-input text-fl-fg w-full rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium"
                 />
               </label>
               <label className="space-y-2 font-mono text-xs">
-                <span className="text-fl-muted-2 block tracking-widest uppercase">
+                <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                   {t('dashboardBanner.fieldSubtitle')}
                 </span>
                 <input
@@ -378,11 +374,11 @@ export default function AdminSystemPage() {
                     }))
                   }
                   maxLength={240}
-                  className="border-fl-border bg-fl-bg text-fl-fg w-full border px-3 py-2 font-mono text-sm"
+                  className="neu-input text-fl-fg w-full rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium"
                 />
               </label>
               <label className="space-y-2 font-mono text-xs">
-                <span className="text-fl-muted-2 block tracking-widest uppercase">
+                <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                   {t('dashboardBanner.fieldDescription')}
                 </span>
                 <textarea
@@ -395,7 +391,7 @@ export default function AdminSystemPage() {
                   }
                   maxLength={2000}
                   rows={5}
-                  className="border-fl-border bg-fl-bg text-fl-fg w-full resize-y border px-3 py-2 font-mono text-sm"
+                  className="neu-input text-fl-fg w-full resize-y rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium"
                 />
               </label>
               <div>
@@ -403,7 +399,7 @@ export default function AdminSystemPage() {
                   type="button"
                   onClick={translateBanner}
                   disabled={translating || !sourceComplete}
-                  className="bg-fl-fg text-fl-bg hover:bg-fl-accent inline-flex items-center gap-2 px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                  className="neu-button text-fl-fg inline-flex items-center gap-2 rounded-xl px-4 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
                 >
                   {translating && (
                     <Loader2
@@ -417,10 +413,10 @@ export default function AdminSystemPage() {
             </div>
 
             {hasTranslations && (
-              <div className="border-fl-border space-y-4 border-t pt-5">
+              <div className="border-fl-border/60 space-y-4 border-t pt-5">
                 <div className="flex flex-wrap items-end justify-between gap-3">
                   <label className="space-y-2 font-mono text-xs">
-                    <span className="text-fl-muted-2 block tracking-widest uppercase">
+                    <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                       {t('dashboardBanner.editTranslation')}
                     </span>
                     <select
@@ -428,7 +424,7 @@ export default function AdminSystemPage() {
                       onChange={(event) =>
                         setEditorLocale(event.target.value as BannerLocale)
                       }
-                      className="border-fl-border bg-fl-bg text-fl-fg min-w-52 border px-3 py-2"
+                      className="neu-input text-fl-fg min-w-52 rounded-xl px-3.5 py-2.5 font-medium"
                     >
                       {sortedBannerLocales.map((locale) => {
                         const complete = Object.values(
@@ -443,7 +439,7 @@ export default function AdminSystemPage() {
                       })}
                     </select>
                   </label>
-                  <p className="text-fl-muted-3 font-mono text-xs">
+                  <p className="text-fl-muted-2 font-mono text-xs font-semibold">
                     {t('dashboardBanner.completion', {
                       complete: completedLocales,
                       total: BANNER_LOCALES.length,
@@ -453,7 +449,7 @@ export default function AdminSystemPage() {
 
                 <div className="grid gap-4">
                   <label className="space-y-2 font-mono text-xs">
-                    <span className="text-fl-muted-2 block tracking-widest uppercase">
+                    <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                       {t('dashboardBanner.fieldTitle')}
                     </span>
                     <input
@@ -462,11 +458,11 @@ export default function AdminSystemPage() {
                         updateTranslation('title', event.target.value)
                       }
                       maxLength={160}
-                      className="border-fl-border bg-fl-bg text-fl-fg w-full border px-3 py-2 font-mono text-sm"
+                      className="neu-input text-fl-fg w-full rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium"
                     />
                   </label>
                   <label className="space-y-2 font-mono text-xs">
-                    <span className="text-fl-muted-2 block tracking-widest uppercase">
+                    <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                       {t('dashboardBanner.fieldSubtitle')}
                     </span>
                     <input
@@ -475,11 +471,11 @@ export default function AdminSystemPage() {
                         updateTranslation('subtitle', event.target.value)
                       }
                       maxLength={240}
-                      className="border-fl-border bg-fl-bg text-fl-fg w-full border px-3 py-2 font-mono text-sm"
+                      className="neu-input text-fl-fg w-full rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium"
                     />
                   </label>
                   <label className="space-y-2 font-mono text-xs">
-                    <span className="text-fl-muted-2 block tracking-widest uppercase">
+                    <span className="text-fl-fg block font-semibold tracking-widest uppercase">
                       {t('dashboardBanner.fieldDescription')}
                     </span>
                     <textarea
@@ -489,13 +485,13 @@ export default function AdminSystemPage() {
                       }
                       maxLength={2000}
                       rows={5}
-                      className="border-fl-border bg-fl-bg text-fl-fg w-full resize-y border px-3 py-2 font-mono text-sm"
+                      className="neu-input text-fl-fg w-full resize-y rounded-xl px-3.5 py-2.5 font-mono text-sm font-medium"
                     />
                   </label>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="text-fl-muted-3 font-mono text-xs">
+                  <div className="text-fl-muted-2 font-mono text-xs font-medium">
                     {revision !== null && (
                       <span className="mr-4">
                         {t('dashboardBanner.revision', { revision })}
@@ -518,7 +514,7 @@ export default function AdminSystemPage() {
                     disabled={
                       saving || completedLocales !== BANNER_LOCALES.length
                     }
-                    className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 inline-flex items-center justify-center gap-2 px-5 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-40"
+                    className="neu-button-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-mono text-sm font-bold tracking-widest uppercase transition-all disabled:opacity-40"
                   >
                     {saving && (
                       <Loader2

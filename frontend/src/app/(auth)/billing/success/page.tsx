@@ -7,6 +7,10 @@ import { useTranslations } from 'next-intl'
 import { apiFetch, restoreAccessToken } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
 import { useAuthStore } from '@/store/auth'
+import {
+  AuthBackdropOrbs,
+  LinguistBrandHeader,
+} from '@/components/ui/LinguistBrandHeader'
 
 type ConfirmationStatus = 'checking' | 'confirmed' | 'pending' | 'error'
 
@@ -116,29 +120,33 @@ export default function BillingSuccessPage() {
   }[status]
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="border-fl-border bg-fl-surface w-full max-w-sm space-y-5 border p-8 text-center">
-        <div className="text-fl-accent text-2xl">{content.icon}</div>
-        <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
-          {content.label}
-        </p>
-        <h1 className="text-fl-fg font-mono text-base font-bold">
-          {content.title}
-        </h1>
-        <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
-          {content.desc}
-        </p>
-        {status === 'confirmed' && (
-          <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
-            {t('successRedirect', { seconds: countdown })}
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader size={48} className="mb-8" />
+        <div className="neu-glass-card animate-fade-up w-full space-y-5 p-8 text-center">
+          <div className="text-fl-accent text-2xl">{content.icon}</div>
+          <p className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+            {content.label}
           </p>
-        )}
-        <Link
-          href="/dashboard"
-          className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 block py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors"
-        >
-          {t('successCta')}
-        </Link>
+          <h2 className="text-fl-fg font-mono text-base font-bold">
+            {content.title}
+          </h2>
+          <p className="text-fl-muted-1 font-mono text-xs leading-relaxed">
+            {content.desc}
+          </p>
+          {status === 'confirmed' && (
+            <p className="text-fl-hint text-fl-muted-3 font-mono tracking-widest uppercase">
+              {t('successRedirect', { seconds: countdown })}
+            </p>
+          )}
+          <Link
+            href="/dashboard"
+            className="neu-button-primary block py-3 font-mono text-sm font-bold tracking-widest uppercase"
+          >
+            {t('successCta')}
+          </Link>
+        </div>
       </div>
     </div>
   )

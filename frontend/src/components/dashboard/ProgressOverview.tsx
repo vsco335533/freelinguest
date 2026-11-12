@@ -37,6 +37,7 @@ export function ProgressOverview({
   showDetails?: boolean
 }) {
   const t = useTranslations('dashboardProgress')
+  const tCommon = useTranslations('common')
   const locale = useLocale()
   const number = new Intl.NumberFormat(locale)
   const todayActive = activity.at(-1)?.active ?? false
@@ -67,10 +68,10 @@ export function ProgressOverview({
           </Link>
         )}
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="border-fl-accent/35 bg-fl-surface relative overflow-hidden border p-5 sm:p-6">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="glass-card relative overflow-hidden rounded-2xl p-5 sm:p-6">
           <div
-            className="bg-fl-accent absolute inset-y-0 left-0 w-1"
+            className="bg-gradient-to-b from-sky-400 to-blue-600 absolute inset-y-0 left-0 w-1"
             aria-hidden="true"
           />
           <div className="flex items-center justify-between gap-3">
@@ -78,7 +79,7 @@ export function ProgressOverview({
               <Sparkles className="text-fl-accent size-5" aria-hidden="true" />
               {t('experience')}
             </span>
-            <span className="bg-fl-accent/10 text-fl-accent px-2.5 py-1 text-xs font-semibold tabular-nums">
+            <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-2.5 py-1 text-xs font-semibold text-blue-600 tabular-nums dark:text-sky-300">
               {t('todayXp', { xp: number.format(todayXp) })}
             </span>
           </div>
@@ -86,7 +87,7 @@ export function ProgressOverview({
             <p className="text-fl-fg min-w-0 text-4xl font-semibold tracking-tight break-words tabular-nums sm:text-5xl">
               {number.format(xp)}
               <span className="text-fl-muted-2 ml-2 text-sm font-medium tracking-normal">
-                XP
+                {tCommon('xpUnit')}
               </span>
             </p>
             <div
@@ -96,7 +97,7 @@ export function ProgressOverview({
               {activity.map((day) => (
                 <div
                   key={day.date}
-                  className={`w-2.5 transition-[height] duration-500 motion-reduce:transition-none ${day.xp ? 'bg-fl-accent' : 'bg-fl-border'}`}
+                  className={`w-2.5 rounded-t-sm transition-[height] duration-500 motion-reduce:transition-none ${day.xp ? 'bg-gradient-to-t from-blue-600 to-sky-400' : 'bg-fl-border/60'}`}
                   style={{ height: `${Math.max(8, (day.xp / maxXp) * 100)}%` }}
                 />
               ))}
@@ -104,7 +105,7 @@ export function ProgressOverview({
           </div>
           <p className="text-fl-muted-2 mt-4 text-sm">{t('experienceHint')}</p>
         </div>
-        <div className="border-fl-border bg-fl-surface border p-5 sm:p-6">
+        <div className="glass-card rounded-2xl p-5 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-fl-muted-1 flex items-center gap-2 text-sm font-medium">
               <Flame className="text-fl-accent size-5" aria-hidden="true" />
@@ -137,13 +138,13 @@ export function ProgressOverview({
                   className="text-center"
                 >
                   <span
-                    className={`mx-auto flex size-7 items-center justify-center border ${day.active ? 'border-fl-accent bg-fl-accent text-fl-accent-fg' : 'border-fl-border text-fl-muted-3'} ${index === activity.length - 1 ? 'outline-fl-accent/50 outline outline-offset-2' : ''}`}
+                    className={`mx-auto flex size-7 items-center justify-center rounded-lg border ${day.active ? 'border-blue-500/40 bg-gradient-to-br from-sky-400 to-blue-600 text-white shadow-sm' : 'border-fl-border/70 text-fl-muted-3'} ${index === activity.length - 1 ? 'outline-fl-accent/50 outline outline-offset-2' : ''}`}
                     aria-hidden="true"
                   >
                     {day.active ? (
                       <Check className="size-4" />
                     ) : (
-                      <span className="size-1 bg-current" />
+                      <span className="size-1 rounded-full bg-current" />
                     )}
                   </span>
                   <span
@@ -162,7 +163,7 @@ export function ProgressOverview({
           <p className="text-fl-muted-2 mt-3 text-xs">{t('utcHint')}</p>
         </div>
       </div>
-      <div className="border-fl-border bg-fl-surface grid border sm:grid-cols-2">
+      <div className="neu-card grid rounded-2xl sm:grid-cols-2">
         <div className="border-fl-border flex items-center gap-4 border-b px-5 py-4 sm:border-r sm:border-b-0">
           <BookOpen
             className="text-fl-muted-2 size-5 shrink-0"

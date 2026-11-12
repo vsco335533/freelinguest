@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useEffectEvent, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { apiFetch } from '@/lib/api'
 import { useAuthStore } from '@/store/auth'
@@ -24,6 +23,7 @@ import { MemorySavedToast } from '@/components/memory/MemorySavedToast'
 import { useTransientToast } from '@/hooks/useTransientToast'
 import { readSseData } from '@/lib/sse'
 import LinguAvatar from '@/components/lingu/LinguAvatar'
+import { LinguistLogoMark } from '@/components/ui/LinguistLogoMark'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -451,15 +451,15 @@ function ChatContent() {
 
         {/* Sidebar */}
         {sidebarOpen && (
-          <aside className="border-fl-border bg-fl-bg fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
-            <div className="border-fl-border flex items-center justify-between border-b px-4 py-3">
-              <span className="text-fl-hint text-fl-muted-2 font-mono tracking-widest uppercase">
+          <aside className="glass-panel border-fl-border/60 fixed top-14 bottom-0 left-0 z-20 flex w-56 shrink-0 flex-col overflow-hidden border-r md:relative md:top-auto md:bottom-auto md:left-auto md:z-auto">
+            <div className="border-fl-border/60 flex items-center justify-between border-b px-4 py-3">
+              <span className="text-fl-hint text-fl-muted-2 font-mono font-bold tracking-widest uppercase">
                 {t('conversations')}
               </span>
               <button
                 onClick={newChat}
                 disabled={sending}
-                className="text-fl-label text-fl-muted-1 hover:text-fl-fg font-mono tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-label text-fl-fg rounded-lg px-2.5 py-1 font-mono font-bold tracking-widest uppercase"
                 title={t('newConversation')}
               >
                 + {t('newConversation')}
@@ -471,13 +471,13 @@ function ChatContent() {
               )}
               {convLoadError && (
                 <div className="flex flex-col items-center gap-3 px-4 py-6">
-                  <p className="text-fl-error font-mono text-xs">
+                  <p className="text-fl-error font-mono text-xs font-semibold">
                     {tCommon('error')}
                   </p>
                   <button
                     onClick={() => loadConversations(awaitingInitialSelection)}
                     disabled={loadingConvs}
-                    className="border-fl-border text-fl-label text-fl-muted-1 hover:text-fl-fg hover:border-fl-border-2 border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+                    className="neu-button text-fl-label text-fl-fg rounded-xl px-4 py-2 font-mono font-bold tracking-widest uppercase"
                   >
                     {tCommon('retry')}
                   </button>
@@ -485,48 +485,47 @@ function ChatContent() {
               )}
               {conversations.length === 0
                 ? !loadingConvs &&
-                  !convLoadError && (
-                    <p className="text-fl-label text-fl-muted-4 px-4 py-4 font-mono">
-                      {t('noConversation')}
-                    </p>
-                  )
+                !convLoadError && (
+                  <p className="text-fl-label text-fl-muted-3 px-4 py-4 font-mono font-medium">
+                    {t('noConversation')}
+                  </p>
+                )
                 : conversations.map((c) => (
-                    <div
-                      key={c.id}
-                      onClick={() => selectConversation(c.id)}
-                      className={`group border-fl-surface-2 flex cursor-pointer items-center justify-between border-b px-4 py-3 transition-colors ${
-                        activeId === c.id
-                          ? 'bg-fl-surface-2 border-l-fl-fg border-l-2'
-                          : 'hover:bg-fl-surface border-l-2 border-l-transparent'
+                  <div
+                    key={c.id}
+                    onClick={() => selectConversation(c.id)}
+                    className={`group mx-2 my-1 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 transition-all ${activeId === c.id
+                        ? 'glass-card border-l-fl-accent border-l-2'
+                        : 'hover:bg-fl-surface-2/60 border-l-2 border-l-transparent'
                       }`}
+                  >
+                    <span
+                      className={`text-fl-label truncate pr-1 font-mono leading-tight ${activeId === c.id ? 'text-fl-fg' : 'text-fl-muted-1'}`}
                     >
-                      <span
-                        className={`text-fl-label truncate pr-1 font-mono leading-tight ${activeId === c.id ? 'text-fl-fg' : 'text-fl-muted-1'}`}
-                      >
-                        {c.source === 'voice' && (
-                          <span
-                            className="text-fl-muted-3 mr-1.5"
-                            title={t('voiceSession')}
-                          >
-                            🎤
-                          </span>
-                        )}
-                        {c.title}
-                      </span>
-                      <button
-                        disabled={sending || deletingId !== null}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setDeletePending(c.id)
-                        }}
-                        className="text-fl-label text-fl-error-fg hover:text-fl-error shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
-                        title={t('deleteConfirm')}
-                        aria-label={t('deleteConfirm')}
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
+                      {c.source === 'voice' && (
+                        <span
+                          className="text-fl-muted-3 mr-1.5"
+                          title={t('voiceSession')}
+                        >
+                          🎤
+                        </span>
+                      )}
+                      {c.title}
+                    </span>
+                    <button
+                      disabled={sending || deletingId !== null}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setDeletePending(c.id)
+                      }}
+                      className="text-fl-label text-fl-error-fg hover:text-fl-error shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
+                      title={t('deleteConfirm')}
+                      aria-label={t('deleteConfirm')}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
             </div>
           </aside>
         )}
@@ -534,10 +533,10 @@ function ChatContent() {
         {/* Main chat area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-fl-border bg-fl-bg flex shrink-0 items-center gap-2 border-b px-5 py-4">
+          <div className="glass-panel border-fl-border/60 flex shrink-0 items-center gap-2 border-b px-5 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-fl-label text-fl-muted-2 hover:text-fl-fg mr-1 text-lg transition-colors"
+              className="neu-button text-fl-label text-fl-fg mr-1 flex h-9 w-9 items-center justify-center rounded-xl text-base"
               title={
                 sidebarOpen ? t('toggleSidebarHide') : t('toggleSidebarShow')
               }
@@ -548,7 +547,7 @@ function ChatContent() {
               animation={sending ? 'pensando' : 'reposo'}
               className="!mx-0 h-[55px] w-[55px] shrink-0"
             />
-            <span className="text-fl-label text-fl-muted-2 min-w-0 flex-1 truncate font-mono tracking-widest uppercase">
+            <span className="text-fl-label text-fl-muted-1 min-w-0 flex-1 truncate font-mono font-bold tracking-widest uppercase">
               {activeId
                 ? (conversations.find((c) => c.id === activeId)?.title ??
                   t('title'))
@@ -556,11 +555,11 @@ function ChatContent() {
             </span>
             {sending ? (
               <div className="ml-auto flex shrink-0 flex-col items-end gap-0.5">
-                <span className="text-fl-hint text-fl-muted-3 animate-pulse font-mono tracking-widest uppercase">
+                <span className="text-fl-hint text-fl-muted-2 animate-pulse font-mono font-bold tracking-widest uppercase">
                   {t('thinking')}
                 </span>
                 {sendingWarn && (
-                  <span className="text-fl-hint font-mono tracking-widest text-amber-500 uppercase">
+                  <span className="text-fl-hint font-mono font-bold tracking-widest text-amber-500 uppercase">
                     {t('takingLonger')}
                   </span>
                 )}
@@ -568,7 +567,7 @@ function ChatContent() {
             ) : messages.length > 0 && !historyUnavailable ? (
               <button
                 onClick={continueInVoice}
-                className="text-fl-hint text-fl-muted-2 hover:text-fl-fg ml-auto font-mono tracking-widest uppercase transition-colors"
+                className="neu-button text-fl-hint text-fl-fg ml-auto rounded-xl px-3.5 py-2 font-mono font-bold tracking-widest uppercase"
               >
                 {t('continueInVoice')}
               </button>
@@ -588,7 +587,7 @@ function ChatContent() {
                 role="alert"
                 className="flex h-full flex-col items-center justify-center gap-3"
               >
-                <p className="text-fl-error font-mono text-xs">
+                <p className="text-fl-error font-mono text-xs font-semibold">
                   {tCommon('error')}
                 </p>
                 <button
@@ -597,23 +596,25 @@ function ChatContent() {
                       ? selectConversation(activeId)
                       : loadConversations(true)
                   }
-                  className="border-fl-border text-fl-muted-1 hover:text-fl-fg border px-4 py-2 font-mono text-xs"
+                  className="neu-button text-fl-fg rounded-xl px-4 py-2 font-mono text-xs font-bold"
                 >
                   {tCommon('retry')}
                 </button>
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
-                <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
-                  {t('title')}
-                </p>
-                <p className="text-fl-muted-2 max-w-xs font-mono text-xs leading-relaxed">
-                  {t('subtitle', {
-                    language: activeLanguage
-                      ? tLang(activeLanguage.code)
-                      : tLang('en-GB'),
-                  })}
-                </p>
+                <div className="neu-glass-card max-w-sm rounded-3xl px-8 py-6">
+                  <p className="text-fl-label text-fl-accent font-mono font-bold tracking-widest uppercase">
+                    {t('title')}
+                  </p>
+                  <p className="text-fl-muted-1 mt-2 font-mono text-xs leading-relaxed font-medium">
+                    {t('subtitle', {
+                      language: activeLanguage
+                        ? tLang(activeLanguage.code)
+                        : tLang('en-GB'),
+                    })}
+                  </p>
+                </div>
               </div>
             ) : (
               messages.map((msg, i) => (
@@ -624,13 +625,9 @@ function ChatContent() {
                   {/* Avatar */}
                   <div className="border-fl-border mb-0.5 h-7 w-7 flex-shrink-0 overflow-hidden rounded-full border">
                     {msg.role === 'assistant' ? (
-                      <Image
-                        src="/logo_head.png"
-                        alt="Lingu"
-                        width={28}
-                        height={28}
-                        className="h-full w-full object-cover"
-                      />
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sky-100 to-blue-200 dark:from-sky-900/60 dark:to-blue-950">
+                        <LinguistLogoMark size={20} />
+                      </div>
                     ) : user?.avatar ? (
                       <AuthAvatarImage
                         avatar={user.avatar}
@@ -662,14 +659,13 @@ function ChatContent() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable max-w-[70ch] border px-4 py-3 text-left ${
-                        msg.role === 'user'
-                          ? 'bg-fl-accent text-fl-accent-fg border-fl-accent'
-                          : 'bg-fl-surface text-fl-fg-2 border-fl-border'
-                      }`}
+                      className={`word-selectable max-w-[70ch] rounded-2xl border px-4 py-3 text-left ${msg.role === 'user'
+                          ? 'neu-button-primary border-blue-400/40 text-white'
+                          : 'glass-card text-fl-fg-2'
+                        }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
-                        !(sending && i === messages.length - 1)
+                          !(sending && i === messages.length - 1)
                           ? () => handleTextSelection(msg.content)
                           : undefined
                       }
@@ -711,12 +707,12 @@ function ChatContent() {
           </div>
 
           {/* Input */}
-          <div className="border-fl-border bg-fl-bg shrink-0 border-t px-4 py-4">
+          <div className="glass-panel border-fl-border/60 shrink-0 border-t px-4 py-4">
             {freemiumExhausted ? (
               <PaywallBanner feature="chat" compact />
             ) : (
               <>
-                <div className="flex gap-2">
+                <div className="flex gap-2.5">
                   <input
                     ref={inputRef}
                     type="text"
@@ -727,17 +723,17 @@ function ChatContent() {
                     }
                     disabled={sending || historyUnavailable}
                     placeholder={t('placeholder')}
-                    className="bg-fl-surface border-fl-border text-fl-fg placeholder:text-fl-border-2 focus:border-fl-border-2 flex-1 border px-4 py-3 font-mono text-base transition-colors focus:outline-none disabled:opacity-40"
+                    className="neu-input text-fl-fg placeholder:text-fl-muted-3 flex-1 rounded-xl px-4 py-3 font-mono text-base font-medium focus:outline-none disabled:opacity-40"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={sending || !input.trim() || historyUnavailable}
-                    className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 px-5 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-30"
+                    className="neu-button-primary rounded-xl px-6 font-mono text-sm font-bold tracking-widest text-white uppercase disabled:opacity-30"
                   >
                     {sending ? '...' : t('send')}
                   </button>
                 </div>
-                <p className="text-fl-hint text-fl-border-2 mt-2 font-mono tracking-wide">
+                <p className="text-fl-hint text-fl-muted-2 mt-2 font-mono font-semibold tracking-wide">
                   {t('enterToSend')}
                 </p>
               </>

@@ -107,25 +107,25 @@ function CategoryCard({
   }
 
   return (
-    <div className="border-fl-border bg-fl-surface border">
-      <div className="border-fl-border flex items-center gap-3 border-b px-5 py-4">
+    <div className="glass-card overflow-hidden rounded-2xl">
+      <div className="border-fl-border/60 flex items-center gap-3 border-b px-5 py-4">
         <span className="text-xl">{cat.icon}</span>
         <div className="min-w-0 flex-1">
           <p className="text-fl-fg truncate font-mono text-xs font-bold tracking-wide">
             {cat.situation}
           </p>
         </div>
-        <span className="border-fl-border text-fl-label text-fl-muted-3 shrink-0 border px-2 py-0.5 font-mono tracking-widest uppercase">
+        <span className="glass-card text-fl-label text-fl-fg shrink-0 rounded-full px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase">
           {cat.level}
         </span>
       </div>
 
       {nativeLanguageName && (
-        <div className="border-fl-border border-b px-5 py-3">
+        <div className="border-fl-border/60 border-b px-5 py-3">
           <button
             type="button"
             onClick={() => setNativeHelpOpen((open) => !open)}
-            className="text-fl-label text-fl-muted-3 hover:text-fl-fg flex w-full items-center justify-between font-mono tracking-widest uppercase transition-colors"
+            className="text-fl-label text-fl-muted-2 hover:text-fl-fg flex w-full items-center justify-between font-mono font-semibold tracking-widest uppercase transition-colors"
             aria-expanded={nativeHelpOpen}
           >
             <span>
@@ -265,20 +265,20 @@ function CategoryCard({
         </div>
       )}
 
-      <ul className="divide-fl-border divide-y">
+      <ul className="divide-fl-border/60 divide-y">
         {phrases.map((phrase, i) => (
-          <li key={i} className="group space-y-1 px-5 py-3">
+          <li key={i} className="group space-y-1.5 px-5 py-3.5">
             <div className="flex items-start justify-between gap-3">
               <TargetLanguageText
                 as="p"
                 languageCode={language}
-                className="text-fl-fg flex-1"
+                className="text-fl-fg flex-1 font-medium"
               >
                 {phrase.text}
               </TargetLanguageText>
-              <div className="flex shrink-0 items-center gap-1">
+              <div className="flex shrink-0 items-center gap-1.5">
                 <span
-                  className={`text-fl-label font-mono tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
+                  className={`text-fl-label rounded-full border border-fl-border/60 bg-white/50 px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
                 >
                   {t(phrase.register)}
                 </span>
@@ -456,15 +456,15 @@ export default function PhrasebookPage() {
 
   const content = (
     <div className="mx-auto max-w-4xl space-y-8 p-6">
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">{'\u25cf'}</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-accent text-fl-label">{'\u25cf'}</span>
+          <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
+          <p className="text-fl-muted-2 font-mono text-xs font-medium leading-relaxed">
             {t('statsLine', {
               situationCount: categories.length,
               phraseCount: totalPhrases,
@@ -478,12 +478,12 @@ export default function PhrasebookPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="border-fl-border bg-fl-surface-2 text-fl-fg placeholder:text-fl-muted-3 focus:border-fl-fg w-full border px-3 py-2 font-mono text-xs focus:outline-none"
+              className="neu-input text-fl-fg placeholder:text-fl-muted-3 w-full rounded-xl px-4 py-2.5 font-mono text-xs font-medium focus:outline-none"
             />
           </div>
 
           <div className="space-y-2">
-            <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
               {t('level')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -491,10 +491,10 @@ export default function PhrasebookPage() {
                 <button
                   key={lvl}
                   onClick={() => setActiveLevel(lvl)}
-                  className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                  className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
                     activeLevel === lvl
-                      ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                      : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'neu-button-primary'
+                      : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                   }`}
                 >
                   {lvl === 'All' ? tCommon('all') : lvl}
@@ -504,7 +504,7 @@ export default function PhrasebookPage() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+            <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
               {t('register')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -512,10 +512,10 @@ export default function PhrasebookPage() {
                 <button
                   key={reg}
                   onClick={() => setActiveRegister(reg)}
-                  className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                  className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
                     activeRegister === reg
-                      ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                      : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                      ? 'neu-button-primary'
+                      : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                   }`}
                 >
                   {reg === 'All' ? tCommon('all') : t(reg)}

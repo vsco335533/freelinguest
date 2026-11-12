@@ -6,6 +6,10 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
+import {
+  AuthBackdropOrbs,
+  LinguistBrandHeader,
+} from '@/components/ui/LinguistBrandHeader'
 
 function ResetPasswordContent() {
   const t = useTranslations('auth.resetPassword')
@@ -68,17 +72,14 @@ function ResetPasswordContent() {
   }
 
   return (
-    <div className="bg-fl-bg flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-10 flex flex-col items-center">
-          <h1 className="text-fl-fg font-code text-xl font-bold tracking-widest uppercase">
-            FreeLingo
-          </h1>
-        </div>
+    <div className="fl-gradient-bg relative flex min-h-screen items-center justify-center px-4 py-10">
+      <AuthBackdropOrbs />
+      <div className="relative z-10 w-full max-w-sm">
+        <LinguistBrandHeader />
 
-        <div className="border-fl-border bg-fl-surface space-y-6 border p-8">
-          <div className="flex items-center gap-2">
-            <span className="text-fl-label text-fl-muted-2">●</span>
+        <div className="neu-glass-card animate-fade-up space-y-6 p-8">
+          <div className="border-fl-border/60 flex items-center gap-2 border-b pb-4">
+            <span className="text-fl-label text-blue-500">●</span>
             <span className="text-fl-caption text-fl-muted-2 font-mono tracking-widest uppercase">
               {t('title')}
             </span>
@@ -91,14 +92,14 @@ function ResetPasswordContent() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               {!token && (
-                <div className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs">
+                <div className="border-fl-error/40 bg-fl-error/5 text-fl-error rounded-xl border px-4 py-3 font-mono text-xs">
                   {t('missingToken')}
                 </div>
               )}
               {error && (
                 <div
                   role="alert"
-                  className="border-fl-error/40 text-fl-error border px-4 py-3 font-mono text-xs"
+                  className="border-fl-error/40 bg-fl-error/5 text-fl-error rounded-xl border px-4 py-3 font-mono text-xs"
                 >
                   ✕ {error}
                 </div>
@@ -111,7 +112,7 @@ function ResetPasswordContent() {
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
                 aria-describedby="reset-password-requirements"
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-xs transition-colors focus:outline-none"
+                className="neu-input text-fl-fg placeholder:text-fl-muted-4 w-full px-4 py-3 font-mono text-xs"
               />
               <p
                 id="reset-password-requirements"
@@ -126,12 +127,12 @@ function ResetPasswordContent() {
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 autoComplete="new-password"
-                className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full border px-4 py-3 font-mono text-xs transition-colors focus:outline-none"
+                className="neu-input text-fl-fg placeholder:text-fl-muted-4 w-full px-4 py-3 font-mono text-xs"
               />
               <button
                 type="submit"
                 disabled={loading || !token}
-                className="bg-fl-accent text-fl-accent-fg hover:bg-fl-accent/90 w-full py-3 font-mono text-sm font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+                className="neu-button-primary w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-50"
               >
                 {loading ? (
                   <>

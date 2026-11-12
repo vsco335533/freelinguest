@@ -18,22 +18,22 @@ function SetCard({ s, wordsLabel }: { s: VocabularySet; wordsLabel: string }) {
   return (
     <Link
       href={`/vocabulary/${s.id}`}
-      className="border-fl-border bg-fl-surface hover:border-fl-border-2 hover:bg-fl-surface-2 group block border transition-colors"
+      className="glass-card hover:border-fl-accent/50 group block rounded-2xl transition-all hover:-translate-y-0.5"
     >
-      <div className="space-y-2 px-4 py-4">
+      <div className="space-y-2.5 px-4 py-4">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-fl-fg group-hover:text-fl-fg-bright font-mono text-xs leading-snug font-bold tracking-wide transition-colors">
+          <p className="text-fl-fg group-hover:text-fl-accent font-mono text-xs leading-snug font-bold tracking-wide transition-colors">
             {s.topic}
           </p>
-          <span className="border-fl-border text-fl-label text-fl-muted-3 shrink-0 border px-1.5 py-0.5 font-mono tracking-widest uppercase">
+          <span className="glass-card text-fl-label text-fl-fg shrink-0 rounded-full px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase">
             {s.level}
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-fl-label text-fl-muted-3 font-mono tracking-widest uppercase">
+          <span className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
             {s.words.length} {wordsLabel}
           </span>
-          <span className="text-fl-label text-fl-muted-4 font-mono tracking-widest uppercase">
+          <span className="text-fl-label text-fl-muted-3 font-mono font-semibold tracking-widest uppercase">
             {s.unit_ref}
           </span>
         </div>
@@ -161,15 +161,15 @@ export default function VocabularyIndexPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-6">
       {/* Header */}
-      <div className="border-fl-border bg-fl-surface border">
-        <div className="border-fl-border flex items-center gap-2 border-b px-6 py-4">
-          <span className="text-fl-label text-fl-muted-3">●</span>
-          <span className="text-fl-label text-fl-muted-2 font-mono tracking-widest uppercase">
+      <div className="glass-card overflow-hidden rounded-2xl">
+        <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
+          <span className="text-fl-accent text-fl-label">●</span>
+          <span className="text-fl-label text-fl-fg font-mono font-bold tracking-widest uppercase">
             {t('title')}
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed">
+          <p className="text-fl-muted-2 font-mono text-xs font-medium leading-relaxed">
             {t('sets', { count: vocabSets.length })} · {totalWords} {t('words')}
             {usedLevels.length > 0 && (
               <>
@@ -184,16 +184,16 @@ export default function VocabularyIndexPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('searchPlaceholder')}
-            className="bg-fl-bg border-fl-border text-fl-fg placeholder:text-fl-muted-4 focus:border-fl-border-2 w-full max-w-sm border px-4 py-2.5 font-mono text-xs transition-colors focus:outline-none"
+            className="neu-input text-fl-fg placeholder:text-fl-muted-3 w-full max-w-sm rounded-xl px-4 py-2.5 font-mono text-xs font-medium transition-all focus:outline-none"
           />
           {/* Level filter */}
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveLevel('All')}
-              className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+              className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
                 activeLevel === 'All'
-                  ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                  : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                  ? 'neu-button-primary'
+                  : 'neu-button text-fl-muted-2 hover:text-fl-fg'
               }`}
             >
               {t('all')}
@@ -204,10 +204,10 @@ export default function VocabularyIndexPage() {
                 onClick={() =>
                   setActiveLevel(activeLevel === level ? 'All' : level)
                 }
-                className={`text-fl-label border px-3 py-1.5 font-mono tracking-widest uppercase transition-colors ${
+                className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
                   activeLevel === level
-                    ? 'border-fl-fg text-fl-fg bg-fl-surface-2'
-                    : 'border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg'
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
                 }`}
               >
                 {level}
@@ -227,8 +227,8 @@ export default function VocabularyIndexPage() {
               <span className="text-fl-fg font-mono text-base font-bold tracking-widest">
                 {level}
               </span>
-              <div className="bg-fl-border h-px flex-1" />
-              <span className="text-fl-label text-fl-muted-3 font-mono">
+              <div className="bg-fl-border/60 h-px flex-1" />
+              <span className="text-fl-label text-fl-muted-2 font-mono font-semibold">
                 {t('sets', { count: sets.length })} ·{' '}
                 {sets.reduce((a, s) => a + s.words.length, 0)} {t('words')}
               </span>
@@ -243,8 +243,8 @@ export default function VocabularyIndexPage() {
       })}
 
       {filtered.length === 0 && (
-        <div className="border-fl-border bg-fl-surface space-y-4 border px-6 py-10 text-center">
-          <p className="text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
+        <div className="glass-card space-y-4 rounded-2xl px-6 py-10 text-center">
+          <p className="text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
             {t('noResults')}
           </p>
           {(search || activeLevel !== 'All') && (
@@ -253,7 +253,7 @@ export default function VocabularyIndexPage() {
                 setSearch('')
                 setActiveLevel('All')
               }}
-              className="text-fl-label border-fl-border text-fl-muted-3 hover:border-fl-border-2 hover:text-fl-fg border px-4 py-2 font-mono tracking-widest uppercase transition-colors"
+              className="neu-button text-fl-label text-fl-fg rounded-xl px-4 py-2 font-mono font-semibold tracking-widest uppercase transition-all"
             >
               {tCommon('clearFilters')}
             </button>

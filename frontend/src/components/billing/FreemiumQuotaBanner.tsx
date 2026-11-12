@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useFreemiumStore } from '@/store/freemium'
 import { useAuthStore, isSubscribed, isFreemiumTrialActive } from '@/store/auth'
@@ -19,38 +18,12 @@ export function FreemiumQuotaBanner({
   const user = useAuthStore((s) => s.user)
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const status = useFreemiumStore((s) => s.status)
-  const [trialDaysLeft, setTrialDaysLeft] = useState(0)
 
   const trial = isFreemiumTrialActive(user, stripeEnabled)
 
-  useEffect(() => {
-    if (trial && user?.freemium_trial_ends_at) {
-      const endsAt = new Date(user.freemium_trial_ends_at)
-      const days = Math.max(
-        1,
-        Math.ceil((endsAt.getTime() - Date.now()) / 86400000)
-      )
-      setTrialDaysLeft(days)
-    }
-  }, [trial, user?.freemium_trial_ends_at])
-
   if (!stripeEnabled) return null
   if (isSubscribed(user, stripeEnabled)) return null
-
-  if (trial) {
-    return (
-      <div
-        className={`border-fl-border bg-fl-surface flex items-center justify-between border px-3 py-2 font-mono text-xs ${className}`}
-      >
-        <span className="text-fl-muted-2">
-          ★ {t('trialDaysLeft', { days: trialDaysLeft })}
-        </span>
-        <span className="text-fl-accent tracking-widest uppercase">
-          {t('trialUnlimited')}
-        </span>
-      </div>
-    )
-  }
+  if (trial) return null
 
   if (!status) return null
 
@@ -97,10 +70,10 @@ export function FreemiumQuotaBanner({
   if (info.limit === 0) {
     return (
       <div
-        className={`border-fl-border bg-fl-surface flex items-center justify-between border px-3 py-2 font-mono text-xs ${className}`}
+        className={`glass-card flex items-center justify-between rounded-xl px-3.5 py-2.5 font-mono text-xs font-semibold ${className}`}
       >
-        <span className="text-fl-muted-2">{info.label}</span>
-        <span className="text-fl-accent tracking-widest uppercase">
+        <span className="text-fl-fg">{info.label}</span>
+        <span className="text-fl-accent font-bold tracking-widest uppercase">
           {t('requiresSubscription')}
         </span>
       </div>
@@ -112,16 +85,16 @@ export function FreemiumQuotaBanner({
 
   return (
     <div
-      className={`border-fl-border bg-fl-surface flex items-center justify-between border px-3 py-2 font-mono text-xs ${className}`}
+      className={`glass-card flex items-center justify-between rounded-xl px-3.5 py-2.5 font-mono text-xs font-semibold ${className}`}
     >
-      <span className="text-fl-muted-2">
+      <span className="text-fl-fg">
         {info.label}:{' '}
-        <span className={low ? 'text-red-500' : 'text-fl-muted-1'}>
+        <span className={low ? 'text-red-600' : 'text-fl-fg font-bold'}>
           {info.remaining}/{info.limit}
         </span>
       </span>
       {low && (
-        <span className="text-fl-accent tracking-widest uppercase">
+        <span className="text-fl-accent font-bold tracking-widest uppercase">
           {t('freeLimit')}
         </span>
       )}
