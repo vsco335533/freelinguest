@@ -114,6 +114,15 @@ def _resolve_bilingual_enabled(
     return setting == "on" or normalize_cefr(cefr_level) in {"A1", "A2", "B1", "B2"}
 
 
+# Bilingual STT: the target language is used only when detected with this confidence.
+TARGET_LANGUAGE_MIN_CONFIDENCE = 0.6
+# Short native-script initial prompts keep Whisper output in the native script
+# (instead of romanized text) without changing the words recognised.
+_STT_SCRIPT_PROMPTS: dict[str, str] = {
+    "te": "నమస్కారం. ఇది తెలుగు సంభాషణ.",
+}
+
+
 def _is_non_latin_language(iso_code: str) -> bool:
     return iso_code in {"te", "hi", "ta", "ml", "kn", "or", "ru", "ja", "ko", "zh"}
 
@@ -342,50 +351,73 @@ class ConversationPipeline:
 
     # --- Adaptive bilingual tutoring ------------------------------------------
 
-    async def _stt_text(self, audio_bytes: bytes, language: str) -> str:
-        text = await self.stt.transcribe(audio_bytes, "audio.wav", "audio/wav", language=language)
+    async def _stt_text(self, audio_bytes: bytes, language: str, **options: object) -> str:
+        text = await self.stt.transcribe(
+            audio_bytes, "audio.wav", "audio/wav", language=language, **options
+        )
         return (text or "").strip()
 
-    async def _transcribe_user_input(self, audio_bytes: bytes) -> tuple[str, str]:
-        """Return (native_text, target_text); native_text is empty unless bilingual.
+    async def _detect_spoken_language(self, audio_bytes: bytes) -> tuple[str, float | None]:
+        """Pick the explicit recognition language for one bilingual utterance.
 
-        In bilingual mode the same audio is transcribed with explicit native and
-        target recognition languages; the tutor model decides which transcript
-        reflects what the learner actually said. Requests run one after another:
-        the local Whisper service processes a single request at a time, so
-        concurrent requests only queue and push the second past its timeout.
-        The turn fails only when both recognitions fail.
+        The native language is primary: the target language is chosen only when the
+        STT service confidently detects it. Any other or uncertain detection (Whisper
+        often labels Telugu as Kannada, Tamil or Hindi) stays native.
+        """
+        detect = getattr(self.stt, "detect_language", None)
+        if detect is None:
+            return self._native_language_code, None
+        try:
+            code, confidence = await detect(audio_bytes, "audio.wav", "audio/wav")
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            logger.warning(
+                "[pipeline] Language detection failed; using %s: %s",
+                self._native_language_code,
+                self._fmt_exc(exc),
+            )
+            return self._native_language_code, None
+        if code == self._target_iso and (
+            confidence is None or confidence >= TARGET_LANGUAGE_MIN_CONFIDENCE
+        ):
+            return self._target_iso, confidence
+        return self._native_language_code, confidence
+
+    async def _transcribe_user_input(self, audio_bytes: bytes) -> tuple[str, str]:
+        """Return (transcript, spoken_language_iso) for one finished utterance.
+
+        Classic mode transcribes once in the target language. Bilingual mode detects
+        the spoken language (native first), then transcribes ONCE in that explicit
+        language in transcribe mode. The transcript is the learner's original words:
+        it is never translated, romanized or rewritten afterwards.
         """
         if not self._bilingual_enabled:
-            return "", await self._stt_text(audio_bytes, self._stt_language)
-        texts: dict[str, str] = {}
-        errors: dict[str, Exception] = {}
-        for lang in (self._native_language_code, self._target_iso):
-            t0 = time.perf_counter()
-            try:
-                texts[lang] = await self._stt_text(audio_bytes, lang)
-            except asyncio.CancelledError:
-                raise
-            except Exception as exc:
-                errors[lang] = exc
-                logger.warning(
-                    "[pipeline] STT failed for lang=%s after %.0fms: %s",
-                    lang,
-                    (time.perf_counter() - t0) * 1000,
-                    self._fmt_exc(exc),
-                )
-        if len(errors) == 2:
-            raise errors[self._target_iso]
-        return texts.get(self._native_language_code, ""), texts.get(self._target_iso, "")
-
-    def _bilingual_llm_input(self, native_text: str, target_text: str) -> str:
-        if native_text and target_text and native_text != target_text:
-            return (
-                "[Two automatic transcripts of the same audio; one may be a misrecognition]\n"
-                f"{self._native_language_name} transcript: {native_text}\n"
-                f"{self._prompt_args['target_language_name']} transcript: {target_text}"
+            return await self._stt_text(audio_bytes, self._stt_language), self._target_iso
+        language, confidence = await self._detect_spoken_language(audio_bytes)
+        options: dict[str, object] = {"vad_filter": True}
+        prompt = _STT_SCRIPT_PROMPTS.get(language)
+        if prompt:
+            options["prompt"] = prompt
+        transcript = await self._stt_text(audio_bytes, language, **options)
+        if (
+            language == self._native_language_code
+            and not self._native_is_latin()
+            and transcript
+            and is_latin_script_text(transcript)
+        ):
+            logger.warning(
+                "[pipeline] %s transcript came back in Latin script: %r",
+                language,
+                transcript,
             )
-        return native_text or target_text
+        logger.info(
+            "[pipeline] Spoken language=%s (detect confidence=%s) transcript=%r",
+            language,
+            confidence,
+            transcript,
+        )
+        return transcript, language
 
     def _native_is_latin(self) -> bool:
         return not _is_non_latin_language(self._native_language_code)
@@ -421,50 +453,17 @@ class ConversationPipeline:
                 self._target_iso,
             )
 
-    def _resolve_heard(
-        self, reply: TutorReply, native_text: str, target_text: str
-    ) -> tuple[str, str, str]:
-        """Return (heard_text, heard_iso, target_meaning) for the learner's turn."""
-        heard = reply.heard or target_text or native_text
-        lang = reply.heard_lang
-        if (
-            not self._native_is_latin()
-            and reply.attempted is False
-            and heard
-            and is_latin_script_text(heard)
-            and native_text
-            and not is_latin_script_text(native_text)
-        ):
-            # The model says the student did not speak the target language, yet picked
-            # a Latin-script transcript (usually native speech transliterated by the
-            # target-language STT pass): show the native-script transcript instead.
-            heard = native_text
-        if not self._native_is_latin() and heard and not is_latin_script_text(heard):
-            # Native-script text is native speech whatever label the model chose.
-            heard_iso = self._native_language_code
-        elif lang in ("native", self._native_language_code):
-            heard_iso = self._native_language_code
-        elif lang in ("target", self._target_iso):
-            heard_iso = self._target_iso
-        elif not self._native_is_latin() and not is_latin_script_text(heard):
-            heard_iso = self._native_language_code
-        else:
-            heard_iso = self._target_iso
-        meaning = reply.meaning if heard_iso == self._native_language_code else heard
-        return heard, heard_iso, meaning or heard
-
-    def _user_transcript_payload(
-        self, turn_id: int, heard: str, heard_iso: str, meaning: str
-    ) -> dict:
-        said_native = heard_iso == self._native_language_code
+    def _user_transcript_payload(self, turn_id: int, transcript: str, spoken_iso: str) -> dict:
+        """The learner's original transcript, exactly as recognised."""
+        said_native = spoken_iso == self._native_language_code
         return {
             "type": "transcript",
             "role": "user",
-            "text": meaning if said_native else heard,
+            "text": transcript,
             "final": True,
             "turn_id": turn_id,
-            "text_native": heard if said_native else "",
-            "text_target": meaning if said_native else heard,
+            "text_native": transcript if said_native else "",
+            "text_target": "" if said_native else transcript,
             "native_language": self._native_language_code,
             "target_language": self._target_iso,
         }
@@ -490,12 +489,10 @@ class ConversationPipeline:
         return text, payload
 
     def _update_learning(self, reply: TutorReply, heard: str, heard_iso: str) -> None:
-        attempted, correct = reply.attempted, reply.correct
-        if attempted is None and self._native_is_latin() != (
-            not _is_non_latin_language(self._target_iso)
-        ):
-            # Scripts differ, so the heard language is a reliable attempt signal.
-            attempted, correct = heard_iso == self._target_iso, False
+        # The recognised spoken language decides whether this was a target-language
+        # attempt; the model's CHECK line only judges correctness.
+        attempted = heard_iso == self._target_iso
+        correct = bool(reply.correct) if attempted else False
         if attempted is not None:
             delta = self._learning.record_performance(attempted, bool(correct))
             if delta:
@@ -728,12 +725,21 @@ class ConversationPipeline:
         text: str,
         turn_id: int,
         transcript_payload: dict,
+        transcript_first: bool = False,
     ) -> tuple[int, int, bool, bool]:
-        """Synthesize ordered sentence chunks and send the transcript after first audio."""
+        """Synthesize ordered sentence chunks and send the transcript after first audio.
+
+        With ``transcript_first`` the text is published before any synthesis, so a slow
+        voice (e.g. a GPU native-language model) never leaves the learner waiting on an
+        empty reply; audio chunks follow as each sentence is ready.
+        """
         chunks_sent = 0
         audio_bytes_sent = 0
         transcript_sent = False
         send_aborted = False
+        if transcript_first:
+            await self._send_json(ws, transcript_payload)
+            transcript_sent = True
 
         for idx, (sentence, native) in enumerate(self._speech_units(text), start=1):
             try:
@@ -825,6 +831,7 @@ class ConversationPipeline:
                 text=tts_text,
                 turn_id=turn_id,
                 transcript_payload=transcript_payload,
+                transcript_first=self._bilingual_enabled,
             )
             if send_aborted or not transcript_sent:
                 return
@@ -947,9 +954,9 @@ class ConversationPipeline:
         try:
             await self._send_status(ws, turn_id, "transcribing")
             stt_t0 = time.perf_counter()
-            native_stt, target_stt = await self._transcribe_user_input(audio_bytes)
+            transcript, spoken_iso = await self._transcribe_user_input(audio_bytes)
             stt_ms = (time.perf_counter() - stt_t0) * 1000
-            logger.info("[pipeline] STT result: native=%r target=%r", native_stt, target_stt)
+            logger.info("[pipeline] STT result: lang=%s text=%r", spoken_iso, transcript)
         except Exception as exc:
             # Timeouts from httpx have empty messages; always log the exception type.
             logger.error("[pipeline] STT failed: %s", self._fmt_exc(exc))
@@ -974,31 +981,25 @@ class ConversationPipeline:
             )
             return
 
-        if self._bilingual_enabled:
-            user_text_for_llm = self._bilingual_llm_input(native_stt, target_stt).strip()
-        else:
-            user_text_for_llm = target_stt.strip()
+        user_text_for_llm = transcript.strip()
         if not user_text_for_llm:
             logger.info("[pipeline] Empty STT result - ignoring audio chunk")
             await self._send_status(ws, turn_id, "listening")
             return
 
-        user_payload: dict = {
-            "type": "transcript",
-            "role": "user",
-            "text": user_text_for_llm,
-            "final": True,
-            "turn_id": turn_id,
-        }
-        user_transcript_sent = False
+        # The learner sees their finalized original transcript before the tutor replies;
+        # the same verbatim text is sent to the LLM and saved.
         if self._bilingual_enabled:
-            # Which transcript is right is only known once the tutor replies (HEARD);
-            # keep a best-effort fallback in case the LLM step fails.
-            heard, heard_iso, meaning = self._resolve_heard(TutorReply(), native_stt, target_stt)
-            user_payload = self._user_transcript_payload(turn_id, heard, heard_iso, meaning)
+            user_payload = self._user_transcript_payload(turn_id, user_text_for_llm, spoken_iso)
         else:
-            await self._send_json(ws, user_payload)
-            user_transcript_sent = True
+            user_payload = {
+                "type": "transcript",
+                "role": "user",
+                "text": user_text_for_llm,
+                "final": True,
+                "turn_id": turn_id,
+            }
+        await self._send_json(ws, user_payload)
 
         # 2. Streaming LLM
         self.history.append({"role": "user", "content": user_text_for_llm})
@@ -1071,18 +1072,6 @@ class ConversationPipeline:
             if clean_full_response:
                 if self._bilingual_enabled:
                     reply = self._parse_reply(clean_full_response)
-                    heard, heard_iso, meaning = self._resolve_heard(reply, native_stt, target_stt)
-                    user_payload = self._user_transcript_payload(
-                        turn_id, heard, heard_iso, meaning
-                    )
-                    await self._send_json(ws, user_payload)
-                    user_transcript_sent = True
-                    # Keep the model's context clean: what was said plus its meaning.
-                    self.history[-1]["content"] = (
-                        f"{heard}\n[{self._prompt_args['target_language_name']} meaning: {meaning}]"
-                        if heard_iso == self._native_language_code and meaning != heard
-                        else heard
-                    )
                     tts_text, transcript_payload = self._assistant_bilingual_payload(
                         turn_id, reply
                     )
@@ -1107,6 +1096,7 @@ class ConversationPipeline:
                     text=tts_text,
                     turn_id=turn_id,
                     transcript_payload=transcript_payload,
+                    transcript_first=self._bilingual_enabled,
                 )
                 tts_send_ms = (time.perf_counter() - tts_send_t0) * 1000
                 if send_aborted or not assistant_transcript_sent:
@@ -1128,8 +1118,6 @@ class ConversationPipeline:
                 logger.warning(
                     "[pipeline] Skipping TTS synthesis because assistant text is empty after cleaning"
                 )
-                if not user_transcript_sent:
-                    await self._send_json(ws, user_payload)
                 await self._send_status(ws, turn_id, "listening")
                 await self._send_json(ws, {"type": "turn_complete", "turn_id": turn_id})
                 return
@@ -1154,8 +1142,6 @@ class ConversationPipeline:
                 tts_audio_bytes=tts_bytes,
                 turn_total_ms=round((time.perf_counter() - turn_t0) * 1000, 1),
             )
-            if not user_transcript_sent:
-                await self._send_json(ws, user_payload)
             await self._send_json(
                 ws,
                 {
@@ -1196,14 +1182,7 @@ class ConversationPipeline:
 
         assistant_for_history = assistant_combined or clean_full_response
         self.history.append({"role": "assistant", "content": assistant_for_history})
-        if self._bilingual_enabled:
-            # Preserve the original native transcript alongside its target meaning.
-            parts = (user_payload.get("text_native"), user_payload.get("text_target"))
-            user_saved_text = "\n".join(dict.fromkeys(t for t in parts if t)) or user_payload.get(
-                "text", user_text_for_llm
-            )
-        else:
-            user_saved_text = user_payload.get("text", user_text_for_llm)
+        user_saved_text = user_text_for_llm
         # Persist both sides of the turn together - only reached on success.
         self._pending_saves.append(
             asyncio.create_task(
@@ -1217,11 +1196,7 @@ class ConversationPipeline:
         if self._bilingual_enabled and reply is not None:
             if transition_in_prompt:
                 self._transition_pending = False
-            heard_text = user_payload.get("text_native") or user_payload.get("text_target", "")
-            heard_iso = (
-                self._native_language_code if user_payload.get("text_native") else self._target_iso
-            )
-            self._update_learning(reply, heard_text, heard_iso)
+            self._update_learning(reply, user_text_for_llm, spoken_iso)
             self._pending_saves.append(asyncio.create_task(self._save_learning_state()))
             self._maybe_start_assessment()
 

@@ -66,11 +66,16 @@ class ParlerEngine:
     def __init__(self) -> None:
         from parler_tts import ParlerTTSForConditionalGeneration  # noqa: PLC0415
 
-        self.model = (
-            ParlerTTSForConditionalGeneration.from_pretrained(MODEL_ID, torch_dtype=DTYPE)
-            .to(DEVICE)
-            .eval()
-        )
+        try:
+            # PyTorch scaled-dot-product attention is faster than the eager default.
+            model = ParlerTTSForConditionalGeneration.from_pretrained(
+                MODEL_ID, torch_dtype=DTYPE, attn_implementation="sdpa"
+            )
+            logger.info("Using SDPA attention")
+        except (TypeError, ValueError) as exc:
+            logger.warning("SDPA attention unavailable (%s); using default attention", exc)
+            model = ParlerTTSForConditionalGeneration.from_pretrained(MODEL_ID, torch_dtype=DTYPE)
+        self.model = model.to(DEVICE).eval()
         self.tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
         self.description_tokenizer = AutoTokenizer.from_pretrained(
             self.model.config.text_encoder._name_or_path

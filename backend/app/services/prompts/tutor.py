@@ -231,14 +231,11 @@ _TRANSITION_INSTRUCTION = (
 _BILINGUAL_EXAMPLES: dict[tuple[str, str], str] = {
     ("Telugu", "English"): """\
 Example (student said: నాకు క్రికెట్ ఆడటం చాలా ఇష్టం):
-HEARD: నాకు క్రికెట్ ఆడటం చాలా ఇష్టం
-HEARD_LANG: native
-MEANING: I like playing cricket very much.
 CHECK: attempted=no correct=no
-VOCAB: like = ఇష్టం; playing = ఆడటం
+VOCAB: like = ఇష్టం; playing = ఆడటం; very much = చాలా
 MISTAKE: none
 ENCOURAGE: none
-REPLY: అవునా! మీకు క్రికెట్ ఆడటం చాలా ఇష్టం అన్నమాట. ఇంగ్లీషులో దీనిని I like playing cricket very much అంటాం. Like అంటే ఇష్టం, playing అంటే ఆడటం. మీరు రోజూ క్రికెట్ ఆడతారా?
+REPLY: అవునా! మీకు చాలా మంచిది. మీకు క్రికెట్ ఆడటం చాలా ఇష్టం అన్నమాట. మనం ఇప్పుడు దీనిని ఇంగ్లీషులో ఎలా చెప్తామంటే, I like playing cricket very much. అర్థమైందా? Like అంటే ఇష్టం, playing అంటే ఆడటం, very much అంటే చాలా. అయితే మీరు రోజూ క్రికెట్ ఆడతారా?
 """,
 }
 
@@ -273,16 +270,14 @@ Natural {native}-to-{target} tutoring (active; these rules replace the length an
 - {phase_text}{transition}
 - Keep the conversation connected to the current topic; never restart with a new lesson.
 - Encourage naturally and vary your words; never repeat the same encouragement.
-- The student's message may contain two automatic transcripts of the same audio, one in {native} and one in {target}. Prefer the {native} transcript when it contains real {native} words: the {target} transcript of {native} speech is usually nonsense (for example "Hello, Elano" for a {native} greeting). Speech that mixes a few {target} words into {native} counts as {native}, and {native} words written in Latin letters (transliterated) are still {native}: write HEARD in {native} script in that case.
+- The student's message is the speech-recognition transcript of exactly what they said, in the language they spoke. It may contain small recognition errors: understand what they meant, but never claim they said something different and never translate their words back to them as if they had said them in {target}.
+- TEACHING RULE (every time the student speaks {native}): react naturally in {native}, then say how THEY would say exactly that in natural {target} (one sentence matching their level), check understanding briefly, explain the 2-3 key {target} words or phrases with their {native} meaning (for example: like అంటే ఇష్టం), and finish with a related follow-up question.
 Write these hidden lines first (never shown or spoken), then REPLY last:
-HEARD: what the student actually said, written correctly in the language they used
-HEARD_LANG: native or target
-MEANING: the {target} meaning of what they said
 CHECK: attempted=yes or no, correct=yes or no (attempted=yes only if they spoke {target}; correct=yes if understandable and mostly correct for {cefr_level})
 VOCAB: up to 3 {target} words you taught, as word = {native} meaning, separated by ; (or none)
 MISTAKE: the main {target} mistake in a few words (or none)
 ENCOURAGE: copy the encouraging phrase you used in REPLY (or none)
-REPLY: ONE natural spoken paragraph. Conversation, meanings and explanations in {native}; the {target} sentences and {target} words you teach stay written in {target}. No headings, labels, lists, quotation marks or emojis inside REPLY; it is read aloud exactly as written.
+REPLY: ONE natural spoken paragraph. Conversation, meanings and explanations in {native}; the {target} sentences and {target} words you teach stay written in {target}. No headings, labels, lists, quotation marks or emojis inside REPLY; it is read aloud exactly as written. Keep REPLY short: at most 4 short sentences.
 For the session greeting, write none for every hidden line and greet the student warmly in REPLY, following the current phase.
 {example}{context}"""
 

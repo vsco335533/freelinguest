@@ -20,6 +20,7 @@ from app.services.conversation_learning import (
     strip_quotes,
 )
 from app.services.conversation_pipeline import ConversationPipeline, _resolve_bilingual_enabled
+from app.services.llm_adapter import LLMError
 from app.services.prompts.tutor import (
     build_conversation_assessment_messages,
     build_conversation_system_prompt,
@@ -341,6 +342,8 @@ def test_classic_prompt_unchanged_when_bilingual_off() -> None:
 
 # --- Pipeline flow -----------------------------------------------------------------------
 
+TELUGU_SPEECH = "నాకు క్రికెట్ ఆడటం చాలా ఇష్టం"
+
 
 class FakeWS:
     def __init__(self) -> None:
@@ -355,15 +358,14 @@ class FakeWS:
     async def close(self, code: int = 1000) -> None:
         self.sent.append(("close", code))
 
+    def json(self) -> list[dict]:
+        return [m[1] for m in self.sent if m[0] == "json"]
+
     def transcripts(self, role: str) -> list[dict]:
-        return [
-            m[1]
-            for m in self.sent
-            if m[0] == "json" and m[1].get("type") == "transcript" and m[1].get("role") == role
-        ]
+        return [m for m in self.json() if m.get("type") == "transcript" and m.get("role") == role]
 
     def errors(self) -> list[dict]:
-        return [m[1] for m in self.sent if m[0] == "json" and m[1].get("type") == "error"]
+        return [m for m in self.json() if m.get("type") == "error"]
 
 
 def _chunk(text: str) -> MagicMock:
@@ -381,7 +383,13 @@ def _native_tts(*, mixed_script: bool = False) -> MagicMock:
     return native
 
 
-def _bilingual_pipeline(reply_text: str, *, native_tts: object | None = None):
+def _bilingual_pipeline(
+    reply_text: str,
+    *,
+    native_tts: object | None = None,
+    detected: tuple[str | None, float | None] = ("te", 0.93),
+    transcripts: dict[str, str] | None = None,
+):
     pipeline = ConversationPipeline(
         llm=AsyncMock(),
         tts=AsyncMock(),
@@ -392,13 +400,15 @@ def _bilingual_pipeline(reply_text: str, *, native_tts: object | None = None):
         bilingual_mode_setting="auto",
         native_tts=native_tts,
     )
+    texts = transcripts or {"te": TELUGU_SPEECH, "en": "I went to school yesterday."}
 
-    async def transcribe(_audio, _name, _mime, *, language):
-        return {"te": "నాకు క్రికెట్ ఆడటం చాలా ఇష్టం", "en": "Naku cricket adatam"}[language]
+    async def transcribe(_audio, _name, _mime, *, language, **_options):
+        return texts[language]
 
     async def stream():
         yield _chunk(reply_text)
 
+    pipeline.stt.detect_language = AsyncMock(return_value=detected)
     pipeline.stt.transcribe = AsyncMock(side_effect=transcribe)
     pipeline.llm.chat = AsyncMock(return_value=stream())
     pipeline.tts.synthesize = AsyncMock(return_value=b"mp3")
@@ -406,39 +416,143 @@ def _bilingual_pipeline(reply_text: str, *, native_tts: object | None = None):
 
 
 @pytest.mark.asyncio
-async def test_bilingual_turn_end_to_end_with_native_voice() -> None:
+async def test_telugu_speech_is_transcribed_once_in_telugu_and_shown_verbatim() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY)
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    (call,) = pipeline.stt.transcribe.await_args_list
+    assert call.kwargs["language"] == "te"
+    assert call.kwargs["vad_filter"] is True
+    assert "తెలుగు" in call.kwargs["prompt"]  # native-script prompt keeps Telugu script
+
+    (user,) = ws.transcripts("user")
+    assert user["text"] == user["text_native"] == TELUGU_SPEECH
+    assert user["text_target"] == ""
+    # The original transcript is shown before the tutor's reply.
+    order = [m.get("role") for m in ws.json() if m.get("type") == "transcript"]
+    assert order == ["user", "assistant"]
+
+    # The LLM and history receive the same verbatim transcript.
+    assert pipeline.llm.chat.await_args.args[0][-1]["content"] == TELUGU_SPEECH
+    assert pipeline.history[0]["content"] == TELUGU_SPEECH
+    assert pipeline._learning.recent_utterances == [f"[te] {TELUGU_SPEECH}"]
+    assert pipeline._learning.recent_performance == [{"attempted": False, "acceptable": False}]
+
+
+@pytest.mark.asyncio
+async def test_confident_english_detection_transcribes_in_english() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY, detected=("en", 0.91))
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    (call,) = pipeline.stt.transcribe.await_args_list
+    assert call.kwargs["language"] == "en"
+    assert "prompt" not in call.kwargs
+    (user,) = ws.transcripts("user")
+    assert user["text_target"] == "I went to school yesterday."
+    assert user["text_native"] == ""
+    assert pipeline._learning.recent_performance[-1]["attempted"] is True
+
+
+@pytest.mark.parametrize(
+    "detected",
+    [("en", 0.4), ("kn", 0.8), ("hi", 0.9), (None, None)],
+)
+@pytest.mark.asyncio
+async def test_uncertain_or_other_detection_stays_telugu(detected) -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY, detected=detected)
+
+    await pipeline._process(b"audio", FakeWS())
+
+    (call,) = pipeline.stt.transcribe.await_args_list
+    assert call.kwargs["language"] == "te"
+
+
+@pytest.mark.asyncio
+async def test_detection_failure_falls_back_to_telugu() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY)
+    pipeline.stt.detect_language = AsyncMock(side_effect=RuntimeError("no endpoint"))
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    assert pipeline.stt.transcribe.await_args.kwargs["language"] == "te"
+    assert not ws.errors()
+
+
+@pytest.mark.asyncio
+async def test_model_never_rewrites_the_displayed_transcript() -> None:
+    reply = TELUGU_REPLY.replace(
+        "HEARD: నాకు క్రికెట్ ఆడటం చాలా ఇష్టం", "HEARD: I like playing cricket"
+    )
+    pipeline = _bilingual_pipeline(reply)
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    (user,) = ws.transcripts("user")
+    assert user["text"] == TELUGU_SPEECH
+
+
+@pytest.mark.asyncio
+async def test_user_transcript_is_shown_even_if_llm_fails() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY)
+    pipeline.llm.chat = AsyncMock(side_effect=LLMError("down"))
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    (user,) = ws.transcripts("user")
+    assert user["text"] == TELUGU_SPEECH
+    assert [e["code"] for e in ws.errors()] == ["llm_failed"]
+
+
+@pytest.mark.asyncio
+async def test_stt_failure_reports_error_and_skips_llm() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY)
+    pipeline.stt.transcribe = AsyncMock(side_effect=TimeoutError())
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    assert [e["code"] for e in ws.errors()] == ["stt_failed"]
+    assert not ws.transcripts("user")
+    pipeline.llm.chat.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_empty_transcript_is_ignored() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY, transcripts={"te": "  ", "en": ""})
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    assert not ws.transcripts("user")
+    pipeline.llm.chat.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_bilingual_reply_is_one_natural_paragraph_with_native_voice() -> None:
     native = _native_tts()
     pipeline = _bilingual_pipeline(TELUGU_REPLY, native_tts=native)
     ws = FakeWS()
 
     await pipeline._process(b"audio", ws)
 
-    assert [c.kwargs["language"] for c in pipeline.stt.transcribe.await_args_list] == ["te", "en"]
-    llm_messages = pipeline.llm.chat.await_args.args[0]
-    assert "Telugu transcript: నాకు క్రికెట్" in llm_messages[-1]["content"]
-    assert "Current phase: Telugu conversation" in llm_messages[0]["content"]
-
-    (user,) = ws.transcripts("user")
-    assert user["text_native"] == "నాకు క్రికెట్ ఆడటం చాలా ఇష్టం"
-    assert user["text_target"] == "I like playing cricket very much."
-
     (assistant,) = ws.transcripts("assistant")
     assert assistant["text"] == assistant["text_native"]
     assert assistant["text"].startswith("అవునా!")
     assert "HEARD" not in assistant["text"]
-
     native_spoken = " ".join(c.args[0] for c in native.synthesize.await_args_list)
     english_spoken = " ".join(c.args[0] for c in pipeline.tts.synthesize.await_args_list)
     assert "అవునా!" in native_spoken
     assert "I like playing cricket very much" in english_spoken
     assert "అవునా" not in english_spoken
     assert not ws.errors()
-
-    assert pipeline.history[0]["content"].startswith("నాకు క్రికెట్ ఆడటం చాలా ఇష్టం\n")
-    learning = pipeline._learning
-    assert learning.recent_performance == [{"attempted": False, "acceptable": False}]
-    assert [v["term"] for v in learning.learned_vocabulary] == ["like", "playing"]
-    assert learning.recent_utterances == ["[te] నాకు క్రికెట్ ఆడటం చాలా ఇష్టం"]
+    assert [v["term"] for v in pipeline._learning.learned_vocabulary] == ["like", "playing"]
 
 
 @pytest.mark.asyncio
@@ -465,18 +579,6 @@ async def test_without_native_voice_only_latin_phrases_are_spoken() -> None:
     spoken = [c.args[0] for c in pipeline.tts.synthesize.await_args_list]
     assert spoken and all("అ" not in s for s in spoken)
     assert ws.transcripts("assistant")[0]["text"].startswith("అవునా!")
-
-
-@pytest.mark.asyncio
-async def test_native_script_heard_text_counts_as_native_even_if_mislabelled() -> None:
-    reply = TELUGU_REPLY.replace("HEARD_LANG: native", "HEARD_LANG: target")
-    pipeline = _bilingual_pipeline(reply)
-    ws = FakeWS()
-
-    await pipeline._process(b"audio", ws)
-
-    (user,) = ws.transcripts("user")
-    assert user["text_native"] == "నాకు క్రికెట్ ఆడటం చాలా ఇష్టం"
 
 
 @pytest.mark.asyncio
@@ -562,36 +664,6 @@ async def test_assessment_success_queues_progress_note() -> None:
 
 
 @pytest.mark.asyncio
-async def test_bilingual_turn_survives_one_failed_recognition() -> None:
-    pipeline = _bilingual_pipeline(TELUGU_REPLY)
-
-    async def transcribe(_audio, _name, _mime, *, language):
-        if language == "en":
-            raise TimeoutError()
-        return "నాకు క్రికెట్ ఆడటం చాలా ఇష్టం"
-
-    pipeline.stt.transcribe = AsyncMock(side_effect=transcribe)
-    ws = FakeWS()
-
-    await pipeline._process(b"audio", ws)
-
-    assert not ws.errors()
-    assert ws.transcripts("assistant")
-
-
-@pytest.mark.asyncio
-async def test_bilingual_turn_reports_stt_failed_when_both_recognitions_fail() -> None:
-    pipeline = _bilingual_pipeline(TELUGU_REPLY)
-    pipeline.stt.transcribe = AsyncMock(side_effect=TimeoutError())
-    ws = FakeWS()
-
-    await pipeline._process(b"audio", ws)
-
-    assert [e["code"] for e in ws.errors()] == ["stt_failed"]
-    pipeline.llm.chat.assert_not_called()
-
-
-@pytest.mark.asyncio
 async def test_classic_mode_still_uses_single_target_stt() -> None:
     pipeline = ConversationPipeline(
         llm=AsyncMock(),
@@ -610,19 +682,20 @@ async def test_classic_mode_still_uses_single_target_stt() -> None:
     pipeline.stt.transcribe.assert_awaited_once_with(
         b"audio", "audio.wav", "audio/wav", language="en"
     )
+    pipeline.stt.detect_language.assert_not_called()
     assert pipeline._native_tts is None
 
 
 @pytest.mark.asyncio
-async def test_transliterated_native_speech_is_shown_in_native_script() -> None:
-    reply = (
-        TELUGU_REPLY.replace("HEARD: నాకు క్రికెట్ ఆడటం చాలా ఇష్టం", "HEARD: Naku cricket adatam")
-        .replace("HEARD_LANG: native", "HEARD_LANG: target")
-    )
-    pipeline = _bilingual_pipeline(reply)
+async def test_bilingual_reply_text_is_published_before_any_audio() -> None:
+    pipeline = _bilingual_pipeline(TELUGU_REPLY, native_tts=_native_tts(mixed_script=True))
     ws = FakeWS()
 
     await pipeline._process(b"audio", ws)
 
-    (user,) = ws.transcripts("user")
-    assert user["text_native"] == "నాకు క్రికెట్ ఆడటం చాలా ఇష్టం"
+    kinds = [
+        "assistant" if m[0] == "json" and m[1].get("role") == "assistant" else m[0]
+        for m in ws.sent
+        if m[0] == "bytes" or (m[0] == "json" and m[1].get("type") == "transcript")
+    ]
+    assert kinds.index("assistant") < kinds.index("bytes")

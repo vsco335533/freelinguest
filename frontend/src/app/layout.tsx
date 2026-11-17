@@ -78,9 +78,14 @@ export default async function RootLayout({
     <html
       suppressHydrationWarning
       lang={locale}
+      // The app is already localised and teaches language content; browser machine
+      // translation would rewrite learned-language text and mutates the DOM under
+      // React, crashing components (NotFoundError on insertBefore/removeChild).
+      translate="no"
       className={`${geistSans.variable} ${geistMono.variable} ${notoSansJP.variable} ${notoSansKR.variable} ${notoSansSC.variable} h-full antialiased`}
     >
       <head>
+        <meta name="google" content="notranslate" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           dangerouslySetInnerHTML={{
