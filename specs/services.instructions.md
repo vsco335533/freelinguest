@@ -288,7 +288,7 @@ including the locale attribute, retain the renderer's default HTML escaping.
 ## Voice conversation pipeline
 
 `conversation_pipeline.py` orchestrates explicit-language STT, memory-aware LLM streaming, sentence
-TTS, serialized WebSocket writes, timeouts, interruption, and transcript persistence.
+TTS, serialized WebSocket writes, timeouts, interruption, and transcript persistence. For bilingual beginner voice sessions (AUTO/ON/OFF, with AUTO enabled for A1/A2 when native and target languages differ), it can perform native-language STT and translation to preserve the original native transcript and derive target-language meaning, parse assistant replies into native explanation and target-language spoken text, update target-language encouragement from recent actual learner performance, and synthesize only the target-language portion.
 
 Its in-memory prompt buffer is bounded, while complete user/assistant transcript messages are persisted
 in `chat_history` and the parent conversation is updated. Provider turn failures may remain recoverable;

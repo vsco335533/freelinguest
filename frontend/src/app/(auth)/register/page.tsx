@@ -10,7 +10,11 @@ import {
   LinguistBrandHeader,
 } from '@/components/ui/LinguistBrandHeader'
 import { apiFetch } from '@/lib/api'
-import { ORDERED_BASE_LOCALES as LANGUAGES, persistLocaleCookies } from '@/lib/locale-cookie'
+import {
+  ORDERED_BASE_LOCALES as LANGUAGES,
+  isBackendSupportedLocale,
+  persistLocaleCookies,
+} from '@/lib/locale-cookie'
 import { useAuthStore } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 import { PageLoading } from '@/components/ui/page-loading'
@@ -72,7 +76,9 @@ function RegisterForm() {
           email,
           password,
           display_name: displayName || username,
-          native_language: nativeLanguage,
+          native_language: isBackendSupportedLocale(nativeLanguage)
+            ? nativeLanguage
+            : 'en',
         }
         if (invite) body.invite_token = invite
 

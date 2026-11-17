@@ -3,6 +3,7 @@ from app.models.billing_webhook import RevenueCatWebhookReceipt, StripeWebhookRe
 from app.models.chat_history import ChatHistory
 from app.models.competency import UserCompetency
 from app.models.conversation import Conversation
+from app.models.conversation_learning_state import ConversationLearningState
 from app.models.dashboard_banner import DashboardBanner
 from app.models.feedback import FeedbackComment, FeedbackEntry, FeedbackReadState, FeedbackVote
 from app.models.flashcard import Flashcard, FlashcardReviewReceipt
@@ -27,6 +28,7 @@ __all__ = [
     "ChatHistory",
     "UserCompetency",
     "Conversation",
+    "ConversationLearningState",
     "DashboardBanner",
     "FeedbackComment",
     "FeedbackEntry",

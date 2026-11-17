@@ -14,6 +14,7 @@ import { mapUser } from '@/lib/mappers'
 import {
   BASE_LOCALE_FLAGS as BASE_FLAGS,
   ORDERED_BASE_LOCALES as BASE_LANGUAGES,
+  isBackendSupportedLocale,
   persistLocaleCookies,
 } from '@/lib/locale-cookie'
 
@@ -45,7 +46,7 @@ export default function LanguageSwitcher() {
   const [attempt, setAttempt] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
 
-  const currentBaseCode = user?.native_language || activeLocale || 'en'
+  const currentBaseCode = activeLocale || user?.native_language || 'en'
   const currentBaseName = tLang(currentBaseCode) || currentBaseCode.toUpperCase()
   const currentBaseFlag = BASE_FLAGS[currentBaseCode]
 
@@ -81,21 +82,23 @@ export default function LanguageSwitcher() {
     }
     setBaseUpdating(true)
     try {
-      const res = await apiFetch('/api/auth/me', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ native_language: code, ui_locale: code }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setUser(mapUser(data, user))
-        persistLocaleCookies(code)
-        const langName = tLang(code)
-        setToastMsg(`${langName}`)
-        setToast(true)
-        setTimeout(() => setToast(false), 2500)
-        window.location.reload()
+      if (isBackendSupportedLocale(code)) {
+        const res = await apiFetch('/api/auth/me', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ native_language: code, ui_locale: code }),
+        })
+        if (res.ok) {
+          const data = await res.json()
+          setUser(mapUser(data, user))
+        }
       }
+      persistLocaleCookies(code)
+      const langName = tLang(code)
+      setToastMsg(`${langName}`)
+      setToast(true)
+      setTimeout(() => setToast(false), 2500)
+      window.location.reload()
     } catch {
       // silent fail
     } finally {

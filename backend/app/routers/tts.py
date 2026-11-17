@@ -117,7 +117,16 @@ async def text_to_speech(
     # should be forwarded. Prevents 400 errors when user switches from OpenAI
     # to local and stale OpenAI voice names (e.g. "nova") remain in localStorage.
     voice = body.voice if settings.TTS_PROVIDER != "local" else None
-    audio = await tts_service.synthesize(text, voice, language=language)
+    native_tts = getattr(request.app.state, "native_tts_service", None)
+    media_type = "audio/mpeg"
+    provider = type(tts_service).__name__
+    if native_tts is not None and native_tts.should_speak(text, current_user.native_language):
+        # Native-script (e.g. Telugu) tutor text: the main TTS cannot speak it.
+        audio = await native_tts.synthesize_long(text)
+        media_type = "audio/wav"
+        provider = type(native_tts).__name__
+    else:
+        audio = await tts_service.synthesize(text, voice, language=language)
     synth_ms = (time.perf_counter() - synth_t0) * 1000
     total_ms = (time.perf_counter() - t0) * 1000
 
@@ -127,14 +136,14 @@ async def text_to_speech(
         user_id=current_user.id,
         text_len=len(body.text),
         audio_bytes=len(audio),
-        provider=type(tts_service).__name__,
+        provider=provider,
         synth_ms=round(synth_ms, 1),
         total_ms=round(total_ms, 1),
     )
 
     return Response(
         content=audio,
-        media_type="audio/mpeg",
+        media_type=media_type,
         headers={
             "X-TTS-Trace-ID": trace_id,
             "X-TTS-Backend-Synth-Ms": f"{synth_ms:.1f}",

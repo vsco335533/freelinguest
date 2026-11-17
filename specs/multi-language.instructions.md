@@ -116,7 +116,7 @@ memories and clears their deleted-plan reference through `SET NULL`.
 
 The following state is global and must not change when switching target language:
 
-- profile, native language, and UI locale;
+- profile, native language, UI locale, and global `conversation_bilingual_mode`;
 - account preferences and theme;
 - conversation limits and end-of-turn pause;
 - token and freemium quotas;

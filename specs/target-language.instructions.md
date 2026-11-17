@@ -175,3 +175,8 @@ resource-owned language contracts are defined in `speech-services.instructions.m
 - `learning-resources.instructions.md` — canonical language datasets.
 - `speech-services.instructions.md` — provider contracts.
 - `prompts.instructions.md` — language overlays and prompt composition.
+
+
+Native-language/profile support for bilingual voice conversation includes Telugu (`te`) and other
+supported UI/native language codes used by conversation helpers; this does not make `te` a learned
+target language unless it is added to the canonical target-language sets and curricula.

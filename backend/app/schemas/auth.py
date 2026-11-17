@@ -34,6 +34,7 @@ SUPPORTED_LANGUAGES = {
     "da",
     "fi",
     "hr",
+    "te",
 }
 
 SUPPORTED_TARGET_LANGUAGES: set[str] = {
@@ -80,6 +81,7 @@ SUPPORTED_UI_LOCALES: set[str] = {
     "da",
     "fi",
     "hr",
+    "te",
 }
 
 VALID_LEARNING_GOALS: set[str] = {
@@ -156,6 +158,7 @@ class UserResponse(BaseModel):
     conversation_max_duration: int
     conversation_inactivity_timeout: int
     conversation_speech_pause: int = 0
+    conversation_bilingual_mode: str = "auto"
     avatar: str | None = None
     bio: str | None = None
     learning_goals: list[str] | None = None
@@ -206,6 +209,7 @@ class UserUpdateRequest(BaseModel):
     conversation_max_duration: int | None = None
     conversation_inactivity_timeout: int | None = None
     conversation_speech_pause: int | None = None
+    conversation_bilingual_mode: str | None = None
     bio: str | None = Field(default=None, max_length=500)
     learning_goals: list[str] | None = None
 
@@ -265,6 +269,13 @@ class UserUpdateRequest(BaseModel):
     def validate_speech_pause(cls, v: int | None) -> int | None:
         if v is not None and v not in (0, 1000, 2000, 3000):
             raise ValueError("conversation_speech_pause must be 0, 1000, 2000, or 3000")
+        return v
+
+    @field_validator("conversation_bilingual_mode")
+    @classmethod
+    def validate_conversation_bilingual_mode(cls, v: str | None) -> str | None:
+        if v is not None and v not in ("auto", "on", "off"):
+            raise ValueError("conversation_bilingual_mode must be auto, on, or off")
         return v
 
     @field_validator("learning_goals")

@@ -17,6 +17,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
     60 | 180 | 300
   >(180)
   const [convSpeechPause, setConvSpeechPause] = useState<SpeechPause>(0)
+  const [convBilingualMode, setConvBilingualMode] = useState<'auto' | 'on' | 'off'>('auto')
   const [convMessage, setConvMessage] = useState<{
     type: 'ok' | 'err'
     text: string
@@ -30,6 +31,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
         (user.conversation_inactivity_timeout as 60 | 180 | 300) || 180
       )
       setConvSpeechPause((user.conversation_speech_pause as SpeechPause) || 0)
+      setConvBilingualMode((user.conversation_bilingual_mode as 'auto' | 'on' | 'off') || 'auto')
     }
   }, [user])
 
@@ -45,6 +47,7 @@ export function ConversationSection({ title }: { title?: string } = {}) {
           conversation_max_duration: convMaxDuration,
           conversation_inactivity_timeout: convInactivityTimeout,
           conversation_speech_pause: convSpeechPause,
+          conversation_bilingual_mode: convBilingualMode,
         }),
       })
       if (!res.ok) throw new Error(t('saveFailed'))
@@ -116,6 +119,30 @@ export function ConversationSection({ title }: { title?: string } = {}) {
 
         <div>
           <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
+            {t('conversationBilingualMode')}
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {(['auto', 'on', 'off'] as const).map((val) => (
+              <button
+                key={val}
+                type="button"
+                onClick={() => setConvBilingualMode(val)}
+                className={`rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convBilingualMode === val
+                    ? 'neu-button-primary'
+                    : 'neu-button text-fl-muted-2 hover:text-fl-fg'
+                  }`}
+              >
+                {val === 'auto' ? t('bilingualAuto') : val === 'on' ? t('bilingualOn') : t('bilingualOff')}
+              </button>
+            ))}
+          </div>
+          <p className="text-fl-hint text-fl-muted-2 mt-2 font-mono font-medium">
+            {t('conversationBilingualModeHint')}
+          </p>
+        </div>
+
+        <div>
+          <label className="text-fl-fg mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
             {t('conversationSpeechPause')}
           </label>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -164,3 +191,4 @@ export function ConversationSection({ title }: { title?: string } = {}) {
     </div>
   )
 }
+

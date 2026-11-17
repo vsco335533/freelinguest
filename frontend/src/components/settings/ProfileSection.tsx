@@ -7,7 +7,11 @@ import { clearAvatarCache } from '@/lib/avatar-cache'
 import { mapUser } from '@/lib/mappers'
 import { useAuthStore } from '@/store/auth'
 import { SUPPORTED_LOCALES } from '@/lib/locales'
-import { isSupportedLocale, persistLocaleCookies } from '@/lib/locale-cookie'
+import {
+  isBackendSupportedLocale,
+  isSupportedLocale,
+  persistLocaleCookies,
+} from '@/lib/locale-cookie'
 import { AuthAvatarImage } from '@/components/AuthAvatarImage'
 
 const LANGUAGES = [
@@ -162,17 +166,22 @@ export function ProfileSection({ title }: { title?: string } = {}) {
       return
     }
     try {
+      const payload: Record<string, string | null> = {
+        display_name: displayName,
+        email: email || null,
+        bio: bio || null,
+        ...(password ? { password } : {}),
+      }
+      if (isBackendSupportedLocale(nativeLanguage)) {
+        payload.native_language = nativeLanguage
+      }
+      if (isBackendSupportedLocale(uiLocale)) {
+        payload.ui_locale = uiLocale
+      }
       const res = await apiFetch('/api/auth/me', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          display_name: displayName,
-          email: email || null,
-          native_language: nativeLanguage,
-          ui_locale: uiLocale,
-          bio: bio || null,
-          ...(password ? { password } : {}),
-        }),
+        body: JSON.stringify(payload),
       })
       if (!res.ok) throw new Error(t('saveFailed'))
       const updated = await res.json()

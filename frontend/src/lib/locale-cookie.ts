@@ -43,6 +43,31 @@ export const BASE_LOCALE_FLAGS: Partial<Record<string, string>> = {
   sv: '/flags/sweden.jpg',
 }
 
+export const BACKEND_SUPPORTED_LOCALES: ReadonlySet<string> = new Set([
+  'en',
+  'es',
+  'fr',
+  'pt',
+  'de',
+  'it',
+  'ru',
+  'nl',
+  'pl',
+  'ro',
+  'tr',
+  'sv',
+  'da',
+  'fi',
+  'hr',
+  'te',
+])
+
+export function isBackendSupportedLocale(
+  value: string | null | undefined
+): boolean {
+  return !!value && BACKEND_SUPPORTED_LOCALES.has(value)
+}
+
 export function isSupportedLocale(value: string | null | undefined): value is Locale {
   return !!value && (SUPPORTED_LOCALES as readonly string[]).includes(value)
 }

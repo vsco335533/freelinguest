@@ -11,6 +11,10 @@
  *  - If NEXT_PUBLIC_API_URL is empty (same-origin / Traefik fronting both),
  *    derive the WS base from window.location.
  */
+function isPrivateIpv4Host(hostname: string): boolean {
+  return /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(hostname)
+}
+
 export function buildConversationWsUrl(): string {
   const base = (process.env.NEXT_PUBLIC_API_URL ?? '')
     .trim()
@@ -20,6 +24,21 @@ export function buildConversationWsUrl(): string {
   if (base) {
     // e.g. "https://api.example.com" → "wss://api.example.com"
     wsBase = base.replace(/^http/, 'ws')
+    if (typeof window !== 'undefined' && window.location?.hostname) {
+      try {
+        const parsed = new URL(base)
+        if (
+          isPrivateIpv4Host(parsed.hostname) &&
+          parsed.hostname !== window.location.hostname
+        ) {
+          const proto = parsed.protocol === 'https:' ? 'wss:' : 'ws:'
+          const port = parsed.port ? `:${parsed.port}` : ''
+          wsBase = `${proto}//${window.location.hostname}${port}`
+        }
+      } catch {
+        // Keep string-based wsBase if NEXT_PUBLIC_API_URL is non-standard
+      }
+    }
   } else {
     // Same origin — derive from window.location
     const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
@@ -35,6 +54,10 @@ export interface TranscriptMessage {
   type: 'transcript'
   role: 'user' | 'assistant'
   text: string
+  text_native?: string
+  text_target?: string
+  native_language?: string
+  target_language?: string
   final: boolean
   turn_id?: number
 }
@@ -96,3 +119,4 @@ export interface ChatContextItem {
   role: 'user' | 'assistant'
   content: string
 }
+

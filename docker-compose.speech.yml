@@ -1,0 +1,76 @@
+# Optional local speech services (NVIDIA GPU) for development.
+#
+# docker-compose.dev.yml does not define Kokoro (TTS) or Whisper (STT). Combine this
+# file with it so all services join the same Compose project network and the backend's
+# default hostnames (http://kokoro:8880, http://whisper:9000) resolve:
+#
+#   docker compose -f docker-compose.dev.yml -f docker-compose.speech.yml --env-file .env.dev up -d --build
+#
+# Requires the NVIDIA Container Toolkit on the Docker host. Not needed when
+# TTS_PROVIDER=openai and STT_PROVIDER=openai.
+
+x-gpu: &gpu
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
+
+services:
+  # Main TTS (Kokoro-FastAPI). English/European voices; used for classic (non-bilingual)
+  # sessions and as the fallback for target-language phrases. Runs on CPU (small and
+  # fast) to leave GPU memory for Whisper and the native voice on 8 GB cards; switch to
+  # ghcr.io/remsky/kokoro-fastapi-gpu:latest with <<: *gpu on larger GPUs.
+  kokoro:
+    image: ghcr.io/remsky/kokoro-fastapi-cpu:latest
+    container_name: freelingo-kokoro
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # STT (faster-whisper ASR webservice). large-v3-turbo recognises Telugu far better
+  # than the small CPU models while leaving GPU memory for the native voice on 8 GB
+  # cards; set SPEECH_WHISPER_MODEL=large-v3 on GPUs with 12 GB or more.
+  whisper:
+    <<: *gpu
+    image: onerahmet/openai-whisper-asr-webservice:latest-gpu
+    container_name: freelingo-whisper
+    restart: unless-stopped
+    environment:
+      - ASR_MODEL=${SPEECH_WHISPER_MODEL:-large-v3-turbo}
+      - ASR_ENGINE=${STT_ENGINE:-faster_whisper}
+    volumes:
+      # Keep downloaded models across container recreation.
+      - whisper-cache:/root/.cache
+
+  # Native-language voice for the bilingual voice tutor (Indic Parler-TTS, Apache-2.0).
+  # One voice reads Telugu narration with embedded English phrases.
+  telugu-tts:
+    <<: *gpu
+    build: ./services/telugu-tts
+    container_name: freelingo-telugu-tts
+    restart: unless-stopped
+    environment:
+      - TTS_ENGINE=${NATIVE_TTS_ENGINE:-parler}
+      - TTS_MODEL_ID=${NATIVE_TTS_MODEL_ID:-}
+      - TTS_VOICE_DESCRIPTION=${NATIVE_TTS_VOICE_DESCRIPTION:-Lalitha speaks in a warm, friendly and expressive voice at a moderate pace, pronouncing English words clearly. The recording is of very high quality, with the speaker's voice sounding clear and very close up.}
+      - HF_TOKEN=${HF_TOKEN:-}
+      # Classic HTTP downloads resume reliably on slow links; Xet transfers can stall.
+      - HF_HUB_DISABLE_XET=${HF_HUB_DISABLE_XET:-1}
+      - HF_HUB_DOWNLOAD_TIMEOUT=${HF_HUB_DOWNLOAD_TIMEOUT:-60}
+    volumes:
+      - telugu-tts-models:/models
+
+  # Point the backend at the native voice. With a mixed-script engine (parler) whole
+  # sentences use that one voice; with mms, English phrases fall back to Kokoro.
+  backend:
+    environment:
+      NATIVE_TTS_BASE_URL: http://telugu-tts:8890
+      NATIVE_TTS_LANGUAGES: '["te"]'
+      NATIVE_TTS_MIXED_SCRIPT: ${NATIVE_TTS_MIXED_SCRIPT:-true}
+
+volumes:
+  whisper-cache:
+  telugu-tts-models:

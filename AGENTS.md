@@ -12,7 +12,7 @@
 ## Non-negotiable invariants
 
 - Users can learn multiple languages simultaneously. Each language has isolated plans, progress, flashcards, conversations, competencies, and learning attempts.
-- Profile, settings, subscription, quotas, conversation limits, and LLM memories are global per user. `memories.study_plan_id` records provenance only.
+- Profile, settings, subscription, quotas, conversation limits, conversation bilingual mode, and LLM memories are global per user. `memories.study_plan_id` records provenance only.
 - The canonical default target language is `en-GB`. `en-US` is supported but is never a fallback default.
 - Resource-owned operations derive language and progress ownership from their persisted study plan, not mutable client state.
 - Resource-owned STT requires a user-owned study plan and always sends an explicit recognition language.

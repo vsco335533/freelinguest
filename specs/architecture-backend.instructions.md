@@ -11,6 +11,11 @@ The backend is the authoritative boundary for business rules, authorization, per
 external providers. Routers expose transport contracts; services implement reusable behavior; models
 and schemas define persistence and data boundaries.
 
+Voice conversation also includes backend-owned bilingual beginner support (AUTO/ON/OFF user setting,
+A1/A2 AUTO eligibility when native and target languages differ): native-speech STT/translation handling,
+bilingual transcript payloads, and target-language-only TTS, while preserving existing target-language-only
+behavior when bilingual mode is inactive.
+
 ## Layout
 
 ```text

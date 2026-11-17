@@ -1,6 +1,9 @@
 import hashlib
+import io
 import json
+import re
 import time
+import wave
 
 import httpx
 import openai
@@ -40,6 +43,89 @@ class KokoroTTSService:
             )
             response.raise_for_status()
             return response.content
+
+
+# Sentences end at . ! ? or the Indic danda (U+0964).
+_SENTENCE_RE = re.compile(r"[^.!?।\n]+[.!?।]*")
+
+
+def has_non_latin_letters(text: str) -> bool:
+    return any(c.isalpha() and not (c.isascii() or "À" <= c <= "ɏ") for c in text)
+
+
+def concat_wav(chunks: list[bytes]) -> bytes:
+    """Join WAV clips that share the first clip's format into one WAV file."""
+    params = None
+    frames: list[bytes] = []
+    for chunk in chunks:
+        with wave.open(io.BytesIO(chunk), "rb") as clip:
+            clip_params = (clip.getnchannels(), clip.getsampwidth(), clip.getframerate())
+            if params is None:
+                params = clip_params
+            if clip_params != params:
+                logger.warning("[tts-native] Skipping clip with mismatched WAV format")
+                continue
+            frames.append(clip.readframes(clip.getnframes()))
+    if params is None:
+        return b""
+    out = io.BytesIO()
+    with wave.open(out, "wb") as joined:
+        joined.setnchannels(params[0])
+        joined.setsampwidth(params[1])
+        joined.setframerate(params[2])
+        joined.writeframes(b"".join(frames))
+    return out.getvalue()
+
+
+class NativeTTSService:
+    """Client for a self-hosted native-language voice (e.g. Indic Parler-TTS Telugu).
+
+    With ``mixed_script`` the voice reads whole sentences, including embedded
+    target-language phrases; otherwise the voice tutor routes Latin-script phrases
+    to the main TTS provider. Returns WAV audio bytes.
+    """
+
+    def __init__(self, base_url: str, languages: list[str], *, mixed_script: bool = True) -> None:
+        self.base_url = base_url.rstrip("/")
+        self.languages = {code.strip().lower() for code in languages if code.strip()}
+        self.mixed_script = mixed_script
+
+    def supports(self, language_code: str) -> bool:
+        return language_code.split("-")[0].lower() in self.languages
+
+    async def health(self) -> None:
+        """Raise if the native voice service is unreachable."""
+        async with httpx.AsyncClient() as client:
+            r = await client.get(f"{self.base_url}/health", timeout=5.0)
+            r.raise_for_status()
+
+    async def synthesize(
+        self, text: str, voice: str | None = None, language: str | None = None
+    ) -> bytes:
+        _ = voice, language  # one voice per service instance
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                f"{self.base_url}/v1/audio/speech",
+                json={"input": text},
+                timeout=60.0,
+            )
+            response.raise_for_status()
+            return response.content
+
+    def should_speak(self, text: str, native_language: str | None) -> bool:
+        """Whether a read-aloud request should use this voice instead of the main TTS."""
+        return (
+            self.mixed_script
+            and bool(native_language)
+            and self.supports(native_language or "")
+            and has_non_latin_letters(text)
+        )
+
+    async def synthesize_long(self, text: str) -> bytes:
+        """Synthesize multi-sentence text sentence by sentence and join it as one WAV."""
+        parts = [p.strip() for p in _SENTENCE_RE.findall(text) if any(c.isalnum() for c in p)]
+        clips = [await self.synthesize(part) for part in parts]
+        return concat_wav(clips)
 
 
 class OpenAITTSService:

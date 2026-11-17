@@ -6,6 +6,9 @@ import { LinguistLogoMark } from '@/components/ui/LinguistLogoMark'
 interface Props {
   role: 'user' | 'assistant'
   text: string
+  textNative?: string
+  textTarget?: string
+  nativeLanguageCode?: string | null
   streaming?: boolean
   speaking?: boolean
   userAvatar?: string | null
@@ -17,6 +20,9 @@ interface Props {
 export default function TranscriptBubble({
   role,
   text,
+  textNative,
+  textTarget,
+  nativeLanguageCode,
   streaming = false,
   speaking = false,
   userAvatar,
@@ -75,9 +81,7 @@ export default function TranscriptBubble({
         <span className="text-fl-caption text-fl-muted-1 font-sans tracking-wide uppercase">
           {isUser ? t('you') : t('assistant')}
         </span>
-        <TargetLanguageText
-          as="div"
-          languageCode={languageCode}
+        <div
           className={`max-w-[70ch] rounded-2xl border px-4 py-3 ${onPointerUp ? 'word-selectable cursor-text select-text' : ''
             } ${isUser
               ? 'neu-button-primary border-blue-400/40'
@@ -85,12 +89,30 @@ export default function TranscriptBubble({
             }`}
           onPointerUp={onPointerUp}
         >
-          {text}
+          {textNative || textTarget ? (
+            <div className="flex flex-col gap-2">
+              {textNative ? (
+                <TargetLanguageText as="p" languageCode={nativeLanguageCode ?? languageCode}>
+                  {textNative}
+                </TargetLanguageText>
+              ) : null}
+              {textTarget ? (
+                <TargetLanguageText as="p" languageCode={languageCode}>
+                  {textTarget}
+                </TargetLanguageText>
+              ) : null}
+            </div>
+          ) : (
+            <TargetLanguageText as="div" languageCode={languageCode}>
+              {text}
+            </TargetLanguageText>
+          )}
           {streaming && (
             <span className="ml-1 inline-block h-3 w-1 animate-pulse bg-current align-middle motion-reduce:animate-none" />
           )}
-        </TargetLanguageText>
+        </div>
       </div>
     </div>
   )
 }
+

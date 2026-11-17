@@ -523,6 +523,7 @@ async def conversation_ws(
             llm=llm_adapter,
             tts=tts_service,
             stt=stt_service,
+            native_tts=getattr(websocket.app.state, "native_tts_service", None),
             cefr_level=cefr_level,
             native_language=native_language,
             target_language=target_language,
@@ -539,6 +540,7 @@ async def conversation_ws(
             study_plan_id=study_plan_id_for_conv,
             lesson_practice_context=lesson_practice.context if lesson_practice else "",
             user_agent=websocket.headers.get("user-agent", ""),
+            bilingual_mode_setting=getattr(user, "conversation_bilingual_mode", "auto") or "auto",
         )
         pipeline._redis = redis
         pipeline._freemium_voice = freemium_ok
@@ -552,3 +554,4 @@ async def conversation_ws(
         finally:
             await pipeline.cleanup()
             logger.info("[conversation] Session ended — user=%s", user_id)
+

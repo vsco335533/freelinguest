@@ -440,7 +440,7 @@ Both `POST /api/conversation/warmup` and `/ws/conversation` require an authentic
 **Server → Client message types:**
 
 - **`status`** — Pipeline state hint; turn-associated frames can include `turn_id`.
-- **`transcript`** — User STT result and assistant streaming/final text; turn-associated frames can include `turn_id`.
+- **`transcript`** — User STT result and assistant final transcript text; turn-associated frames can include `turn_id`. Bilingual voice turns may also include `text_native`, `text_target`, `native_language`, and `target_language`. User messages preserve the original native-language transcript and provide a target-language meaning when applicable; assistant messages provide a native-language explanation first and a target-language equivalent below. Audio is synthesized only from the target-language portion of assistant replies.
 - **binary frame** — Payload: MP3 bytes. Description: MP3 audio for a TTS sentence
 - **`barge_in`** — Payload: `{}`. Description: Current greeting/response was cancelled by new audio; client cancels playback
 - **`interrupted`** — Indicates interruption/cancellation of the active turn.

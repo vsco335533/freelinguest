@@ -43,6 +43,13 @@ class User(Base):
         default=0,
         server_default="0",
     )
+    # auto/on/off: bilingual conversation support for beginner learners.
+    conversation_bilingual_mode: Mapped[str] = mapped_column(
+        String(10),
+        nullable=False,
+        default="auto",
+        server_default="auto",
+    )
     conversation_weekly_sessions: Mapped[int] = mapped_column(
         Integer,
         nullable=False,
@@ -90,3 +97,4 @@ class User(Base):
         DateTime, nullable=False, default=lambda: datetime.now(UTC).replace(tzinfo=None)
     )
     last_login: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+

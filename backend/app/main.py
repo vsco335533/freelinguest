@@ -55,7 +55,7 @@ from app.routers import (
 from app.routers import config as config_router
 from app.routers import health as health_router
 from app.services.stt_service import OpenAISTTService, WhisperSTTService
-from app.services.tts_service import KokoroTTSService, OpenAITTSService
+from app.services.tts_service import KokoroTTSService, NativeTTSService, OpenAITTSService
 
 
 def _run_migrations() -> None:
@@ -94,6 +94,15 @@ async def lifespan(app: FastAPI):  # noqa: ANN201
         )
     else:
         app.state.tts_service = KokoroTTSService(settings.TTS_BASE_URL, settings.TTS_VOICE)
+    app.state.native_tts_service = (
+        NativeTTSService(
+            settings.NATIVE_TTS_BASE_URL,
+            settings.NATIVE_TTS_LANGUAGES,
+            mixed_script=settings.NATIVE_TTS_MIXED_SCRIPT,
+        )
+        if settings.NATIVE_TTS_BASE_URL
+        else None
+    )
 
     if settings.STT_PROVIDER == "openai":
         if not settings.OPENAI_API_KEY:

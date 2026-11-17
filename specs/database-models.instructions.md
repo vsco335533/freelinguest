@@ -68,6 +68,7 @@ Registration, authentication, and user preferences.
 - `conversation_max_duration` — integer max voice session duration in seconds. Default comes from `DEFAULT_CONVERSATION_MAX_DURATION` (`1800`).
 - `conversation_inactivity_timeout` — integer seconds of silence before disconnect. Default comes from `DEFAULT_CONVERSATION_INACTIVITY_TIMEOUT` (`180`).
 - `conversation_speech_pause` — integer milliseconds of silence that end a spoken turn in voice conversation. Allowed values are `0`, `1000`, `2000`, and `3000`; `0` (the default) means the window is derived from the learner's CEFR level.
+- `conversation_bilingual_mode` — string(10), non-null, default `auto` (ORM and database). Voice bilingual-support setting: `auto`, `on`, or `off`. `auto` enables bilingual beginner support for A1/A2 learners when native and target languages differ; `on` forces it; `off` disables it. Global per user.
 - `conversation_weekly_sessions` — integer weekly session counter. Default comes from `DEFAULT_CONVERSATION_WEEKLY_SESSIONS` (`0`, unlimited).
 - `conversation_daily_minutes` — integer daily voice limit in minutes. Default comes from `DEFAULT_CONVERSATION_DAILY_MINUTES` (`30`).
 - `conversation_weekly_minutes` — integer weekly voice limit in minutes. Default comes from `DEFAULT_CONVERSATION_WEEKLY_MINUTES` (`90`).

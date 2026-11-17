@@ -39,6 +39,10 @@ interface TranscriptEntry {
   id: number
   role: 'user' | 'assistant'
   text: string
+  textNative?: string
+  textTarget?: string
+  nativeLanguage?: string
+  targetLanguage?: string
 }
 
 function QuotaBar({
@@ -875,6 +879,10 @@ export default function ConversationMode({
                     id: transcriptIdRef.current++,
                     role: 'user',
                     text: msg.text,
+                    textNative: msg.text_native,
+                    textTarget: msg.text_target,
+                    nativeLanguage: msg.native_language,
+                    targetLanguage: msg.target_language,
                   },
                 ])
               } else {
@@ -889,6 +897,10 @@ export default function ConversationMode({
                       id: transcriptIdRef.current++,
                       role: 'assistant',
                       text: msg.text,
+                      textNative: msg.text_native,
+                      textTarget: msg.text_target,
+                      nativeLanguage: msg.native_language,
+                      targetLanguage: msg.target_language,
                     },
                   ])
                 } else {
@@ -1318,16 +1330,19 @@ export default function ConversationMode({
               key={entry.id}
               role={entry.role}
               text={entry.text}
+              textNative={entry.textNative}
+              textTarget={entry.textTarget}
+              nativeLanguageCode={entry.nativeLanguage || user?.native_language || null}
               speaking={
                 entry.role === 'user' && userSpeaking && i === lastUserIdx
               }
               userAvatar={user?.avatar}
               userInitial={(user?.displayName || user?.username || '?')[0]}
-              languageCode={targetLanguage}
+              languageCode={entry.targetLanguage || targetLanguage}
               onPointerUp={
                 entry.role === 'assistant'
                   ? () =>
-                      handleTextSelection(entry.text, cefrLevel ?? undefined)
+                      handleTextSelection(entry.textTarget || entry.text, cefrLevel ?? undefined)
                   : undefined
               }
             />
@@ -1465,3 +1480,4 @@ export default function ConversationMode({
     </div>
   )
 }
+

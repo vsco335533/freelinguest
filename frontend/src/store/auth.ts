@@ -26,6 +26,7 @@ export interface User {
   conversation_max_duration: number
   conversation_inactivity_timeout: number
   conversation_speech_pause?: number
+  conversation_bilingual_mode?: 'auto' | 'on' | 'off'
   avatar?: string | null
   is_verified?: boolean
   bio?: string | null
@@ -112,3 +113,4 @@ export const useAuthStore = create<AuthStore>((set) => ({
     }))
   },
 }))
+

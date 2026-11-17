@@ -189,6 +189,7 @@ _VOICE_SESSION_TITLES: dict[str, str] = {
     "da": "Stemmesamtale",
     "fi": "Äänikeskustelu",
     "hr": "Glasovni razgovor",
+    "te": "వాయిస్ సెషన్",
 }
 
 _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
@@ -207,6 +208,7 @@ _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
     "da": "Danish",
     "fi": "Finnish",
     "hr": "Croatian",
+    "te": "Telugu",
 }
 
 _LESSON_PRACTICE_TITLES: dict[str, str] = {
@@ -225,6 +227,7 @@ _LESSON_PRACTICE_TITLES: dict[str, str] = {
     "da": "Øvelse",
     "fi": "Harjoitus",
     "hr": "Vježba",
+    "te": "అభ్యాసం",
 }
 
 
@@ -430,7 +433,25 @@ _MONTH_NAMES: dict[str, list[str]] = {
         "studenoga",
         "prosinca",
     ],
+    "te": [
+        "జనవరి",
+        "ఫిబ్రవరి",
+        "మార్చి",
+        "ఏప్రిల్",
+        "మే",
+        "జూన్",
+        "జూలై",
+        "ఆగస్టు",
+        "సెప్టెంబర్",
+        "అక్టోబర్",
+        "నవంబర్",
+        "డిసెంబర్",
+    ],
 }
+
+
+def get_native_language_code(native_language: str) -> str:
+    return native_language.split("-")[0].lower()
 
 
 def get_language_name(target_language: str) -> str:
@@ -516,3 +537,4 @@ def voice_session_title(native_language: str) -> str:
             return f"{label} — {now.day}. {month_name} {now.year}."
         return f"{label} — {now.day} {month_name} {now.year}"
     return f"{label} — {now.strftime('%B %d, %Y')}"
+

@@ -10,6 +10,7 @@ import { apiFetch } from '@/lib/api'
 import {
   BASE_LOCALE_FLAGS,
   ORDERED_BASE_LOCALES,
+  isBackendSupportedLocale,
   persistLocaleCookies,
 } from '@/lib/locale-cookie'
 
@@ -54,7 +55,7 @@ export function LandingNav({
     if (code === activeLocale) return
     setUpdatingLang(true)
     persistLocaleCookies(code)
-    if (hasSession) {
+    if (hasSession && isBackendSupportedLocale(code)) {
       try {
         await apiFetch('/api/auth/me', {
           method: 'PATCH',

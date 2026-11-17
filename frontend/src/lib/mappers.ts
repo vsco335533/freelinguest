@@ -25,6 +25,10 @@ export function mapUser(
     conversation_max_duration: data.conversation_max_duration,
     conversation_inactivity_timeout: data.conversation_inactivity_timeout,
     conversation_speech_pause: data.conversation_speech_pause,
+    conversation_bilingual_mode:
+      data.conversation_bilingual_mode ??
+      current?.conversation_bilingual_mode ??
+      'auto',
     avatar: 'avatar' in data ? data.avatar : (current?.avatar ?? null),
     is_verified: data.is_verified ?? current?.is_verified ?? true,
     bio: data.bio ?? current?.bio ?? null,
@@ -75,3 +79,4 @@ export function mapUserLanguageInfo(
       : null,
   }
 }
+

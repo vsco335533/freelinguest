@@ -1,0 +1,12 @@
+# torch (CUDA build) comes from the base image in the Dockerfile.
+# Parler-TTS is not published on PyPI; it also brings a compatible transformers version.
+# Pin this to a specific commit once validated on your GPU host.
+parler-tts @ git+https://github.com/huggingface/parler-tts.git
+fastapi==0.115.6
+uvicorn==0.32.1
+# sentencepiece>=0.2.1 needs protobuf>=5.26 (google.protobuf.runtime_version), which
+# conflicts with the protobuf pulled in by the Parler-TTS stack; 0.2.0 works with both.
+sentencepiece==0.2.0
+protobuf
+# Only used by the MMS fallback engine when a checkpoint expects romanized input.
+uroman>=1.3,<2

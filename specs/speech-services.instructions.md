@@ -97,6 +97,12 @@ Neither current TTS adapter chooses a model or voice automatically from the targ
 Both STT adapters require an explicit keyword-only ISO 639-1 language on every transcription call.
 There is no implicit English fallback.
 
+Voice conversation normally transcribes with the resolved session target language. When bilingual
+beginner support is active and the learner's native language differs, the voice pipeline may perform
+additional native-language STT and LLM-based translation to preserve the original native transcript and
+produce a target-language meaning for the transcript/UI/LLM context; assistant TTS remains limited to
+the target-language portion of the response.
+
 `WhisperSTTService`:
 
 - checks health with `GET {base_url}/` and a five-second timeout;

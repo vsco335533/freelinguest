@@ -87,8 +87,14 @@ Text and voice prompts lock the Lingu persona, learning scope, safety behavior, 
 support, learner context, and optional memories.
 
 Text tutoring responds primarily in the target language and may briefly explain corrections in the
-learner's native language, with optional basic formatting. Voice output uses short TTS-safe plain text. Detailed persistence, access,
-and streaming behavior belongs to Platform and Voice Conversation specs.
+learner's native language, with optional basic formatting. Voice output uses short TTS-safe plain text.
+Voice conversation also supports an optional bilingual beginner mode: when enabled for the session, the
+prompt requests two plain-text parts in order (`NATIVE:` explanation/help in the learner's native
+language, including the target-language phrase and a native-language statement equivalent to "in
+{target language} we say this as:"; then `TARGET:` short target-language equivalent spoken aloud).
+The pipeline may parse these parts so only `TARGET` text is sent to TTS. Bilingual encouragement is
+based on recent actual learner performance/target-language attempts, not fixed turn counts. Detailed
+persistence, access, and streaming behavior belongs to Platform and Voice Conversation specs.
 
 Lesson-linked voice sessions additionally receive `lesson_practice_context`. The service loads this
 bounded, escaped JSON reference from an owned completed lesson and its answered exercises; the client

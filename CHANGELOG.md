@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Bilingual voice conversation support for beginner learners: AUTO/ON/OFF per-user setting (AUTO enables for A1-A2 when native and target languages differ), native-language STT handling with original transcript preserved and target-language meaning shown, bilingual assistant replies (native explanation first, target-language equivalent below) with target-language-only TTS, and performance-based progressive target-language encouragement.
+- Telugu (`te`) added as a supported native/UI language for conversation/profile flows and language helper labels.
+
+### Changed
+- Conversation transcript protocol and UI now carry optional bilingual fields so user and assistant messages can display native and target-language text without replacing the original transcript.
+- `PATCH /api/auth/me` accepts and returns `conversation_bilingual_mode`; the users table stores it via migration `0061_conversation_bilingual_mode`.
+
 ## [1.12.5] - 2026-11-07
 
 ### Changed

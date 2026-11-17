@@ -1,5 +1,35 @@
 <div align="center">
 
+# 1. Navigate to project
+cd ~/projects/freelingo
+
+# 2. Check Ollama
+ollama list
+
+# 3. Start Ollama if needed
+sudo systemctl start ollama
+
+# 4. Check AI model
+ollama show gemma4:e2b-ctx8k
+
+# 5. Start all project services
+sudo docker compose --env-file .env.dev -f docker-compose.dev.yml up -d --build
+
+# 6. Check containers
+sudo docker compose --env-file .env.dev -f docker-compose.dev.yml ps
+
+# 7. Test backend
+curl http://127.0.0.1:8000/health
+
+# 8. Check frontend
+curl -I http://localhost:3000
+
+# 9. View backend logs
+sudo docker compose --env-file .env.dev -f docker-compose.dev.yml logs --tail=50 backend
+
+# 10. View frontend logs
+sudo docker compose --env-file .env.dev -f docker-compose.dev.yml logs --tail=50 frontend
+
 # FreeLingo
 
 [![Hosted](https://img.shields.io/badge/hosted%20service-available-green?style=flat-square)](https://freelingo.app)
@@ -32,6 +62,7 @@ tutor, **Lingu**. Use the managed service or run the application on your own inf
    lessons also offer voice practice: confirm a topic preview, then discuss the lesson with help
    informed by your exercise answers. These conversations retain the existing voice limits and
    appear in chat history under the lesson topic.
+   - **Beginner bilingual voice support:** A1/A2 learners can use AUTO/ON/OFF bilingual help (global per user). When enabled, the app can recognize native speech, preserve the original transcript with a target-language meaning, show a native-language explanation before the target-language reply, and speak only the target-language portion. Telugu (	e) is supported as a native/UI language for this flow.
 
 Alongside the plan:
 

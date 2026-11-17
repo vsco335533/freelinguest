@@ -33,6 +33,13 @@ class Settings(BaseSettings):
     OPENAI_TTS_MODEL: str = "tts-1"
     OPENAI_TTS_VOICE: str = "nova"
     OPENAI_TTS_SPEED: float = 1.0
+    # Optional native-language voice (e.g. local Telugu) used by the bilingual voice tutor
+    # for native-script narration. Empty disables it; Latin-script text keeps TTS_PROVIDER.
+    NATIVE_TTS_BASE_URL: str = ""
+    NATIVE_TTS_LANGUAGES: list[str] = ["te"]
+    # True when the native voice also reads embedded Latin-script phrases well (e.g. Indic
+    # Parler-TTS): whole sentences then use that one voice instead of switching engines.
+    NATIVE_TTS_MIXED_SCRIPT: bool = True
     STT_PROVIDER: str = "local"  # local | openai
     STT_BASE_URL: str = "http://whisper:9000"
     OPENAI_STT_MODEL: str = "whisper-1"

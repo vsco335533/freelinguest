@@ -7,7 +7,11 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useAuthStore, isSubscribed } from '@/store/auth'
 import { useConfigStore } from '@/store/config'
 import { apiFetch, requestAccessToken } from '@/lib/api'
-import { isSupportedLocale, persistLocaleCookies } from '@/lib/locale-cookie'
+import {
+  isBackendSupportedLocale,
+  isSupportedLocale,
+  persistLocaleCookies,
+} from '@/lib/locale-cookie'
 import { mapUser } from '@/lib/mappers'
 import { useLogout } from '@/hooks/useLogout'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
@@ -131,7 +135,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
         setUser(mapUser(me))
 
         const preferredLocale = me.ui_locale || me.native_language
-        if (isSupportedLocale(preferredLocale) && preferredLocale !== activeLocale) {
+        if (
+          isBackendSupportedLocale(activeLocale) &&
+          isSupportedLocale(preferredLocale) &&
+          preferredLocale !== activeLocale
+        ) {
           stayLoading = true
           persistLocaleCookies(preferredLocale)
           window.location.reload()

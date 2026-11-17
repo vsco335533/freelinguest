@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Check } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 import { useBillingPortal } from '@/hooks/useBillingPortal'
@@ -47,6 +47,7 @@ interface CompletionState {
 }
 
 export default function DashboardPage() {
+  const activeLocale = useLocale()
   const t = useTranslations('dashboard')
   const tCommon = useTranslations('common')
   const tLang = useTranslations('languages')
@@ -287,7 +288,7 @@ export default function DashboardPage() {
                     {tLang('baseLanguageLabel')}:
                   </span>
                   <span className="text-fl-fg font-semibold">
-                    {tLang(user?.native_language || 'en')}
+                    {tLang(activeLocale || user?.native_language || 'en')}
                   </span>
                   <span className="rounded-full border border-blue-500/25 bg-blue-500/12 px-2 py-0.5 text-[10px] font-semibold text-blue-500 uppercase">
                     {tLang('fluentBadge')}

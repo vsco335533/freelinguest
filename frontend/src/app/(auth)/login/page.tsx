@@ -43,7 +43,8 @@ function LoginForm() {
     async (e: React.FormEvent) => {
       e.preventDefault()
       setError('')
-      if (!email.trim()) {
+      const sanitizedEmail = email.trim().toLowerCase()
+      if (!sanitizedEmail) {
         setError(t('emailRequired'))
         return
       }
@@ -63,7 +64,7 @@ function LoginForm() {
         const res = await apiFetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email: sanitizedEmail, password }),
           signal: controller.signal,
         })
         if (!res.ok) {
@@ -150,10 +151,10 @@ function LoginForm() {
                 {t('email')}
               </label>
               <input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                autoComplete="username"
+                autoComplete="email"
                 autoCorrect="off"
                 autoCapitalize="none"
                 spellCheck={false}

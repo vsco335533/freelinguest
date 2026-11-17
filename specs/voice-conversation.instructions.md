@@ -53,6 +53,13 @@ The session fixes user, plan, target language, CEFR level, native language, voic
 mode at connection time. They are not refreshed globally during the session, except memories and
 native language before each normal user turn.
 
+The user's global `conversation_bilingual_mode` setting (`auto`, `on`, `off`) is resolved at connection
+time. `auto` enables bilingual beginner support only when the session CEFR level is A1/A2 and the
+resolved native and target languages differ. `on` forces bilingual support for supported language pairs;
+`off` disables it. The resolved mode remains fixed for the session, but memory-refresh paths keep the
+current prompt arguments consistent with the latest native-language/profile context available to the
+pipeline.
+
 Suggested conversation topics supply a learner message about the selected topic without naming a
 practice language. The session's resolved target language remains authoritative; starters do not
 request English when a different target language is selected.
@@ -126,7 +133,7 @@ items and the pipeline starts with the last 10 accepted messages.
 
 - `status`: `transcribing`, `thinking`, `speaking`, or `listening`, with `turn_id`; the current
   pipeline does not emit `speaking`.
-- `transcript`: final user or assistant text with `turn_id`.
+- `transcript`: final user or assistant text with `turn_id`. Bilingual turns may also include `text_native`, `text_target`, `native_language`, and `target_language`. For user messages, `text_native` preserves the original native-language transcript and `text_target` carries the target-language meaning/translation when applicable. For assistant messages, `text_native` carries the native-language explanation/help and `text_target` carries the target-language equivalent that is spoken aloud.
 - Binary: one synthesized assistant audio fragment, without turn metadata.
 - `barge_in`: active generation was cancelled by new binary input.
 - `interrupted`: acknowledgement of an explicit interrupt; current frontend ignores it.
@@ -143,7 +150,8 @@ concurrently.
 
 The initial greeting is a cancellable task started while the receive loop is already active. It uses
 memory context loaded at connection, does not offer memory tools, and persists only the assistant
-message after successful completion. Greeting failure is logged without a client error.
+message after successful completion. In bilingual mode it may emit and persist bilingual assistant text,
+but synthesizes audio only from the target-language portion. Greeting failure is logged without a client error.
 Cancelling the greeting preserves initial chat/topic context. An unfinished normal turn rolls back
 only its own learner message in memory, including cancellation during transcription, memory refresh,
 generation, or synthesis; earlier context is retained.
@@ -155,15 +163,25 @@ lesson-linked practice, and tool-free fallbacks.
 A normal turn:
 
 1. Assigns a turn ID and emits `transcribing`.
-2. Transcribes the WAV with the explicit session language.
-3. Returns to `listening` without LLM, completion event, or persistence when STT is empty.
-4. Emits the final user transcript and appends it to in-memory context.
+2. Transcribes the WAV. In target-language-only mode, STT uses the explicit session target language.
+In bilingual mode, the pipeline also recognizes the user's native language, preserves the original
+native transcript, and derives/displays a target-language meaning/translation when needed; the
+transcript payload includes bilingual fields while TTS remains target-language-only for assistant audio.
+3. Returns to `listening` without LLM, completion event, or persistence when no usable user text is obtained.
+4. Emits the final user transcript and appends bilingual-aware user text to in-memory LLM context. In
+bilingual mode, encouragement/progress scoring is updated from recent actual target-language attempts
+and response acceptability (performance-based), not from arbitrary turn counts.
 5. Refreshes global memories and native language best-effort.
 6. Builds the prompt from system context and up to the latest 20 messages.
-7. Consumes the complete normalized LLM stream, including at most one native memory-tool round.
-8. Splits completed assistant text on full stops, keeping dots between decimal digits and consecutive
-   dot runs (ellipses) inside the same fragment. Fragments without any Unicode letter or number are
-   not sent to TTS; the complete transcript is preserved, including for text-only output.
+7. Consumes the complete normalized LLM stream, including at most one native memory-tool round. In
+bilingual mode the prompt requests a native-language explanation first (including how to say the target
+phrase in the target language) and a target-language equivalent second.
+8. Parses the completed assistant response. In bilingual mode, the transcript/history carry native and
+target-language parts (`NATIVE`/`TARGET` contract) and TTS receives only the target-language portion.
+Outside bilingual mode, the full cleaned response is used. TTS splits spoken text on full stops,
+keeping dots between decimal digits and consecutive dot runs (ellipses) inside the same fragment.
+Fragments without any Unicode letter or number are not sent to TTS; the complete transcript is
+preserved, including for text-only output.
 9. Synthesizes fragments sequentially, with one retry per failed fragment.
 10. Sends the first successful audio before the complete assistant transcript.
 11. Sends remaining audio in order.
@@ -246,7 +264,9 @@ title and their own timestamps. The lesson reference/context is session-local, n
 association or a separately persisted report. Text chat retains its existing transcript-based flow.
 
 `ChatHistory` rows store role, content, target language, optional plan provenance, conversation, and
-the actual turn modality. Normal assistant replies link to their learner message through `reply_to_id`;
+the actual turn modality. Bilingual transcript structure is carried in WebSocket payloads; persisted
+`content` stores the readable user/assistant transcript text used for history and rewards, not separate
+native/target columns. Normal assistant replies link to their learner message through `reply_to_id`;
 greetings remain unpaired. Existing unpaired messages remain readable but are not inferred as turns.
 Voice sessions are visible in text-chat history. Continuing from text chat supplies textual context
 but normally creates a separate voice conversation.

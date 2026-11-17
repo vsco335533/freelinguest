@@ -83,6 +83,11 @@ identity. The trusted ingress must overwrite forwarding headers as specified in
 WebSocket voice conversation connects from the browser to `/ws/conversation`; production routing must
 forward `/ws/*` to the backend.
 
+The conversation UI renders optional bilingual transcript fields (`text_native`/`text_target`) from the
+WebSocket protocol, preserves original native-language user transcripts with target-language meaning, and
+shows assistant native explanations above target-language equivalents while audio playback remains
+target-language-only. The conversation settings UI exposes the global AUTO/ON/OFF bilingual mode.
+
 ## Shared comprehension client
 
 Listening and Reading share `hooks/useExerciseGeneration.ts` and `lib/exercise-generation.ts`.
