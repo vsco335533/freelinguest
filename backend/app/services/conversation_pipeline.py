@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import time
+import unicodedata
 import uuid
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
@@ -120,7 +121,40 @@ TARGET_LANGUAGE_MIN_CONFIDENCE = 0.6
 # (instead of romanized text) without changing the words recognised.
 _STT_SCRIPT_PROMPTS: dict[str, str] = {
     "te": "నమస్కారం. ఇది తెలుగు సంభాషణ.",
+    "hi": "नमस्ते। यह हिंदी बातचीत है।",
+    "kn": "ನಮಸ್ಕಾರ. ಇದು ಕನ್ನಡ ಸಂಭಾಷಣೆ.",
+    "ta": "வணக்கம். இது தமிழ் உரையாடல்.",
+    "ml": "നമസ്കാരം. ഇത് മലയാളം സംഭാഷണമാണ്.",
+    "bn": "নমস্কার। এটা একটা কথোপকথন।",
 }
+# Whisper has no Odia model. Odia speech is recognised as Bengali (the closest
+# supported language: same Eastern Indo-Aryan family, parallel Unicode script) and
+# the Bengali-script output is converted letter by letter to Odia script.
+_STT_RECOGNITION_FALLBACKS: dict[str, str] = {"or": "bn"}
+_BRAHMIC_BLOCK_START: dict[str, int] = {"bn": 0x0980, "or": 0x0B00}
+_BRAHMIC_SPECIAL: dict[tuple[str, str], dict[str, str]] = {
+    # Bengali khanda ta has no Odia letter; Odia writes it as ta + virama.
+    ("bn", "or"): {"ৎ": "ତ୍", "য়": "ୟ"},
+}
+
+
+def _convert_brahmic_script(text: str, source: str, target: str) -> str:
+    """Map letters between ISCII-aligned Indic Unicode blocks (e.g. Bengali to Odia)."""
+    if source == target or source not in _BRAHMIC_BLOCK_START:
+        return text
+    for old, new in _BRAHMIC_SPECIAL.get((source, target), {}).items():
+        text = text.replace(old, new)
+    src, dst = _BRAHMIC_BLOCK_START[source], _BRAHMIC_BLOCK_START[target]
+    out: list[str] = []
+    for char in text:
+        offset = ord(char) - src
+        if 0 <= offset < 0x80:
+            mapped = chr(dst + offset)
+            if unicodedata.category(mapped) != "Cn":
+                out.append(mapped)
+                continue
+        out.append(char)
+    return "".join(out)
 
 
 def _is_non_latin_language(iso_code: str) -> bool:
@@ -395,11 +429,13 @@ class ConversationPipeline:
         if not self._bilingual_enabled:
             return await self._stt_text(audio_bytes, self._stt_language), self._target_iso
         language, confidence = await self._detect_spoken_language(audio_bytes)
+        recognition = _STT_RECOGNITION_FALLBACKS.get(language, language)
         options: dict[str, object] = {"vad_filter": True}
-        prompt = _STT_SCRIPT_PROMPTS.get(language)
+        prompt = _STT_SCRIPT_PROMPTS.get(recognition)
         if prompt:
             options["prompt"] = prompt
-        transcript = await self._stt_text(audio_bytes, language, **options)
+        transcript = await self._stt_text(audio_bytes, recognition, **options)
+        transcript = _convert_brahmic_script(transcript, recognition, language)
         if (
             language == self._native_language_code
             and not self._native_is_latin()
@@ -617,7 +653,9 @@ class ConversationPipeline:
                     attempts,
                 )
                 if native and self._native_tts is not None:
-                    audio = await self._native_tts.synthesize(text)
+                    audio = await self._native_tts.synthesize(
+                        text, language=self._native_language_code
+                    )
                 else:
                     audio = await self.tts.synthesize(
                         text, self._voice or None, self._target_language
@@ -668,16 +706,22 @@ class ConversationPipeline:
 
     @staticmethod
     def _split_tts_sentences(text: str) -> list[str]:
-        """Split on full stops while preserving decimals and ellipses for speech."""
+        """Split on full stops while preserving decimals and ellipses for speech.
+
+        The danda (।) is the full stop of Hindi and Odia replies.
+        """
         chunks: list[str] = []
         start = 0
         for idx, char in enumerate(text):
-            if char != ".":
+            if char not in (".", "।"):
                 continue
-            if (idx > 0 and text[idx - 1] == ".") or (idx + 1 < len(text) and text[idx + 1] == "."):
+            if char == "." and (
+                (idx > 0 and text[idx - 1] == ".") or (idx + 1 < len(text) and text[idx + 1] == ".")
+            ):
                 continue
             if (
-                idx > 0
+                char == "."
+                and idx > 0
                 and idx + 1 < len(text)
                 and text[idx - 1].isdecimal()
                 and text[idx + 1].isdecimal()

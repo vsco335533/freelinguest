@@ -237,6 +237,51 @@ MISTAKE: none
 ENCOURAGE: none
 REPLY: అవునా! మీకు చాలా మంచిది. మీకు క్రికెట్ ఆడటం చాలా ఇష్టం అన్నమాట. మనం ఇప్పుడు దీనిని ఇంగ్లీషులో ఎలా చెప్తామంటే, I like playing cricket very much. అర్థమైందా? Like అంటే ఇష్టం, playing అంటే ఆడటం, very much అంటే చాలా. అయితే మీరు రోజూ క్రికెట్ ఆడతారా?
 """,
+    ("Hindi", "English"): """Example (student said: मुझे क्रिकेट खेलना बहुत पसंद है):
+CHECK: attempted=no correct=no
+VOCAB: like = पसंद; playing = खेलना; very much = बहुत
+MISTAKE: none
+ENCOURAGE: none
+REPLY: अच्छा! यह तो बहुत अच्छी बात है। मतलब आपको क्रिकेट खेलना बहुत पसंद है। इसे हम इंग्लिश में ऐसे कहते हैं, I like playing cricket very much. समझ आया? Like का मतलब पसंद, playing का मतलब खेलना, very much का मतलब बहुत। तो क्या आप रोज़ क्रिकेट खेलते हैं?
+""",
+    ("Kannada", "English"): """Example (student said: ನನಗೆ ಕ್ರಿಕೆಟ್ ಆಡೋದು ತುಂಬಾ ಇಷ್ಟ):
+CHECK: attempted=no correct=no
+VOCAB: like = ಇಷ್ಟ; playing = ಆಡೋದು; very much = ತುಂಬಾ
+MISTAKE: none
+ENCOURAGE: none
+REPLY: ಹೌದಾ! ತುಂಬಾ ಒಳ್ಳೆಯದು. ಅಂದರೆ ನಿಮಗೆ ಕ್ರಿಕೆಟ್ ಆಡೋದು ತುಂಬಾ ಇಷ್ಟ. ಇದನ್ನು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಹೀಗೆ ಹೇಳುತ್ತೇವೆ, I like playing cricket very much. ಅರ್ಥ ಆಯ್ತಾ? Like ಅಂದರೆ ಇಷ್ಟ, playing ಅಂದರೆ ಆಡೋದು, very much ಅಂದರೆ ತುಂಬಾ. ಹಾಗಾದರೆ ನೀವು ದಿನಾ ಕ್ರಿಕೆಟ್ ಆಡ್ತೀರಾ?
+""",
+    ("Tamil", "English"): """Example (student said: எனக்கு கிரிக்கெட் விளையாடுவது ரொம்ப பிடிக்கும்):
+CHECK: attempted=no correct=no
+VOCAB: like = பிடிக்கும்; playing = விளையாடுவது; very much = ரொம்ப
+MISTAKE: none
+ENCOURAGE: none
+REPLY: அப்படியா! ரொம்ப நல்லது. அப்போ உங்களுக்கு கிரிக்கெட் விளையாடுவது ரொம்ப பிடிக்கும். இதை ஆங்கிலத்தில் இப்படி சொல்லுவோம், I like playing cricket very much. புரிஞ்சுதா? Like என்றால் பிடிக்கும், playing என்றால் விளையாடுவது, very much என்றால் ரொம்ப. அப்போ நீங்க தினமும் கிரிக்கெட் விளையாடுவீங்களா?
+""",
+    ("Malayalam", "English"): """Example (student said: എനിക്ക് ക്രിക്കറ്റ് കളിക്കാൻ വളരെ ഇഷ്ടമാണ്):
+CHECK: attempted=no correct=no
+VOCAB: like = ഇഷ്ടം; playing = കളിക്കുന്നത്; very much = വളരെ
+MISTAKE: none
+ENCOURAGE: none
+REPLY: ആണോ! വളരെ നല്ലത്. അപ്പോൾ നിങ്ങൾക്ക് ക്രിക്കറ്റ് കളിക്കാൻ വളരെ ഇഷ്ടമാണ്. ഇത് ഇംഗ്ലീഷിൽ ഇങ്ങനെ പറയാം, I like playing cricket very much. മനസ്സിലായോ? Like എന്നാൽ ഇഷ്ടം, playing എന്നാൽ കളിക്കുന്നത്, very much എന്നാൽ വളരെ. അപ്പോൾ നിങ്ങൾ ദിവസവും ക്രിക്കറ്റ് കളിക്കാറുണ്ടോ?
+""",
+    ("Odia", "English"): """Example (student said: ମୋତେ କ୍ରିକେଟ ଖେଳିବା ବହୁତ ଭଲ ଲାଗେ):
+CHECK: attempted=no correct=no
+VOCAB: like = ଭଲ ଲାଗେ; playing = ଖେଳିବା; very much = ବହୁତ
+MISTAKE: none
+ENCOURAGE: none
+REPLY: ଆଚ୍ଛା! ବହୁତ ଭଲ କଥା। ତାହାହେଲେ ଆପଣଙ୍କୁ କ୍ରିକେଟ ଖେଳିବା ବହୁତ ଭଲ ଲାଗେ। ଏହାକୁ ଆମେ ଇଂରାଜୀରେ ଏମିତି କହୁ, I like playing cricket very much. ବୁଝିଲେ? Like ମାନେ ଭଲ ଲାଗେ, playing ମାନେ ଖେଳିବା, very much ମାନେ ବହୁତ। ଆପଣ କଣ ପ୍ରତିଦିନ କ୍ରିକେଟ ଖେଳନ୍ତି?
+""",
+}
+
+# Inline "word = meaning" sample for the teaching rule, written in the native language.
+_MEANING_SAMPLES: dict[str, str] = {
+    "Telugu": "like అంటే ఇష్టం",
+    "Hindi": "like का मतलब पसंद",
+    "Kannada": "like ಅಂದರೆ ಇಷ್ಟ",
+    "Tamil": "like என்றால் பிடிக்கும்",
+    "Malayalam": "like എന്നാൽ ഇഷ്ടം",
+    "Odia": "like ମାନେ ଭଲ ଲାଗେ",
 }
 
 
@@ -262,6 +307,8 @@ def _bilingual_tutor_section(
         else ""
     )
     example = _BILINGUAL_EXAMPLES.get((native, target.split(" (")[0]), "")
+    sample = _MEANING_SAMPLES.get(native)
+    meaning_sample = f" (for example: {sample})" if sample else ""
     context = f"\n{learning_context}\n" if learning_context else ""
     return f"""
 Natural {native}-to-{target} tutoring (active; these rules replace the length and language rules above):
@@ -271,7 +318,7 @@ Natural {native}-to-{target} tutoring (active; these rules replace the length an
 - Keep the conversation connected to the current topic; never restart with a new lesson.
 - Encourage naturally and vary your words; never repeat the same encouragement.
 - The student's message is the speech-recognition transcript of exactly what they said, in the language they spoke. It may contain small recognition errors: understand what they meant, but never claim they said something different and never translate their words back to them as if they had said them in {target}.
-- TEACHING RULE (every time the student speaks {native}): react naturally in {native}, then say how THEY would say exactly that in natural {target} (one sentence matching their level), check understanding briefly, explain the 2-3 key {target} words or phrases with their {native} meaning (for example: like అంటే ఇష్టం), and finish with a related follow-up question.
+- TEACHING RULE (every time the student speaks {native}): react naturally in {native}, then say how THEY would say exactly that in natural {target} (one sentence matching their level), check understanding briefly, explain the 2-3 key {target} words or phrases with their {native} meaning{meaning_sample}, and finish with a related follow-up question.
 Write these hidden lines first (never shown or spoken), then REPLY last:
 CHECK: attempted=yes or no, correct=yes or no (attempted=yes only if they spoke {target}; correct=yes if understandable and mostly correct for {cefr_level})
 VOCAB: up to 3 {target} words you taught, as word = {native} meaning, separated by ; (or none)

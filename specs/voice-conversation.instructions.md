@@ -54,11 +54,38 @@ mode at connection time. They are not refreshed globally during the session, exc
 native language before each normal user turn.
 
 The user's global `conversation_bilingual_mode` setting (`auto`, `on`, `off`) is resolved at connection
-time. `auto` enables bilingual beginner support only when the session CEFR level is A1/A2 and the
-resolved native and target languages differ. `on` forces bilingual support for supported language pairs;
+time. `auto` enables adaptive bilingual tutoring when the session CEFR level is A1-B2 and the
+resolved native and target languages differ. `on` enables it at every level when the languages differ;
 `off` disables it. The resolved mode remains fixed for the session, but memory-refresh paths keep the
 current prompt arguments consistent with the latest native-language/profile context available to the
 pipeline.
+
+## Adaptive bilingual tutoring
+
+Bilingual tutoring teaches the target language through the learner's native language. Telugu (`te`),
+Hindi (`hi`), Kannada (`kn`), Tamil (`ta`), Malayalam (`ml`), and Odia (`or`) have dedicated prompt
+examples, script-preserving recognition, and a native voice. Other native languages use the same
+tutoring rules without a dedicated example or native voice.
+
+- Recognition: the spoken language is detected first. The target language is used only when detected
+  with confidence of at least 0.6; any other or uncertain detection, or a detection failure, uses the
+  native language. The utterance is then transcribed once with that explicit language, voice-activity
+  filtering, and a short native-script initial prompt that keeps output in the native script. The
+  transcript is shown and sent to the LLM verbatim; it is never translated or rewritten.
+- Odia: Whisper has no Odia model, so Odia speech is recognised as Bengali and the Bengali-script
+  output is converted letter by letter to Odia script. Accuracy is lower than for the other languages.
+- Phases: when the exposure stage is 3 or lower, each session starts with about four active minutes of
+  native-language teaching, followed by one transition reply that invites short target-language
+  answers. Corrections are explained in the native language.
+- Learning state: exposure stages 1-5 (about 10, 20, 40, 60, and 90 percent target language), an
+  estimated CEFR level, learned vocabulary, common mistakes, and recent encouragement are persisted per
+  study plan in `conversation_learning_states`. A background assessment runs about every 15 active
+  minutes and moves the estimate by at most one level.
+- Reply: hidden metadata lines update the learning state; only the `REPLY` paragraph is shown, stored,
+  and spoken, and its transcript is sent before any audio.
+- Voice: when a native voice service supports the learner's native language, assistant sentences are
+  spoken by that voice, including embedded target-language phrases, and each request names the native
+  language. Without one, only Latin-script target-language segments are spoken by the main TTS.
 
 Suggested conversation topics supply a learner message about the selected topic without naming a
 practice language. The session's resolved target language remains authoritative; starters do not
@@ -164,26 +191,22 @@ A normal turn:
 
 1. Assigns a turn ID and emits `transcribing`.
 2. Transcribes the WAV. In target-language-only mode, STT uses the explicit session target language.
-In bilingual mode, the pipeline also recognizes the user's native language, preserves the original
-native transcript, and derives/displays a target-language meaning/translation when needed; the
-transcript payload includes bilingual fields while TTS remains target-language-only for assistant audio.
+In bilingual mode, recognition follows Adaptive bilingual tutoring.
 3. Returns to `listening` without LLM, completion event, or persistence when no usable user text is obtained.
-4. Emits the final user transcript and appends bilingual-aware user text to in-memory LLM context. In
-bilingual mode, encouragement/progress scoring is updated from recent actual target-language attempts
-and response acceptability (performance-based), not from arbitrary turn counts.
+4. Emits the final user transcript immediately and appends it verbatim to in-memory LLM context. In
+bilingual mode, exposure progress is updated from recent actual target-language attempts and their
+acceptability, not from turn counts.
 5. Refreshes global memories and native language best-effort.
 6. Builds the prompt from system context and up to the latest 20 messages.
-7. Consumes the complete normalized LLM stream, including at most one native memory-tool round. In
-bilingual mode the prompt requests a native-language explanation first (including how to say the target
-phrase in the target language) and a target-language equivalent second.
-8. Parses the completed assistant response. In bilingual mode, the transcript/history carry native and
-target-language parts (`NATIVE`/`TARGET` contract) and TTS receives only the target-language portion.
-Outside bilingual mode, the full cleaned response is used. TTS splits spoken text on full stops,
-keeping dots between decimal digits and consecutive dot runs (ellipses) inside the same fragment.
+7. Consumes the complete normalized LLM stream, including at most one native memory-tool round.
+8. Parses the completed assistant response. In bilingual mode, only the `REPLY` paragraph is shown,
+stored, and spoken (see Adaptive bilingual tutoring). Outside bilingual mode, the full cleaned response
+is used. TTS splits spoken text on full stops and on the danda (`।`, used by Hindi and Odia), keeping dots between decimal digits and consecutive dot runs (ellipses) inside the same fragment.
 Fragments without any Unicode letter or number are not sent to TTS; the complete transcript is
 preserved, including for text-only output.
 9. Synthesizes fragments sequentially, with one retry per failed fragment.
-10. Sends the first successful audio before the complete assistant transcript.
+10. Sends the first successful audio before the complete assistant transcript, except in bilingual
+mode, where the transcript is sent first.
 11. Sends remaining audio in order.
 12. Persists the completed user and assistant messages best-effort.
 13. Emits `listening` and `turn_complete`.

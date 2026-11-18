@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import copy
 import json
 from collections.abc import AsyncGenerator, Awaitable, Callable
 from contextlib import aclosing
@@ -621,6 +622,7 @@ class LLMAdapter:
     def __init__(self):
         self.provider = settings.LLM_PROVIDER
         self._native_tools_available_logged = False
+        self.reasoning_effort: str | None = None
         if self.provider == "ollama":
             self.client = AsyncOpenAI(
                 base_url=f"{settings.OLLAMA_BASE_URL}/v1",
@@ -681,6 +683,18 @@ class LLMAdapter:
                 await asyncio.sleep(RETRY_DELAY_SECONDS * (attempt + 1))
 
         raise last_error
+
+    def with_reasoning_effort(self, effort: str | None) -> LLMAdapter:
+        """Return an adapter that sends ``reasoning_effort`` with every Ollama request.
+
+        Only Ollama uses it ("none" disables the hidden thinking of reasoning models);
+        other providers and an empty effort return this adapter unchanged.
+        """
+        if self.provider != "ollama" or not effort:
+            return self
+        adapter = copy.copy(self)
+        adapter.reasoning_effort = effort
+        return adapter
 
     async def chat(
         self,
@@ -790,6 +804,8 @@ class LLMAdapter:
             extra["max_tokens"] = 4096
         if stream:
             extra["stream_options"] = {"include_usage": True}
+        if self.provider == "ollama" and self.reasoning_effort:
+            extra["extra_body"] = {"reasoning_effort": self.reasoning_effort}
         if tools:
             extra["tools"] = [
                 {

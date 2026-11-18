@@ -16,6 +16,10 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "ollama"
     OLLAMA_BASE_URL: str = "http://host.docker.internal:11434"
     OLLAMA_MODEL: str = "gemma4:e4b"
+    # Optional reasoning_effort for voice conversation requests to Ollama. Empty (default)
+    # keeps the model's own thinking, which the tutor relies on for reply quality; "none"
+    # answers much faster but measurably weakens corrections and native-language balance.
+    OLLAMA_CONVERSATION_REASONING_EFFORT: str = ""
     EXERCISE_GENERATION_TIMEOUT_SECONDS: int = Field(default=600, ge=1)
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-6-luna"
@@ -36,7 +40,7 @@ class Settings(BaseSettings):
     # Optional native-language voice (e.g. local Telugu) used by the bilingual voice tutor
     # for native-script narration. Empty disables it; Latin-script text keeps TTS_PROVIDER.
     NATIVE_TTS_BASE_URL: str = ""
-    NATIVE_TTS_LANGUAGES: list[str] = ["te"]
+    NATIVE_TTS_LANGUAGES: list[str] = ["te", "hi", "kn", "ta", "ml", "or"]
     # True when the native voice also reads embedded Latin-script phrases well (e.g. Indic
     # Parler-TTS): whole sentences then use that one voice instead of switching engines.
     NATIVE_TTS_MIXED_SCRIPT: bool = True

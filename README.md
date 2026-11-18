@@ -62,7 +62,12 @@ tutor, **Lingu**. Use the managed service or run the application on your own inf
    lessons also offer voice practice: confirm a topic preview, then discuss the lesson with help
    informed by your exercise answers. These conversations retain the existing voice limits and
    appear in chat history under the lesson topic.
-   - **Beginner bilingual voice support:** A1/A2 learners can use AUTO/ON/OFF bilingual help (global per user). When enabled, the app can recognize native speech, preserve the original transcript with a target-language meaning, show a native-language explanation before the target-language reply, and speak only the target-language portion. Telugu (	e) is supported as a native/UI language for this flow.
+   - **Adaptive bilingual voice tutoring:** AUTO/ON/OFF bilingual help (global per user; AUTO
+     covers A1-B2). Lingu recognises speech in your native language, shows exactly what you said in
+     your own script, answers in your language while teaching how to say it in the language you are
+     learning, and gradually increases that language as you improve. Telugu, Hindi, Kannada, Tamil,
+     Malayalam, and Odia have dedicated examples and a self-hosted native voice
+     (`docker-compose.speech.yml`). Odia recognition is approximate because Whisper has no Odia model.
 
 Alongside the plan:
 

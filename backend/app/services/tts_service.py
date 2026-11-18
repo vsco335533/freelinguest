@@ -78,7 +78,7 @@ def concat_wav(chunks: list[bytes]) -> bytes:
 
 
 class NativeTTSService:
-    """Client for a self-hosted native-language voice (e.g. Indic Parler-TTS Telugu).
+    """Client for a self-hosted native-language voice (e.g. Indic Parler-TTS).
 
     With ``mixed_script`` the voice reads whole sentences, including embedded
     target-language phrases; otherwise the voice tutor routes Latin-script phrases
@@ -102,11 +102,14 @@ class NativeTTSService:
     async def synthesize(
         self, text: str, voice: str | None = None, language: str | None = None
     ) -> bytes:
-        _ = voice, language  # one voice per service instance
+        _ = voice  # the service picks the speaker for each language
+        payload: dict[str, str] = {"input": text}
+        if language:
+            payload["language"] = language.split("-")[0].lower()
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 f"{self.base_url}/v1/audio/speech",
-                json={"input": text},
+                json=payload,
                 timeout=60.0,
             )
             response.raise_for_status()
@@ -121,10 +124,10 @@ class NativeTTSService:
             and has_non_latin_letters(text)
         )
 
-    async def synthesize_long(self, text: str) -> bytes:
+    async def synthesize_long(self, text: str, language: str | None = None) -> bytes:
         """Synthesize multi-sentence text sentence by sentence and join it as one WAV."""
         parts = [p.strip() for p in _SENTENCE_RE.findall(text) if any(c.isalnum() for c in p)]
-        clips = [await self.synthesize(part) for part in parts]
+        clips = [await self.synthesize(part, language=language) for part in parts]
         return concat_wav(clips)
 
 

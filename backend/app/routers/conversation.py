@@ -520,7 +520,7 @@ async def conversation_ws(
             pass
 
         pipeline = ConversationPipeline(
-            llm=llm_adapter,
+            llm=llm_adapter.with_reasoning_effort(settings.OLLAMA_CONVERSATION_REASONING_EFFORT),
             tts=tts_service,
             stt=stt_service,
             native_tts=getattr(websocket.app.state, "native_tts_service", None),

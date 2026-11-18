@@ -1885,3 +1885,42 @@ class TestNativeToolStreaming:
         assert stream.tools_unsupported is False
         assert len(create.call_args_list) == 3
         assert create.call_args_list[2].kwargs["messages"] == fallback_messages
+
+
+class TestConversationReasoningEffort:
+    def _adapter(self, monkeypatch, provider: str = "ollama"):
+        monkeypatch.setattr("app.core.config.settings.LLM_PROVIDER", provider)
+        monkeypatch.setattr("app.core.config.settings.OLLAMA_MODEL", "gemma4")
+        monkeypatch.setattr("app.core.config.settings.DEEPSEEK_API_KEY", "sk-ds")
+
+        from app.services.llm_adapter import LLMAdapter
+
+        adapter = LLMAdapter()
+        adapter.client = MagicMock()
+        adapter.client.chat.completions.create = AsyncMock(
+            return_value=SimpleNamespace(
+                choices=[SimpleNamespace(message=SimpleNamespace(content="ok"))]
+            )
+        )
+        return adapter
+
+    @pytest.mark.asyncio
+    async def test_ollama_copy_sends_reasoning_effort_without_changing_shared_adapter(
+        self, monkeypatch
+    ):
+        shared = self._adapter(monkeypatch)
+        voice = shared.with_reasoning_effort("none")
+
+        await voice._do_chat([{"role": "user", "content": "hi"}])
+        await shared._do_chat([{"role": "user", "content": "hi"}])
+
+        voice_call, shared_call = shared.client.chat.completions.create.await_args_list
+        assert voice_call.kwargs["extra_body"] == {"reasoning_effort": "none"}
+        assert "extra_body" not in shared_call.kwargs
+        assert shared.reasoning_effort is None
+
+    def test_other_providers_and_empty_effort_keep_the_adapter(self, monkeypatch):
+        deepseek = self._adapter(monkeypatch, "deepseek")
+        assert deepseek.with_reasoning_effort("none") is deepseek
+        ollama = self._adapter(monkeypatch)
+        assert ollama.with_reasoning_effort("") is ollama

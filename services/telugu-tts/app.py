@@ -7,7 +7,8 @@ Engines (TTS_ENGINE):
 - mms (CPU fallback): facebook/mms-tts-tel, CC-BY-NC 4.0 (non-commercial). Native script
   only; the backend then routes English phrases to its main TTS (mixed_script=false).
 
-POST /v1/audio/speech {"input": "..."} -> audio/wav (mono, 16-bit PCM)
+POST /v1/audio/speech {"input": "...", "language": "te"} -> audio/wav (mono, 16-bit PCM)
+  language (optional, default te) picks the parler speaker: te, hi, kn, ta, ml, or.
 GET  /health -> {"status", "engine", "model", "device", "mixed_script"}
 """
 
@@ -32,14 +33,41 @@ ENGINE = os.getenv("TTS_ENGINE", "parler").strip().lower()
 _DEFAULT_MODELS = {"parler": "ai4bharat/indic-parler-tts", "mms": "facebook/mms-tts-tel"}
 MODEL_ID = os.getenv("TTS_MODEL_ID") or _DEFAULT_MODELS.get(ENGINE, "")
 # Indic Parler-TTS picks the voice from a natural-language description. Named speakers keep
-# the voice consistent across sentences (Telugu speakers include Lalitha and Prakash).
-VOICE_DESCRIPTION = os.getenv(
-    "TTS_VOICE_DESCRIPTION",
-    "Lalitha speaks in a warm, friendly and expressive voice at a moderate pace, "
+# the voice consistent across sentences; each language uses one of its recommended speakers.
+_VOICE_STYLE = (
+    "speaks in a warm, friendly and expressive voice at a moderate pace, "
     "pronouncing English words clearly. The recording is of very high quality, with the "
-    "speaker's voice sounding clear and very close up.",
+    "speaker's voice sounding clear and very close up."
 )
+DEFAULT_LANGUAGE = "te"
+_SPEAKERS = {
+    "te": "Lalitha",
+    "hi": "Divya",
+    "kn": "Anu",
+    "ta": "Jaya",
+    "ml": "Anjali",
+    "or": "Debjani",
+}
+# TTS_VOICE_DESCRIPTION keeps overriding the Telugu voice; TTS_VOICE_DESCRIPTION_<LANG>
+# (for example TTS_VOICE_DESCRIPTION_HI) overrides another language.
+def _description_env(lang: str) -> str:
+    if lang == DEFAULT_LANGUAGE:
+        return "TTS_VOICE_DESCRIPTION"
+    return f"TTS_VOICE_DESCRIPTION_{lang.upper()}"
+
+
+VOICE_DESCRIPTIONS = {
+    lang: os.getenv(_description_env(lang), f"{speaker} {_VOICE_STYLE}")
+    for lang, speaker in _SPEAKERS.items()
+}
 SEED = int(os.getenv("TTS_SEED", "42"))
+# Optional torch.compile with a static KV cache (Parler-TTS's documented speed-up; mode
+# "reduce-overhead" uses CUDA graphs). Inputs are padded to fixed bucket lengths so each
+# shape is compiled once at startup. Any compile failure falls back to eager generation.
+COMPILE = os.getenv("TTS_COMPILE", "0").strip().lower() in ("1", "true", "yes")
+COMPILE_MODE = os.getenv("TTS_COMPILE_MODE", "reduce-overhead").strip()
+_PROMPT_BUCKET = 64  # prompt token lengths are padded up to a multiple of this
+_WARMUP_BUCKETS = (64, 128)  # covers short tutor sentences; longer ones compile on demand
 TORCH_THREADS = int(os.getenv("TORCH_THREADS", "4"))
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
@@ -81,20 +109,75 @@ class ParlerEngine:
             self.model.config.text_encoder._name_or_path
         )
         self.sampling_rate = self.model.config.sampling_rate
-        self.description = self.description_tokenizer(VOICE_DESCRIPTION, return_tensors="pt").to(
-            DEVICE
+        self.compiled = False
+        # Static shapes for compiled generation: every description shares one padded length.
+        longest = max(
+            len(self.description_tokenizer(text).input_ids) for text in VOICE_DESCRIPTIONS.values()
         )
+        self.description_length = _round_up(longest, 16)
+        if COMPILE and DEVICE != "cpu":
+            self._compile()
+        self.descriptions = {
+            lang: self._tokenize(self.description_tokenizer, text, self.description_length)
+            for lang, text in VOICE_DESCRIPTIONS.items()
+        }
 
-    def synthesize(self, text: str) -> np.ndarray:
-        prompt = self.tokenizer(text, return_tensors="pt").to(DEVICE)
+    def _tokenize(self, tokenizer: object, text: str, length: int | None) -> object:
+        if not self.compiled or length is None:
+            return tokenizer(text, return_tensors="pt").to(DEVICE)
+        return tokenizer(
+            text, return_tensors="pt", padding="max_length", max_length=length
+        ).to(DEVICE)
+
+    def _prompt_length(self, text: str) -> int | None:
+        if not self.compiled:
+            return None
+        return _round_up(len(self.tokenizer(text).input_ids), _PROMPT_BUCKET)
+
+    def _generate(self, description: object, prompt: object) -> torch.Tensor:
         torch.manual_seed(SEED)  # stable voice character across sentences
-        generation = self.model.generate(
-            input_ids=self.description.input_ids,
-            attention_mask=self.description.attention_mask,
+        return self.model.generate(
+            input_ids=description.input_ids,
+            attention_mask=description.attention_mask,
             prompt_input_ids=prompt.input_ids,
             prompt_attention_mask=prompt.attention_mask,
         )
+
+    def _compile(self) -> None:
+        eager_forward = self.model.forward
+        started = time.perf_counter()
+        logger.info("Compiling (mode=%s); the first start can take several minutes", COMPILE_MODE)
+        try:
+            self.model.generation_config.cache_implementation = "static"
+            self.model.forward = torch.compile(self.model.forward, mode=COMPILE_MODE)
+            self.compiled = True
+            description = self._tokenize(
+                self.description_tokenizer,
+                VOICE_DESCRIPTIONS[DEFAULT_LANGUAGE],
+                self.description_length,
+            )
+            with torch.no_grad():
+                for bucket in _WARMUP_BUCKETS:
+                    prompt = self._tokenize(self.tokenizer, "నమస్కారం. Hello.", bucket)
+                    for _ in range(2 if COMPILE_MODE == "reduce-overhead" else 1):
+                        self._generate(description, prompt)
+            logger.info("Compiled in %.0fs", time.perf_counter() - started)
+        except Exception:
+            logger.exception("Compilation failed; using eager generation")
+            self.model.forward = eager_forward
+            self.model.generation_config.cache_implementation = None
+            self.compiled = False
+            torch.cuda.empty_cache()
+
+    def synthesize(self, text: str, language: str = DEFAULT_LANGUAGE) -> np.ndarray:
+        description = self.descriptions.get(language) or self.descriptions[DEFAULT_LANGUAGE]
+        prompt = self._tokenize(self.tokenizer, text, self._prompt_length(text))
+        generation = self._generate(description, prompt)
         return generation.to(torch.float32).cpu().numpy().squeeze()
+
+
+def _round_up(value: int, step: int) -> int:
+    return max(step, -(-value // step) * step)
 
 
 class MmsEngine:
@@ -112,7 +195,8 @@ class MmsEngine:
 
             self.romanizer = Uroman()
 
-    def synthesize(self, text: str) -> np.ndarray:
+    def synthesize(self, text: str, language: str = DEFAULT_LANGUAGE) -> np.ndarray:
+        _ = language  # one MMS checkpoint speaks one language (Telugu by default)
         if self.romanizer is not None:
             text = self.romanizer.romanize_string(text)
         inputs = self.tokenizer(text, return_tensors="pt").to(DEVICE)
@@ -136,7 +220,12 @@ async def lifespan(_app: FastAPI):
     with torch.no_grad():
         engine.synthesize("నమస్కారం. Hello.")  # warm up kernels before the first request
     _state["engine"] = engine
-    logger.info("Ready engine=%s mixed_script=%s", ENGINE, engine.mixed_script)
+    logger.info(
+        "Ready engine=%s mixed_script=%s compiled=%s",
+        ENGINE,
+        engine.mixed_script,
+        getattr(engine, "compiled", False),
+    )
     yield
 
 
@@ -145,6 +234,7 @@ app = FastAPI(title="FreeLingo native TTS", lifespan=lifespan)
 
 class SpeechRequest(BaseModel):
     input: str = Field(min_length=1, max_length=1000)
+    language: str = Field(default=DEFAULT_LANGUAGE, max_length=10)
 
 
 @app.get("/health")
@@ -179,12 +269,14 @@ def speech(request: SpeechRequest) -> Response:
     if engine is None:
         raise HTTPException(status_code=503, detail="Voice model is still loading")
     text = request.input.strip()
+    language = request.language.split("-")[0].lower()
     started = time.perf_counter()
     with _lock, torch.no_grad():
-        samples = engine.synthesize(text)
+        samples = engine.synthesize(text, language)
     elapsed = time.perf_counter() - started
     logger.info(
-        "synth chars=%d audio_s=%.1f took_s=%.1f",
+        "synth lang=%s chars=%d audio_s=%.1f took_s=%.1f",
+        language,
         len(text),
         len(samples) / engine.sampling_rate,
         elapsed,

@@ -60,6 +60,11 @@ export const BACKEND_SUPPORTED_LOCALES: ReadonlySet<string> = new Set([
   'fi',
   'hr',
   'te',
+  'hi',
+  'kn',
+  'ta',
+  'ml',
+  'or',
 ])
 
 export function isBackendSupportedLocale(

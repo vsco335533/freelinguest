@@ -77,7 +77,8 @@ The following data is scoped to a study plan and therefore isolated between targ
 - user competencies;
 - Listening attempts;
 - Reading attempts;
-- Error Detective, Sentence Order, and Vocabulary Pairs sessions, source content, answers, and game XP.
+- Error Detective, Sentence Order, and Vocabulary Pairs sessions, source content, answers, and game XP;
+- the voice conversation learning state (`conversation_learning_states`).
 
 `progress`, `flashcards`, `user_competencies`, `listening_attempts`, and `reading_attempts` have a
 required `study_plan_id` with `ON DELETE CASCADE`. Lessons also cascade with their plan.

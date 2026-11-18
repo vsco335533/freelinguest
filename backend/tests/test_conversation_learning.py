@@ -699,3 +699,134 @@ async def test_bilingual_reply_text_is_published_before_any_audio() -> None:
         if m[0] == "bytes" or (m[0] == "json" and m[1].get("type") == "transcript")
     ]
     assert kinds.index("assistant") < kinds.index("bytes")
+
+
+# --- Other Indian base languages (Hindi, Kannada, Tamil, Malayalam, Odia) ---------
+
+HINDI_REPLY = """\
+CHECK: attempted=no correct=no
+VOCAB: like = पसंद; playing = खेलना
+MISTAKE: none
+ENCOURAGE: none
+REPLY: अच्छा! इसे इंग्लिश में ऐसे कहते हैं, I like playing cricket. आप रोज़ खेलते हैं?
+"""
+
+
+INDIC_CODES = {"te", "hi", "kn", "ta", "ml", "or"}
+
+
+def _all_native_voices() -> MagicMock:
+    native = MagicMock()
+    native.mixed_script = True
+    native.supports = MagicMock(side_effect=lambda code: code in INDIC_CODES)
+    native.synthesize = AsyncMock(return_value=b"wav")
+    return native
+
+
+def _indic_pipeline(native_language: str, transcripts: dict[str, str], native_tts: object):
+    pipeline = ConversationPipeline(
+        llm=AsyncMock(),
+        tts=AsyncMock(),
+        stt=AsyncMock(),
+        cefr_level="A1",
+        native_language=native_language,
+        target_language="en-GB",
+        bilingual_mode_setting="auto",
+        native_tts=native_tts,
+    )
+
+    async def transcribe(_audio, _name, _mime, *, language, **_options):
+        return transcripts[language]
+
+    async def stream():
+        yield _chunk(HINDI_REPLY)
+
+    pipeline.stt.detect_language = AsyncMock(return_value=(native_language, 0.9))
+    pipeline.stt.transcribe = AsyncMock(side_effect=transcribe)
+    pipeline.llm.chat = AsyncMock(return_value=stream())
+    pipeline.tts.synthesize = AsyncMock(return_value=b"mp3")
+    return pipeline
+
+
+@pytest.mark.parametrize(
+    ("code", "name", "script_word"),
+    [
+        ("hi", "Hindi", "हिंदी"),
+        ("kn", "Kannada", "ಕನ್ನಡ"),
+        ("ta", "Tamil", "தமிழ்"),
+        ("ml", "Malayalam", "മലയാളം"),
+    ],
+)
+@pytest.mark.asyncio
+async def test_indic_base_language_uses_its_own_recognition_and_voice(
+    code: str, name: str, script_word: str
+) -> None:
+    native = _all_native_voices()
+    pipeline = _indic_pipeline(code, {code: "नमस्ते"}, native)
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    (call,) = pipeline.stt.transcribe.await_args_list
+    assert call.kwargs["language"] == code
+    assert script_word in call.kwargs["prompt"]
+    assert native.synthesize.await_args_list
+    assert all(c.kwargs["language"] == code for c in native.synthesize.await_args_list)
+    assert f"{name}-speaking English (UK) tutor" in pipeline._build_prompt(
+        memory_tools_enabled=False
+    )
+    assert not ws.errors()
+
+
+@pytest.mark.asyncio
+async def test_hindi_reply_is_split_into_sentences_at_the_danda() -> None:
+    native = _all_native_voices()
+    pipeline = _indic_pipeline("hi", {"hi": "मुझे क्रिकेट पसंद है"}, native)
+
+    await pipeline._process(b"audio", FakeWS())
+
+    spoken = [c.args[0] for c in native.synthesize.await_args_list]
+    assert spoken[0] == "अच्छा! इसे इंग्लिश में ऐसे कहते हैं, I like playing cricket."
+    assert len(spoken) == 2
+
+
+@pytest.mark.asyncio
+async def test_odia_speech_is_recognised_as_bengali_and_shown_in_odia_script() -> None:
+    pipeline = _indic_pipeline("or", {"bn": "আমি ক্রিকেট খেলি"}, _all_native_voices())
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    (call,) = pipeline.stt.transcribe.await_args_list
+    assert call.kwargs["language"] == "bn"  # Whisper has no Odia model
+    (user,) = ws.transcripts("user")
+    assert user["text"] == user["text_native"] == "ଆମି କ୍ରିକେଟ ଖେଲି"
+
+
+@pytest.mark.asyncio
+async def test_telugu_voice_requests_name_telugu() -> None:
+    native = _native_tts(mixed_script=True)
+    pipeline = _bilingual_pipeline(TELUGU_REPLY, native_tts=native)
+
+    await pipeline._process(b"audio", FakeWS())
+
+    assert native.synthesize.await_args_list
+    assert all(c.kwargs["language"] == "te" for c in native.synthesize.await_args_list)
+
+
+@pytest.mark.parametrize(
+    ("name", "reply_start"),
+    [
+        ("Hindi", "अच्छा!"),
+        ("Kannada", "ಹೌದಾ!"),
+        ("Tamil", "அப்படியா!"),
+        ("Malayalam", "ആണോ!"),
+        ("Odia", "ଆଚ୍ଛା!"),
+    ],
+)
+def test_each_indic_prompt_has_its_own_example_and_no_telugu(name: str, reply_start: str) -> None:
+    prompt = _prompt(native_language=name, bilingual_mode=True)
+    assert f"REPLY: {reply_start}" in prompt
+    assert f"{name}-speaking English (UK) tutor" in prompt
+    assert "అంటే" not in prompt
+

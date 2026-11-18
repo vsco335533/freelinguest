@@ -97,11 +97,30 @@ Neither current TTS adapter chooses a model or voice automatically from the targ
 Both STT adapters require an explicit keyword-only ISO 639-1 language on every transcription call.
 There is no implicit English fallback.
 
-Voice conversation normally transcribes with the resolved session target language. When bilingual
-beginner support is active and the learner's native language differs, the voice pipeline may perform
-additional native-language STT and LLM-based translation to preserve the original native transcript and
-produce a target-language meaning for the transcript/UI/LLM context; assistant TTS remains limited to
-the target-language portion of the response.
+Voice conversation normally transcribes with the resolved session target language. In bilingual
+tutoring it calls `detect_language` (Whisper `POST /detect-language`) and then transcribes once with an
+explicit language, an optional `prompt` (sent to Whisper as `initial_prompt`), and `vad_filter`.
+Recognition rules, including the Odia fallback through Bengali, belong to
+`voice-conversation.instructions.md`.
+
+## Native voice service
+
+`NativeTTSService` is an optional client for a self-hosted native-language voice, enabled by
+`NATIVE_TTS_BASE_URL`. `NATIVE_TTS_LANGUAGES` lists the native language codes it serves (default `te`,
+`hi`, `kn`, `ta`, `ml`, `or`). `NATIVE_TTS_MIXED_SCRIPT` (default true) means the voice also reads
+embedded Latin-script phrases, so whole sentences use it.
+
+- It checks health with `GET {base_url}/health`.
+- It sends `POST {base_url}/v1/audio/speech` with `{"input": text, "language": code}` and a 60-second
+  timeout, and returns WAV audio.
+- Read-aloud of tutor text containing native script uses it sentence by sentence and joins the WAV
+  clips when the user's native language is supported.
+
+The reference service in `services/telugu-tts` runs Indic Parler-TTS on GPU by default and selects a
+named speaker per language: Lalitha (Telugu), Divya (Hindi), Anu (Kannada), Jaya (Tamil), Anjali
+(Malayalam), and Debjani (Odia). `TTS_VOICE_DESCRIPTION` overrides the Telugu description and
+`TTS_VOICE_DESCRIPTION_<LANG>` overrides another language. Requests without `language` use Telugu. Its
+`mms` engine speaks Telugu only.
 
 `WhisperSTTService`:
 

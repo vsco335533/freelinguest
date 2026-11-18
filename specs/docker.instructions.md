@@ -35,8 +35,17 @@ connections use `NEXT_PUBLIC_API_URL=http://localhost:8000`, producing
 `.env.dev` supplies localhost application and billing return URLs for this topology.
 
 It does not define Kokoro or Whisper. Development must therefore select external/cloud speech
-providers or compose the missing local services separately. Its default local speech hostnames are not
-services contained in that file.
+providers or add `docker-compose.speech.yml`, which defines:
+
+- `kokoro`: Kokoro TTS on CPU;
+- `whisper`: Whisper ASR on GPU (`SPEECH_WHISPER_MODEL`, default `large-v3-turbo`);
+- `telugu-tts`: the native voice service built from `services/telugu-tts` on GPU. Despite its
+  historical name it serves Telugu, Hindi, Kannada, Tamil, Malayalam, and Odia, and it needs `HF_TOKEN`
+  with access to the gated Indic Parler-TTS model;
+- backend overrides for `NATIVE_TTS_BASE_URL`, `NATIVE_TTS_LANGUAGES`, and `NATIVE_TTS_MIXED_SCRIPT`.
+
+Both Compose files and both env files are passed together, for example
+`docker compose -f docker-compose.dev.yml -f docker-compose.speech.yml --env-file .env.dev --env-file .env.local up -d`.
 
 `frontend/Dockerfile.dev` is used only by development Compose. Publishing workflows use the production
 backend and frontend Dockerfiles.

@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ### Added
 - Bilingual voice conversation support for beginner learners: AUTO/ON/OFF per-user setting (AUTO enables for A1-A2 when native and target languages differ), native-language STT handling with original transcript preserved and target-language meaning shown, bilingual assistant replies (native explanation first, target-language equivalent below) with target-language-only TTS, and performance-based progressive target-language encouragement.
 - Telugu (`te`) added as a supported native/UI language for conversation/profile flows and language helper labels.
+- Hindi, Kannada, Tamil, Malayalam, and Odia can be chosen as base languages to learn English through adaptive bilingual voice tutoring, with native-script transcripts, a worked teaching example in each language, a native speaker voice per language, and translated bilingual settings labels. Odia speech is recognised through Bengali and converted to Odia script, so its accuracy is lower.
 
 ### Changed
 - Conversation transcript protocol and UI now carry optional bilingual fields so user and assistant messages can display native and target-language text without replacing the original transcript.

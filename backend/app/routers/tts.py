@@ -122,7 +122,7 @@ async def text_to_speech(
     provider = type(tts_service).__name__
     if native_tts is not None and native_tts.should_speak(text, current_user.native_language):
         # Native-script (e.g. Telugu) tutor text: the main TTS cannot speak it.
-        audio = await native_tts.synthesize_long(text)
+        audio = await native_tts.synthesize_long(text, language=current_user.native_language)
         media_type = "audio/wav"
         provider = type(native_tts).__name__
     else:

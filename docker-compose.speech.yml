@@ -46,7 +46,10 @@ services:
       - whisper-cache:/root/.cache
 
   # Native-language voice for the bilingual voice tutor (Indic Parler-TTS, Apache-2.0).
-  # One voice reads Telugu narration with embedded English phrases.
+  # One voice reads Telugu, Hindi, Kannada, Tamil, Malayalam or Odia narration with
+  # embedded English phrases; the backend sends the learner's language per request.
+  # The service keeps its historical name; the mms engine is Telugu-only (set
+  # NATIVE_TTS_LANGUAGES='["te"]' when using it).
   telugu-tts:
     <<: *gpu
     build: ./services/telugu-tts
@@ -54,6 +57,8 @@ services:
     restart: unless-stopped
     environment:
       - TTS_ENGINE=${NATIVE_TTS_ENGINE:-parler}
+      # torch.compile + CUDA graphs for faster speech; falls back automatically on failure.
+      - TTS_COMPILE=${NATIVE_TTS_COMPILE:-1}
       - TTS_MODEL_ID=${NATIVE_TTS_MODEL_ID:-}
       - TTS_VOICE_DESCRIPTION=${NATIVE_TTS_VOICE_DESCRIPTION:-Lalitha speaks in a warm, friendly and expressive voice at a moderate pace, pronouncing English words clearly. The recording is of very high quality, with the speaker's voice sounding clear and very close up.}
       - HF_TOKEN=${HF_TOKEN:-}
@@ -68,7 +73,7 @@ services:
   backend:
     environment:
       NATIVE_TTS_BASE_URL: http://telugu-tts:8890
-      NATIVE_TTS_LANGUAGES: '["te"]'
+      NATIVE_TTS_LANGUAGES: '${NATIVE_TTS_LANGUAGES:-["te","hi","kn","ta","ml","or"]}'
       NATIVE_TTS_MIXED_SCRIPT: ${NATIVE_TTS_MIXED_SCRIPT:-true}
 
 volumes:
