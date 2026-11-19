@@ -153,16 +153,19 @@ async def create_study_plan(
     return plan
 
 
-@router.get("/today", response_model=TodayResponse)
+@router.get("/today", response_model=Optional[TodayResponse])
 @limiter.limit("20/minute")
 async def get_today_lessons(
     request: Request,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    # No plan yet (assessment not taken) is a normal state, not an error:
+    # return 200 + null like /current, so browsers don't log a failed request
+    # on every dashboard/plan/conversation load for new learners.
     active_lang = await get_active_language(db, current_user.id)
     if not active_lang:
-        raise HTTPException(status_code=404, detail="No active language set")
+        return None
     plan_result = await db.execute(
         select(StudyPlan).where(
             StudyPlan.user_language_id == active_lang.id,
@@ -171,7 +174,7 @@ async def get_today_lessons(
     )
     plan = plan_result.scalar_one_or_none()
     if not plan:
-        raise HTTPException(status_code=404, detail="No active study plan found")
+        return None
     total_days = plan.duration_weeks * plan.days_per_week
 
     # Load all existing lessons for this plan at once

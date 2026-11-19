@@ -252,7 +252,7 @@ export default function AdminOverviewPage() {
               <p className="text-fl-fg font-mono text-sm font-semibold tracking-widest uppercase">
                 {t(action.key)}
               </p>
-              <p className="text-fl-muted-2 mt-2 font-mono text-xs font-medium leading-relaxed">
+              <p className="text-fl-muted-2 mt-2 font-mono text-xs leading-relaxed font-medium">
                 {t(action.descriptionKey)}
               </p>
             </Link>

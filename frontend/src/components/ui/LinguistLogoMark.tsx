@@ -111,14 +111,7 @@ export function LinguistLogoMark({
         </g>
 
         {/* Nose */}
-        <rect
-          x="955"
-          y="532"
-          width="65"
-          height="348"
-          rx="32"
-          fill="#1d4ed8"
-        />
+        <rect x="955" y="532" width="65" height="348" rx="32" fill="#1d4ed8" />
 
         {/* Smile */}
         <path
@@ -129,4 +122,3 @@ export function LinguistLogoMark({
     </svg>
   )
 }
-

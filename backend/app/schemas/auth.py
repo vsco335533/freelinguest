@@ -34,6 +34,12 @@ SUPPORTED_LANGUAGES = {
     "da",
     "fi",
     "hr",
+    "hi",
+    "te",
+    "ta",
+    "ml",
+    "or",
+    "kn",
 }
 
 SUPPORTED_TARGET_LANGUAGES: set[str] = {
@@ -80,6 +86,12 @@ SUPPORTED_UI_LOCALES: set[str] = {
     "da",
     "fi",
     "hr",
+    "hi",
+    "te",
+    "ta",
+    "ml",
+    "or",
+    "kn",
 }
 
 VALID_LEARNING_GOALS: set[str] = {

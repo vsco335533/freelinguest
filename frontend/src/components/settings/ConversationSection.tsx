@@ -82,10 +82,11 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvMaxDuration(val)}
-                className={`flex-1 rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convMaxDuration === val
+                className={`flex-1 rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
+                  convMaxDuration === val
                     ? 'neu-button-primary'
                     : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                  }`}
+                }`}
               >
                 {val === 900 ? t('min15') : t('min30')}
               </button>
@@ -103,10 +104,11 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvInactivityTimeout(val)}
-                className={`flex-1 rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convInactivityTimeout === val
+                className={`flex-1 rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
+                  convInactivityTimeout === val
                     ? 'neu-button-primary'
                     : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                  }`}
+                }`}
               >
                 {val === 60 ? t('min1') : val === 180 ? t('min3') : t('min5')}
               </button>
@@ -124,10 +126,11 @@ export function ConversationSection({ title }: { title?: string } = {}) {
                 key={val}
                 type="button"
                 onClick={() => setConvSpeechPause(val)}
-                className={`rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${convSpeechPause === val
+                className={`rounded-xl py-3 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
+                  convSpeechPause === val
                     ? 'neu-button-primary'
                     : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                  }`}
+                }`}
               >
                 {val === 0
                   ? t('speechPauseAuto')

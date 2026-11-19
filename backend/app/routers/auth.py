@@ -166,17 +166,33 @@ async def login(
     db: AsyncSession = Depends(get_db),
     redis: Redis = Depends(get_redis),
 ):
-    result = await db.execute(select(User).where(User.email == data.email))
+    result = await db.execute(
+        select(User).where(func.lower(User.email) == data.email.strip().lower())
+    )
     user = result.scalar_one_or_none()
 
     # Always run bcrypt to prevent timing-based user enumeration
     if user:
         password_ok = verify_password(data.password, user.hashed_password)
+        # Browsers/password managers sometimes add stray whitespace on paste or
+        # autofill. Fall back to the trimmed value so those logins still work,
+        # while passwords that genuinely contain edge spaces keep working too.
+        stripped = data.password.strip()
+        if not password_ok and stripped and stripped != data.password:
+            password_ok = verify_password(stripped, user.hashed_password)
     else:
         dummy_verify()
         password_ok = False
 
     if not password_ok or not user or not user.is_active:
+        logger.info(
+            "login_failed",
+            email=data.email,
+            user_found=user is not None,
+            is_active=bool(user and user.is_active),
+            password_len=len(data.password),
+            password_has_edge_whitespace=data.password != data.password.strip(),
+        )
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
     user.last_login = datetime.now(UTC).replace(tzinfo=None)

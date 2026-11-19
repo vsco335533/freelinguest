@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "அடிப்படை மொழி",
     "fluentBadge": "சரளமாக",
     "targetLanguageLabel": "இலக்கு மொழி",
-    "learningBadge": "கற்கிறீர்கள்"
+    "learningBadge": "கற்கிறீர்கள்",
+    "en-GB": "பிரிட்டிஷ் ஆங்கிலம்",
+    "en-US": "அமெரிக்க ஆங்கிலம்"
   },
   "targetLanguages": {
     "sv-SE": "ஸ்வீடிஷ்",

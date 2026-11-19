@@ -25,7 +25,7 @@ function TopicCard({ topic }: { topic: GrammarTopic }) {
             {topic.level}
           </span>
         </div>
-        <p className="text-fl-label text-fl-muted-2 font-mono font-medium leading-relaxed">
+        <p className="text-fl-label text-fl-muted-2 font-mono leading-relaxed font-medium">
           {topic.summary}
         </p>
         <span className="glass-card text-fl-label text-fl-muted-2 inline-block rounded-full px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase">
@@ -168,7 +168,7 @@ export default function GrammarIndexPage() {
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs font-medium leading-relaxed">
+          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed font-medium">
             {t('topicsFound', { count: topics.length })} · A1 – C2
           </p>
           <input
@@ -181,10 +181,11 @@ export default function GrammarIndexPage() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveCategory('All')}
-              className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${activeCategory === 'All'
+              className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
+                activeCategory === 'All'
                   ? 'neu-button-primary'
                   : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                }`}
+              }`}
             >
               {t('allCategories')}
             </button>
@@ -194,10 +195,11 @@ export default function GrammarIndexPage() {
                 onClick={() =>
                   setActiveCategory(activeCategory === cat ? 'All' : cat)
                 }
-                className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${activeCategory === cat
+                className={`text-fl-label rounded-full px-3.5 py-1.5 font-mono font-semibold tracking-widest uppercase transition-all ${
+                  activeCategory === cat
                     ? 'neu-button-primary'
                     : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                  }`}
+                }`}
               >
                 {cat}
               </button>

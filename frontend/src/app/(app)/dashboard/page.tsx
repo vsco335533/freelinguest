@@ -135,7 +135,7 @@ export default function DashboardPage() {
         setVocabularyTotal(0)
         setVocabularyProgress(0)
       }
-      if (planRes.ok) {
+      if (planRes.ok && plan) {
         setCefrLevel(plan.cefr_level ?? null)
         setPlanId(plan.plan_id ?? null)
         setCompletion(plan.completion ?? null)
@@ -282,8 +282,8 @@ export default function DashboardPage() {
                 {user?.displayName || user?.username}
               </h1>
               <div className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs sm:text-sm">
-                <span className="glass-card inline-flex items-center gap-2 rounded-full px-3 py-1 text-fl-muted-2">
-                  <span className="text-fl-hint tracking-wider uppercase text-fl-muted-3">
+                <span className="glass-card text-fl-muted-2 inline-flex items-center gap-2 rounded-full px-3 py-1">
+                  <span className="text-fl-hint text-fl-muted-3 tracking-wider uppercase">
                     {tLang('baseLanguageLabel')}:
                   </span>
                   <span className="text-fl-fg font-semibold">
@@ -295,8 +295,8 @@ export default function DashboardPage() {
                 </span>
                 <span className="text-blue-500/70">➔</span>
                 {activeLanguage && (
-                  <span className="glass-card inline-flex items-center gap-2 rounded-full px-3 py-1 text-fl-muted-2">
-                    <span className="text-fl-hint tracking-wider uppercase text-fl-muted-3">
+                  <span className="glass-card text-fl-muted-2 inline-flex items-center gap-2 rounded-full px-3 py-1">
+                    <span className="text-fl-hint text-fl-muted-3 tracking-wider uppercase">
                       {tLang('targetLanguageLabel')}:
                     </span>
                     <span className="text-fl-fg font-semibold">
@@ -605,10 +605,11 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={i}
-                      className={`rounded-xl border px-4 py-3 transition-all ${isNext
-                        ? 'border-blue-500/45 bg-blue-500/8 shadow-[0_6px_18px_rgba(37,99,235,0.12)]'
-                        : 'border-fl-border/70 bg-fl-bg/40'
-                        }`}
+                      className={`rounded-xl border px-4 py-3 transition-all ${
+                        isNext
+                          ? 'border-blue-500/45 bg-blue-500/8 shadow-[0_6px_18px_rgba(37,99,235,0.12)]'
+                          : 'border-fl-border/70 bg-fl-bg/40'
+                      }`}
                     >
                       <div className="flex items-center justify-between gap-4">
                         <div>
@@ -642,10 +643,11 @@ export default function DashboardPage() {
                         ) : lesson.id ? (
                           <Link href={`/lesson/${lesson.id}`}>
                             <button
-                              className={`text-fl-caption rounded-lg px-3.5 py-1.5 font-mono tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${isNext
-                                ? 'neu-button-primary font-bold'
-                                : 'neu-button text-fl-fg'
-                                }`}
+                              className={`text-fl-caption rounded-lg px-3.5 py-1.5 font-mono tracking-widest uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
+                                isNext
+                                  ? 'neu-button-primary font-bold'
+                                  : 'neu-button text-fl-fg'
+                              }`}
                             >
                               {t('startLesson')}
                             </button>

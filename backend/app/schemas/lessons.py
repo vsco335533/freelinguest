@@ -58,6 +58,32 @@ class LessonContent(BaseModel):
     grammar_refs: list[str] = []
     unit_id: str | None = None
 
+    @field_validator("exercises", mode="before")
+    @classmethod
+    def drop_invalid_exercises(cls, value: object) -> object:
+        """Keep the valid exercises instead of rejecting the whole lesson.
+
+        Small local models occasionally emit one malformed exercise (e.g.
+        ``"correct": null``). Failing the entire lesson for that leaves the
+        learner's day empty, so invalid items are skipped. If none survive,
+        validation still fails and the LLM adapter's retry kicks in.
+        """
+        if not isinstance(value, list):
+            return value
+        valid: list[ExerciseContent] = []
+        for item in value:
+            try:
+                valid.append(
+                    item
+                    if isinstance(item, ExerciseContent)
+                    else ExerciseContent.model_validate(item)
+                )
+            except ValueError:
+                continue
+        if value and not valid:
+            raise ValueError("lesson has no valid exercises")
+        return valid
+
 
 class LessonResponse(BaseModel):
     id: int

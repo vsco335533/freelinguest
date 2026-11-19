@@ -71,7 +71,7 @@ export function ProgressOverview({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="glass-card relative overflow-hidden rounded-2xl p-5 sm:p-6">
           <div
-            className="bg-gradient-to-b from-sky-400 to-blue-600 absolute inset-y-0 left-0 w-1"
+            className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-sky-400 to-blue-600"
             aria-hidden="true"
           />
           <div className="flex items-center justify-between gap-3">

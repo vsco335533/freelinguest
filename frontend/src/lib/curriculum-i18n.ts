@@ -80,13 +80,20 @@ function resolveEnglishUnitId(
     const byTitle = EN_TITLE_TO_UNIT_ID[title.trim().toLowerCase()]
     if (byTitle) return byTitle
   }
-  if (unitId && isEnglishTarget(targetLanguage) && /^[abc][12]-unit-[1-8]$/.test(unitId)) {
+  if (
+    unitId &&
+    isEnglishTarget(targetLanguage) &&
+    /^[abc][12]-unit-[1-8]$/.test(unitId)
+  ) {
     return unitId
   }
   return null
 }
 
-function extractCefrLevel(cefrLevel?: string | null, title?: string | null): string {
+function extractCefrLevel(
+  cefrLevel?: string | null,
+  title?: string | null
+): string {
   if (cefrLevel) return cefrLevel
   const match = title?.match(/\b(A1|A2|B1|B2|C1|C2)\b/i)
   return match ? match[1].toUpperCase() : ''
@@ -145,7 +152,8 @@ export function localizeLessonTitle(
   }
 
   if (!title) return ''
-  const match = title.match(LESSON_SUFFIX_RE) ?? title.match(ZH_LESSON_SUFFIX_RE)
+  const match =
+    title.match(LESSON_SUFFIX_RE) ?? title.match(ZH_LESSON_SUFFIX_RE)
   if (match) {
     const baseTitle = localizeUnitTitle(
       { unitId, title: match[1].trim(), cefrLevel, targetLanguage },
@@ -157,7 +165,10 @@ export function localizeLessonTitle(
     })
   }
 
-  return localizeUnitTitle({ unitId, title, cefrLevel, targetLanguage }, tCommon)
+  return localizeUnitTitle(
+    { unitId, title, cefrLevel, targetLanguage },
+    tCommon
+  )
 }
 
 /** Localize a curriculum unit competency checklist item when English-based or known. */
@@ -179,4 +190,3 @@ export function localizeChecklistItem(
   }
   return text
 }
-

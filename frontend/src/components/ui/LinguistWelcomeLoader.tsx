@@ -52,8 +52,8 @@ export function LinguistWelcomeLoader({
     >
       {/* Background glass ambient glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/4 -left-1/4 h-[60vh] w-[60vh] rounded-full bg-sky-400/20 blur-3xl animate-pulse" />
-        <div className="absolute -right-1/4 -bottom-1/4 h-[60vh] w-[60vh] rounded-full bg-blue-600/30 blur-3xl animate-pulse" />
+        <div className="absolute -top-1/4 -left-1/4 h-[60vh] w-[60vh] animate-pulse rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="absolute -right-1/4 -bottom-1/4 h-[60vh] w-[60vh] animate-pulse rounded-full bg-blue-600/30 blur-3xl" />
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center gap-3 md:gap-4">
@@ -69,10 +69,7 @@ export function LinguistWelcomeLoader({
           <path className="ln-wave w2" d="M1656,560 Q1716,700 1656,840" />
 
           {/* Headband */}
-          <path
-            className="ln-band"
-            d="M537,438 A486,486 0 0 1 1439,438"
-          />
+          <path className="ln-band" d="M537,438 A486,486 0 0 1 1439,438" />
 
           {/* Ear cups */}
           <path
@@ -91,16 +88,36 @@ export function LinguistWelcomeLoader({
             <circle cx="988" cy="695" r="423" fill="#fff" />
 
             <g className="ln-eye l">
-              <circle cx="771" cy="581" r="120" fill="var(--ln-blue, #2E86C1)" />
+              <circle
+                cx="771"
+                cy="581"
+                r="120"
+                fill="var(--ln-blue, #2E86C1)"
+              />
               <g className="ln-look">
-                <circle cx="769" cy="580" r="55" fill="var(--ln-iris, #5BB0F7)" />
+                <circle
+                  cx="769"
+                  cy="580"
+                  r="55"
+                  fill="var(--ln-iris, #5BB0F7)"
+                />
                 <circle cx="743" cy="552" r="22" fill="#fff" />
               </g>
             </g>
             <g className="ln-eye r">
-              <circle cx="1206" cy="581" r="120" fill="var(--ln-blue, #2E86C1)" />
+              <circle
+                cx="1206"
+                cy="581"
+                r="120"
+                fill="var(--ln-blue, #2E86C1)"
+              />
               <g className="ln-look">
-                <circle cx="1204" cy="580" r="55" fill="var(--ln-iris, #5BB0F7)" />
+                <circle
+                  cx="1204"
+                  cy="580"
+                  r="55"
+                  fill="var(--ln-iris, #5BB0F7)"
+                />
                 <circle cx="1178" cy="552" r="22" fill="#fff" />
               </g>
             </g>
@@ -127,10 +144,7 @@ export function LinguistWelcomeLoader({
         <div className="ln-word" aria-hidden="true">
           {mounted &&
             WORDMARK.map((ch, i) => (
-              <span
-                key={i}
-                style={{ animationDelay: `${0.85 + i * 0.06}s` }}
-              >
+              <span key={i} style={{ animationDelay: `${0.85 + i * 0.06}s` }}>
                 {ch}
               </span>
             ))}
@@ -156,7 +170,7 @@ export function LinguistWelcomeLoader({
         <div className="ln-bar" />
 
         {label && (
-          <p className="mt-2 font-mono text-xs tracking-widest text-white/80 uppercase animate-pulse">
+          <p className="mt-2 animate-pulse font-mono text-xs tracking-widest text-white/80 uppercase">
             {label}
           </p>
         )}
@@ -164,4 +178,3 @@ export function LinguistWelcomeLoader({
     </div>
   )
 }
-

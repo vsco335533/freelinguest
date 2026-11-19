@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "ಮೂಲ ಭಾಷೆ",
     "fluentBadge": "ನಿರರ್ಗಳ",
     "targetLanguageLabel": "ಗುರಿ ಭಾಷೆ",
-    "learningBadge": "ಕಲಿಯುತ್ತಿದ್ದೀರಿ"
+    "learningBadge": "ಕಲಿಯುತ್ತಿದ್ದೀರಿ",
+    "en-GB": "ಬ್ರಿಟಿಷ್ ಇಂಗ್ಲಿಷ್",
+    "en-US": "ಅಮೆರಿಕನ್ ಇಂಗ್ಲಿಷ್"
   },
   "targetLanguages": {
     "sv-SE": "ಸ್ವೀಡಿಷ್",

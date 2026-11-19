@@ -38,10 +38,11 @@ export function AppearanceSection({ title }: { title?: string } = {}) {
                 if (theme !== opt) trackBrowserEvent('appearance_changed')
                 setTheme(opt)
               }}
-              className={`rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${theme === opt
+              className={`rounded-xl px-4 py-2 font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
+                theme === opt
                   ? 'neu-button-primary'
                   : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                }`}
+              }`}
             >
               {opt === 'system'
                 ? t('themeSystem')

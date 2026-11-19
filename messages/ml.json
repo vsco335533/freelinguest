@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "അടിസ്ഥാന ഭാഷ",
     "fluentBadge": "അനായാസം",
     "targetLanguageLabel": "ലക്ഷ്യ ഭാഷ",
-    "learningBadge": "പഠിക്കുന്നു"
+    "learningBadge": "പഠിക്കുന്നു",
+    "en-GB": "ബ്രിട്ടീഷ് ഇംഗ്ലീഷ്",
+    "en-US": "അമേരിക്കൻ ഇംഗ്ലീഷ്"
   },
   "targetLanguages": {
     "sv-SE": "സ്വീഡിഷ്",

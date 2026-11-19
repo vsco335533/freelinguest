@@ -252,7 +252,8 @@ async def test_refresh_keeps_prompt_clean_when_disabled_tools_and_memory_read_fa
 async def test_voice_tts_never_requests_punctuation_only_fragments(
     entrypoint, response, expected_inputs
 ) -> None:
-    pipeline = _make_pipeline()
+    # Native == target: no native-language help, so TTS input is not filtered.
+    pipeline = _make_pipeline(native_language="en")
     pipeline.stt.transcribe = AsyncMock(return_value="Can we continue?")
     pipeline.tts.synthesize = AsyncMock(return_value=b"audio")
 
@@ -276,9 +277,9 @@ async def test_voice_tts_never_requests_punctuation_only_fragments(
         assert "turn_complete" in ws.types()
         synthesis_inputs = [call.args[0] for call in pipeline.tts.synthesize.await_args_list]
         assert synthesis_inputs == expected_inputs
-        assert all(
-            any(char.isalnum() for char in text) for text in synthesis_inputs
-        ), synthesis_inputs
+        assert all(any(char.isalnum() for char in text) for text in synthesis_inputs), (
+            synthesis_inputs
+        )
         assert len([kind for kind, _ in ws.sent if kind == "bytes"]) == len(expected_inputs)
         assert pipeline.history[-1] == {"role": "assistant", "content": response}
     finally:
@@ -640,7 +641,8 @@ async def test_process_empty_transcription() -> None:
 
 @pytest.mark.asyncio
 async def test_process_passes_italian_language_to_stt() -> None:
-    pipeline = _make_pipeline(target_language="it-IT")
+    # Native == target language: STT is pinned to the target ISO code.
+    pipeline = _make_pipeline(target_language="it-IT", native_language="it")
     pipeline.stt.transcribe = AsyncMock(return_value="")
 
     await pipeline._process(b"audio", FakeWS())
@@ -1149,7 +1151,7 @@ async def test_process_discards_partial_text_after_tool_stream_reset() -> None:
 
 @pytest.mark.parametrize("language", ["en-GB", "en-US", "pt-PT"])
 async def test_tts_preserves_regional_language_while_stt_uses_iso(language):
-    pipeline = _make_pipeline(target_language=language)
+    pipeline = _make_pipeline(target_language=language, native_language=language.split("-")[0])
     pipeline.tts.synthesize = AsyncMock(return_value=b"audio")
 
     assert await pipeline._synthesize_chunk("Hello.") == b"audio"
@@ -1944,3 +1946,67 @@ async def test_process_no_llm_output_sends_turn_complete() -> None:
 
     types = ws.types()
     assert "turn_complete" in types
+
+
+# ── Native (base) language support ────────────────────────────────────────────
+
+
+def test_stt_auto_detects_when_base_language_differs_from_target() -> None:
+    pipeline = _make_pipeline(target_language="en-GB", native_language="te")
+    assert pipeline._stt_language is None
+    assert pipeline._prompt_args["native_support"] is True
+
+
+def test_stt_pinned_when_base_language_matches_target() -> None:
+    pipeline = _make_pipeline(target_language="en-GB", native_language="en-US")
+    assert pipeline._stt_language == "en"
+    assert pipeline._prompt_args["native_support"] is False
+
+
+def test_prompt_allows_native_help_only_when_languages_differ() -> None:
+    helped = _make_pipeline(target_language="en-GB", native_language="te").system_prompt
+    assert "Telugu" in helped and "SQUARE BRACKETS" in helped
+    assert "ALWAYS respond in British English, regardless" not in helped
+    plain = _make_pipeline(target_language="en-GB", native_language="en").system_prompt
+    assert "SQUARE BRACKETS" not in plain
+
+
+async def test_native_help_is_shown_but_not_spoken() -> None:
+    pipeline = _make_pipeline(target_language="en-GB", native_language="te")
+    pipeline.tts.synthesize = AsyncMock(return_value=b"audio")
+    ws = FakeWS()
+    text = "What do you like to eat? [మీకు ఏమి తినడం ఇష్టం?]"
+    payload = {"type": "transcript", "role": "assistant", "text": text, "final": True}
+
+    await pipeline._synthesize_and_send_response(
+        ws, text=text, turn_id=1, transcript_payload=payload
+    )
+
+    spoken = [call.args[0] for call in pipeline.tts.synthesize.await_args_list]
+    assert spoken == ["What do you like to eat?"]
+    transcripts = [d for kind, d in ws.sent if kind == "json" and d.get("type") == "transcript"]
+    assert transcripts[0]["text"] == text
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        # Real gemma2:2b failure modes: copied placeholder, English in brackets, wrong script.
+        (
+            "What is your favourite color? <The same question in Telugu >",
+            "What is your favourite color?",
+        ),
+        ("What do you like to eat? [<like to eat what in Telugu>]", "What do you like to eat?"),
+        ("[It is okay, no problem.] What do you like?", "What do you like?"),
+        ("What do you like most? [Cricket은 멋진 스포츠야]", "What do you like most?"),
+        # Genuine Telugu help is kept.
+        (
+            "What do you like to eat? [మీకు ఏమి తినడం ఇష్టం?]",
+            "What do you like to eat? [మీకు ఏమి తినడం ఇష్టం?]",
+        ),
+    ],
+)
+def test_invalid_native_help_is_removed(raw, expected) -> None:
+    from app.services.conversation_pipeline import _clean_native_help
+
+    assert _clean_native_help(raw, "te") == expected

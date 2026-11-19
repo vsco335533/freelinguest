@@ -142,7 +142,7 @@ export function PaywallBanner({
         <h2 className="text-fl-fg mb-3 font-mono text-base font-bold">
           {t(paymentRecovery ? 'pastDueTitle' : context.title)}
         </h2>
-        <p className="text-fl-muted-2 mb-6 font-mono text-sm font-medium leading-relaxed">
+        <p className="text-fl-muted-2 mb-6 font-mono text-sm leading-relaxed font-medium">
           {paymentRecovery
             ? t('pastDueDesc')
             : t(context.desc ?? 'paywallDescTrialUsed')}

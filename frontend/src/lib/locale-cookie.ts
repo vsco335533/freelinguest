@@ -43,7 +43,37 @@ export const BASE_LOCALE_FLAGS: Partial<Record<string, string>> = {
   sv: '/flags/sweden.jpg',
 }
 
-export function isSupportedLocale(value: string | null | undefined): value is Locale {
+/** Region-specific flags for codes like "en-US" that users may have stored. */
+const REGIONAL_BASE_FLAGS: Partial<Record<string, string>> = {
+  'en-US': '/flags/usa.jpg',
+  'en-GB': '/flags/uk.jpg',
+  'pt-BR': '/flags/brazil.jpg',
+  'pt-PT': '/flags/portugal.jpg',
+  'zh-CN': '/flags/china.jpg',
+  'ja-JP': '/flags/japan.jpg',
+  'ko-KR': '/flags/south_korea.jpg',
+}
+
+/** Resolve a flag for a base-language code, accepting "en" or "en-US" forms. */
+export function getBaseLocaleFlag(
+  code: string | null | undefined
+): string | undefined {
+  if (!code) return undefined
+  return (
+    REGIONAL_BASE_FLAGS[code] ??
+    BASE_LOCALE_FLAGS[code] ??
+    BASE_LOCALE_FLAGS[code.split('-')[0].toLowerCase()]
+  )
+}
+
+/** "en-US" -> "en"; used to match a stored regional code to a base locale. */
+export function baseLocaleRoot(code: string | null | undefined): string {
+  return (code ?? '').split('-')[0].toLowerCase()
+}
+
+export function isSupportedLocale(
+  value: string | null | undefined
+): value is Locale {
   return !!value && (SUPPORTED_LOCALES as readonly string[]).includes(value)
 }
 

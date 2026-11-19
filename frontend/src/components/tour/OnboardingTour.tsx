@@ -127,20 +127,20 @@ export default function OnboardingTour() {
   const examples =
     step === 2
       ? [
-        { icon: MessageSquare, label: tNav('tutor') },
-        { icon: Mic, label: tNav('conversation') },
-      ]
+          { icon: MessageSquare, label: tNav('tutor') },
+          { icon: Mic, label: tNav('conversation') },
+        ]
       : step === 4
         ? [
-          { icon: Headphones, label: tNav('listening') },
-          { icon: BookOpen, label: tNav('reading') },
-        ]
+            { icon: Headphones, label: tNav('listening') },
+            { icon: BookOpen, label: tNav('reading') },
+          ]
         : step === 5
           ? [
-            { icon: Search, label: tGames('detectiveTitle') },
-            { icon: Shuffle, label: tGames('sentenceOrderTitle') },
-            { icon: Layers, label: tGames('vocabularyPairsTitle') },
-          ]
+              { icon: Search, label: tGames('detectiveTitle') },
+              { icon: Shuffle, label: tGames('sentenceOrderTitle') },
+              { icon: Layers, label: tGames('vocabularyPairsTitle') },
+            ]
           : []
 
   return (

@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "मूल भाषा",
     "fluentBadge": "धाराप्रवाह",
     "targetLanguageLabel": "लक्ष्य भाषा",
-    "learningBadge": "सीख रहे हैं"
+    "learningBadge": "सीख रहे हैं",
+    "en-GB": "ब्रिटिश अंग्रेज़ी",
+    "en-US": "अमेरिकी अंग्रेज़ी"
   },
   "targetLanguages": {
     "sv-SE": "स्वीडिश",

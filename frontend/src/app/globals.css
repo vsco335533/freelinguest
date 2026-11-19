@@ -526,7 +526,13 @@ html[data-theme='light'] {
         rgba(14, 165, 233, 0.18) 0%,
         transparent 46%
       ),
-      linear-gradient(145deg, #dbeafe 0%, #eff6ff 36%, #ffffff 68%, #e0f2fe 100%);
+      linear-gradient(
+        145deg,
+        #dbeafe 0%,
+        #eff6ff 36%,
+        #ffffff 68%,
+        #e0f2fe 100%
+      );
   }
 
   .glass-panel {

@@ -2,6 +2,8 @@ import os
 import time
 import uuid
 
+import httpx
+
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.responses import FileResponse, Response
 from sqlalchemy import select
@@ -56,6 +58,12 @@ async def tour_narration(
         path = await get_tour_audio(service, locale=locale, text=body.text, voice=body.voice)
     except TimeoutError:
         raise HTTPException(status_code=504, detail="Tour narration timed out")
+    except httpx.ConnectError, httpx.ConnectTimeout:
+        logger.warning("tour_narration_unreachable", locale=locale, step=step)
+        raise HTTPException(
+            status_code=503,
+            detail="TTS service is unreachable. Check that the TTS backend is running.",
+        )
     except Exception:
         logger.exception("tour_narration_failed", locale=locale, step=step)
         raise HTTPException(status_code=503, detail="Tour narration is unavailable")
@@ -117,7 +125,36 @@ async def text_to_speech(
     # should be forwarded. Prevents 400 errors when user switches from OpenAI
     # to local and stale OpenAI voice names (e.g. "nova") remain in localStorage.
     voice = body.voice if settings.TTS_PROVIDER != "local" else None
-    audio = await tts_service.synthesize(text, voice, language=language)
+    try:
+        audio = await tts_service.synthesize(text, voice, language=language)
+    except (httpx.ConnectError, httpx.ConnectTimeout) as exc:
+        logger.warning(
+            "tts_unreachable",
+            trace=trace_id,
+            provider=type(tts_service).__name__,
+            error=str(exc),
+        )
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=(
+                "TTS service is unreachable. "
+                "Check that the TTS backend is running and TTS_BASE_URL is correct."
+            ),
+        ) from exc
+    except httpx.TimeoutException as exc:
+        logger.warning("tts_timeout", trace=trace_id, provider=type(tts_service).__name__)
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="TTS service timed out.",
+        ) from exc
+    except Exception as exc:
+        logger.exception(
+            "tts_synthesis_failed", trace=trace_id, provider=type(tts_service).__name__
+        )
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="TTS synthesis failed.",
+        ) from exc
     synth_ms = (time.perf_counter() - synth_t0) * 1000
     total_ms = (time.perf_counter() - t0) * 1000
 

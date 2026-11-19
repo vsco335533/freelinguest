@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "Base Language",
     "fluentBadge": "Fluent",
     "targetLanguageLabel": "Target Language",
-    "learningBadge": "Learning"
+    "learningBadge": "Learning",
+    "en-GB": "British English",
+    "en-US": "American English"
   },
   "targetLanguages": {
     "sv-SE": "Swedish",

@@ -207,6 +207,12 @@ _NATIVE_LANGUAGE_NAMES: dict[str, str] = {
     "da": "Danish",
     "fi": "Finnish",
     "hr": "Croatian",
+    "hi": "Hindi",
+    "te": "Telugu",
+    "ta": "Tamil",
+    "ml": "Malayalam",
+    "or": "Odia",
+    "kn": "Kannada",
 }
 
 _LESSON_PRACTICE_TITLES: dict[str, str] = {

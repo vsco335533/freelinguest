@@ -34,10 +34,11 @@ export default function TranscriptBubble({
       {/* Avatar */}
       <div className="relative mb-0.5 flex-shrink-0">
         <span
-          className={`pointer-events-none absolute inset-[-5px] rounded-full border-2 transition-[border-color,opacity] duration-700 motion-reduce:animate-none motion-reduce:transition-none ${speaking
+          className={`pointer-events-none absolute inset-[-5px] rounded-full border-2 transition-[border-color,opacity] duration-700 motion-reduce:animate-none motion-reduce:transition-none ${
+            speaking
               ? 'border-fl-accent/65 animate-halo-speaking'
               : 'border-fl-accent/15'
-            }`}
+          }`}
         />
         <div className="border-fl-border h-7 w-7 overflow-hidden rounded-full border">
           {!isUser ? (
@@ -78,11 +79,13 @@ export default function TranscriptBubble({
         <TargetLanguageText
           as="div"
           languageCode={languageCode}
-          className={`max-w-[70ch] rounded-2xl border px-4 py-3 ${onPointerUp ? 'word-selectable cursor-text select-text' : ''
-            } ${isUser
+          className={`max-w-[70ch] rounded-2xl border px-4 py-3 ${
+            onPointerUp ? 'word-selectable cursor-text select-text' : ''
+          } ${
+            isUser
               ? 'neu-button-primary border-blue-400/40'
               : 'glass-card text-fl-fg'
-            }`}
+          }`}
           onPointerUp={onPointerUp}
         >
           {text}

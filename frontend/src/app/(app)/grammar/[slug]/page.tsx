@@ -367,7 +367,7 @@ function GrammarTopicContent({
               <p className="text-fl-label text-fl-accent mb-1 font-mono font-bold tracking-widest uppercase">
                 {t('structure')}
               </p>
-              <p className="text-fl-fg font-sans text-sm font-medium leading-relaxed">
+              <p className="text-fl-fg font-sans text-sm leading-relaxed font-medium">
                 {topic.structure}
               </p>
             </div>
@@ -575,7 +575,7 @@ function GrammarTopicContent({
                   {ex.text}
                 </p>
                 {ex.note && (
-                  <p className="text-fl-muted-2 font-sans text-sm font-medium leading-relaxed italic">
+                  <p className="text-fl-muted-2 font-sans text-sm leading-relaxed font-medium italic">
                     {ex.note}
                   </p>
                 )}
@@ -616,7 +616,7 @@ function GrammarTopicContent({
                   </div>
                 )}
                 {m.note && (
-                  <p className="text-fl-muted-2 max-w-[70ch] pl-5 font-sans text-sm font-medium leading-relaxed">
+                  <p className="text-fl-muted-2 max-w-[70ch] pl-5 font-sans text-sm leading-relaxed font-medium">
                     {m.note}
                   </p>
                 )}

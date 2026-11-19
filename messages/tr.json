@@ -1558,7 +1558,9 @@
     "baseLanguageLabel": "Base Language",
     "fluentBadge": "Fluent",
     "targetLanguageLabel": "Target Language",
-    "learningBadge": "Learning"
+    "learningBadge": "Learning",
+    "en-GB": "İngiliz İngilizcesi",
+    "en-US": "Amerikan İngilizcesi"
   },
   "targetLanguages": {
     "sv-SE": "İsveççe",

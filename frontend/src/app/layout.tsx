@@ -22,6 +22,10 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  // Not preloaded: Geist Mono is a secondary font (branding, version labels,
+  // code blocks). Preloading it on every page triggers a browser warning on
+  // pages where it is not in the initial viewport (login, auth routes, etc.).
+  preload: false,
 })
 
 const notoSansJP = Noto_Sans_JP({

@@ -98,7 +98,10 @@ function LoginForm() {
           }
         }
         if (obsolete()) return
-        if (isSupportedLocale(preferredLocale) && preferredLocale !== activeLocale) {
+        if (
+          isSupportedLocale(preferredLocale) &&
+          preferredLocale !== activeLocale
+        ) {
           window.location.assign('/dashboard')
           return
         }

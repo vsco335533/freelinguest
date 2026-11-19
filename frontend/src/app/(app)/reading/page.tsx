@@ -354,10 +354,7 @@ function ReadingPage() {
         ) : (
           <div className="space-y-3">
             {history.map((item) => (
-              <div
-                key={item.id}
-                className="glass-card rounded-2xl p-4"
-              >
+              <div key={item.id} className="glass-card rounded-2xl p-4">
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-fl-fg truncate font-mono text-xs font-bold tracking-wide">
@@ -633,10 +630,7 @@ function ReadingPage() {
               </p>
               <div className="space-y-4">
                 {exercise.questions.map((q) => (
-                  <div
-                    key={q.index}
-                    className="glass-card rounded-2xl p-5"
-                  >
+                  <div key={q.index} className="glass-card rounded-2xl p-5">
                     <TargetLanguageText
                       as="p"
                       languageCode={exercise.target_language}

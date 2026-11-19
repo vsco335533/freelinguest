@@ -10,4 +10,10 @@ case "$1" in
 esac
 shift
 require_local_runtimes
+if [[ "${1:-}" == "npm" && "${2:-}" == "run" && "${3:-}" == "dev" ]]; then
+  if [[ -z "${SWC_NATIVE_BINDING_CACHE:-}" ]]; then
+    export SWC_NATIVE_BINDING_CACHE="/tmp/freelingo-swc"
+  fi
+  mkdir -p "${SWC_NATIVE_BINDING_CACHE}"
+fi
 exec "$@"

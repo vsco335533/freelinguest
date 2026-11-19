@@ -278,7 +278,7 @@ function CategoryCard({
               </TargetLanguageText>
               <div className="flex shrink-0 items-center gap-1.5">
                 <span
-                  className={`text-fl-label rounded-full border border-fl-border/60 bg-white/50 px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
+                  className={`text-fl-label border-fl-border/60 rounded-full border bg-white/50 px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${REGISTER_COLORS[phrase.register]}`}
                 >
                   {t(phrase.register)}
                 </span>
@@ -464,7 +464,7 @@ export default function PhrasebookPage() {
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs font-medium leading-relaxed">
+          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed font-medium">
             {t('statsLine', {
               situationCount: categories.length,
               phraseCount: totalPhrases,

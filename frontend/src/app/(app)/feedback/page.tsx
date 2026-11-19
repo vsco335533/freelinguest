@@ -49,8 +49,7 @@ const PAGE_SIZE = 10
 
 const STATUS_STYLES: Record<string, string> = {
   pending: 'border-fl-border text-fl-muted-2 bg-white/40 dark:bg-white/5',
-  planned:
-    'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  planned: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
   in_progress:
     'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   done: 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300',
@@ -369,7 +368,7 @@ function DetailView({
             </h2>
             <StatusBadge status={entry.status} label={statusLabel} />
           </div>
-          <p className="text-fl-fg font-mono text-xs font-medium leading-relaxed whitespace-pre-wrap">
+          <p className="text-fl-fg font-mono text-xs leading-relaxed font-medium whitespace-pre-wrap">
             {entry.description}
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -430,7 +429,7 @@ function DetailView({
                     </button>
                   )}
                 </div>
-                <p className="text-fl-fg font-mono text-xs font-medium leading-relaxed whitespace-pre-wrap">
+                <p className="text-fl-fg font-mono text-xs leading-relaxed font-medium whitespace-pre-wrap">
                   {c.body}
                 </p>
               </div>
@@ -890,7 +889,7 @@ function FeedbackContent() {
                         </span>
                       )}
                     </div>
-                    <p className="text-fl-muted-2 line-clamp-2 font-mono text-xs font-medium leading-relaxed">
+                    <p className="text-fl-muted-2 line-clamp-2 font-mono text-xs leading-relaxed font-medium">
                       {entry.description}
                     </p>
                     <div className="flex flex-wrap items-center gap-3">

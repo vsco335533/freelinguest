@@ -76,7 +76,7 @@ export default function OnboardingPage() {
 
   const targetLanguageName = tLang(
     getLanguageByCode(targetLanguage)?.iso639 ??
-    DEFAULT_TARGET_LANGUAGE.split('-')[0]
+      DEFAULT_TARGET_LANGUAGE.split('-')[0]
   )
 
   useEffect(() => {
@@ -273,10 +273,11 @@ export default function OnboardingPage() {
                       key={goal}
                       type="button"
                       onClick={() => toggleGoal(goal)}
-                      className={`text-fl-label px-3 py-3 text-left font-mono tracking-widest uppercase transition-all ${active
+                      className={`text-fl-label px-3 py-3 text-left font-mono tracking-widest uppercase transition-all ${
+                        active
                           ? 'neu-button-primary font-bold'
                           : 'neu-button text-fl-muted-2 hover:text-fl-fg'
-                        }`}
+                      }`}
                     >
                       {t(`goals.${goal}`)}
                     </button>
@@ -327,10 +328,11 @@ export default function OnboardingPage() {
                       type="button"
                       disabled={checkoutLoading !== null}
                       onClick={() => handleCheckout(plan)}
-                      className={`w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-50 ${isPrimary
+                      className={`w-full py-3 font-mono text-sm font-bold tracking-widest uppercase disabled:opacity-50 ${
+                        isPrimary
                           ? 'neu-button-primary'
                           : 'neu-button text-fl-muted-1 hover:text-fl-fg'
-                        }`}
+                      }`}
                     >
                       {checkoutLoading === plan ? (
                         '...'
@@ -345,10 +347,11 @@ export default function OnboardingPage() {
                           <span>{yearlyCta.main}</span>
                           {yearlyCta.savings && (
                             <span
-                              className={`text-xs ${isPrimary
+                              className={`text-xs ${
+                                isPrimary
                                   ? 'text-fl-accent-fg'
                                   : 'text-fl-muted-3'
-                                }`}
+                              }`}
                             >
                               {yearlyCta.savings}
                             </span>

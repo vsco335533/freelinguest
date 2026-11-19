@@ -93,7 +93,10 @@ export function ActivityHistory({
             <span key={day.key}>{weekdayFormat.format(day.date)}</span>
           ))}
         </div>
-        <ul aria-label={t('title')} className="grid grid-cols-7 gap-1.5 sm:gap-2">
+        <ul
+          aria-label={t('title')}
+          className="grid grid-cols-7 gap-1.5 sm:gap-2"
+        >
           {days.map((day) => {
             const label = `${dateFormat.format(day.date)}: ${tOverview(day.active ? 'activeDay' : 'inactiveDay')}, ${number.format(day.xp)} ${tCommon('xpUnit')}`
             return (

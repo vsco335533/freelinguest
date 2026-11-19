@@ -89,7 +89,7 @@ export function LandingNav({
           disabled={updatingLang}
           aria-label={tCommon('baseLanguageSelect')}
           aria-expanded={langOpen}
-          className="neu-button text-fl-fg hover:text-blue-500 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-xs font-medium tracking-wide transition-all"
+          className="neu-button text-fl-fg inline-flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-xs font-medium tracking-wide transition-all hover:text-blue-500"
         >
           {currentLangFlag ? (
             <Image
@@ -100,10 +100,15 @@ export function LandingNav({
               className="border-fl-border shrink-0 rounded-xs border object-cover"
             />
           ) : (
-            <Globe className="size-3.5 shrink-0 text-blue-500" aria-hidden="true" />
+            <Globe
+              className="size-3.5 shrink-0 text-blue-500"
+              aria-hidden="true"
+            />
           )}
           <span className="max-w-[96px] truncate">{currentLangName}</span>
-          <span className="text-fl-muted-3 text-[10px]">{langOpen ? '▴' : '▾'}</span>
+          <span className="text-fl-muted-3 text-[10px]">
+            {langOpen ? '▴' : '▾'}
+          </span>
         </button>
 
         {langOpen && (
@@ -150,7 +155,7 @@ export function LandingNav({
       <Link
         href={hasSession ? '/dashboard' : '/login'}
         onClick={() => setOpen(false)}
-        className="neu-button text-fl-fg hover:text-blue-500 rounded-lg px-3.5 py-1.5 font-mono text-xs font-semibold tracking-widest uppercase transition-all"
+        className="neu-button text-fl-fg rounded-lg px-3.5 py-1.5 font-mono text-xs font-semibold tracking-widest uppercase transition-all hover:text-blue-500"
       >
         {hasSession ? dashboard : signIn}
       </Link>

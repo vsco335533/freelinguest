@@ -294,7 +294,7 @@ export default function LessonPage() {
       .then((d) => {
         if (d?.progress_day !== undefined) setProgressDayAtStart(d.progress_day)
       })
-      .catch(() => { })
+      .catch(() => {})
   }, [])
 
   // Redirect to plan page if the user switches language while viewing a lesson
@@ -419,8 +419,8 @@ export default function LessonPage() {
       // Detect if completing this lesson advanced the plan to the next day
       try {
         const todayRes = await apiFetch('/api/study-plan/today')
-        if (todayRes.ok) {
-          const d = await todayRes.json()
+        const d = todayRes.ok ? await todayRes.json() : null
+        if (d) {
           if (progressDayAtStart >= 0 && d.progress_day > progressDayAtStart) {
             setDayComplete(true)
           }
@@ -450,6 +450,21 @@ export default function LessonPage() {
     }
   }
 
+  const targetLanguageCode =
+    lessonTargetLanguage ?? activeLanguage?.code ?? 'en-GB'
+  const localizedLessonTitle = lesson
+    ? localizeLessonTitle(
+        {
+          title: lesson.title,
+          unitId: getLessonUnitId(lesson),
+          lessonType: lesson.lesson_type,
+          cefrLevel: lesson.cefr_level,
+          targetLanguage: targetLanguageCode,
+        },
+        tCommon
+      )
+    : ''
+
   if (loading) {
     return <PageLoading label={t('loading')} />
   }
@@ -457,7 +472,9 @@ export default function LessonPage() {
   if (loadError) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 p-6">
-        <p className="text-fl-muted-1 font-mono text-sm font-medium">{tError('body')}</p>
+        <p className="text-fl-muted-1 font-mono text-sm font-medium">
+          {tError('body')}
+        </p>
         <button
           onClick={() => {
             setLoadError(false)
@@ -487,7 +504,10 @@ export default function LessonPage() {
         <div className="flex min-h-[60vh] flex-col items-center justify-center gap-6 p-6">
           <div className="neu-glass-card w-full max-w-xl rounded-3xl px-6 py-10 text-center sm:px-10">
             <p className="text-fl-label text-fl-muted-2 mb-4 flex items-center justify-center gap-2 font-mono font-semibold tracking-widest uppercase">
-              <Check className="text-fl-accent size-4 shrink-0" aria-hidden="true" />
+              <Check
+                className="text-fl-accent size-4 shrink-0"
+                aria-hidden="true"
+              />
               {tCommon('complete')}
             </p>
             <p className="text-fl-fg font-mono text-xl font-bold tracking-widest">
@@ -548,20 +568,6 @@ export default function LessonPage() {
   }
 
   const exercise = exercises[currentExercise]
-  const targetLanguageCode =
-    lessonTargetLanguage ?? activeLanguage?.code ?? 'en-GB'
-  const localizedLessonTitle = lesson
-    ? localizeLessonTitle(
-      {
-        title: lesson.title,
-        unitId: getLessonUnitId(lesson),
-        lessonType: lesson.lesson_type,
-        cefrLevel: lesson.cefr_level,
-        targetLanguage: targetLanguageCode,
-      },
-      tCommon
-    )
-    : ''
   const isEvaluated = exercise?.score !== null
   const isAnswerCorrect = (exercise?.score ?? 0) >= 1
   const exerciseCorrections = (exercise?.corrections ?? []).filter(
@@ -577,9 +583,9 @@ export default function LessonPage() {
     exerciseCorrections.length > 0
   const answerSegments =
     exercise?.exercise_type === 'free_write' &&
-      isEvaluated &&
-      exercise?.user_answer &&
-      exerciseCorrections.length > 0
+    isEvaluated &&
+    exercise?.user_answer &&
+    exerciseCorrections.length > 0
       ? annotateAnswer(exercise.user_answer, exerciseCorrections)
       : null
   const showAnnotatedAnswer = !!answerSegments?.some((s) => s.type === 'fix')
@@ -620,16 +626,16 @@ export default function LessonPage() {
               <span className="text-fl-hint text-fl-muted-1 border-fl-border rounded-full border bg-white/60 px-2.5 py-1 font-mono font-semibold tracking-widest uppercase">
                 {lesson?.lesson_type
                   ? ((
-                    {
-                      grammar: tPlan('lessonTypes.grammar'),
-                      vocabulary: tPlan('lessonTypes.vocabulary'),
-                      reading: tPlan('lessonTypes.reading'),
-                      writing: tPlan('lessonTypes.writing'),
-                      listening: tPlan('lessonTypes.listening'),
-                      review: tPlan('lessonTypes.review'),
-                      level_test: tPlan('lessonTypes.level_test'),
-                    } as Record<string, string>
-                  )[lesson.lesson_type] ?? lesson.lesson_type)
+                      {
+                        grammar: tPlan('lessonTypes.grammar'),
+                        vocabulary: tPlan('lessonTypes.vocabulary'),
+                        reading: tPlan('lessonTypes.reading'),
+                        writing: tPlan('lessonTypes.writing'),
+                        listening: tPlan('lessonTypes.listening'),
+                        review: tPlan('lessonTypes.review'),
+                        level_test: tPlan('lessonTypes.level_test'),
+                      } as Record<string, string>
+                    )[lesson.lesson_type] ?? lesson.lesson_type)
                   : ''}
               </span>
               <button
@@ -678,42 +684,42 @@ export default function LessonPage() {
                 )}
                 {(explanation.examples as { sentence: string; note: string }[])
                   ?.length > 0 && (
-                    <div className="border-fl-border/60 space-y-2 border-t pt-3">
-                      <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
-                        {t('examples')}
-                      </p>
-                      {(
-                        explanation.examples as {
-                          sentence: string
-                          note: string
-                        }[]
-                      ).map((ex, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <span className="text-fl-muted-3 mt-0.5">·</span>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <TargetLanguageText
-                                languageCode={targetLanguageCode}
-                                className="text-fl-muted-1 italic"
-                              >
-                                {ex.sentence}
-                              </TargetLanguageText>
-                              <AudioPlayer
-                                text={ex.sentence}
-                                studyPlanId={lesson?.study_plan_id}
-                                size="sm"
-                              />
-                            </div>
-                            {ex.note && (
-                              <p className="text-fl-muted-1 mt-0.5 font-sans text-sm leading-relaxed">
-                                {ex.note}
-                              </p>
-                            )}
+                  <div className="border-fl-border/60 space-y-2 border-t pt-3">
+                    <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">
+                      {t('examples')}
+                    </p>
+                    {(
+                      explanation.examples as {
+                        sentence: string
+                        note: string
+                      }[]
+                    ).map((ex, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <span className="text-fl-muted-3 mt-0.5">·</span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <TargetLanguageText
+                              languageCode={targetLanguageCode}
+                              className="text-fl-muted-1 italic"
+                            >
+                              {ex.sentence}
+                            </TargetLanguageText>
+                            <AudioPlayer
+                              text={ex.sentence}
+                              studyPlanId={lesson?.study_plan_id}
+                              size="sm"
+                            />
                           </div>
+                          {ex.note && (
+                            <p className="text-fl-muted-1 mt-0.5 font-sans text-sm leading-relaxed">
+                              {ex.note}
+                            </p>
+                          )}
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
             {/* Native explanation */}
@@ -738,84 +744,84 @@ export default function LessonPage() {
                       )}
                       {(nativeExplanation.key_points as string[])?.length >
                         0 && (
-                          <ul className="space-y-1">
-                            {(nativeExplanation.key_points as string[]).map(
-                              (kp, i) => (
-                                <li
-                                  key={i}
-                                  className="text-fl-muted-1 text-base leading-relaxed"
-                                >
-                                  <span className="text-fl-muted-2 mr-2">·</span>
-                                  {kp}
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        )}
+                        <ul className="space-y-1">
+                          {(nativeExplanation.key_points as string[]).map(
+                            (kp, i) => (
+                              <li
+                                key={i}
+                                className="text-fl-muted-1 text-base leading-relaxed"
+                              >
+                                <span className="text-fl-muted-2 mr-2">·</span>
+                                {kp}
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      )}
                       {(
                         nativeExplanation.examples as {
                           sentence: string
                           note: string
                         }[]
                       )?.length > 0 && (
-                          <div className="space-y-2">
-                            <p className="text-fl-label text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
-                              {t('examples')}
-                            </p>
-                            {(
-                              nativeExplanation.examples as {
-                                sentence: string
-                                note: string
-                              }[]
-                            ).map((ex, i) => (
-                              <div key={i} className="flex items-start gap-3">
-                                <span className="text-fl-muted-3 mt-0.5 text-sm">
-                                  ·
-                                </span>
-                                <div className="min-w-0 flex-1">
-                                  <TargetLanguageText
-                                    languageCode={targetLanguageCode}
-                                    className="text-fl-muted-1 text-sm italic"
-                                  >
-                                    {ex.sentence}
-                                  </TargetLanguageText>
-                                  {ex.note && (
-                                    <p className="text-fl-muted-1 mt-0.5 text-sm leading-relaxed">
-                                      {ex.note}
-                                    </p>
-                                  )}
-                                </div>
+                        <div className="space-y-2">
+                          <p className="text-fl-label text-fl-muted-3 font-mono text-xs tracking-widest uppercase">
+                            {t('examples')}
+                          </p>
+                          {(
+                            nativeExplanation.examples as {
+                              sentence: string
+                              note: string
+                            }[]
+                          ).map((ex, i) => (
+                            <div key={i} className="flex items-start gap-3">
+                              <span className="text-fl-muted-3 mt-0.5 text-sm">
+                                ·
+                              </span>
+                              <div className="min-w-0 flex-1">
+                                <TargetLanguageText
+                                  languageCode={targetLanguageCode}
+                                  className="text-fl-muted-1 text-sm italic"
+                                >
+                                  {ex.sentence}
+                                </TargetLanguageText>
+                                {ex.note && (
+                                  <p className="text-fl-muted-1 mt-0.5 text-sm leading-relaxed">
+                                    {ex.note}
+                                  </p>
+                                )}
                               </div>
-                            ))}
-                          </div>
-                        )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       {(
                         nativeExplanation.common_traps as {
                           mistake: string
                           fix: string
                         }[]
                       )?.length > 0 && (
-                          <div className="border-fl-border/60 space-y-2 border-t pt-3">
-                            <p className="text-fl-label text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
-                              {t('commonTraps')}
-                            </p>
-                            {(
-                              nativeExplanation.common_traps as {
-                                mistake: string
-                                fix: string
-                              }[]
-                            ).map((trap, i) => (
-                              <div key={i} className="space-y-0.5">
-                                <p className="text-fl-muted-2 text-sm font-medium">
-                                  {trap.mistake}
-                                </p>
-                                <p className="text-fl-muted-1 text-sm leading-relaxed">
-                                  {trap.fix}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                        <div className="border-fl-border/60 space-y-2 border-t pt-3">
+                          <p className="text-fl-label text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
+                            {t('commonTraps')}
+                          </p>
+                          {(
+                            nativeExplanation.common_traps as {
+                              mistake: string
+                              fix: string
+                            }[]
+                          ).map((trap, i) => (
+                            <div key={i} className="space-y-0.5">
+                              <p className="text-fl-muted-2 text-sm font-medium">
+                                {trap.mistake}
+                              </p>
+                              <p className="text-fl-muted-1 text-sm leading-relaxed">
+                                {trap.fix}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       {(
                         nativeExplanation.mini_glossary as {
                           term: string
@@ -823,36 +829,36 @@ export default function LessonPage() {
                           note?: string
                         }[]
                       )?.length > 0 && (
-                          <div className="border-fl-border/60 space-y-2 border-t pt-3">
-                            <p className="text-fl-label text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
-                              {t('miniGlossary')}
-                            </p>
-                            {(
-                              nativeExplanation.mini_glossary as {
-                                term: string
-                                meaning: string
-                                note?: string
-                              }[]
-                            ).map((item, i) => (
-                              <div key={i}>
-                                <TargetLanguageText
-                                  languageCode={targetLanguageCode}
-                                  className="text-fl-muted-1 text-sm font-bold"
-                                >
-                                  {item.term}
-                                </TargetLanguageText>
-                                <p className="text-fl-muted-2 text-sm font-medium">
-                                  {item.meaning}
+                        <div className="border-fl-border/60 space-y-2 border-t pt-3">
+                          <p className="text-fl-label text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
+                            {t('miniGlossary')}
+                          </p>
+                          {(
+                            nativeExplanation.mini_glossary as {
+                              term: string
+                              meaning: string
+                              note?: string
+                            }[]
+                          ).map((item, i) => (
+                            <div key={i}>
+                              <TargetLanguageText
+                                languageCode={targetLanguageCode}
+                                className="text-fl-muted-1 text-sm font-bold"
+                              >
+                                {item.term}
+                              </TargetLanguageText>
+                              <p className="text-fl-muted-2 text-sm font-medium">
+                                {item.meaning}
+                              </p>
+                              {item.note && (
+                                <p className="text-fl-muted-1 text-sm leading-relaxed">
+                                  {item.note}
                                 </p>
-                                {item.note && (
-                                  <p className="text-fl-muted-1 text-sm leading-relaxed">
-                                    {item.note}
-                                  </p>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div className="mt-3 text-center">
@@ -983,14 +989,15 @@ export default function LessonPage() {
                         key={opt}
                         disabled={isEvaluated || isReview}
                         onClick={() => setAnswer(opt)}
-                        className={`neu-card flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left font-medium transition-all disabled:opacity-100 ${isCorrect
+                        className={`neu-card flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left font-medium transition-all disabled:opacity-100 ${
+                          isCorrect
                             ? 'text-fl-fg border-fl-success/50 bg-fl-success/10'
                             : isWrongSelection
                               ? 'text-fl-fg border-fl-error-fg/50 bg-fl-error-fg/10'
                               : isSelected
                                 ? 'border-fl-accent bg-fl-accent text-fl-accent-fg shadow-md'
                                 : 'border-fl-border/70 text-fl-fg hover:border-fl-accent/50'
-                          }`}
+                        }`}
                       >
                         <TargetLanguageText
                           languageCode={targetLanguageCode}
@@ -1095,11 +1102,11 @@ export default function LessonPage() {
                         'neu-input text-fl-fg placeholder:text-fl-muted-4 min-h-[96px] w-full resize-y rounded-2xl px-4 py-3 font-medium transition-all focus:outline-none disabled:opacity-100',
                         isEvaluated && 'pr-10',
                         isEvaluated &&
-                        (isAnswerCorrect
-                          ? 'border-fl-success/50'
-                          : isPartiallyCorrect
-                            ? 'border-fl-warning/50'
-                            : 'border-fl-error-fg/50')
+                          (isAnswerCorrect
+                            ? 'border-fl-success/50'
+                            : isPartiallyCorrect
+                              ? 'border-fl-warning/50'
+                              : 'border-fl-error-fg/50')
                       )}
                       placeholder={t('yourAnswer')}
                       value={answer}
@@ -1117,12 +1124,13 @@ export default function LessonPage() {
                             ? t('corrections')
                             : t('incorrect')
                       }
-                      className={`absolute top-3 right-3 ${isAnswerCorrect
+                      className={`absolute top-3 right-3 ${
+                        isAnswerCorrect
                           ? 'text-fl-success'
                           : isPartiallyCorrect
                             ? 'text-fl-warning'
                             : 'text-fl-error-fg'
-                        }`}
+                      }`}
                     >
                       {isAnswerCorrect ? (
                         <Check className="size-4" aria-hidden="true" />

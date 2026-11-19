@@ -102,7 +102,7 @@ export function BillingSection() {
             <p className="font-mono text-xs font-bold tracking-widest text-yellow-700 uppercase dark:text-yellow-400">
               {tBilling('pastDueTitle')}
             </p>
-            <p className="text-fl-fg mt-2 font-mono text-sm font-medium leading-relaxed">
+            <p className="text-fl-fg mt-2 font-mono text-sm leading-relaxed font-medium">
               {tBilling('pastDueDesc')}
             </p>
           </div>

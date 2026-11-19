@@ -485,47 +485,48 @@ function ChatContent() {
               )}
               {conversations.length === 0
                 ? !loadingConvs &&
-                !convLoadError && (
-                  <p className="text-fl-label text-fl-muted-3 px-4 py-4 font-mono font-medium">
-                    {t('noConversation')}
-                  </p>
-                )
+                  !convLoadError && (
+                    <p className="text-fl-label text-fl-muted-3 px-4 py-4 font-mono font-medium">
+                      {t('noConversation')}
+                    </p>
+                  )
                 : conversations.map((c) => (
-                  <div
-                    key={c.id}
-                    onClick={() => selectConversation(c.id)}
-                    className={`group mx-2 my-1 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 transition-all ${activeId === c.id
-                        ? 'glass-card border-l-fl-accent border-l-2'
-                        : 'hover:bg-fl-surface-2/60 border-l-2 border-l-transparent'
+                    <div
+                      key={c.id}
+                      onClick={() => selectConversation(c.id)}
+                      className={`group mx-2 my-1 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 transition-all ${
+                        activeId === c.id
+                          ? 'glass-card border-l-fl-accent border-l-2'
+                          : 'hover:bg-fl-surface-2/60 border-l-2 border-l-transparent'
                       }`}
-                  >
-                    <span
-                      className={`text-fl-label truncate pr-1 font-mono leading-tight ${activeId === c.id ? 'text-fl-fg' : 'text-fl-muted-1'}`}
                     >
-                      {c.source === 'voice' && (
-                        <span
-                          className="text-fl-muted-3 mr-1.5"
-                          title={t('voiceSession')}
-                        >
-                          🎤
-                        </span>
-                      )}
-                      {c.title}
-                    </span>
-                    <button
-                      disabled={sending || deletingId !== null}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setDeletePending(c.id)
-                      }}
-                      className="text-fl-label text-fl-error-fg hover:text-fl-error shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
-                      title={t('deleteConfirm')}
-                      aria-label={t('deleteConfirm')}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
+                      <span
+                        className={`text-fl-label truncate pr-1 font-mono leading-tight ${activeId === c.id ? 'text-fl-fg' : 'text-fl-muted-1'}`}
+                      >
+                        {c.source === 'voice' && (
+                          <span
+                            className="text-fl-muted-3 mr-1.5"
+                            title={t('voiceSession')}
+                          >
+                            🎤
+                          </span>
+                        )}
+                        {c.title}
+                      </span>
+                      <button
+                        disabled={sending || deletingId !== null}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setDeletePending(c.id)
+                        }}
+                        className="text-fl-label text-fl-error-fg hover:text-fl-error shrink-0 font-mono opacity-0 transition-all group-hover:opacity-100"
+                        title={t('deleteConfirm')}
+                        aria-label={t('deleteConfirm')}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
             </div>
           </aside>
         )}
@@ -659,13 +660,14 @@ function ChatContent() {
                     <TargetLanguageText
                       as="div"
                       languageCode={targetLanguageCode}
-                      className={`word-selectable max-w-[70ch] rounded-2xl border px-4 py-3 text-left ${msg.role === 'user'
+                      className={`word-selectable max-w-[70ch] rounded-2xl border px-4 py-3 text-left ${
+                        msg.role === 'user'
                           ? 'neu-button-primary border-blue-400/40 text-white'
                           : 'glass-card text-fl-fg-2'
-                        }`}
+                      }`}
                       onPointerUp={
                         msg.role === 'assistant' &&
-                          !(sending && i === messages.length - 1)
+                        !(sending && i === messages.length - 1)
                           ? () => handleTextSelection(msg.content)
                           : undefined
                       }

@@ -12,7 +12,10 @@ export default function GamesPage() {
     <div className="mx-auto max-w-4xl space-y-8 p-6">
       <div className="glass-card overflow-hidden rounded-2xl">
         <div className="border-fl-border/60 flex items-center gap-2 border-b px-6 py-4">
-          <span aria-hidden="true" className="text-fl-label text-fl-accent font-bold">
+          <span
+            aria-hidden="true"
+            className="text-fl-label text-fl-accent font-bold"
+          >
             ●
           </span>
           <h1 className="text-fl-label text-fl-muted-2 font-sans font-bold tracking-widest uppercase">

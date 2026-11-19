@@ -29,9 +29,7 @@ export default function TargetLanguageSelector({
           type="button"
           onClick={() => onChange(lang.code)}
           className={`flex items-center gap-2 rounded-xl px-3.5 py-3 text-left font-mono text-xs font-semibold tracking-widest uppercase transition-all ${
-            value === lang.code
-              ? 'neu-button-primary'
-              : 'neu-button text-fl-fg'
+            value === lang.code ? 'neu-button-primary' : 'neu-button text-fl-fg'
           }`}
         >
           <Image

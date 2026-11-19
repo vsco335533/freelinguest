@@ -568,7 +568,7 @@ function AdminFeedbackContent() {
                         <p className="text-fl-fg line-clamp-1 font-mono text-sm font-bold">
                           {entry.title}
                         </p>
-                        <p className="text-fl-muted-2 mt-1 line-clamp-2 font-mono text-xs font-medium leading-relaxed">
+                        <p className="text-fl-muted-2 mt-1 line-clamp-2 font-mono text-xs leading-relaxed font-medium">
                           {entry.description}
                         </p>
                         <p className="text-fl-label text-fl-muted-2 mt-2 flex flex-wrap items-center gap-x-1 font-mono font-medium">
@@ -642,7 +642,7 @@ function AdminFeedbackContent() {
                               aria-hidden="true"
                             />
                           ) : (
-                            <span className="text-xs font-bold leading-none">
+                            <span className="text-xs leading-none font-bold">
                               X
                             </span>
                           )}
@@ -679,7 +679,7 @@ function AdminFeedbackContent() {
                     <p className="text-fl-fg font-mono text-sm font-bold">
                       {entry.title}
                     </p>
-                    <p className="text-fl-muted-2 mt-1 line-clamp-3 font-mono text-xs font-medium leading-relaxed">
+                    <p className="text-fl-muted-2 mt-1 line-clamp-3 font-mono text-xs leading-relaxed font-medium">
                       {entry.description}
                     </p>
                     <p className="text-fl-label text-fl-muted-2 mt-2 flex flex-wrap items-center gap-x-1 font-mono font-medium">

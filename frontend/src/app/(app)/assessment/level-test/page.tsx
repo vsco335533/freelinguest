@@ -442,7 +442,7 @@ export default function LevelTestPage() {
 
         {/* Question */}
         <div className="space-y-6 p-8">
-          <p className="text-fl-fg font-mono text-sm font-medium leading-relaxed">
+          <p className="text-fl-fg font-mono text-sm leading-relaxed font-medium">
             {q.question}
           </p>
 
@@ -462,7 +462,8 @@ export default function LevelTestPage() {
                   style +=
                     ' glass-card border-green-500 text-green-700 dark:text-green-400 font-semibold'
                 } else if (option === selectedOption && option !== q.correct) {
-                  style += ' glass-card border-red-500 text-red-600 font-semibold'
+                  style +=
+                    ' glass-card border-red-500 text-red-600 font-semibold'
                 } else {
                   style += ' glass-card text-fl-muted-3 opacity-60'
                 }
@@ -498,7 +499,7 @@ export default function LevelTestPage() {
           ) : (
             <div className="space-y-3">
               <div
-                className={`glass-card rounded-xl p-3.5 font-mono text-xs font-semibold leading-relaxed ${
+                className={`glass-card rounded-xl p-3.5 font-mono text-xs leading-relaxed font-semibold ${
                   answers.at(-1)?.correct
                     ? 'border-green-500 text-green-700 dark:text-green-400'
                     : 'border-red-500 text-red-600'

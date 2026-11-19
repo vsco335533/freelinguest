@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "మూల భాష",
     "fluentBadge": "సరళంగా",
     "targetLanguageLabel": "లక్ష్య భాష",
-    "learningBadge": "నేర్చుకుంటున్నారు"
+    "learningBadge": "నేర్చుకుంటున్నారు",
+    "en-GB": "బ్రిటిష్ ఇంగ్లీష్",
+    "en-US": "అమెరికన్ ఇంగ్లీష్"
   },
   "targetLanguages": {
     "sv-SE": "స్వీడిష్",

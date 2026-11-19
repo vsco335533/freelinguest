@@ -131,7 +131,10 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
         setUser(mapUser(me))
 
         const preferredLocale = me.ui_locale || me.native_language
-        if (isSupportedLocale(preferredLocale) && preferredLocale !== activeLocale) {
+        if (
+          isSupportedLocale(preferredLocale) &&
+          preferredLocale !== activeLocale
+        ) {
           stayLoading = true
           persistLocaleCookies(preferredLocale)
           window.location.reload()
@@ -244,10 +247,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${active
+                className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${
+                  active
                     ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_14px_rgba(37,99,235,0.12)]'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                  }`}
+                    : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                }`}
               >
                 <span
                   className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
@@ -279,10 +283,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`glass-nav-item flex items-center gap-3 py-2 pr-3.5 pl-6 font-mono text-xs tracking-wide wrap-anywhere transition-all ${active
+                    className={`glass-nav-item flex items-center gap-3 py-2 pr-3.5 pl-6 font-mono text-xs tracking-wide wrap-anywhere transition-all ${
+                      active
                         ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_12px_rgba(37,99,235,0.1)]'
-                        : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                      }`}
+                        : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                    }`}
                   >
                     <span
                       className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
@@ -304,10 +309,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${active
+                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${
+                    active
                       ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_14px_rgba(37,99,235,0.12)]'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                    }`}
+                      : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                  }`}
                 >
                   <span
                     className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
@@ -328,10 +334,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
           {user?.role === 'admin' && (
             <Link
               href="/admin"
-              className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${pathname.startsWith('/admin')
+              className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere transition-all ${
+                pathname.startsWith('/admin')
                   ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500 shadow-[0_4px_14px_rgba(37,99,235,0.12)]'
-                  : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                }`}
+                  : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+              }`}
             >
               <span className="text-fl-label text-fl-muted-4">●</span>
               {tNav('admin')}
@@ -435,10 +442,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${active
+                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${
+                    active
                       ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                    }`}
+                      : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                  }`}
                 >
                   <span
                     className={`text-fl-label ${active ? 'text-fl-fg' : 'text-fl-muted-4'}`}
@@ -474,10 +482,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`glass-nav-item flex items-center gap-3 py-2 pr-3.5 pl-6 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${active
+                      className={`glass-nav-item flex items-center gap-3 py-2 pr-3.5 pl-6 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${
+                        active
                           ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
-                          : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                        }`}
+                          : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                      }`}
                     >
                       <span
                         className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
@@ -499,10 +508,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${active
+                  className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${
+                    active
                       ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
-                      : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                    }`}
+                      : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                  }`}
                 >
                   <span
                     className={`text-fl-label ${active ? 'text-blue-500' : 'text-fl-muted-4'}`}
@@ -523,10 +533,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${pathname.startsWith('/admin')
+                className={`glass-nav-item flex items-center gap-3 px-3.5 py-2.5 font-mono text-xs tracking-wide wrap-anywhere uppercase transition-all ${
+                  pathname.startsWith('/admin')
                     ? 'border border-blue-500/30 bg-blue-500/12 font-semibold text-blue-500'
-                    : 'text-fl-muted-2 hover:text-fl-fg hover:bg-blue-500/8 border border-transparent'
-                  }`}
+                    : 'text-fl-muted-2 hover:text-fl-fg border border-transparent hover:bg-blue-500/8'
+                }`}
               >
                 <span className="text-fl-label text-fl-muted-4">●</span>
                 {tNav('admin')}

@@ -384,7 +384,9 @@ export default function AdminUserStatsPage() {
           >
             {t('users')}
           </Link>
-          <span className="text-fl-muted-2 text-fl-label font-mono font-semibold">/</span>
+          <span className="text-fl-muted-2 text-fl-label font-mono font-semibold">
+            /
+          </span>
           <span className="text-fl-label text-fl-fg truncate font-mono font-bold tracking-widest uppercase">
             {user.display_name}
           </span>
@@ -403,7 +405,7 @@ export default function AdminUserStatsPage() {
             className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
               user.role === 'admin'
                 ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
-                : 'border-fl-border bg-white/50 text-fl-muted-2'
+                : 'border-fl-border text-fl-muted-2 bg-white/50'
             }`}
           >
             {user.role === 'admin' ? t('roleAdmin') : t('roleUser')}
@@ -561,7 +563,9 @@ export default function AdminUserStatsPage() {
                   <div
                     key={pl.target_language}
                     className={`neu-card rounded-2xl border px-4 py-3.5 ${
-                      isActive ? 'border-fl-accent/50 ring-1 ring-fl-accent/20' : 'border-fl-border/60'
+                      isActive
+                        ? 'border-fl-accent/50 ring-fl-accent/20 ring-1'
+                        : 'border-fl-border/60'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -777,7 +781,7 @@ export default function AdminUserStatsPage() {
                 value={currentPlan}
                 onChange={(e) => setPendingPlan(e.target.value as PlanKey)}
                 disabled={subscriptionSaving}
-                className="neu-input w-full appearance-none rounded-xl px-3.5 py-2.5 font-mono text-xs font-semibold tracking-widest text-fl-fg uppercase transition-all focus:outline-none disabled:opacity-40"
+                className="neu-input text-fl-fg w-full appearance-none rounded-xl px-3.5 py-2.5 font-mono text-xs font-semibold tracking-widest uppercase transition-all focus:outline-none disabled:opacity-40"
               >
                 <option value="none">{tBilling('statusNone')}</option>
                 <option value="monthly">{tBilling('planMonthlyName')}</option>
@@ -851,15 +855,15 @@ function QuotaInput({
       <span className="text-fl-muted-2 font-mono text-xs font-semibold tracking-widest uppercase">
         {label}
       </span>
-      <span className="flex overflow-hidden rounded-xl border border-fl-border/60 shadow-sm">
+      <span className="border-fl-border/60 flex overflow-hidden rounded-xl border shadow-sm">
         <input
           type="number"
           min={0}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={invalid}
-          className={`neu-input min-w-0 flex-1 rounded-l-xl border-0 px-3 py-2 text-right font-mono text-sm font-semibold text-fl-fg focus:outline-none ${
-            invalid ? 'ring-1 ring-fl-error/60' : ''
+          className={`neu-input text-fl-fg min-w-0 flex-1 rounded-l-xl border-0 px-3 py-2 text-right font-mono text-sm font-semibold focus:outline-none ${
+            invalid ? 'ring-fl-error/60 ring-1' : ''
           }`}
         />
         <span className="border-fl-border/60 text-fl-muted-2 rounded-r-xl border-l bg-white/50 px-3 py-2 font-mono text-xs font-semibold">

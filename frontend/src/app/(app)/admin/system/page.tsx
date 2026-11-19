@@ -244,7 +244,7 @@ export default function AdminSystemPage() {
                   className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                     maintenanceMode
                       ? 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-400'
-                      : 'border-fl-border bg-white/40 text-fl-muted-2 dark:bg-white/5'
+                      : 'border-fl-border text-fl-muted-2 bg-white/40 dark:bg-white/5'
                   }`}
                 >
                   {maintenanceMode ? t('maintenanceOn') : t('maintenanceOff')}

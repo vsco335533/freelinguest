@@ -566,7 +566,7 @@ export default function AdminUsersPage() {
               autoCorrect="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="neu-input min-w-0 flex-1 rounded-xl px-4 py-2 font-mono text-xs font-medium text-fl-fg placeholder:text-fl-muted-4 transition-all focus:outline-none"
+              className="neu-input text-fl-fg placeholder:text-fl-muted-4 min-w-0 flex-1 rounded-xl px-4 py-2 font-mono text-xs font-medium transition-all focus:outline-none"
             />
             <button
               type="button"
@@ -580,7 +580,7 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="neu-input appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold text-fl-fg transition-all focus:outline-none"
+            className="neu-input text-fl-fg appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all focus:outline-none"
             aria-label={t('roleFilter')}
           >
             <option value="">{t('allRoles')}</option>
@@ -593,7 +593,7 @@ export default function AdminUsersPage() {
           <select
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value)}
-            className="neu-input appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold text-fl-fg transition-all focus:outline-none"
+            className="neu-input text-fl-fg appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all focus:outline-none"
             aria-label={t('statusFilter')}
           >
             <option value="">{t('allStatuses')}</option>
@@ -607,7 +607,7 @@ export default function AdminUsersPage() {
             <select
               value={subscriptionFilter}
               onChange={(e) => setSubscriptionFilter(e.target.value)}
-              className="neu-input appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold text-fl-fg transition-all focus:outline-none"
+              className="neu-input text-fl-fg appearance-none rounded-xl px-4 py-2 font-mono text-xs font-semibold transition-all focus:outline-none"
               aria-label={t('subscriptionFilter')}
             >
               <option value="">{t('allSubscriptions')}</option>
@@ -692,7 +692,7 @@ export default function AdminUsersPage() {
                           className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                             u.role === 'admin'
                               ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
-                              : 'border-fl-border bg-white/50 text-fl-muted-2'
+                              : 'border-fl-border text-fl-muted-2 bg-white/50'
                           }`}
                         >
                           {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
@@ -735,7 +735,7 @@ export default function AdminUsersPage() {
                             disabled={u.id === currentUserId}
                             className={`inline-flex size-8 items-center justify-center rounded-xl border transition-all ${
                               u.id === currentUserId
-                                ? 'cursor-not-allowed border-fl-border opacity-25'
+                                ? 'border-fl-border cursor-not-allowed opacity-25'
                                 : u.is_active
                                   ? 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg hover:border-fl-error'
                                   : 'neu-button text-fl-muted-1 hover:text-fl-fg'
@@ -806,7 +806,7 @@ export default function AdminUsersPage() {
                         className={`text-fl-hint rounded-full border px-2.5 py-0.5 font-mono font-semibold tracking-widest uppercase ${
                           u.role === 'admin'
                             ? 'border-fl-accent/40 bg-fl-accent/10 text-fl-accent'
-                            : 'border-fl-border bg-white/50 text-fl-muted-2'
+                            : 'border-fl-border text-fl-muted-2 bg-white/50'
                         }`}
                       >
                         {u.role === 'admin' ? t('roleAdmin') : t('roleUser')}
@@ -822,9 +822,11 @@ export default function AdminUsersPage() {
                       </span>
                     </div>
                     <p className="text-fl-label text-fl-muted-2 font-mono font-medium break-all">
-                      <span className="text-fl-muted-2 font-semibold">#{u.id}</span> /{' '}
-                      {u.username.toLowerCase()} {u.email ? `/ ${u.email}` : ''}{' '}
-                      / {u.native_language}
+                      <span className="text-fl-muted-2 font-semibold">
+                        #{u.id}
+                      </span>{' '}
+                      / {u.username.toLowerCase()}{' '}
+                      {u.email ? `/ ${u.email}` : ''} / {u.native_language}
                     </p>
                     {stripeEnabled && (
                       <span
@@ -847,7 +849,7 @@ export default function AdminUsersPage() {
                       disabled={u.id === currentUserId}
                       className={`text-fl-label inline-flex items-center gap-2 rounded-xl border px-3 py-2 font-mono font-semibold tracking-widest uppercase transition-all ${
                         u.id === currentUserId
-                          ? 'cursor-not-allowed border-fl-border opacity-25'
+                          ? 'border-fl-border cursor-not-allowed opacity-25'
                           : u.is_active
                             ? 'border-fl-error/30 bg-fl-error/10 text-fl-error-fg hover:border-fl-error'
                             : 'neu-button text-fl-muted-1 hover:text-fl-fg'

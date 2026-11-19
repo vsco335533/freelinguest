@@ -12,8 +12,9 @@ import { trackBrowserEvent } from '@/lib/analytics'
 import { apiFetch } from '@/lib/api'
 import { mapUser } from '@/lib/mappers'
 import {
-  BASE_LOCALE_FLAGS as BASE_FLAGS,
   ORDERED_BASE_LOCALES as BASE_LANGUAGES,
+  baseLocaleRoot,
+  getBaseLocaleFlag,
   persistLocaleCookies,
 } from '@/lib/locale-cookie'
 
@@ -46,8 +47,9 @@ export default function LanguageSwitcher() {
   const ref = useRef<HTMLDivElement>(null)
 
   const currentBaseCode = user?.native_language || activeLocale || 'en'
-  const currentBaseName = tLang(currentBaseCode) || currentBaseCode.toUpperCase()
-  const currentBaseFlag = BASE_FLAGS[currentBaseCode]
+  const currentBaseName =
+    tLang(currentBaseCode) || currentBaseCode.toUpperCase()
+  const currentBaseFlag = getBaseLocaleFlag(currentBaseCode)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -72,10 +74,7 @@ export default function LanguageSwitcher() {
   }, [open, baseOpen])
 
   async function handleSwitchBase(code: string) {
-    if (
-      (code === currentBaseCode && code === activeLocale) ||
-      baseUpdating
-    ) {
+    if ((code === currentBaseCode && code === activeLocale) || baseUpdating) {
       setBaseOpen(false)
       return
     }
@@ -95,9 +94,17 @@ export default function LanguageSwitcher() {
         setToast(true)
         setTimeout(() => setToast(false), 2500)
         window.location.reload()
+      } else {
+        // Previously ignored: a rejected change just closed the menu with no
+        // feedback, so it looked like the selection "did nothing".
+        setToastMsg(tCommon('errorMessage'))
+        setToast(true)
+        setTimeout(() => setToast(false), 3500)
       }
     } catch {
-      // silent fail
+      setToastMsg(tCommon('errorMessage'))
+      setToast(true)
+      setTimeout(() => setToast(false), 3500)
     } finally {
       setBaseUpdating(false)
       setBaseOpen(false)
@@ -178,7 +185,10 @@ export default function LanguageSwitcher() {
   const multiple = userLanguages.length > 1
 
   return (
-    <div ref={ref} className="relative w-full space-y-2.5 p-3">
+    <div
+      ref={ref}
+      className={`relative w-full space-y-2.5 p-3 ${open || baseOpen ? 'z-40' : ''}`}
+    >
       {toast && (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center">
           <div className="glass-panel animate-fade-up text-fl-fg pointer-events-auto rounded-full px-5 py-2 font-mono text-xs tracking-widest uppercase shadow-xl motion-reduce:animate-none">
@@ -187,8 +197,13 @@ export default function LanguageSwitcher() {
         </div>
       )}
 
-      {/* Base Language Section (Fluent / Known) */}
-      <div className="glass-card relative rounded-xl p-2.5">
+      {/* Base Language Section (Fluent / Known).
+          glass-card's backdrop-filter creates a stacking context, so the
+          dropdown's z-index only counts inside this card. Lift the whole card
+          while open so it paints above the target-language card below it. */}
+      <div
+        className={`glass-card relative rounded-xl p-2.5 ${baseOpen ? 'z-30' : 'z-10'}`}
+      >
         <div className="mb-1.5 flex items-center justify-between gap-1.5">
           <span className="text-fl-muted-3 font-mono text-[10px] font-semibold tracking-wider uppercase">
             {tLang('baseLanguageLabel')}
@@ -204,7 +219,7 @@ export default function LanguageSwitcher() {
               setOpen(false)
             }}
             disabled={baseUpdating}
-            className="neu-button flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left font-mono text-xs text-fl-fg transition-all hover:text-blue-500"
+            className="neu-button text-fl-fg flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left font-mono text-xs transition-all hover:text-blue-500"
           >
             {currentBaseFlag ? (
               <Image
@@ -215,7 +230,7 @@ export default function LanguageSwitcher() {
                 className="border-fl-border shrink-0 rounded-xs border object-cover"
               />
             ) : (
-              <span className="bg-fl-surface-2 text-fl-muted-1 border-fl-border inline-flex h-[13px] w-[18px] items-center justify-center rounded-xs border text-[9px] font-bold">
+              <span className="bg-fl-surface-2 text-fl-muted-1 border-fl-border inline-flex h-[13px] min-w-[18px] shrink-0 items-center justify-center rounded-xs border px-0.5 text-[8px] leading-none font-bold whitespace-nowrap">
                 {currentBaseCode.toUpperCase()}
               </span>
             )}
@@ -228,11 +243,13 @@ export default function LanguageSwitcher() {
           </button>
 
           {baseOpen && (
-            <div className="glass-panel animate-fade-up absolute top-full right-0 left-0 z-50 mt-1.5 max-h-60 overflow-y-auto rounded-xl p-1 shadow-2xl">
+            <div className="glass-panel bg-fl-surface animate-fade-up absolute top-full right-0 left-0 z-50 mt-1.5 max-h-60 overflow-y-auto rounded-xl p-1 shadow-2xl">
               {BASE_LANGUAGES.map((code) => {
                 const name = tLang(code) || code.toUpperCase()
-                const flag = BASE_FLAGS[code]
-                const isActive = code === currentBaseCode
+                const flag = getBaseLocaleFlag(code)
+                const isActive =
+                  code === currentBaseCode ||
+                  code === baseLocaleRoot(currentBaseCode)
                 return (
                   <button
                     key={code}
@@ -253,7 +270,7 @@ export default function LanguageSwitcher() {
                         className="border-fl-border shrink-0 rounded-xs border object-cover"
                       />
                     ) : (
-                      <span className="bg-fl-surface-2 text-fl-muted-1 border-fl-border inline-flex h-[13px] w-[18px] items-center justify-center rounded-xs border text-[9px] font-bold">
+                      <span className="bg-fl-surface-2 text-fl-muted-1 border-fl-border inline-flex h-[13px] min-w-[18px] shrink-0 items-center justify-center rounded-xs border px-0.5 text-[8px] leading-none font-bold whitespace-nowrap">
                         {code.toUpperCase()}
                       </span>
                     )}
@@ -272,7 +289,9 @@ export default function LanguageSwitcher() {
       </div>
 
       {/* Target Language Section (Learning) */}
-      <div className="glass-card relative rounded-xl p-2.5">
+      <div
+        className={`glass-card relative rounded-xl p-2.5 ${open ? 'z-30' : 'z-0'}`}
+      >
         <div className="mb-1.5 flex items-center justify-between gap-1.5">
           <span className="text-fl-muted-3 font-mono text-[10px] font-semibold tracking-wider uppercase">
             {tLang('targetLanguageLabel')}
@@ -309,7 +328,7 @@ export default function LanguageSwitcher() {
         </button>
 
         {open && multiple && (
-          <div className="glass-panel animate-fade-up absolute top-full right-0 left-0 z-50 mt-1.5 max-h-56 overflow-y-auto rounded-xl p-1 shadow-2xl">
+          <div className="glass-panel bg-fl-surface animate-fade-up absolute top-full right-0 left-0 z-50 mt-1.5 max-h-56 overflow-y-auto rounded-xl p-1 shadow-2xl">
             {[...userLanguages]
               .sort((a, b) =>
                 tTarget(a.target_language).localeCompare(

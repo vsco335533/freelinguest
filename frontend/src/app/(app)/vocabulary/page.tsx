@@ -169,7 +169,7 @@ export default function VocabularyIndexPage() {
           </span>
         </div>
         <div className="space-y-4 px-6 py-5">
-          <p className="text-fl-muted-2 font-mono text-xs font-medium leading-relaxed">
+          <p className="text-fl-muted-2 font-mono text-xs leading-relaxed font-medium">
             {t('sets', { count: vocabSets.length })} · {totalWords} {t('words')}
             {usedLevels.length > 0 && (
               <>

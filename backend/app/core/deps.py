@@ -17,8 +17,58 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 MAINTENANCE_KEY = "maintenance_mode"
 
 
+_IN_MEMORY_REDIS_STORE: dict[str, str] = {}
+
+
+class _InMemoryRedis:
+    """Minimal Redis stand-in used only when the real Redis is unreachable (local dev)."""
+
+    def __init__(self, store: dict[str, str]) -> None:
+        self._store = store
+
+    async def setex(self, key, ttl, value):
+        self._store[key] = value
+
+    async def set(self, key, value, *args, **kwargs):
+        self._store[key] = value
+
+    async def get(self, key):
+        return self._store.get(key)
+
+    async def delete(self, *keys):
+        for key in keys:
+            self._store.pop(key, None)
+
+    async def getex(self, key, *args, **kwargs):
+        return self._store.get(key)
+
+    async def scan(self, cursor, match=None, count=None):
+        import fnmatch
+
+        keys = list(self._store.keys())
+        if match:
+            keys = [k for k in keys if fnmatch.fnmatch(k, match)]
+        return (0, keys)
+
+    async def ping(self):
+        return True
+
+    async def aclose(self):
+        pass
+
+
 async def get_redis():
+    # Only the connection attempt is guarded. The yield must stay outside the
+    # try/except: exceptions raised by the endpoint (e.g. HTTPException 401)
+    # are thrown into this generator at the yield, and catching them here
+    # would yield a second time -> "generator didn't stop after athrow()" -> 500.
     redis = Redis.from_url(settings.REDIS_URL, decode_responses=True)
+    try:
+        await redis.ping()
+    except Exception:
+        await redis.aclose()
+        yield _InMemoryRedis(_IN_MEMORY_REDIS_STORE)
+        return
     try:
         yield redis
     finally:

@@ -46,14 +46,17 @@ export default getRequestConfig(async () => {
     headerStore.get('x-next-locale') ?? cookieStore.get('NEXT_LOCALE')?.value
   )
 
-  const defaultMessages = (await import('../../messages/en.json')).default
+  const defaultMessages = (await import('../../../messages/en.json')).default
   let messages = defaultMessages
 
   if (locale !== 'en') {
     try {
-      const localeMessages = (await import(`../../messages/${locale}.json`))
+      const localeMessages = (await import(`../../../messages/${locale}.json`))
         .default
-      messages = deepMerge(defaultMessages, localeMessages)
+      messages = deepMerge(
+        defaultMessages as unknown as Record<string, unknown>,
+        localeMessages as unknown as Record<string, unknown>
+      ) as typeof defaultMessages
     } catch {
       messages = defaultMessages
     }

@@ -28,7 +28,7 @@ export function SettingsPageHeader({
           {title}
         </h1>
         {description && (
-          <p className="text-fl-muted-2 mt-2 max-w-2xl font-mono text-sm font-medium leading-relaxed">
+          <p className="text-fl-muted-2 mt-2 max-w-2xl font-mono text-sm leading-relaxed font-medium">
             {description}
           </p>
         )}
@@ -113,7 +113,7 @@ export function SettingsActionCard({
       <p className="text-fl-fg font-mono text-sm font-semibold tracking-widest uppercase">
         {label}
       </p>
-      <p className="text-fl-muted-2 mt-2 font-mono text-sm font-medium leading-relaxed">
+      <p className="text-fl-muted-2 mt-2 font-mono text-sm leading-relaxed font-medium">
         {description}
       </p>
     </Link>

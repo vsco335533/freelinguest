@@ -69,7 +69,7 @@ export function ReviewSection({ title }: { title?: string } = {}) {
           </span>
         </div>
 
-        <p className="text-fl-muted-2 mb-1 font-mono text-sm font-medium leading-relaxed">
+        <p className="text-fl-muted-2 mb-1 font-mono text-sm leading-relaxed font-medium">
           {t('reviewDescription')}
         </p>
         {review?.is_approved === false && (

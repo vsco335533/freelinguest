@@ -144,7 +144,7 @@ export default function SettingsMemoriesPage() {
           </h2>
         </div>
 
-        <p className="text-fl-muted-2 mb-5 font-mono text-sm font-medium leading-relaxed">
+        <p className="text-fl-muted-2 mb-5 font-mono text-sm leading-relaxed font-medium">
           {t('memoryDescription')}
         </p>
 
@@ -234,7 +234,7 @@ export default function SettingsMemoriesPage() {
                   className="glass-card flex items-start justify-between gap-3 rounded-xl p-3.5"
                 >
                   <div className="flex-1 space-y-1">
-                    <p className="text-fl-fg font-mono text-xs font-medium leading-relaxed">
+                    <p className="text-fl-fg font-mono text-xs leading-relaxed font-medium">
                       {memory.content}
                     </p>
                     <p className="text-fl-label text-fl-muted-2 font-mono font-semibold tracking-widest uppercase">

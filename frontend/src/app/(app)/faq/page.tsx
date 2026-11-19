@@ -137,7 +137,9 @@ export default function FAQPage() {
         {faqs.map((item, i) => (
           <div
             key={i}
-            className={i < faqs.length - 1 ? 'border-fl-border/60 border-b' : ''}
+            className={
+              i < faqs.length - 1 ? 'border-fl-border/60 border-b' : ''
+            }
           >
             <button
               onClick={() => {
@@ -154,7 +156,7 @@ export default function FAQPage() {
               </span>
             </button>
             {open === i && (
-              <div className="text-fl-fg border-fl-border/60 border-t bg-white/40 px-5 pt-4 pb-5 font-mono text-xs font-medium leading-relaxed dark:bg-slate-900/40">
+              <div className="text-fl-fg border-fl-border/60 border-t bg-white/40 px-5 pt-4 pb-5 font-mono text-xs leading-relaxed font-medium dark:bg-slate-900/40">
                 {item.a}
               </div>
             )}

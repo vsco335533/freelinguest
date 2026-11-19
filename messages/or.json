@@ -1857,7 +1857,9 @@
     "baseLanguageLabel": "ମୂଳ ଭାଷା",
     "fluentBadge": "ଅର୍ଗଳହୀନ",
     "targetLanguageLabel": "ଲକ୍ଷ୍ୟ ଭାଷା",
-    "learningBadge": "ଶିଖୁଛନ୍ତି"
+    "learningBadge": "ଶିଖୁଛନ୍ତି",
+    "en-GB": "ବ୍ରିଟିଶ ଇଂରାଜୀ",
+    "en-US": "ଆମେରିକୀୟ ଇଂରାଜୀ"
   },
   "targetLanguages": {
     "sv-SE": "ସ୍ୱିଡିସ୍",

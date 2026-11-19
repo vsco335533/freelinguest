@@ -475,6 +475,18 @@ async def complete_assessment(
 
     # Ensure a UserLanguage row exists for this language
     user_lang = await ensure_user_language(db, current_user_id, target_language)
+    # ensure_user_language creates rows inactive so a second language doesn't
+    # steal focus. But if the learner has no active language at all (e.g. they
+    # reached the assessment without finishing onboarding), the new plan would
+    # be unreachable and every plan-backed page would 404 with
+    # "No active language set". Activate this language in that case.
+    if not user_lang.is_active:
+        from app.services.user_language_service import (  # noqa: PLC0415
+            get_active_language,
+        )
+
+        if await get_active_language(db, current_user_id) is None:
+            user_lang.is_active = True
 
     # Deactivate existing active plans — scoped to this language only
     old_result = await db.execute(
