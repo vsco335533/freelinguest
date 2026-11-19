@@ -7,6 +7,8 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     DATABASE_URL: str
     REDIS_URL: str = "redis://localhost:6379/0"
+    # Skip Alembic migrations on startup (local dev with a pre-built DB).
+    SKIP_MIGRATIONS: bool = False
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
@@ -16,6 +18,10 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = "ollama"
     OLLAMA_BASE_URL: str = "http://host.docker.internal:11434"
     OLLAMA_MODEL: str = "gemma4:e4b"
+    # Reasoning effort sent with streamed (interactive) Ollama requests. "none"
+    # disables hidden thinking so voice/chat replies start immediately; empty
+    # keeps the model's default. Non-streamed generation is unaffected.
+    OLLAMA_STREAM_REASONING_EFFORT: str = "none"
     EXERCISE_GENERATION_TIMEOUT_SECONDS: int = Field(default=600, ge=1)
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-6-luna"
@@ -30,6 +36,10 @@ class Settings(BaseSettings):
     TTS_PROVIDER: str = "local"  # local | openai
     TTS_BASE_URL: str = "http://kokoro:8880"
     TTS_VOICE: str = "af_heart"
+    # Optional local multilingual TTS (MMS) that speaks the learner's base-language
+    # help (e.g. Telugu) during voice conversation. Empty disables it, and
+    # base-language text is then shown but not spoken.
+    NATIVE_TTS_BASE_URL: str = ""
     OPENAI_TTS_MODEL: str = "tts-1"
     OPENAI_TTS_VOICE: str = "nova"
     OPENAI_TTS_SPEED: float = 1.0
@@ -184,7 +194,7 @@ class Settings(BaseSettings):
             raise ValueError("ASSESSMENT_VOICE_TRIAL_DURATION_SECONDS must not exceed 1800")
         return value
 
-    model_config = {"env_file": ".env"}
+    model_config = {"env_file": ".env", "extra": "ignore"}
 
 
 settings = Settings()

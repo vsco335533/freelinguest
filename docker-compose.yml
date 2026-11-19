@@ -151,6 +151,11 @@ services:
     restart: unless-stopped
     environment:
       - PYTHONUNBUFFERED=1
+      # The image ships CUDA "forward compatibility" driver libraries that only work on
+      # datacenter GPUs. On GeForce cards with an older driver (e.g. 550 / CUDA 12.4)
+      # CUDA then fails with error 804 and Kokoro silently runs on the CPU, 6-9x slower.
+      # Loading the host driver's libcuda first fixes it and is harmless elsewhere.
+      - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
     deploy:
       resources:
         reservations:

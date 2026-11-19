@@ -1,25 +1,48 @@
 import createNextIntlPlugin from 'next-intl/plugin'
 import type { NextConfig } from 'next'
+import path from 'node:path'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
-const allowedDevOrigins = (process.env.NEXT_PUBLIC_DEV_ORIGINS ?? '')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean)
-  .flatMap((origin) => {
-    try {
-      const url = new URL(origin)
-      return [origin, url.hostname]
-    } catch {
-      return [origin]
-    }
-  })
+const allowedDevOrigins = [
+  // Automatically allow any Cloudflare Tunnel subdomain in dev so
+  // HMR WebSocket connections from trycloudflare.com work without
+  // having to update env vars every time the tunnel restarts.
+  ...(process.env.NODE_ENV !== 'production'
+    ? ['*.trycloudflare.com', '*.ngrok.io', '*.ngrok-free.app']
+    : []),
+  // User-configured additional origins (e.g. a named tunnel, a VM IP)
+  ...(process.env.NEXT_PUBLIC_DEV_ORIGINS ?? '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+    .flatMap((origin) => {
+      try {
+        const url = new URL(origin)
+        return [origin, url.hostname]
+      } catch {
+        // Not a full URL — pass through as-is so wildcards like
+        // "*.example.com" reach Next.js glob matching directly.
+        return [origin]
+      }
+    }),
+]
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: 'standalone',
   allowedDevOrigins,
+  // src/i18n/request.ts imports translations from the repo-root messages/
+  // folder, which lies outside frontend/. Widen Turbopack's root so it can resolve them.
+  turbopack: {
+    root: path.resolve(__dirname, '..'),
+  },
+  experimental: {
+    // The /api rewrite proxy aborts after 30s by default and returns a 500.
+    // First-time lesson generation on a local LLM (e.g. /api/study-plan/today)
+    // routinely takes 60s+, so give proxied backend calls up to 10 minutes.
+    proxyTimeout: 600_000,
+  },
   typescript: {
     tsconfigPath: 'tsconfig.build.json',
   },
@@ -36,6 +59,24 @@ const nextConfig: NextConfig = {
         'onnxruntime-web',
       ]
     }
+
+    // Suppress benign "Critical dependency: require function used dynamically"
+    // warnings from onnxruntime-web's CJS bundles (used by @ricky0123/vad-web).
+    // These warnings are harmless: the modules work correctly at runtime because
+    // ConversationMode is always loaded with dynamic({ ssr: false }), and the
+    // dynamic require() calls inside ort.min.js / ort.wasm.min.js only resolve
+    // optional WASM backends — they will never execute on the server.
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings ?? []),
+      (warning: { message?: string; module?: { resource?: string } }) => {
+        const resource = warning?.module?.resource ?? ''
+        return (
+          /Critical dependency/.test(warning?.message ?? '') &&
+          /onnxruntime-web/.test(resource)
+        )
+      },
+    ]
+
     return config
   },
   async headers() {
@@ -82,6 +123,14 @@ const nextConfig: NextConfig = {
       {
         source: '/api/:path*',
         destination: `${process.env.BACKEND_URL || 'http://backend:8000'}/api/:path*`,
+      },
+      {
+        // Same-origin WebSocket proxy for /ws/conversation. Next.js forwards
+        // the upgrade request to the backend, so the voice conversation works
+        // when only the frontend is exposed (Cloudflare/ngrok tunnel, LAN IP)
+        // and NEXT_PUBLIC_API_URL is left empty.
+        source: '/ws/:path*',
+        destination: `${process.env.BACKEND_URL || 'http://backend:8000'}/ws/:path*`,
       },
     ]
   },

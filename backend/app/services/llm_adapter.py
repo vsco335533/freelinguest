@@ -523,8 +523,7 @@ class LLMToolStream(LLMStream):
                 )
                 raise
             logger.info(
-                "Native tool stream failed for provider=%s model=%s; "
-                "continuing without tools: %s",
+                "Native tool stream failed for provider=%s model=%s; continuing without tools: %s",
                 self._adapter.provider,
                 self._adapter.model,
                 exc,
@@ -585,9 +584,37 @@ class LLMToolStream(LLMStream):
             async with aclosing(
                 self._provider_text_and_calls(continuation, collect_calls=False)
             ) as continuation_parts:
+                # Some models (e.g. gemma4) answer the continuation by repeating
+                # the reply they already streamed with the tool call. Hold back
+                # text while it still matches that reply and drop the repeat;
+                # anything new is passed through as soon as it diverges.
+                already_sent = initial_text.strip()
+                pending = ""
+                matching = bool(already_sent)
                 async for text in continuation_parts:
+                    if matching:
+                        pending += text
+                        candidate = pending.lstrip()
+                        if already_sent.startswith(candidate):
+                            continue
+                        matching = False
+                        text = (
+                            candidate[len(already_sent) :]
+                            if candidate.startswith(already_sent)
+                            else pending
+                        )
+                        pending = ""
+                        if not text:
+                            continue
                     visible_text_emitted = True
                     yield text
+                if matching and pending.strip():
+                    logger.info(
+                        "Dropped tool continuation that repeated the initial reply "
+                        "for provider=%s model=%s",
+                        self._adapter.provider,
+                        self._adapter.model,
+                    )
         except LLMError as exc:
             if visible_text_emitted:
                 logger.info(
@@ -723,8 +750,7 @@ class LLMAdapter:
             if not tools:
                 raise
             logger.info(
-                "Native tool request failed for provider=%s model=%s; "
-                "continuing without tools: %s",
+                "Native tool request failed for provider=%s model=%s; continuing without tools: %s",
                 self.provider,
                 self.model,
                 exc,
@@ -790,6 +816,11 @@ class LLMAdapter:
             extra["max_tokens"] = 4096
         if stream:
             extra["stream_options"] = {"include_usage": True}
+            if self.provider == "ollama" and settings.OLLAMA_STREAM_REASONING_EFFORT:
+                # Thinking models (e.g. gemma4) otherwise emit hundreds of hidden
+                # reasoning tokens before the first visible word, adding seconds
+                # of silence to interactive (voice/chat) replies.
+                extra["extra_body"] = {"reasoning_effort": settings.OLLAMA_STREAM_REASONING_EFFORT}
         if tools:
             extra["tools"] = [
                 {

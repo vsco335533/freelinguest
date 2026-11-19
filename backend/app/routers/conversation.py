@@ -279,10 +279,13 @@ async def conversation_ws(
         freemium_remaining_seconds = 0
         try:
             async with _redis_client() as redis_access:
-                allowed, freemium_ok, voice_trial, freemium_remaining_seconds = (
-                    await _check_voice_access(
-                        user, redis_access, voice_trial_token=voice_trial_token
-                    )
+                (
+                    allowed,
+                    freemium_ok,
+                    voice_trial,
+                    freemium_remaining_seconds,
+                ) = await _check_voice_access(
+                    user, redis_access, voice_trial_token=voice_trial_token
                 )
         except Exception:
             logger.exception(
@@ -539,6 +542,7 @@ async def conversation_ws(
             study_plan_id=study_plan_id_for_conv,
             lesson_practice_context=lesson_practice.context if lesson_practice else "",
             user_agent=websocket.headers.get("user-agent", ""),
+            native_tts=getattr(websocket.app.state, "native_tts_service", None),
         )
         pipeline._redis = redis
         pipeline._freemium_voice = freemium_ok

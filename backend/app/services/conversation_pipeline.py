@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 import time
+import unicodedata
 import uuid
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
@@ -12,6 +14,7 @@ from app.models.user import User
 from app.services.language_helpers import (
     get_iso639,
     get_language_name,
+    get_language_script,
     get_native_language_name,
 )
 from app.services.learning_analytics import record_lingu_practice
@@ -56,6 +59,7 @@ def _build_conversation_system_prompt(
     language_prompt_overlay: str = "",
     memory_tools_enabled: bool = True,
     lesson_practice_context: str = "",
+    native_support: bool = False,
 ) -> str:
     return build_conversation_system_prompt(
         student_name=student_name,
@@ -67,7 +71,148 @@ def _build_conversation_system_prompt(
         language_prompt_overlay=language_prompt_overlay,
         memory_tools_enabled=memory_tools_enabled,
         lesson_practice_context=lesson_practice_context,
+        native_support=native_support,
     )
+
+
+def _native_differs(native_language: str | None, target_language: str) -> bool:
+    """True when the learner's base language is not the language being learnt."""
+    native_root = (native_language or "").split("-")[0].lower()
+    return bool(native_root) and native_root != get_iso639(target_language)
+
+
+_BRACKETED = re.compile(r"\[[^\]]*\]")
+
+
+# Unicode script names for base languages that do not use the Latin alphabet.
+_NATIVE_SCRIPTS: dict[str, str] = {
+    "hi": "DEVANAGARI",
+    "te": "TELUGU",
+    "ta": "TAMIL",
+    "ml": "MALAYALAM",
+    "or": "ORIYA",
+    "kn": "KANNADA",
+    "ru": "CYRILLIC",
+}
+
+
+def _clean_native_help(text: str, native_language: str | None) -> str:
+    """Drop bracketed "help" that is not genuine base-language text.
+
+    Small local models sometimes copy a placeholder ("<the same question in
+    Telugu>"), put English in the brackets, or answer in an unrelated script.
+    Such brackets would confuse the learner, so they are removed. For base
+    languages written in a non-Latin script the bracket must contain that
+    script; for Latin-script bases only placeholders are removed.
+    """
+    script = _NATIVE_SCRIPTS.get((native_language or "").split("-")[0].lower())
+
+    def _keep(match: re.Match[str]) -> str:
+        inner = match.group(0)[1:-1]
+        if "<" in inner or ">" in inner or not inner.strip():
+            return ""
+        if script:
+            letters = [c for c in inner if c.isalpha() or unicodedata.category(c) in ("Mn", "Mc")]
+            in_script = sum(1 for c in letters if script in unicodedata.name(c, ""))
+            if not letters or in_script / len(letters) < 0.6:
+                return ""
+        return match.group(0)
+
+    cleaned = _BRACKETED.sub(_keep, text)
+    cleaned = re.sub(r"<[^<>]*>", "", cleaned)  # stray placeholders outside brackets
+    cleaned = re.sub(r"[ \t]{2,}", " ", cleaned)
+    return re.sub(r"\s+([,.!?;:])", r"\1", cleaned).strip()
+
+
+def _speech_text(text: str, target_language: str) -> str:
+    """Return only the part of a reply that should be spoken aloud.
+
+    Native-language help is written inside [square brackets] and stays visible
+    in the transcript, but TTS voices for the target language cannot pronounce
+    it (an English voice reading Telugu produces long garbled audio). Remove the
+    bracketed help and, for Latin-script targets, any remaining non-Latin text.
+    """
+    spoken = _BRACKETED.sub(" ", text)
+    if get_language_script(target_language).lower().startswith("latin"):
+        kept = []
+        for char in spoken:
+            if char.isalpha() or unicodedata.category(char) in ("Mn", "Mc"):
+                if "LATIN" not in unicodedata.name(char, ""):
+                    continue
+            kept.append(char)
+        spoken = "".join(kept)
+    spoken = re.sub(r"\(\s*\)", " ", spoken)
+    spoken = re.sub(r"\s+([,.!?;:])", r"\1", spoken)
+    return re.sub(r"\s{2,}", " ", spoken).strip()
+
+
+def _speech_parts(
+    text: str, native_language: str | None, target_language: str
+) -> list[tuple[str, bool]]:
+    """Split a reply into ordered ``(text, is_native)`` parts for two voices.
+
+    Used when a base-language voice is available: [bracketed help] and, for
+    non-Latin base scripts, loose base-language words are spoken by the native
+    voice; the rest by the target-language voice. A (romanization) right after
+    base-language text is dropped, since the native text itself is spoken.
+    """
+    script = _NATIVE_SCRIPTS.get((native_language or "").split("-")[0].lower())
+    # Loose base-language words can be told apart by alphabet whenever the base
+    # language's script differs from the target's (Telugu vs Latin, Cyrillic, kana...).
+    split_by_script = bool(script) and script not in get_language_script(target_language).upper()
+    parts: list[tuple[str, bool]] = []
+
+    def add(chunk: str, native: bool) -> None:
+        if not native:
+            chunk = _speech_text(chunk, target_language)
+        chunk = re.sub(r"\s+([,.!?;:])", r"\1", chunk).strip()
+        if not any(c.isalnum() for c in chunk):
+            return
+        if parts and parts[-1][1] == native:
+            parts[-1] = (f"{parts[-1][0]} {chunk}", native)
+        else:
+            parts.append((chunk, native))
+
+    def is_native_word(word: str) -> bool:
+        return any(c.isalpha() and script in unicodedata.name(c, "") for c in word)
+
+    def outside(segment: str) -> None:
+        if not split_by_script:
+            add(segment, False)
+            return
+        group: list[str] = []
+        group_native = False
+        skip_paren = 0
+        for word in segment.split():
+            if skip_paren:
+                skip_paren += word.count("(") - word.count(")")
+                continue
+            if word.startswith("(") and parts_or_group_native(group, group_native):
+                skip_paren = word.count("(") - word.count(")")
+                continue
+            native = is_native_word(word)
+            if not any(c.isalpha() for c in word):
+                native = group_native  # punctuation/digits join the current group
+            if group and native != group_native:
+                add(" ".join(group), group_native)
+                group = []
+            group_native = native
+            group.append(word)
+        if group:
+            add(" ".join(group), group_native)
+
+    def parts_or_group_native(group: list[str], group_native: bool) -> bool:
+        if group:
+            return group_native
+        return bool(parts) and parts[-1][1]
+
+    pos = 0
+    for match in _BRACKETED.finditer(text):
+        outside(text[pos : match.start()])
+        add(match.group(0)[1:-1], True)
+        pos = match.end()
+    outside(text[pos:])
+    return parts
 
 
 class ConversationPipeline:
@@ -96,12 +241,23 @@ class ConversationPipeline:
         study_plan_id: int | None = None,
         lesson_practice_context: str = "",
         user_agent: str = "",
+        native_tts: object | None = None,
     ) -> None:
         self.llm = llm
         self.tts = tts
         self.stt = stt
         self._voice = voice
-        self._stt_language = get_iso639(target_language)
+        # Optional voice for base-language help; without it that help is not spoken.
+        self.native_tts = native_tts
+        # Force the target language only when it is also the learner's own
+        # language. Otherwise let Whisper auto-detect, so a learner who speaks
+        # their base language (e.g. Telugu) is transcribed instead of being
+        # forced/translated into the target language.
+        self._native_support = _native_differs(native_language, target_language)
+        self._native_code = native_language
+        self._stt_language: str | None = (
+            None if self._native_support else get_iso639(target_language)
+        )
         self._target_language = target_language
         self._user_id = user_id
         self._conversation_id = conversation_id
@@ -137,6 +293,7 @@ class ConversationPipeline:
             "user_context": user_context,
             "language_prompt_overlay": language_prompt_overlay,
             "lesson_practice_context": lesson_practice_context,
+            "native_support": self._native_support,
         }
         self.system_prompt = _build_conversation_system_prompt(
             **self._prompt_args,
@@ -170,6 +327,13 @@ class ConversationPipeline:
         self._send_lock = asyncio.Lock()
         self._turn_id = 0
         self._client_close_reason: str | None = None
+
+    def _finalize_reply(self, full_response: str) -> str:
+        """Visible + stored reply text, with invalid native-language help removed."""
+        text = self._extract_speech_text(full_response)
+        if text and self._native_support:
+            text = _clean_native_help(text, self._native_code)
+        return text
 
     @staticmethod
     def _fmt_exc(exc: Exception) -> str:
@@ -243,6 +407,14 @@ class ConversationPipeline:
                     self._prompt_args["native_language"] = get_native_language_name(
                         user.native_language
                     )
+                    self._native_support = _native_differs(
+                        user.native_language, self._target_language
+                    )
+                    self._prompt_args["native_support"] = self._native_support
+                    self._native_code = user.native_language
+                    self._stt_language = (
+                        None if self._native_support else get_iso639(self._target_language)
+                    )
             self._memory_context = build_memory_context(memories)
             self.system_prompt = _build_conversation_system_prompt(
                 **self._prompt_args,
@@ -269,7 +441,7 @@ class ConversationPipeline:
         async with self._send_lock:
             await ws.close(code=code)
 
-    async def _synthesize_chunk(self, text: str) -> bytes:
+    async def _synthesize_chunk(self, text: str, native: bool = False) -> bytes:
         attempts = TTS_MAX_RETRIES + 1
         trace_id = uuid.uuid4().hex[:10]
         logger.info(
@@ -286,7 +458,12 @@ class ConversationPipeline:
                     attempt,
                     attempts,
                 )
-                audio = await self.tts.synthesize(text, self._voice or None, self._target_language)
+                if native and self.native_tts is not None:
+                    audio = await self.native_tts.synthesize(text, self._native_code or "")
+                else:
+                    audio = await self.tts.synthesize(
+                        text, self._voice or None, self._target_language
+                    )
                 if not audio:
                     raise RuntimeError("TTS returned empty audio payload")
                 return audio
@@ -359,6 +536,53 @@ class ConversationPipeline:
 
         return [chunk for chunk in chunks if any(char.isalnum() for char in chunk)]
 
+    @staticmethod
+    def _take_complete_sentences(text: str, start: int) -> tuple[list[str], int]:
+        """Return the finished sentences in ``text[start:]`` and the new offset.
+
+        A sentence ends at ``.``, ``!`` or ``?`` followed by whitespace, outside
+        [native help] and (romanization) brackets, so a reply can be spoken while
+        the LLM is still generating the rest of it. ``start`` is always a previous
+        cut point, which lies outside any bracket.
+        """
+        sentences: list[str] = []
+        depth = 0
+        seg_start = start
+        for idx in range(start, len(text)):
+            char = text[idx]
+            if char in "[(":
+                depth += 1
+            elif char in "])":
+                depth = max(0, depth - 1)
+            elif char in ".!?।" and depth == 0 and idx + 1 < len(text) and text[idx + 1].isspace():
+                if char == "." and idx > 0 and text[idx - 1] == ".":
+                    continue  # keep an ellipsis ("Well... let's") inside its sentence
+                sentences.append(text[seg_start : idx + 1])
+                seg_start = idx + 1
+            elif char in "。！？" and depth == 0 and idx + 1 < len(text):
+                # Japanese/Chinese sentence ends; no space follows them.
+                sentences.append(text[seg_start : idx + 1])
+                seg_start = idx + 1
+        return sentences, seg_start
+
+    def _speakable_chunks(self, segment: str) -> list[tuple[str, bool]]:
+        """Turn a raw reply segment into ordered TTS chunks ``(text, is_native)``.
+
+        With a base-language voice, native help is kept and marked for that voice;
+        otherwise it is removed and only target-language text is spoken.
+        """
+        text = re.sub(r"<[^<>]*>", "", segment).strip()  # placeholders are never spoken
+        if not self._native_support:
+            return [(chunk, False) for chunk in self._split_tts_sentences(text)]
+        if self.native_tts is None:
+            spoken = _speech_text(text, self._target_language)
+            return [(chunk, False) for chunk in self._split_tts_sentences(spoken)]
+        return [
+            (chunk, native)
+            for part, native in _speech_parts(text, self._native_code, self._target_language)
+            for chunk in self._split_tts_sentences(part)
+        ]
+
     async def _synthesize_and_send_response(
         self,
         ws: WebSocket,
@@ -373,9 +597,10 @@ class ConversationPipeline:
         transcript_sent = False
         send_aborted = False
 
-        for idx, sentence in enumerate(self._split_tts_sentences(text), start=1):
+        # Only strip when native-language help may be present in the reply.
+        for idx, (sentence, native) in enumerate(self._speakable_chunks(text), start=1):
             try:
-                audio = await self._synthesize_chunk(sentence)
+                audio = await self._synthesize_chunk(sentence, native)
             except asyncio.CancelledError:
                 raise
             except Exception as exc:
@@ -438,7 +663,7 @@ class ConversationPipeline:
             async for chunk in llm_stream:
                 token = self._stream_text(chunk)
                 full_response += token
-            clean_full_response = self._extract_speech_text(full_response)
+            clean_full_response = self._finalize_reply(full_response)
             if not clean_full_response:
                 return
             await self._send_status(ws, turn_id, "thinking")
@@ -579,11 +804,19 @@ class ConversationPipeline:
         try:
             await self._send_status(ws, turn_id, "transcribing")
             stt_t0 = time.perf_counter()
+            stt_kwargs: dict = {"language": self._stt_language}
+            if self._stt_language is None:
+                # Learner speaks either their base language or the target one;
+                # anything else Whisper detects is a misdetection.
+                stt_kwargs["allowed_languages"] = (
+                    (self._native_code or "").split("-")[0].lower(),
+                    get_iso639(self._target_language),
+                )
             user_text = await self.stt.transcribe(
                 audio_bytes,
                 "audio.wav",
                 "audio/wav",
-                language=self._stt_language,
+                **stt_kwargs,
             )
             stt_ms = (time.perf_counter() - stt_t0) * 1000
             logger.info("[pipeline] STT result: %r", user_text)
@@ -675,47 +908,134 @@ class ConversationPipeline:
                     "tool_executor": execute_memory_tool,
                     "fallback_messages": fallback_messages,
                 }
-            llm_stream = await self.llm.chat(messages, stream=True, **memory_kwargs)
-            try:
-                async for chunk in llm_stream:
-                    if isinstance(chunk, LLMToolResultEvent):
-                        memory_updated = memory_updated or chunk.result.content.get("saved") is True
-                        continue
-                    if isinstance(chunk, LLMStreamReset):
-                        full_response = ""
-                        continue
-                    token = self._stream_text(chunk)
-                    full_response += token
-            finally:
-                memory_updated = memory_updated or any(
-                    result.content.get("saved") is True
-                    for result in getattr(llm_stream, "tool_results", [])
-                )
-                if memory_updated:
-                    await self._send_memory_updated(ws, turn_id)
-            llm_ms = (time.perf_counter() - llm_t0) * 1000
+            # Sentences are spoken as soon as the LLM finishes each one, instead
+            # of waiting for the whole reply: a worker synthesizes and sends them
+            # in order while generation continues.
+            speech_queue: asyncio.Queue[tuple[str, bool] | None] = asyncio.Queue()
+            first_audio = asyncio.Event()
+            first_audio_ms: float | None = None
+            tts_send_t0: float | None = None
 
-            clean_full_response = self._extract_speech_text(full_response)
+            async def speak_worker() -> None:
+                nonlocal tts_chunks_sent, tts_bytes, send_aborted, first_audio_ms
+                while (item := await speech_queue.get()) is not None:
+                    try:
+                        audio = await self._synthesize_chunk(*item)
+                    except asyncio.CancelledError:
+                        raise
+                    except Exception as exc:
+                        logger.warning(
+                            "[pipeline] TTS sentence failed after retry: turn_id=%s error=%s",
+                            turn_id,
+                            self._fmt_exc(exc),
+                        )
+                        continue
+                    if not await self._safe_send_bytes(ws, audio):
+                        logger.warning(
+                            "[pipeline] Audio send failed; aborting remaining chunks: turn_id=%s",
+                            turn_id,
+                        )
+                        send_aborted = True
+                        return
+                    tts_chunks_sent += 1
+                    tts_bytes += len(audio)
+                    if first_audio_ms is None:
+                        first_audio_ms = (time.perf_counter() - turn_t0) * 1000
+                        first_audio.set()
+
+            spoken_upto = 0  # offset in full_response already queued for speech
+            skip_chunks = 0  # after a stream reset, chunks already spoken once
+            queued_chunks = 0
+
+            def queue_chunks(segments: list[str]) -> None:
+                nonlocal skip_chunks, queued_chunks, tts_send_t0
+                for segment in segments:
+                    for chunk_text in self._speakable_chunks(segment):
+                        if skip_chunks:
+                            skip_chunks -= 1
+                            continue
+                        if tts_send_t0 is None:
+                            tts_send_t0 = time.perf_counter()
+                        speech_queue.put_nowait(chunk_text)  # (text, is_native)
+                        queued_chunks += 1
+
+            speaker = asyncio.create_task(speak_worker())
+            try:
+                llm_stream = await self.llm.chat(messages, stream=True, **memory_kwargs)
+                try:
+                    async for chunk in llm_stream:
+                        if isinstance(chunk, LLMToolResultEvent):
+                            memory_updated = (
+                                memory_updated or chunk.result.content.get("saved") is True
+                            )
+                            continue
+                        if isinstance(chunk, LLMStreamReset):
+                            # The reply restarts from scratch; don't repeat what
+                            # was already spoken from the abandoned attempt.
+                            full_response = ""
+                            spoken_upto = 0
+                            skip_chunks = queued_chunks
+                            continue
+                        full_response += self._stream_text(chunk)
+                        sentences, spoken_upto = self._take_complete_sentences(
+                            full_response, spoken_upto
+                        )
+                        queue_chunks(sentences)
+                finally:
+                    memory_updated = memory_updated or any(
+                        result.content.get("saved") is True
+                        for result in getattr(llm_stream, "tool_results", [])
+                    )
+                    if memory_updated:
+                        await self._send_memory_updated(ws, turn_id)
+                llm_ms = (time.perf_counter() - llm_t0) * 1000
+
+                clean_full_response = self._finalize_reply(full_response)
+                if clean_full_response:
+                    queue_chunks([full_response[spoken_upto:]])
+                speech_queue.put_nowait(None)
+
+                if clean_full_response:
+                    # Show the reply text once its first audio is out (or speech
+                    # has finished without any audio), as before.
+                    first_audio_wait = asyncio.create_task(first_audio.wait())
+                    await asyncio.wait(
+                        {first_audio_wait, speaker}, return_when=asyncio.FIRST_COMPLETED
+                    )
+                    first_audio_wait.cancel()
+                    if not send_aborted:
+                        if tts_chunks_sent == 0:
+                            logger.warning(
+                                "[pipeline] No TTS audio produced yet; publishing transcript: "
+                                "turn_id=%s",
+                                turn_id,
+                            )
+                        await self._send_json(
+                            ws,
+                            {
+                                "type": "transcript",
+                                "role": "assistant",
+                                "text": clean_full_response,
+                                "final": True,
+                                "turn_id": turn_id,
+                            },
+                        )
+                        assistant_transcript_sent = True
+                    await speaker
+            finally:
+                if not speaker.done():
+                    speaker.cancel()
+
             if clean_full_response:
-                tts_send_t0 = time.perf_counter()
-                (
-                    tts_chunks_sent,
-                    tts_bytes,
-                    assistant_transcript_sent,
-                    send_aborted,
-                ) = await self._synthesize_and_send_response(
-                    ws,
-                    text=clean_full_response,
-                    turn_id=turn_id,
-                    transcript_payload={
-                        "type": "transcript",
-                        "role": "assistant",
-                        "text": clean_full_response,
-                        "final": True,
-                        "turn_id": turn_id,
-                    },
+                tts_send_ms = (
+                    (time.perf_counter() - tts_send_t0) * 1000 if tts_send_t0 is not None else 0.0
                 )
-                tts_send_ms = (time.perf_counter() - tts_send_t0) * 1000
+                logger.info(
+                    "[pipeline] First audio after %s ms (LLM %.0f ms): turn_id=%s",
+                    round(first_audio_ms) if first_audio_ms is not None else None,
+                    llm_ms,
+                    turn_id,
+                )
                 if send_aborted or not assistant_transcript_sent:
                     logger.warning(
                         "[pipeline] No assistant audio was sent and turn is being aborted: turn_id=%s",

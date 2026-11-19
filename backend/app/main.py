@@ -2,6 +2,7 @@ import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from alembic.config import Config
 from fastapi import FastAPI, Request
@@ -21,8 +22,15 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
-_AVATARS_DIR = "/app/avatars"
-_TTS_PREVIEWS_DIR = "/app/tts_previews"
+_BACKEND_DIR = Path(__file__).resolve().parents[1]
+_DATA_DIR = _BACKEND_DIR.parent / "data"
+_AVATARS_DIR = os.getenv(
+    "AVATARS_DIR", "/app/avatars" if Path("/app").exists() else str(_DATA_DIR / "avatars")
+)
+_TTS_PREVIEWS_DIR = os.getenv(
+    "TTS_PREVIEWS_DIR",
+    "/app/tts_previews" if Path("/app").exists() else str(_DATA_DIR / "tts_previews"),
+)
 from app.routers import (
     admin,
     admin_dashboard_banner,
@@ -55,11 +63,43 @@ from app.routers import (
 from app.routers import config as config_router
 from app.routers import health as health_router
 from app.services.stt_service import OpenAISTTService, WhisperSTTService
-from app.services.tts_service import KokoroTTSService, OpenAITTSService
+from app.services.tts_service import KokoroTTSService, NativeTTSService, OpenAITTSService
 
 
-def _run_migrations() -> None:
-    alembic_cfg = Config("/app/alembic.ini")
+def _alembic_config() -> Config:
+    alembic_cfg = Config(str(_BACKEND_DIR / "alembic.ini"))
+    alembic_cfg.set_main_option("script_location", str(_BACKEND_DIR / "alembic"))
+    return alembic_cfg
+
+
+async def _db_needs_stamp() -> bool:
+    """True when tables exist but Alembic has no recorded revision.
+
+    This happens when the schema was created with ``Base.metadata.create_all``
+    instead of migrations; running ``upgrade`` would then fail with
+    "table users already exists" and abort startup.
+    """
+    from sqlalchemy import inspect, text
+
+    from app.core.database import engine
+
+    async with engine.connect() as conn:
+        tables = await conn.run_sync(lambda c: inspect(c).get_table_names())
+        if "users" not in tables:
+            return False
+        if "alembic_version" not in tables:
+            return True
+        row = (await conn.execute(text("SELECT version_num FROM alembic_version"))).first()
+        return row is None
+
+
+def _run_migrations(stamp_first: bool) -> None:
+    alembic_cfg = _alembic_config()
+    if stamp_first:
+        logging.getLogger(__name__).warning(
+            "Database has tables but no alembic revision; stamping as head before upgrade"
+        )
+        command.stamp(alembic_cfg, "head")
     command.upgrade(alembic_cfg, "head")
 
 
@@ -76,12 +116,24 @@ async def lifespan(app: FastAPI):  # noqa: ANN201
         )
 
     settings.validate_revenuecat()
-    await asyncio.to_thread(_run_migrations)
+    skip_migrations = settings.SKIP_MIGRATIONS or os.getenv("SKIP_MIGRATIONS", "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if not skip_migrations:
+        stamp_first = await _db_needs_stamp()
+        await asyncio.to_thread(_run_migrations, stamp_first)
 
     # Ensure the avatars directory exists on startup (persisted via Docker volume)
     os.makedirs(_AVATARS_DIR, exist_ok=True)
     # Ensure the TTS preview cache directory exists on startup
     os.makedirs(_TTS_PREVIEWS_DIR, exist_ok=True)
+
+    # Local female voices for base-language help and non-English target languages.
+    app.state.native_tts_service = (
+        NativeTTSService(settings.NATIVE_TTS_BASE_URL) if settings.NATIVE_TTS_BASE_URL else None
+    )
 
     if settings.TTS_PROVIDER == "openai":
         if not settings.OPENAI_API_KEY:
@@ -93,7 +145,9 @@ async def lifespan(app: FastAPI):  # noqa: ANN201
             speed=settings.OPENAI_TTS_SPEED,
         )
     else:
-        app.state.tts_service = KokoroTTSService(settings.TTS_BASE_URL, settings.TTS_VOICE)
+        app.state.tts_service = KokoroTTSService(
+            settings.TTS_BASE_URL, settings.TTS_VOICE, multilingual=app.state.native_tts_service
+        )
 
     if settings.STT_PROVIDER == "openai":
         if not settings.OPENAI_API_KEY:
@@ -105,7 +159,37 @@ async def lifespan(app: FastAPI):  # noqa: ANN201
     else:
         app.state.stt_service = WhisperSTTService(settings.STT_BASE_URL)
 
+    if settings.LLM_PROVIDER == "ollama":
+        # Fire-and-forget: never delay startup or fail it if Ollama is down.
+        app.state.ollama_warmup = asyncio.create_task(_pin_ollama_model())
+
     yield
+
+
+async def _pin_ollama_model() -> None:
+    """Load the Ollama model and keep it resident (keep_alive=-1).
+
+    Ollama unloads idle models after 5 minutes by default, so the first voice
+    turn after a pause paid a multi-second reload. The OpenAI-compatible
+    endpoint the adapter uses has no keep_alive option, but a pin set through
+    the native API persists across later /v1 requests.
+    """
+    import httpx
+
+    try:
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            response = await client.post(
+                f"{settings.OLLAMA_BASE_URL.rstrip('/')}/api/generate",
+                json={"model": settings.OLLAMA_MODEL, "keep_alive": -1},
+            )
+            response.raise_for_status()
+        logging.getLogger(__name__).info(
+            "[ollama] Model %s loaded and pinned in memory", settings.OLLAMA_MODEL
+        )
+    except Exception as exc:  # noqa: BLE001 - warm-up is best effort
+        logging.getLogger(__name__).warning(
+            "[ollama] Could not pin model %s: %s", settings.OLLAMA_MODEL, exc
+        )
 
 
 app = FastAPI(title="FreeLingo API", version="0.1.0", lifespan=lifespan)
