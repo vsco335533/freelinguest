@@ -628,7 +628,8 @@
     "contact": "ଯୋଗାଯୋଗ",
     "feedback": "ମତାମତ",
     "reviews": "ସମୀକ୍ଷା",
-    "switchLanguage": "ଭାଷା ବଦଳାନ୍ତୁ"
+    "switchLanguage": "ଭାଷା ବଦଳାନ୍ତୁ",
+    "stories": "ଗଳ୍ପ"
   },
   "auth": {
     "login": {
@@ -1734,6 +1735,8 @@
     "statusReady": "ପ୍ରସ୍ତୁତ",
     "statusWarming": "ମଡେଲ୍ ଲୋଡ୍ ହେଉଛି...",
     "statusConnecting": "ସଂଯୋଗ ହେଉଛି...",
+    "micOpenNote": "ମାଇକ୍ ଅନ୍: ଏବେ ଆପଣ କହିପାରିବେ",
+    "micMutedNote": "ମାଇକ୍ ଅଫ୍: Lingu ଉତ୍ତର ଦେଉଛି, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ",
     "statusListening": "ଶୁଣୁଛି...",
     "statusDetecting": "କଥା ଚିହ୍ନଟ ହେଉଛି...",
     "statusSpeaking": "କହୁଛି...",
@@ -1757,6 +1760,7 @@
     "quotaUnlimited": "ଅସୀମିତ",
     "quotaExceededSessions": "ଆପଣ ଏହି ସପ୍ତାହ ପାଇଁ ଆପଣଙ୍କ ସମସ୍ତ ସେସନ୍ ବ୍ୟବହାର କରିସାରିଛନ୍ତି।",
     "quotaExceededTime": "ଆପଣ ଆଜି ପାଇଁ ଆପଣଙ୍କ ଦୈନିକ ଅଭ୍ୟାସ ସମୟ ସମ୍ପୂର୍ଣ୍ଣ ବ୍ୟବହାର କରିସାରିଛନ୍ତି।",
+    "quotaExceededWeeklyTime": "ଆପଣ ଏହି ସପ୍ତାହ ପାଇଁ ଆପଣଙ୍କ ଅଭ୍ୟାସ ସମୟ ସମ୍ପୂର୍ଣ୍ଣ ବ୍ୟବହାର କରିସାରିଛନ୍ତି।",
     "quotaExceededTokens": "ଆପଣ ଏହି ମାସ ପାଇଁ ଆପଣଙ୍କ ସମସ୍ତ ଏଆଇ ଟୋକେନ୍ ବ୍ୟବହାର କରିସାରିଛନ୍ତି।",
     "freemiumVoiceRemaining": "ମାଗଣା ଭଏସ୍: ଏହି ସପ୍ତାହରେ {remaining}/{limit} ମିନିଟ୍",
     "quotaTokens": "ଏହି ମାସର ଟୋକେନ୍",
@@ -2385,5 +2389,8 @@
     "label": "ରକ୍ଷଣାବେକ୍ଷଣ",
     "title": "ରକ୍ଷଣାବେକ୍ଷଣ ଚାଲିଛି",
     "description": "ଆମେ ରକ୍ଷଣାବେକ୍ଷଣ କରୁଥିବା ସମୟରେ ଏହି ବିଭାଗ ଅସ୍ଥାୟୀ ଭାବେ ଅନୁପଲବ୍ଧ ଅଛି। ଦୟାକରି ପରେ ପୁଣି ଯାଞ୍ଚ କରନ୍ତୁ।"
+  },
+  "stories": {
+    "inYourLanguage": "ଓଡ଼ିଆରେ"
   }
 }

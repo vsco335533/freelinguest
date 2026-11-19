@@ -17,6 +17,7 @@ from app.models.progress_reward import ProgressReward
 from app.models.reading import ReadingAttempt, ReadingExercise
 from app.models.resource_native_help import ResourceNativeHelp
 from app.models.review import Review
+from app.models.story import Story, StoryLevel, StoryParagraph, StoryProgress, StoryTestAttempt
 from app.models.study_plan import StudyPlan
 from app.models.user import User
 from app.models.user_language import UserLanguage
@@ -51,6 +52,11 @@ __all__ = [
     "ReadingExercise",
     "ResourceNativeHelp",
     "Review",
+    "Story",
+    "StoryLevel",
+    "StoryParagraph",
+    "StoryProgress",
+    "StoryTestAttempt",
     "StudyPlan",
     "User",
     "UserLanguage",

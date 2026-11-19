@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import {
+  BookOpen,
   LayoutDashboard,
   MessageSquareText,
   Settings,
@@ -14,6 +15,7 @@ import {
 const items = [
   { href: '/admin', key: 'overview', icon: LayoutDashboard },
   { href: '/admin/users', key: 'users', icon: Users },
+  { href: '/admin/stories', key: 'stories', icon: BookOpen },
   { href: '/admin/feedback', key: 'feedback', icon: MessageSquareText },
   { href: '/admin/reviews', key: 'reviews', icon: Star },
   { href: '/admin/system', key: 'system', icon: Settings },

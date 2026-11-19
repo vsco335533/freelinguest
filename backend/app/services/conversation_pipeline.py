@@ -37,6 +37,7 @@ from app.services.conversation_learning import (
     NATIVE_PHASE_MAX_STAGE,
     NATIVE_PHASE_SECONDS,
     is_latin_script_text,
+    is_repetition_loop,
     load_learning_state,
     normalize_cefr,
     parse_assessment_json,
@@ -45,6 +46,18 @@ from app.services.conversation_learning import (
     split_speech_segments,
 )
 from app.services.prompts.common import get_language_prompt_overlay
+from app.services.story_audio import (
+    STORY_NATIVE_INTRO,
+    STORY_NATIVE_LINES,
+    cached_audio,
+    schedule_prepare,
+)
+from app.services.story_service import (
+    StorySession,
+    get_paragraph_questions,
+    get_paragraph_translation,
+    save_story_session,
+)
 from app.services.prompts.tutor import (
     build_conversation_assessment_messages,
     build_conversation_system_prompt,
@@ -56,6 +69,9 @@ if TYPE_CHECKING:
     from fastapi import WebSocket
 
 logger = get_logger(__name__)
+
+STORY_CONTINUE_LINE = "Let's continue to the next paragraph."
+STORY_FINISHED_LINE = "Well done! We have finished the story. Now you can take the story test."
 
 TTS_MAX_RETRIES = 1
 TTS_RETRY_DELAY_SECONDS = 0.2
@@ -80,6 +96,7 @@ def _build_conversation_system_prompt(
     learning_context: str = "",
     conversation_phase: str = "native",
     transition_now: bool = False,
+    story_context: str = "",
 ) -> str:
     return build_conversation_system_prompt(
         student_name=student_name,
@@ -97,6 +114,7 @@ def _build_conversation_system_prompt(
         learning_context=learning_context,
         conversation_phase=conversation_phase,
         transition_now=transition_now,
+        story_context=story_context,
     )
 
 
@@ -116,17 +134,11 @@ def _resolve_bilingual_enabled(
 
 
 # Bilingual STT: the target language is used only when detected with this confidence.
-TARGET_LANGUAGE_MIN_CONFIDENCE = 0.6
-# Short native-script initial prompts keep Whisper output in the native script
-# (instead of romanized text) without changing the words recognised.
-_STT_SCRIPT_PROMPTS: dict[str, str] = {
-    "te": "నమస్కారం. ఇది తెలుగు సంభాషణ.",
-    "hi": "नमस्ते। यह हिंदी बातचीत है।",
-    "kn": "ನಮಸ್ಕಾರ. ಇದು ಕನ್ನಡ ಸಂಭಾಷಣೆ.",
-    "ta": "வணக்கம். இது தமிழ் உரையாடல்.",
-    "ml": "നമസ്കാരം. ഇത് മലയാളം സംഭാഷണമാണ്.",
-    "bn": "নমস্কার। এটা একটা কথোপকথন।",
-}
+# Lower than 0.5 because learners' accented English is often detected with low confidence;
+# a wrong native-language decision writes their English in native script.
+TARGET_LANGUAGE_MIN_CONFIDENCE = 0.45
+# No initial prompt is sent: Whisper copies prompt text into the transcript when the
+# audio is unclear. The explicit recognition language already keeps the native script.
 # Whisper has no Odia model. Odia speech is recognised as Bengali (the closest
 # supported language: same Eastern Indo-Aryan family, parallel Unicode script) and
 # the Bengali-script output is converted letter by letter to Odia script.
@@ -190,6 +202,7 @@ class ConversationPipeline:
         # Callers pass the user's persisted setting (DB default "auto").
         bilingual_mode_setting: str = "off",
         native_tts: object | None = None,
+        story: StorySession | None = None,
     ) -> None:
         self.llm = llm
         self.tts = tts
@@ -257,7 +270,12 @@ class ConversationPipeline:
             "user_context": user_context,
             "language_prompt_overlay": language_prompt_overlay,
             "lesson_practice_context": lesson_practice_context,
+            "story_context": story.prompt_context() if story else "",
         }
+        # Story-based conversation: one paragraph at a time, PARAGRAPH_SECONDS each.
+        self._story = story
+        self._story_mark = time.monotonic()
+        self._story_finished = False
         self._memory_tools_available = True
         self.system_prompt = self._build_prompt(memory_tools_enabled=True)
         self.max_duration = max_duration
@@ -430,11 +448,7 @@ class ConversationPipeline:
             return await self._stt_text(audio_bytes, self._stt_language), self._target_iso
         language, confidence = await self._detect_spoken_language(audio_bytes)
         recognition = _STT_RECOGNITION_FALLBACKS.get(language, language)
-        options: dict[str, object] = {"vad_filter": True}
-        prompt = _STT_SCRIPT_PROMPTS.get(recognition)
-        if prompt:
-            options["prompt"] = prompt
-        transcript = await self._stt_text(audio_bytes, recognition, **options)
+        transcript = await self._stt_text(audio_bytes, recognition, vad_filter=True)
         transcript = _convert_brahmic_script(transcript, recognition, language)
         if (
             language == self._native_language_code
@@ -457,6 +471,18 @@ class ConversationPipeline:
 
     def _native_is_latin(self) -> bool:
         return not _is_non_latin_language(self._native_language_code)
+
+    @staticmethod
+    async def _close_llm_stream(llm_stream: object) -> None:
+        close = getattr(llm_stream, "aclose", None)
+        if close is None:
+            return
+        try:
+            await close()
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("[pipeline] Could not close the LLM stream: %s", exc)
 
     def _parse_reply(self, text: str) -> TutorReply:
         return parse_tutor_reply(text)
@@ -830,12 +856,16 @@ class ConversationPipeline:
         """Normalize visible assistant text before synthesis."""
         return raw_sentence.strip()
 
-    async def _greet(self, ws: WebSocket) -> None:
-        """Generate and stream an opening greeting from the assistant."""
-        turn_id = self._next_turn_id()
+    async def _greet(
+        self, ws: WebSocket, *, trigger_text: str | None = None, turn_id: int | None = None
+    ) -> None:
+        """Generate and stream an opening greeting (or a story question) from the assistant."""
+        if turn_id is None:
+            turn_id = self._next_turn_id()
         trigger = {
             "role": "user",
-            "content": "[Session started. Greet the student warmly and naturally — one or two sentences max — and invite them to speak.]",
+            "content": trigger_text
+            or "[Session started. Greet the student warmly and naturally — one or two sentences max — and invite them to speak.]",
         }
         greeting_prompt = self._build_prompt(memory_tools_enabled=False)
         messages = [{"role": "system", "content": greeting_prompt}] + self.history[-20:] + [trigger]
@@ -881,6 +911,7 @@ class ConversationPipeline:
                 return
 
             self.history.append({"role": "assistant", "content": assistant_combined})
+            self._remember_story_questions(assistant_combined)
             self._pending_saves.append(
                 asyncio.create_task(self._save_message("assistant", assistant_combined))
             )
@@ -897,6 +928,261 @@ class ConversationPipeline:
         finally:
             self._reset_inactivity()
 
+    # --- Story-based conversation -----------------------------------------------
+
+    async def _speak_target(self, ws: WebSocket, text: str) -> int:
+        """Speak target-language text with the main voice; returns the chunks sent."""
+        return await self._speak_story(ws, text, native=False)
+
+    async def _speak_story(self, ws: WebSocket, text: str, *, native: bool) -> int:
+        """Speak story text without gaps: every sentence is ready before the first is sent.
+
+        Story speech is normally prepared in advance (disk cache), so this is instant; if it
+        is not, the learner hears one short pause before the reading instead of pauses
+        between its sentences.
+        """
+        chunks = [
+            audio
+            for sentence in self._split_tts_sentences(text)
+            if (audio := await self._story_sentence_audio(sentence, native=native))
+        ]
+        sent = 0
+        for audio in chunks:
+            if not await self._safe_send_bytes(ws, audio):
+                break
+            sent += 1
+        return sent
+
+    async def _story_sentence_audio(self, sentence: str, *, native: bool) -> bytes:
+        """Prepared (cached) story speech, falling back to live synthesis."""
+        audio = await cached_audio(
+            sentence,
+            native=native,
+            language=self._native_language_code if native else self._target_language,
+            voice="" if native else self._voice,
+            tts=self.tts,
+            native_tts=self._native_tts,
+        )
+        if audio:
+            return audio
+        try:
+            return await self._synthesize_chunk(sentence, native=native)
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            logger.warning("[pipeline] Story speech failed: %s", self._fmt_exc(exc))
+            return b""
+
+    def _schedule_story_prepare(self, index: int) -> None:
+        """Prepare a paragraph's speech and translation in the background."""
+        story = self._story
+        if story is None or not 0 <= index < story.total or index >= len(story.paragraph_ids):
+            return
+        schedule_prepare(
+            paragraph_id=story.paragraph_ids[index],
+            text=story.paragraphs[index],
+            names=story.names,
+            target_language=self._target_language,
+            native_code=self._native_language_code,
+            native_name=self._native_language_name,
+            voice=self._voice,
+            llm=self.llm,
+            tts=self.tts,
+            native_tts=self._native_tts,
+            translate=self._story_translation_wanted(),
+        )
+
+    async def _speak_native(self, ws: WebSocket, text: str) -> None:
+        """Speak native-language text with the native voice, without gaps."""
+        await self._speak_story(ws, text, native=True)
+
+    def _story_translation_wanted(self) -> bool:
+        """Bilingual learners also get each paragraph in their native language."""
+        return self._bilingual_enabled and self._native_language_code != self._target_iso
+
+    async def _story_translation(self, story: StorySession, index: int) -> str | None:
+        if index in story.translations:
+            return story.translations[index]
+        if index >= len(story.paragraph_ids):
+            return None
+        try:
+            text = await get_paragraph_translation(
+                story.paragraph_ids[index],
+                self._native_language_code,
+                self._native_language_name,
+                self.llm,
+                story.names,
+            )
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            logger.warning("[pipeline] Story translation failed: %s", self._fmt_exc(exc))
+            return None
+        if text:
+            story.translations[index] = text
+        return text
+
+    async def _say_story_line(self, ws: WebSocket, turn_id: int, line: str, english: str) -> None:
+        """Say a story linking line: in the native language first for bilingual learners."""
+        native = (
+            STORY_NATIVE_LINES.get(line, {}).get(self._native_language_code)
+            if self._story_translation_wanted()
+            else None
+        )
+        text = f"{native} {english}" if native else english
+        await self._send_json(
+            ws,
+            {
+                "type": "transcript",
+                "role": "assistant",
+                "text": text,
+                "final": True,
+                "turn_id": turn_id,
+            },
+        )
+        if native and self._native_tts is not None:
+            await self._speak_native(ws, text)  # one voice reads both languages
+        else:
+            await self._speak_target(ws, english)
+        self.history.append({"role": "assistant", "content": text})
+
+    async def _load_story_questions(self, story: StorySession, index: int) -> None:
+        """Make the paragraph's prepared question ideas available to the prompt."""
+        if story.questions.get(index) or index >= len(story.paragraph_ids):
+            return
+        try:
+            questions = await asyncio.wait_for(
+                get_paragraph_questions(story.paragraph_ids[index], self.llm), timeout=25
+            )
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            logger.warning("[pipeline] Story questions unavailable: %s", self._fmt_exc(exc))
+            return
+        if questions:
+            story.questions[index] = questions
+
+    def _remember_story_questions(self, reply: str) -> None:
+        """Track the questions asked about this paragraph so none is asked twice."""
+        story = self._story
+        if story is None or not reply:
+            return
+        story.remember_questions(reply)
+        self._prompt_args["story_context"] = story.prompt_context()
+
+    def _story_question_trigger(self, story: StorySession) -> str:
+        """Instruction for the first question about a newly read paragraph."""
+        where = f"Paragraph {story.index + 1} of {story.total}"
+        paragraph = story.current_text
+        if self._story_translation_wanted():
+            native = self._native_language_name
+            target = get_language_name(self._target_language)
+            return (
+                f"[{where} of the story was just read aloud in {target} and then in {native}. "
+                f"Write REPLY in {native}, keeping the {target} sentence and words you teach in "
+                f"{target}: react warmly in {native} in one short sentence, teach ONE key "
+                f"{target} sentence from this paragraph with its {native} meaning, then ask ONE "
+                f"simple question in {native} about THIS paragraph only. Do not ask about "
+                f'earlier paragraphs. The paragraph: "{paragraph}"]'
+            )
+        return (
+            f"[{where} of the story was just read aloud. React warmly in one short sentence and "
+            "ask ONE simple question about THIS paragraph only, not earlier ones. "
+            f'The paragraph: "{paragraph}"]'
+        )
+
+    async def _present_story_paragraph(
+        self, ws: WebSocket, *, turn_id: int, continuing: bool
+    ) -> None:
+        """Show and read the current paragraph, then ask a first question about it."""
+        story = self._story
+        if story is None:
+            return
+        # Usually already prepared (story page, previous paragraph); otherwise this starts
+        # the translation and native audio while the English paragraph is being read.
+        self._schedule_story_prepare(story.index)
+        translation_task = (
+            asyncio.create_task(self._story_translation(story, story.index))
+            if self._story_translation_wanted()
+            else None
+        )
+        try:
+            await self._send_status(ws, turn_id, "thinking")
+            if continuing:
+                await self._say_story_line(ws, turn_id, "continue", STORY_CONTINUE_LINE)
+            await self._send_json(ws, story.payload())
+            await self._speak_target(ws, story.current_text)
+            if translation_task is not None:
+                translation = await translation_task
+                if translation:
+                    await self._send_json(
+                        ws,
+                        {
+                            "type": "story_translation",
+                            "story_id": story.story_id,
+                            "index": story.index,
+                            "language": self._native_language_code,
+                            "text": translation,
+                        },
+                    )
+                    if self._native_tts is not None:
+                        intro = STORY_NATIVE_INTRO.get(self._native_language_code)
+                        # Introduction and reading are sent together, with no gaps.
+                        spoken = " ".join(p for p in (intro, translation) if p)
+                        await self._speak_native(ws, spoken)
+            await self._load_story_questions(story, story.index)
+            self._prompt_args["story_context"] = story.prompt_context()
+            # Prepare the next paragraph while this one is discussed.
+            self._schedule_story_prepare(story.index + 1)
+            self.system_prompt = self._build_prompt(
+                memory_tools_enabled=self._memory_tools_available
+            )
+            self._story_mark = time.monotonic()
+            await self._greet(
+                ws,
+                turn_id=turn_id,
+                trigger_text=self._story_question_trigger(story),
+            )
+        finally:
+            if translation_task is not None and not translation_task.done():
+                translation_task.cancel()
+            task = asyncio.current_task()
+            if task is None or not task.cancelling():
+                # Always close the turn so the learner's microphone reopens.
+                await self._send_status(ws, turn_id, "listening")
+                await self._send_json(ws, {"type": "turn_complete", "turn_id": turn_id})
+            self._story_mark = time.monotonic()
+
+    async def _advance_story_if_due(self, ws: WebSocket, turn_id: int) -> bool:
+        """Count this turn's time; move to the next paragraph after PARAGRAPH_SECONDS.
+
+        Returns True when the story took over the end of the turn.
+        """
+        story = self._story
+        if story is None or self._story_finished:
+            return False
+        now = time.monotonic()
+        story.add_turn_seconds(now - self._story_mark)
+        self._story_mark = now
+        if not story.paragraph_done():
+            self._pending_saves.append(asyncio.create_task(save_story_session(story)))
+            await self._send_json(ws, story.progress_payload())
+            return False
+        if story.is_last:
+            self._story_finished = True
+            await save_story_session(story, completed=True)
+            await self._say_story_line(ws, turn_id, "finished", STORY_FINISHED_LINE)
+            await self._send_json(
+                ws, {"type": "story_complete", "story_id": story.story_id, "replay": story.replay}
+            )
+            await self._send_status(ws, turn_id, "listening")
+            await self._send_json(ws, {"type": "turn_complete", "turn_id": turn_id})
+            return True
+        story.advance()
+        await save_story_session(story)
+        await self._present_story_paragraph(ws, turn_id=turn_id, continuing=True)
+        return True
+
     async def run(self, ws: WebSocket) -> None:
         """Main loop: starts timeout watchers then handles incoming messages."""
         logger.info("[pipeline] Conversation loop starting")
@@ -906,7 +1192,12 @@ class ConversationPipeline:
         ]
         await self._load_learning_state()
         self._last_turn_end = time.monotonic()
-        self.current_task = asyncio.create_task(self._greet(ws))
+        if self._story is not None:
+            self.current_task = asyncio.create_task(
+                self._present_story_paragraph(ws, turn_id=self._next_turn_id(), continuing=False)
+            )
+        else:
+            self.current_task = asyncio.create_task(self._greet(ws))
         try:
             while True:
                 try:
@@ -956,6 +1247,10 @@ class ConversationPipeline:
         self._inactivity_warning_sent = False
 
     async def handle_audio(self, audio_bytes: bytes, ws: WebSocket) -> None:
+        if self._story_finished:
+            # The story is over: the conversation ends and the learner moves on to the test.
+            logger.info("[pipeline] Ignoring audio after the story finished")
+            return
         self._reset_inactivity()
         logger.debug(
             "[pipeline] Audio chunk received (%d bytes); current_task=%s",
@@ -1093,6 +1388,7 @@ class ConversationPipeline:
                     "fallback_messages": fallback_messages,
                 }
             llm_stream = await self.llm.chat(messages, stream=True, **memory_kwargs)
+            stopped_loop = False
             try:
                 async for chunk in llm_stream:
                     if isinstance(chunk, LLMToolResultEvent):
@@ -1103,6 +1399,21 @@ class ConversationPipeline:
                         continue
                     token = self._stream_text(chunk)
                     full_response += token
+                    if (
+                        self._bilingual_enabled
+                        and any(mark in token for mark in ".!?।")
+                        and is_repetition_loop(full_response)
+                    ):
+                        stopped_loop = True
+                        break
+                if stopped_loop:
+                    # A looping reply would otherwise run until the token limit.
+                    logger.warning(
+                        "[pipeline] Stopped a repeating LLM reply: turn_id=%s chars=%d",
+                        turn_id,
+                        len(full_response),
+                    )
+                    await self._close_llm_stream(llm_stream)
             finally:
                 memory_updated = memory_updated or any(
                     result.content.get("saved") is True
@@ -1243,6 +1554,11 @@ class ConversationPipeline:
             self._update_learning(reply, user_text_for_llm, spoken_iso)
             self._pending_saves.append(asyncio.create_task(self._save_learning_state()))
             self._maybe_start_assessment()
+
+        self._remember_story_questions(assistant_for_history)
+        if self._story is not None and await self._advance_story_if_due(ws, turn_id):
+            logger.info("[pipeline] Story moved on after turn_id=%s", turn_id)
+            return
 
         logger.info("[pipeline] Turn complete - assistant: %r", assistant_for_history[:120])
         logger.info(

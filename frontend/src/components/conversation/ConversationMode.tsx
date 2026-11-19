@@ -19,11 +19,16 @@ import {
   type WsMessage,
   type ChatContextItem,
   type SessionWarningMessage,
+  type StoryCompleteMessage,
+  type StoryParagraphMessage,
+  type StoryProgressMessage,
+  type StoryTranslationMessage,
 } from '@/lib/conversation-ws'
 import StatusIndicator, { type ConvStatus } from './StatusIndicator'
 import TranscriptBubble from './TranscriptBubble'
 import SessionTimeoutBanner from './SessionTimeoutBanner'
 import MicButton from './MicButton'
+import MicGateIndicator from './MicGateIndicator'
 import { WordTooltip, useWordSave } from '@/components/ui/WordTooltip'
 import { type QuotaStatus } from '@/types/api'
 import {
@@ -295,7 +300,12 @@ const INTERRUPTION_MIN_UTTERANCE_MS = 1200
 const INTERRUPTION_RMS_THRESHOLD = 0.03
 const BARGE_IN_STARTUP_GUARD_MS = 900
 const VAD_MAX_RMS = 0.25
-const VAD_POSITIVE_SPEECH_THRESHOLD = 0.3
+// Silero's standard speech probability; lower values also trigger on background noise.
+const VAD_POSITIVE_SPEECH_THRESHOLD = 0.5
+// The mic stays muted for the whole tutor turn and reopens this long after the last
+// assistant audio finishes, so playback and its room echo are never recorded.
+const MIC_REOPEN_DELAY_MS = 700
+const MIC_GATE_POLL_MS = 100
 // Allow the backend's 60-second provider budget plus transport/auth overhead.
 const WARMUP_TIMEOUT_MS = 75_000
 const warmupLogger = getLogger('conversation-warmup')
@@ -310,6 +320,13 @@ export default function ConversationMode({
   targetLanguage,
   lessonId,
   lessonTitle,
+  storyId,
+  onStoryParagraph,
+  onStoryProgress,
+  onStoryTranslation,
+  onStoryComplete,
+  onStorySessionEnded,
+  embedded,
   voiceTrialToken,
   voiceTrialDurationSeconds,
   trialMode,
@@ -323,6 +340,16 @@ export default function ConversationMode({
   targetLanguage?: string
   lessonId?: number
   lessonTitle?: string
+  /** Story-based conversation: the backend reads and discusses this story. */
+  storyId?: number
+  onStoryParagraph?: (message: StoryParagraphMessage) => void
+  onStoryProgress?: (message: StoryProgressMessage) => void
+  onStoryTranslation?: (message: StoryTranslationMessage) => void
+  onStoryComplete?: (message: StoryCompleteMessage) => void
+  /** The story finished and its session closed after the last audio played. */
+  onStorySessionEnded?: () => void
+  /** Fill the parent (no page header, compact avatar and controls), e.g. beside a story. */
+  embedded?: boolean
   voiceTrialToken?: string
   voiceTrialDurationSeconds?: number
   trialMode?: boolean
@@ -421,10 +448,81 @@ export default function ConversationMode({
     'unknown'
   )
   const sessionStartedAtRef = useRef<number | null>(null)
+  const micOpenRef = useRef(true)
+  const storyCallbacksRef = useRef({
+    onStoryParagraph,
+    onStoryProgress,
+    onStoryTranslation,
+    onStoryComplete,
+    onStorySessionEnded,
+  })
+  useEffect(() => {
+    storyCallbacksRef.current = {
+      onStoryParagraph,
+      onStoryProgress,
+      onStoryTranslation,
+      onStoryComplete,
+      onStorySessionEnded,
+    }
+  }, [
+    onStoryParagraph,
+    onStoryProgress,
+    onStoryTranslation,
+    onStoryComplete,
+    onStorySessionEnded,
+  ])
+  // After the story's last paragraph the mic stays off and the session ends once the
+  // closing line has finished playing.
+  const storyFinishedRef = useRef(false)
+  const endStorySessionRef = useRef<() => void>(() => {})
+  const [micOpen, setMicOpenState] = useState(true)
+  const micOpenedAtRef = useRef(0)
+  const lastAssistantBusyAtRef = useRef(0)
 
   useEffect(() => {
     assistantSpeakingRef.current = assistantSpeaking
   }, [assistantSpeaking])
+
+  // Mic gate: mute the microphone track while Lingu thinks, sends or plays a reply
+  // (barge-in is disabled), and reopen it only after playback has fully finished.
+  useEffect(() => {
+    if (!sessionActive) return
+    const setMicOpen = (open: boolean) => {
+      // Sync every tick: the stream can be created after the gate started.
+      micStreamRef.current?.getAudioTracks().forEach((track) => {
+        if (track.enabled !== open) track.enabled = open
+      })
+      if (micOpenRef.current === open) return
+      micOpenRef.current = open
+      setMicOpenState(open)
+      if (open) micOpenedAtRef.current = performance.now()
+      convLogger.info(open ? 'mic reopened' : 'mic muted for tutor turn')
+    }
+    const timer = window.setInterval(() => {
+      const now = performance.now()
+      if (storyFinishedRef.current) {
+        setMicOpen(false)
+        const idle = !assistantTurnActiveRef.current && !assistantSpeakingRef.current
+        if (idle && now - lastAssistantBusyAtRef.current >= MIC_REOPEN_DELAY_MS) {
+          storyFinishedRef.current = false
+          endStorySessionRef.current()
+        } else if (!idle) {
+          lastAssistantBusyAtRef.current = now
+        }
+        return
+      }
+      if (assistantTurnActiveRef.current || assistantSpeakingRef.current) {
+        lastAssistantBusyAtRef.current = now
+        setMicOpen(false)
+      } else if (now - lastAssistantBusyAtRef.current >= MIC_REOPEN_DELAY_MS) {
+        setMicOpen(true)
+      }
+    }, MIC_GATE_POLL_MS)
+    return () => {
+      window.clearInterval(timer)
+      setMicOpen(true)
+    }
+  }, [sessionActive])
 
   const isLikelySpeech = useCallback(
     (
@@ -507,6 +605,19 @@ export default function ConversationMode({
     },
     onSpeechEnd: (audio: Float32Array) => {
       if (!mountedRef.current) return
+      const startedAt = speechStartedAtRef.current
+      if (
+        !micOpenRef.current ||
+        (startedAt !== null && startedAt < micOpenedAtRef.current)
+      ) {
+        // The utterance overlapped a muted tutor turn: it can contain Lingu's own
+        // voice or its echo, never only the learner's speech.
+        convLogger.warn('discarded audio recorded around a muted tutor turn')
+        speechStartedAtRef.current = null
+        speechEnergyRef.current = { sumSquares: 0, samples: 0 }
+        setUserSpeaking(false)
+        return
+      }
       const minUtteranceMs = assistantTurnActiveRef.current
         ? INTERRUPTION_MIN_UTTERANCE_MS
         : MIN_UTTERANCE_MS
@@ -745,6 +856,14 @@ export default function ConversationMode({
     [dismissTooltip]
   )
 
+  useEffect(() => {
+    endStorySessionRef.current = () => {
+      finalizeSession('manual')
+      setStatus('ended')
+      storyCallbacksRef.current.onStorySessionEnded?.()
+    }
+  }, [finalizeSession])
+
   // Auto-scroll transcript to bottom. Any transcript mutation moves the bubbles,
   // so a word tooltip anchored to old viewport coordinates is dropped with it.
   useEffect(() => {
@@ -802,6 +921,7 @@ export default function ConversationMode({
         if (targetLanguage) authPayload.target_language = targetLanguage
         if (voiceTrialToken) authPayload.voice_trial_token = voiceTrialToken
         if (lessonId !== undefined) authPayload.lesson_id = lessonId
+        if (storyId !== undefined) authPayload.story_id = storyId
         try {
           ws.send(JSON.stringify(authPayload))
         } catch {
@@ -914,6 +1034,23 @@ export default function ConversationMode({
               setAssistantThinking(false)
               break
 
+            case 'story_paragraph':
+              storyCallbacksRef.current.onStoryParagraph?.(msg)
+              break
+
+            case 'story_progress':
+              storyCallbacksRef.current.onStoryProgress?.(msg)
+              break
+
+            case 'story_translation':
+              storyCallbacksRef.current.onStoryTranslation?.(msg)
+              break
+
+            case 'story_complete':
+              storyFinishedRef.current = true
+              storyCallbacksRef.current.onStoryComplete?.(msg)
+              break
+
             case 'barge_in':
               convLogger.warn('barge_in message from backend')
               audioQueueRef.current?.cancel()
@@ -981,6 +1118,9 @@ export default function ConversationMode({
                 services_disabled: t('errorServicesDisabled'),
                 quota_exceeded_sessions: t('quotaExceededSessions'),
                 quota_exceeded_time: t('quotaExceededTime'),
+                quota_exceeded_weekly_minutes: t('quotaExceededWeeklyTime'),
+                story_unavailable: t('storyUnavailable'),
+                story_test_ready: t('storyTestReady'),
                 quota_exceeded_tokens: t('quotaExceededTokens'),
                 no_active_plan: tCommon('noActivePlan'),
                 lesson_practice_unavailable: tPractice('unavailable'),
@@ -1047,6 +1187,7 @@ export default function ConversationMode({
       tPractice,
       targetLanguage,
       lessonId,
+      storyId,
       voiceTrialToken,
       trialMode,
       refreshCurrentUser,
@@ -1269,9 +1410,17 @@ export default function ConversationMode({
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6">
+    <div
+      className={
+        embedded
+          ? 'flex h-full min-h-0 w-full flex-col overflow-hidden'
+          : 'mx-auto flex h-full max-w-4xl flex-col overflow-hidden p-4 md:p-6'
+      }
+    >
       {/* Header */}
-      <div className="border-fl-border mb-6 flex items-end justify-between border-b pb-4">
+      <div
+        className={`border-fl-border mb-6 flex items-end justify-between border-b pb-4 ${embedded ? 'hidden' : ''}`}
+      >
         <div>
           <p className="text-fl-label text-fl-muted-2 mb-1 font-mono tracking-widest uppercase">
             {t('subtitle')}
@@ -1378,6 +1527,7 @@ export default function ConversationMode({
       {/* Conversation starters — shown when idle, hidden as soon as session starts */}
       {!trialMode &&
         lessonId === undefined &&
+        storyId === undefined &&
         !sessionActive &&
         (status === 'ready' || status === 'ended' || status === 'error') && (
           <div className="mb-4">
@@ -1416,11 +1566,21 @@ export default function ConversationMode({
 
       <LinguAvatar
         animation={linguAnimation}
-        className="h-[65px] w-[65px] shrink-0 md:h-[200px] md:w-[200px]"
+        className={
+          embedded
+            ? 'h-[56px] w-[56px] shrink-0 self-center md:h-[96px] md:w-[96px]'
+            : 'h-[65px] w-[65px] shrink-0 md:h-[200px] md:w-[200px]'
+        }
       />
 
       {/* Controls */}
-      <div className="flex flex-col items-center gap-4 pb-2">
+      <div
+        className={
+          embedded
+            ? 'flex shrink-0 flex-wrap items-center justify-center gap-3 pt-2 pb-1'
+            : 'flex flex-col items-center gap-4 pb-2'
+        }
+      >
         {/* Timeout warning */}
         {Number.isFinite(warningDeadline) && (
           <div className="w-full">
@@ -1440,6 +1600,7 @@ export default function ConversationMode({
         ) : quota && !trialMode ? (
           <QuotaPill quota={quota} t={t} />
         ) : null}
+        {status === 'live' && sessionActive && <MicGateIndicator open={micOpen} />}
         <StatusIndicator
           status={status}
           userSpeaking={userSpeaking}

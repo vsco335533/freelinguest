@@ -110,7 +110,8 @@ class NativeTTSService:
             response = await client.post(
                 f"{self.base_url}/v1/audio/speech",
                 json=payload,
-                timeout=60.0,
+                # A long sentence can wait behind other speech on a busy GPU voice.
+                timeout=180.0,
             )
             response.raise_for_status()
             return response.content

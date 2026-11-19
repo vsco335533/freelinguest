@@ -39,6 +39,7 @@ from app.services.lesson_voice_practice import load_lesson_voice_practice
 from app.services.llm_adapter import llm_adapter
 from app.services.memory_service import get_user_memories
 from app.services.quota_service import check_all_quotas
+from app.services.story_service import load_story_session
 from app.services.subscription_service import is_subscribed
 from app.utils.db import db_session
 from app.utils.redis import redis_client as _redis_client
@@ -210,6 +211,8 @@ async def conversation_ws(
         target_language_from_client: str | None = auth_msg.get("target_language")
         lesson_id_raw = auth_msg.get("lesson_id")
         has_lesson_practice = "lesson_id" in auth_msg
+        story_id_raw = auth_msg.get("story_id")
+        has_story = "story_id" in auth_msg
         client_conversation_id_raw = auth_msg.get(
             "conversation_id"
         )  # optional: reserved for future API use
@@ -369,6 +372,23 @@ async def conversation_ws(
         cefr_level = plan.cefr_level if plan else "A2"
         study_plan_id_for_conv = plan.id if plan else None
 
+        # Story-based conversation: the story must belong to this plan's language and be
+        # unlocked for this plan; progress is owned by the plan, never by client state.
+        story_session = None
+        if has_story:
+            story_error = "story_unavailable"
+            if (
+                plan is not None
+                and not lesson_practice
+                and type(story_id_raw) is int
+                and 1 <= story_id_raw <= 2_147_483_647
+            ):
+                story_session, story_error = await load_story_session(db, plan, story_id_raw)
+            if story_session is None:
+                await websocket.send_json({"type": "error", "code": story_error})
+                await websocket.close(code=1008)
+                return
+
         # Read user settings before session closes to avoid DetachedInstanceError
         max_duration = (
             voice_trial.duration_seconds if voice_trial else user.conversation_max_duration
@@ -387,7 +407,7 @@ async def conversation_ws(
 
     # Validate and sanitize optional chat context passed from the tutor chat
     valid_context: list[dict] | None = None
-    if not lesson_practice and isinstance(initial_context_raw, list):
+    if not lesson_practice and not story_session and isinstance(initial_context_raw, list):
         sanitized = [
             {"role": m["role"], "content": m["content"]}
             for m in initial_context_raw[:20]
@@ -470,6 +490,7 @@ async def conversation_ws(
                 # that belongs to this user, append to that conversation.
                 if (
                     not lesson_practice
+                    and not story_session
                     and isinstance(client_conversation_id_raw, (int, float))
                     and int(client_conversation_id_raw) > 0
                 ):
@@ -489,6 +510,8 @@ async def conversation_ws(
                         title=(
                             lesson_practice_title(native_language, lesson_practice.lesson.title)
                             if lesson_practice
+                            else lesson_practice_title(native_language, story_session.title)
+                            if story_session
                             else voice_session_title(native_language)
                         ),
                         source="voice",
@@ -541,6 +564,7 @@ async def conversation_ws(
             lesson_practice_context=lesson_practice.context if lesson_practice else "",
             user_agent=websocket.headers.get("user-agent", ""),
             bilingual_mode_setting=getattr(user, "conversation_bilingual_mode", "auto") or "auto",
+            story=story_session,
         )
         pipeline._redis = redis
         pipeline._freemium_voice = freemium_ok

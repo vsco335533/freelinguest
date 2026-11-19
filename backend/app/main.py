@@ -26,6 +26,7 @@ _TTS_PREVIEWS_DIR = "/app/tts_previews"
 from app.routers import (
     admin,
     admin_dashboard_banner,
+    admin_stories,
     analytics,
     assessment,
     auth,
@@ -47,6 +48,7 @@ from app.routers import (
     progress,
     reading,
     reviews,
+    stories,
     stt,
     study_plan,
     tts,
@@ -150,6 +152,7 @@ app.include_router(auth.router)
 app.include_router(analytics.router)
 app.include_router(admin.router)
 app.include_router(admin_dashboard_banner.router)
+app.include_router(admin_stories.router)
 app.include_router(assessment.router)
 app.include_router(study_plan.router)
 app.include_router(lessons.router)
@@ -160,6 +163,7 @@ app.include_router(progress.router)
 app.include_router(listening.router)
 app.include_router(reading.router)
 app.include_router(reviews.router)
+app.include_router(stories.router)
 app.include_router(tts.router)
 app.include_router(stt.router)
 app.include_router(conversation.router)

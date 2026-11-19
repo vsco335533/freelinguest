@@ -103,6 +103,46 @@ export interface TurnCompleteMessage {
   turn_id?: number
 }
 
+/** Story-based conversation: the paragraph being read and discussed now. */
+export interface StoryParagraphMessage {
+  type: 'story_paragraph'
+  story_id: number
+  title: string
+  index: number
+  total: number
+  text: string
+  seconds: number
+  required_seconds: number
+  turn_id?: number
+}
+
+/** Conversation time counted on the current story paragraph (sent after each turn). */
+export interface StoryProgressMessage {
+  type: 'story_progress'
+  story_id: number
+  index: number
+  seconds: number
+  required_seconds: number
+  turn_id?: number
+}
+
+/** The current story paragraph in the learner's native language (read after the English). */
+export interface StoryTranslationMessage {
+  type: 'story_translation'
+  story_id: number
+  index: number
+  language: string
+  text: string
+  turn_id?: number
+}
+
+export interface StoryCompleteMessage {
+  type: 'story_complete'
+  story_id: number
+  replay: boolean
+  turn_id?: number
+}
+
 export type WsMessage =
   | TranscriptMessage
   | BargeInMessage
@@ -112,6 +152,10 @@ export type WsMessage =
   | ErrorMessage
   | MemoryUpdatedMessage
   | TurnCompleteMessage
+  | StoryParagraphMessage
+  | StoryProgressMessage
+  | StoryTranslationMessage
+  | StoryCompleteMessage
 
 // ─── Chat context passed from tutor chat to voice session ────────────────────
 

@@ -184,6 +184,15 @@ class LLMStream:
     def __aiter__(self):
         return self._iterate()
 
+    async def aclose(self) -> None:
+        """Stop the provider stream early so the provider stops generating."""
+        close = getattr(self._stream, "close", None)
+        if close is None:
+            return
+        result = close()
+        if hasattr(result, "__await__"):
+            await result
+
     async def _iterate(self):
         async for chunk in self._stream:  # type: ignore[union-attr]
             # Defensively capture usage from every chunk (the final one for

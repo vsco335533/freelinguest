@@ -13,9 +13,11 @@ from app.services.conversation_learning import (
     NATIVE_PHASE_SECONDS,
     LearningState,
     initial_stage_for_cefr,
+    is_repetition_loop,
     normalize_cefr,
     parse_assessment_json,
     parse_tutor_reply,
+    remove_repeated_sentences,
     split_speech_segments,
     strip_quotes,
 )
@@ -425,7 +427,8 @@ async def test_telugu_speech_is_transcribed_once_in_telugu_and_shown_verbatim() 
     (call,) = pipeline.stt.transcribe.await_args_list
     assert call.kwargs["language"] == "te"
     assert call.kwargs["vad_filter"] is True
-    assert "తెలుగు" in call.kwargs["prompt"]  # native-script prompt keeps Telugu script
+    # No initial prompt: Whisper would copy it into the transcript on unclear audio.
+    assert "prompt" not in call.kwargs
 
     (user,) = ws.transcripts("user")
     assert user["text"] == user["text_native"] == TELUGU_SPEECH
@@ -769,7 +772,7 @@ async def test_indic_base_language_uses_its_own_recognition_and_voice(
 
     (call,) = pipeline.stt.transcribe.await_args_list
     assert call.kwargs["language"] == code
-    assert script_word in call.kwargs["prompt"]
+    assert "prompt" not in call.kwargs
     assert native.synthesize.await_args_list
     assert all(c.kwargs["language"] == code for c in native.synthesize.await_args_list)
     assert f"{name}-speaking English (UK) tutor" in pipeline._build_prompt(
@@ -830,3 +833,45 @@ def test_each_indic_prompt_has_its_own_example_and_no_telugu(name: str, reply_st
     assert f"{name}-speaking English (UK) tutor" in prompt
     assert "అంటే" not in prompt
 
+
+# --- Repetition guards ---------------------------------------------------------
+
+LOOP = "Tom forest లోకి వెళ్తాడు. "
+
+
+def test_repeated_sentences_are_removed_from_a_reply() -> None:
+    text = "సరే, కథ చెప్తాను. Tom goes to the forest. Tom goes to the forest. Tom is happy."
+    assert remove_repeated_sentences(text) == (
+        "సరే, కథ చెప్తాను. Tom goes to the forest. Tom is happy."
+    )
+
+
+def test_teaching_reply_without_repeats_is_unchanged() -> None:
+    assert remove_repeated_sentences(REPLY_TEXT.replace('"', "")) == REPLY_TEXT.replace('"', "")
+
+
+def test_repetition_loop_detected_on_third_identical_sentence() -> None:
+    assert not is_repetition_loop("Intro. " + LOOP * 2)
+    assert is_repetition_loop("Intro. " + LOOP * 3)
+
+
+@pytest.mark.asyncio
+async def test_looping_llm_reply_is_stopped_and_spoken_once() -> None:
+    produced: list[int] = []
+
+    async def looping_stream():
+        yield _chunk("CHECK: attempted=no correct=no\nREPLY: సరే, కథ చెప్తాను. ")
+        for index in range(200):
+            produced.append(index)
+            yield _chunk(LOOP)
+
+    pipeline = _bilingual_pipeline(TELUGU_REPLY)
+    pipeline.llm.chat = AsyncMock(return_value=looping_stream())
+    ws = FakeWS()
+
+    await pipeline._process(b"audio", ws)
+
+    assert len(produced) == 3  # stopped as soon as the loop was detected
+    (assistant,) = ws.transcripts("assistant")
+    assert assistant["text"] == "సరే, కథ చెప్తాను. Tom forest లోకి వెళ్తాడు."
+    assert not ws.errors()

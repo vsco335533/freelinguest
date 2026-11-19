@@ -51,6 +51,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
     { href: '/listening', label: tNav('listening') },
     { href: '/reading', label: tNav('reading') },
     { href: '/conversation', label: tNav('conversation') },
+    { href: '/stories', label: tNav('stories') },
     { href: '/games', label: tNav('games') },
     { href: '/assessment', label: tNav('assessment') },
   ]
@@ -88,6 +89,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
     '/listening',
     '/reading',
     '/conversation',
+    '/stories',
   ])
   const stripeEnabled = useConfigStore((s) => s.stripeEnabled)
   const showPremiumBadge = stripeEnabled && !isSubscribed(user, stripeEnabled)

@@ -411,8 +411,48 @@ def parse_tutor_reply(text: str) -> TutorReply:
         body = " ".join(p for p in (get("NATIVE"), get("TARGET"), get("QUESTION")) if p)
     if not body and preamble:
         body = " ".join(preamble)
-    reply.reply = strip_quotes(body)
+    reply.reply = remove_repeated_sentences(strip_quotes(body))
     return reply
+
+
+# --- Repetition guards ------------------------------------------------------------
+
+# Small local models occasionally loop on one sentence until their token limit.
+_REPLY_SENTENCE_RE = re.compile(r"[^.!?।]+[.!?।]*")
+LOOP_SENTENCE_REPEATS = 3
+_LOOP_MIN_SENTENCE_CHARS = 8
+
+
+def _sentence_key(sentence: str) -> str:
+    return " ".join(sentence.lower().split())
+
+
+def remove_repeated_sentences(text: str) -> str:
+    """Drop exact repeats of a sentence already said earlier in the same reply."""
+    seen: set[str] = set()
+    kept: list[str] = []
+    for sentence in (s.strip() for s in _REPLY_SENTENCE_RE.findall(text or "")):
+        if not sentence:
+            continue
+        key = _sentence_key(sentence)
+        if key in seen and len(key) >= _LOOP_MIN_SENTENCE_CHARS:
+            continue
+        seen.add(key)
+        kept.append(sentence)
+    return " ".join(kept)
+
+
+def is_repetition_loop(text: str) -> bool:
+    """Whether one sentence already appears LOOP_SENTENCE_REPEATS times in the text."""
+    counts: dict[str, int] = {}
+    for sentence in _REPLY_SENTENCE_RE.findall(text or ""):
+        key = _sentence_key(sentence)
+        if len(key) < _LOOP_MIN_SENTENCE_CHARS or key[-1] not in ".!?।":
+            continue
+        counts[key] = counts.get(key, 0) + 1
+        if counts[key] >= LOOP_SENTENCE_REPEATS:
+            return True
+    return False
 
 
 # --- Speech routing ---------------------------------------------------------------

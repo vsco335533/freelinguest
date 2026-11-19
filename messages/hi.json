@@ -628,7 +628,8 @@
     "contact": "संपर्क करें",
     "feedback": "प्रतिक्रिया",
     "reviews": "समीक्षाएं",
-    "switchLanguage": "भाषा बदलें"
+    "switchLanguage": "भाषा बदलें",
+    "stories": "कहानियाँ"
   },
   "auth": {
     "login": {
@@ -1734,6 +1735,8 @@
     "statusReady": "तैयार",
     "statusWarming": "मॉडल लोड हो रहे हैं...",
     "statusConnecting": "कनेक्ट हो रहा है...",
+    "micOpenNote": "माइक चालू: अब आप बोल सकते हैं",
+    "micMutedNote": "माइक बंद: Lingu जवाब दे रहा है, कृपया रुकिए",
     "statusListening": "सुन रहा है...",
     "statusDetecting": "आवाज़ पहचानी जा रही है...",
     "statusSpeaking": "बोल रहा है...",
@@ -1757,6 +1760,7 @@
     "quotaUnlimited": "असीमित",
     "quotaExceededSessions": "आपने इस सप्ताह के अपने सभी सत्र उपयोग कर लिए हैं।",
     "quotaExceededTime": "आपने आज का अपना सारा अभ्यास समय उपयोग कर लिया है।",
+    "quotaExceededWeeklyTime": "आपने इस सप्ताह का अपना सारा अभ्यास समय उपयोग कर लिया है।",
     "quotaExceededTokens": "आपने इस माह के अपने सभी एआई टोकन उपयोग कर लिए हैं।",
     "freemiumVoiceRemaining": "निःशुल्क वॉइस: इस सप्ताह {remaining}/{limit} मिनट",
     "quotaTokens": "इस माह के टोकन",
@@ -2385,5 +2389,8 @@
     "label": "रखरखाव",
     "title": "रखरखाव के अधीन",
     "description": "रखरखाव के दौरान यह अनुभाग अस्थायी रूप से अनुपलब्ध है। कृपया बाद में फिर जाँचें।"
+  },
+  "stories": {
+    "inYourLanguage": "हिंदी में"
   }
 }

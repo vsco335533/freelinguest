@@ -628,7 +628,8 @@
     "contact": "ಸಂಪರ್ಕಿಸಿ",
     "feedback": "ಪ್ರತಿಕ್ರಿಯೆ",
     "reviews": "ವಿಮರ್ಶೆಗಳು",
-    "switchLanguage": "ಭಾಷೆ ಬದಲಿಸಿ"
+    "switchLanguage": "ಭಾಷೆ ಬದಲಿಸಿ",
+    "stories": "ಕಥೆಗಳು"
   },
   "auth": {
     "login": {
@@ -1734,6 +1735,8 @@
     "statusReady": "ಸಿದ್ಧವಾಗಿದೆ",
     "statusWarming": "ಮಾದರಿಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ...",
     "statusConnecting": "ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
+    "micOpenNote": "ಮೈಕ್ ಆನ್: ಈಗ ನೀವು ಮಾತನಾಡಬಹುದು",
+    "micMutedNote": "ಮೈಕ್ ಆಫ್: Lingu ಉತ್ತರಿಸುತ್ತಿದೆ, ದಯವಿಟ್ಟು ಕಾಯಿರಿ",
     "statusListening": "ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದೆ...",
     "statusDetecting": "ಮಾತನ್ನು ಗುರುತಿಸುತ್ತಿದೆ...",
     "statusSpeaking": "ಮಾತನಾಡುತ್ತಿದೆ...",
@@ -1757,6 +1760,7 @@
     "quotaUnlimited": "ಅನಿಯಮಿತ",
     "quotaExceededSessions": "ಈ ವಾರದ ನಿಮ್ಮ ಎಲ್ಲಾ ಸೆಷನ್‌ಗಳನ್ನು ನೀವು ಬಳಸಿದ್ದೀರಿ.",
     "quotaExceededTime": "ಇಂದಿನ ನಿಮ್ಮ ದೈನಂದಿನ ಅಭ್ಯಾಸ ಸಮಯವನ್ನೆಲ್ಲಾ ನೀವು ಬಳಸಿದ್ದೀರಿ.",
+    "quotaExceededWeeklyTime": "ಈ ವಾರದ ನಿಮ್ಮ ಅಭ್ಯಾಸ ಸಮಯವನ್ನೆಲ್ಲಾ ನೀವು ಬಳಸಿದ್ದೀರಿ.",
     "quotaExceededTokens": "ಈ ತಿಂಗಳ ನಿಮ್ಮ ಎಲ್ಲಾ ಎಐ ಟೋಕನ್‌ಗಳನ್ನು ನೀವು ಬಳಸಿದ್ದೀರಿ.",
     "freemiumVoiceRemaining": "ಉಚಿತ ಧ್ವನಿ: ಈ ವಾರ {remaining}/{limit} ನಿಮಿಷ",
     "quotaTokens": "ಈ ತಿಂಗಳ ಟೋಕನ್‌ಗಳು",
@@ -2385,5 +2389,8 @@
     "label": "ನಿರ್ವಹಣೆ",
     "title": "ನಿರ್ವಹಣೆಯಲ್ಲಿದೆ",
     "description": "ನಾವು ನಿರ್ವಹಣೆ ಕಾರ್ಯವನ್ನು ನಿರ್ವಹಿಸುತ್ತಿರುವಾಗ ಈ ವಿಭಾಗವು ತಾತ್ಕಾಲಿಕವಾಗಿ ಲಭ್ಯವಿರುವುದಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪರಿಶೀಲಿಸಿ."
+  },
+  "stories": {
+    "inYourLanguage": "ಕನ್ನಡದಲ್ಲಿ"
   }
 }

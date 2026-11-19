@@ -30,16 +30,18 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
 
-  # STT (faster-whisper ASR webservice). large-v3-turbo recognises Telugu far better
-  # than the small CPU models while leaving GPU memory for the native voice on 8 GB
-  # cards; set SPEECH_WHISPER_MODEL=large-v3 on GPUs with 12 GB or more.
+  # STT (faster-whisper ASR webservice). If GPU memory runs out, fall back with
+  # SPEECH_WHISPER_MODEL=large-v3-turbo (faster, weaker on Indian languages).
   whisper:
     <<: *gpu
     image: onerahmet/openai-whisper-asr-webservice:latest-gpu
     container_name: freelingo-whisper
     restart: unless-stopped
     environment:
-      - ASR_MODEL=${SPEECH_WHISPER_MODEL:-large-v3-turbo}
+      # large-v3 recognises Indian languages much better than large-v3-turbo (whose decoder
+      # is pruned). float16 keeps its VRAM close to turbo's float32 default (about 3 GB).
+      - ASR_MODEL=${SPEECH_WHISPER_MODEL:-large-v3}
+      - ASR_QUANTIZATION=${SPEECH_WHISPER_QUANTIZATION:-float16}
       - ASR_ENGINE=${STT_ENGINE:-faster_whisper}
     volumes:
       # Keep downloaded models across container recreation.
@@ -57,8 +59,9 @@ services:
     restart: unless-stopped
     environment:
       - TTS_ENGINE=${NATIVE_TTS_ENGINE:-parler}
-      # torch.compile + CUDA graphs for faster speech; falls back automatically on failure.
-      - TTS_COMPILE=${NATIVE_TTS_COMPILE:-1}
+      # torch.compile + CUDA graphs for faster speech (opt-in: the installed parler-tts and
+      # transformers versions disagree on StaticCache); falls back automatically on failure.
+      - TTS_COMPILE=${NATIVE_TTS_COMPILE:-0}
       - TTS_MODEL_ID=${NATIVE_TTS_MODEL_ID:-}
       - TTS_VOICE_DESCRIPTION=${NATIVE_TTS_VOICE_DESCRIPTION:-Lalitha speaks in a warm, friendly and expressive voice at a moderate pace, pronouncing English words clearly. The recording is of very high quality, with the speaker's voice sounding clear and very close up.}
       - HF_TOKEN=${HF_TOKEN:-}

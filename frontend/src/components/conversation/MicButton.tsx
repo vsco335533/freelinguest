@@ -54,11 +54,12 @@ export default function MicButton({ status, onStart, onStop }: Props) {
     return (
       <button
         onClick={onStop}
-        className="neu-card border-fl-error/60 hover:bg-fl-error/10 group flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all"
+        className="neu-card border-fl-muted-2/60 hover:bg-fl-muted-2/10 group flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all"
         aria-label={t('stop')}
         title={t('stop')}
       >
-        <span className="text-fl-error font-mono text-lg transition-transform group-hover:scale-110">
+        {/* Neutral, so red stays reserved for the muted-mic signal. */}
+        <span className="text-fl-fg font-mono text-lg transition-transform group-hover:scale-110">
           ■
         </span>
       </button>
