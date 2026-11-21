@@ -53,7 +53,8 @@ export default getRequestConfig(async () => {
     try {
       const localeMessages = (await import(`../../messages/${locale}.json`))
         .default
-      messages = deepMerge(defaultMessages, localeMessages)
+      // English keys with this locale's translations layered on top: same shape as English.
+      messages = deepMerge(defaultMessages, localeMessages) as typeof defaultMessages
     } catch {
       messages = defaultMessages
     }
