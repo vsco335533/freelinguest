@@ -481,6 +481,22 @@ export default function LessonPage() {
     return <PageLoading label={t('completing')} />
   }
 
+  // Declared before the completion screen, which also shows the lesson title.
+  const targetLanguageCode =
+    lessonTargetLanguage ?? activeLanguage?.code ?? 'en-GB'
+  const localizedLessonTitle = lesson
+    ? localizeLessonTitle(
+      {
+        title: lesson.title,
+        unitId: getLessonUnitId(lesson),
+        lessonType: lesson.lesson_type,
+        cefrLevel: lesson.cefr_level,
+        targetLanguage: targetLanguageCode,
+      },
+      tCommon
+    )
+    : ''
+
   if (completed) {
     return (
       <>
@@ -548,20 +564,6 @@ export default function LessonPage() {
   }
 
   const exercise = exercises[currentExercise]
-  const targetLanguageCode =
-    lessonTargetLanguage ?? activeLanguage?.code ?? 'en-GB'
-  const localizedLessonTitle = lesson
-    ? localizeLessonTitle(
-      {
-        title: lesson.title,
-        unitId: getLessonUnitId(lesson),
-        lessonType: lesson.lesson_type,
-        cefrLevel: lesson.cefr_level,
-        targetLanguage: targetLanguageCode,
-      },
-      tCommon
-    )
-    : ''
   const isEvaluated = exercise?.score !== null
   const isAnswerCorrect = (exercise?.score ?? 0) >= 1
   const exerciseCorrections = (exercise?.corrections ?? []).filter(
