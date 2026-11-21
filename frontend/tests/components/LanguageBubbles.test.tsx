@@ -37,7 +37,7 @@ vi.mock('next/image', () => ({
 }))
 
 describe('LanguageBubbles', () => {
-  it('reveals Lingu and the language bubbles together when the avatar is ready', () => {
+  it('reveals Linguist and the language bubbles together when the avatar is ready', () => {
     const { container } = render(<LanguageBubbles />)
     const group = container.querySelector('[aria-hidden="true"].opacity-0')
     const loading = screen.getByRole('status', { name: 'loading' })

@@ -16,20 +16,20 @@ Shared visual, avatar, and media components belong to `architecture-frontend.ins
 ## Landing structure
 
 `frontend/src/app/page.tsx` is server-rendered. Its hero introduces the study plan, practice and voice
-conversation with Lingu. The `#features` anchor leads to an ordered three-step learning journey:
+conversation with Linguist. The `#features` anchor leads to an ordered three-step learning journey:
 level assessment and a structured A1–C2 curriculum, comprehension/vocabulary practice and the three
-available games, then speaking with Lingu. The steps connect horizontally on desktop and vertically
+available games, then speaking with Linguist. The steps connect horizontally on desktop and vertically
 on mobile without additional animation or client-side state. Game names reuse the `games`
 translation namespace.
 
 The static written English correction example accompanies an explanation of voice practice started
-from a completed lesson, whose content and answered exercises can inform Lingu's conversation. It
+from a completed lesson, whose content and answered exercises can inform Linguist's conversation. It
 uses `TargetLanguageText` with `en-GB`, localized labels, and no simulated controls or API requests.
 Spaced repetition, XP and streaks are supplementary copy rather than a separate feature grid.
-The hero uses one animated Lingu in `LanguageBubbles`.
-Language greetings surround Lingu in a wide elliptical orbit from the small-screen breakpoint;
+The hero uses one animated Linguist in `LanguageBubbles`.
+Language greetings surround Linguist in a wide elliptical orbit from the small-screen breakpoint;
 on narrower viewports they wrap into spaced rows below the avatar. The hero reserves the orbit's
-width, showing a spinner without visible text in Lingu's position until the avatar is ready; Lingu
+width, showing a spinner without visible text in Linguist's position until the avatar is ready; Linguist
 and the greetings then appear together. Orbit offsets use
 rounded CSS custom properties and centered margin positioning so server and browser markup agree
 without relying on serialized `calc()` expressions. Floating animations respect reduced motion.
@@ -74,9 +74,9 @@ specifications.
 
 ## FAQ, localization, and accessibility
 
-`LandingFAQ` uses `landing.faq`, separately from the authenticated `faq` catalog. Its six questions
-cover deployment modes, free signup versus the card-based Premium trial, self-hosting requirements,
-storage and external processing, study languages, and the learning journey. Answers remain in the
+`LandingFAQ` uses `landing.faq`, separately from the authenticated `faq` catalog. Its four questions
+cover free signup versus the card-based Premium trial, storage and external processing, study
+languages, and the learning journey. Answers remain in the
 rendered HTML, with inactive panels hidden; buttons expose `aria-expanded`, `aria-controls`, and
 labelled answer regions. Measurement behavior belongs to `umami.instructions.md`.
 The study-language answer interpolates the shared localized language list defined in

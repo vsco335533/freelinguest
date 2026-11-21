@@ -19,9 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Changed
 
-- Page loading uses lightweight indicators with delayed appearance and a shared minimum visible duration. Exercise preparation uses static Lingu artwork, keeping loading independent of the 3D model and its animation startup.
+- Page loading uses lightweight indicators with delayed appearance and a shared minimum visible duration. Exercise preparation uses static Linguist artwork, keeping loading independent of the 3D model and its animation startup.
 - The top loading bar retains its appearance and coordinates with full-page loading. Section updates and landing subscription checks keep their feedback within the affected content.
-- The landing shows a text-free spinner while Lingu and the surrounding language greetings prepare to appear together.
+- The landing shows a text-free spinner while Linguist and the surrounding language greetings prepare to appear together.
 - Lesson completion explains that progress is being saved and the next lesson prepared while the existing full-page loading indicator is visible.
 
 ### Fixed
@@ -136,7 +136,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ### Fixed
 
 - Voice conversations preserve decimal numbers within spoken fragments, keep fallback audio playback in order, show response preparation while a turn is pending, and clear obsolete inactivity warnings without resetting the maximum-duration countdown.
-- Voice capture measures speech volume independently of the configured silence pause. Sessions no longer expire for inactivity while Lingu is processing a turn, and speaking before the opening greeting finishes preserves the selected topic and prior context.
+- Voice capture measures speech volume independently of the configured silence pause. Sessions no longer expire for inactivity while Linguist is processing a turn, and speaking before the opening greeting finishes preserves the selected topic and prior context.
 - Manual voice-session starts and retries retain supplied chat context. Speech synthesis preserves ellipses and skips punctuation-only fragments instead of making extra requests for isolated dots.
 - Landing rating totals and averages use all approved ratings rather than the limited carousel selection. The carousel continues to show positive written reviews, while the summary remains visible even without qualifying comments. Updated rating labels across all fifteen interface languages.
 
@@ -190,7 +190,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Changed
 
-- Clarified the public landing's learning journey from level assessment and a structured plan to exercises, games and lesson-context voice practice with Lingu, replacing the feature grid with three connected steps. Updated free-start calls to action, usage-limit guidance and metadata across all fifteen interface languages.
+- Clarified the public landing's learning journey from level assessment and a structured plan to exercises, games and lesson-context voice practice with Linguist, replacing the feature grid with three connected steps. Updated free-start calls to action, usage-limit guidance and metadata across all fifteen interface languages.
 
 ### Fixed
 
@@ -216,8 +216,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ### Changed
 
 - Refreshed Progress with the dashboard's XP and streak cards, a 28-day UTC activity calendar and daily XP chart, a reward guide in all interface languages, and clearer competency, vocabulary and recent-performance indicators.
-- Refreshed product wording across all interface languages to highlight Lingu as the tutor.
-- Unified navigation and general page loading, and improved Reading/Listening generation screens with Lingu, a spinner while the animation loads, clearer text, and compact inline indicators. App loading screens share consistent visible-area centering and a 500 ms minimum display to avoid flashes.
+- Refreshed product wording across all interface languages to highlight Linguist as the tutor.
+- Unified navigation and general page loading, and improved Reading/Listening generation screens with Linguist, a spinner while the animation loads, clearer text, and compact inline indicators. App loading screens share consistent visible-area centering and a 500 ms minimum display to avoid flashes.
 
 ### Fixed
 
@@ -232,7 +232,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Added
 
-- Lingu's written-chat replies can optionally use bold, italics, lists and paragraphs for clearer corrections and explanations, including streamed replies and chat history, with learned-language typography and word selection.
+- Linguist's written-chat replies can optionally use bold, italics, lists and paragraphs for clearer corrections and explanations, including streamed replies and chat history, with learned-language typography and word selection.
 
 ### Changed
 
@@ -247,16 +247,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Fixed
 
-- The shared Lingu avatar shows a loading indicator while its 3D model loads instead of briefly flashing the static logo.
+- The shared Linguist avatar shows a loading indicator while its 3D model loads instead of briefly flashing the static logo.
 - Shared model instructions explicitly prohibit Markdown formatting in chat, voice, and generated text fields, while preserving JSON contracts and exercise blanks.
 
 ## [1.10.0] - 2026-10-07
 
 ### Added
 
-- Lingu greets visitors in a continuous loop at the center of the landing's language circle, preserving the existing 140 × 140 px slot and transparent integration with light and dark themes.
-- Lingu's animated avatar appears in voice conversations (150 × 150 px on mobile, 200 × 200 px on desktop) and in the written-chat header (55 × 55 px), reflecting listening, speaking, and thinking states.
-- Animated Lingu dashboard tour with seven localized screens, an introduction to Games, and optional narration beside each paragraph. Audio follows the interface language and existing voice preferences, is generated on demand, and is persistently cached across users. Includes responsive presentation, keyboard navigation, reduced-motion artwork, and playback cancellation when navigating or closing. The reusable Lingu component supports all thirteen animations, with per-animation looping or one-shot playback.
+- Linguist greets visitors in a continuous loop at the center of the landing's language circle, preserving the existing 140 × 140 px slot and transparent integration with light and dark themes.
+- Linguist's animated avatar appears in voice conversations (150 × 150 px on mobile, 200 × 200 px on desktop) and in the written-chat header (55 × 55 px), reflecting listening, speaking, and thinking states.
+- Animated Linguist dashboard tour with seven localized screens, an introduction to Games, and optional narration beside each paragraph. Audio follows the interface language and existing voice preferences, is generated on demand, and is persistently cached across users. Includes responsive presentation, keyboard navigation, reduced-motion artwork, and playback cancellation when navigating or closing. The reusable Linguist component supports all thirteen animations, with per-animation looping or one-shot playback.
 - Games section in desktop and mobile navigation, with localized messaging when no games are available and a link back to My Plan.
 - Error Detective: five-challenge language practice with separate error detection and correction, completed-lesson review, preparation for the next lesson and free practice at the plan's level. Includes native-language explanations, corrected-sentence audio, resumable games and history, up to 15 XP per game with a 45 XP daily plan limit, and three daily free games shared across languages. Generated content is validated and reviewed before consuming a game allowance.
 - Sentence Order: arrange fragments in five challenges with native-language clues and explanations, validated alternative orders, interchangeable repeated fragments, and correct-sentence audio. Supports CJK writing, completed-lesson review, next-lesson preparation and free practice, with resumable sessions and separate history. Shares the daily free-game allowance and plan XP limit with Error Detective.
@@ -264,21 +264,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Changed
 
-- Increased Lingu's hemisphere, key, and fill lights across the landing, onboarding tour, voice conversations, and written chat to brighten shaded areas in both themes while retaining neutral tone mapping and the model's material colors.
+- Increased Linguist's hemisphere, key, and fill lights across the landing, onboarding tour, voice conversations, and written chat to brighten shaded areas in both themes while retaining neutral tone mapping and the model's material colors.
 - The renewed onboarding tour is shown again for browsers that completed the previous tour, using a dedicated 1.10.0 completion key. Pending What's New announcements follow on the next dashboard visit after completing or skipping the tour.
 
 ### Fixed
 
 - OpenAI speech synthesis with `gpt-4o-mini-tts` uses native-pronunciation instructions across the application, with regional and language-specific articulation guidance when the language is available, preserving each user's selected voice. Tour, phrasebook, and voice-preview caches distinguish the instructions; legacy OpenAI models remain compatible.
 - Lesson, flashcard, vocabulary, game, and chat audio uses its persisted plan/conversation language, preserving regional pronunciation such as American English. Audio without language context no longer forces a regional accent, and Phrasebook playback and Settings voice previews bypass stale browser audio while retaining their server caches.
-- The landing reveals animated Lingu and its language circle together once the first frame is ready, avoiding a preliminary PNG and preserving layout space during loading. Reduced motion and loading failures retain static artwork.
+- The landing reveals animated Linguist and its language circle together once the first frame is ready, avoiding a preliminary PNG and preserving layout space during loading. Reduced motion and loading failures retain static artwork.
 - Audio retries remain synchronized with playback when a media error also rejects the play request; obsolete recovery timers no longer reset an active retry.
 
 ## [1.9.30] - 2026-10-05
 
 ### Added
 
-- Voice practice with Lingu from completed lessons, using their content and answered exercises as conversation context. Practice sessions appear in chat history with the lesson title.
+- Voice practice with Linguist from completed lessons, using their content and answered exercises as conversation context. Practice sessions appear in chat history with the lesson title.
 - Plan-specific XP rewards for voice and chat participation, spaced Listening/Reading reviews, and completing units and levels, with daily limits and protection against duplicate rewards. Completion milestones recognize either order of lessons and final evaluation, and eligible historical completions can receive their first milestone reward when resubmitted.
 
 ### Changed
@@ -387,7 +387,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Added
 
-- **Lingu practice preview**: the landing page now includes a static English question, learner answer, and correction, with labels and explanation in all ten UI languages, without simulated controls or additional API requests.
+- **Linguist practice preview**: the landing page now includes a static English question, learner answer, and correction, with labels and explanation in all ten UI languages, without simulated controls or additional API requests.
 
 ### Changed
 
@@ -398,7 +398,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 - **Lesson completion summary**: completed lessons now show their title and assessed exercise count, with My Plan as the primary next action and Dashboard still available without changing rewards or saved-lesson review.
 - **Study-plan orientation**: the active curriculum unit now has an explicit label, while pending lessons remain resumable below the unit list with quieter styling and supportive copy across all ten UI languages.
 - **Consistent learning indicators**: plan-unit and lesson states, dashboard completion marks, and lesson answer feedback now use Lucide icons with localized accessible state labels where needed. The active-unit pulse respects reduced-motion preferences, with existing state rules and actions preserved.
-- **Voice conversation visuals**: status labels use stronger contrast and weight with tighter tracking, idle avatar halos stay static, transcript motion respects reduced-motion preferences, and the tutor label reads Lingu in all ten UI languages.
+- **Voice conversation visuals**: status labels use stronger contrast and weight with tighter tracking, idle avatar halos stay static, transcript motion respects reduced-motion preferences, and the tutor label reads Linguist in all ten UI languages.
 
 ### Fixed
 
@@ -461,8 +461,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 - **Memory limits and safety**: memory items remain limited to 200 characters, storage is capped at 150 items per user with deterministic oldest-first eviction, and injected memory text is escaped and treated as untrusted prompt data.
 - **Privacy and deletion copy**: all ten locales now explain manual/global memories and clarify that removing a learning language does not remove account memories.
 - **What's New version marker**: bumped to `v1.8.35` with localized memory redesign highlights.
-- **Memory save notification**: text and voice now share an accessible informational toast that confirms Lingu saved a memory, points users to Settings without a timed action, safely restarts and re-announces consecutive saves, and survives SSE events split across network chunks.
-- **Native-language memories**: Lingu now writes new automatic memories in the user's configured native language, independently of the language being studied, so saved facts remain directly readable in Settings. Manual and existing memories are left unchanged.
+- **Memory save notification**: text and voice now share an accessible informational toast that confirms Linguist saved a memory, points users to Settings without a timed action, safely restarts and re-announces consecutive saves, and survives SSE events split across network chunks.
+- **Native-language memories**: Linguist now writes new automatic memories in the user's configured native language, independently of the language being studied, so saved facts remain directly readable in Settings. Manual and existing memories are left unchanged.
 
 ### Fixed
 
@@ -545,7 +545,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Added
 
-- **Post-assessment voice demo**: unsubscribed hosted users who complete the placement assessment now get a one-time 5-minute real-time voice conversation with Lingu. The demo is granted after the study plan is created, uses a Redis-backed token plus the new `users.assessment_voice_trial_used` flag, bypasses the conversation paywall only for that trial session, enforces a backend 300-second max duration, and shows monthly/yearly Premium checkout CTAs when the session ends.
+- **Post-assessment voice demo**: unsubscribed hosted users who complete the placement assessment now get a one-time 5-minute real-time voice conversation with Linguist. The demo is granted after the study plan is created, uses a Redis-backed token plus the new `users.assessment_voice_trial_used` flag, bypasses the conversation paywall only for that trial session, enforces a backend 300-second max duration, and shows monthly/yearly Premium checkout CTAs when the session ends.
 - **Review prompt after exercises**: users who have not submitted a review yet may now be asked for one after completing a new Reading or Listening exercise, reusing the existing duplicate-review check and local dismissal cooldown. Replays from history do not trigger the prompt.
 
 ## [1.8.19] - 2026-06-27
@@ -614,7 +614,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ### Changed
 
 - **Dashboard progress refinements**: `/api/progress/summary` now includes current-level vocabulary progress for the active study language, and `/dashboard` shows it compactly inside the plan-progress card without adding a dashboard request. The dashboard's former skills section is now presented as recent performance with clearer labels and explanatory copy.
-- **Dashboard Premium banner**: unsubscribed users now see a compact FreeLingo Premium banner above quick actions when Stripe is enabled, linking to pricing and highlighting Reading, Listening, text chat with Lingu, and voice conversation.
+- **Dashboard Premium banner**: unsubscribed users now see a compact FreeLingo Premium banner above quick actions when Stripe is enabled, linking to pricing and highlighting Reading, Listening, text chat with Linguist, and voice conversation.
 - **Landing reviews signal**: the public reviews section now shows the average rating and total review count below the section subtitle, using localized number formatting and public-facing copy such as "reseñas en total" rather than moderation terminology.
 - **Maintenance access control**: maintenance mode now blocks the four gated learning sections only for non-admin users, allowing admins to verify chat, voice conversation, listening, and reading while maintenance is active. Memory-management endpoints remain subscription-gated but are no longer blocked by maintenance mode. The admin toggle now uses `PUT /api/admin/maintenance` with an explicit `maintenance_mode` value instead of relying on a state-flipping request from the UI.
 
@@ -669,7 +669,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ### Changed
 
-- **AI tutor persona**: the tutor is now consistently named Lingu in text tutor prompts, voice conversation prompts, and TTS voice previews.
+- **AI tutor persona**: the tutor is now consistently named Linguist in text tutor prompts, voice conversation prompts, and TTS voice previews.
 - **Feedback queue noise reduction**: feedback entries marked as Done are now hidden from default public and admin listings, and only appear when the Done status filter is selected.
 - **Review moderation UX**: deleting a review in the admin queue now reloads the active page so remaining reviews fill the list, and the in-app review prompt no longer allows submission if the existing-review status check fails.
 - **Admin review signals**: the admin overview now shows reviews pending approval and includes a quick-link card to review moderation.

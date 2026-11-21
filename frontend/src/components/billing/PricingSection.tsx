@@ -204,9 +204,6 @@ export default function PricingSection({
         <h2 className="text-fl-fg mb-2 font-sans text-xl font-bold tracking-tight">
           {tBilling('pricingTitle')}
         </h2>
-        <p className="text-fl-muted-1 mx-auto mb-4 max-w-2xl font-sans text-sm leading-relaxed">
-          {tBilling('pricingContext')}
-        </p>
         <p className="text-fl-muted-1 font-sans text-sm">
           {tBilling(canStartTrial ? 'pricingDesc' : 'pricingDescTrialUsed', {
             days: trialDays,

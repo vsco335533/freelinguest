@@ -233,12 +233,12 @@ coverage. `architecture-frontend.instructions.md` owns the shared overview and h
 
 ### Dashboard tour
 
-`OnboardingTour` is a seven-screen introduction: Lingu's welcome, study plan, text/voice practice,
+`OnboardingTour` is a seven-screen introduction: Linguist's welcome, study plan, text/voice practice,
 flashcards, listening/reading, games, and a dashboard-oriented closing. Games names are examples of
 the growing catalog, not an exhaustive list. Games have no blanket Premium marker.
 
 - Copy and manual narration use the interface locale, independently of native or target language.
-- Lingu greets once, rests between interactions, speaks during audio playback, encourages on the
+- Linguist greets once, rests between interactions, speaks during audio playback, encourages on the
   Games screen, and celebrates at the closing. Entry gestures play only on the first visit to their
   screen within the current tour. Gestures never delay narration or navigation.
 - Audio starts only from the button beside the current paragraph. It never autoplays the next screen.
@@ -265,7 +265,7 @@ level and language are authoritative.
 
 Tutor context includes profile, goals, plan/progress information, native and target languages, and
 global memories. It does not currently inject a current-unit topic list or recent-mistake list.
-Lingu responds primarily in the target language and may use concise native-language correction when
+Linguist responds primarily in the target language and may use concise native-language correction when
 helpful.
 The written tutor permits optional Markdown bold, italics, bullet/numbered lists and paragraphs,
 following the chat-specific policy in `prompts.instructions.md`. Plain text remains valid. The same

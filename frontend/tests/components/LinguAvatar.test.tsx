@@ -14,7 +14,7 @@ vi.mock('next/dynamic', () => ({
   default: () =>
     function MockScene(props: LinguSceneProps) {
       scene.props = props
-      return <span data-testid="scene">Animated Lingu</span>
+      return <span data-testid="scene">Animated Linguist</span>
     },
 }))
 
@@ -54,7 +54,7 @@ afterEach(() => {
   useLoadingStore.setState({ count: 0, complete: false })
 })
 
-describe('Lingu loading fallback', () => {
+describe('Linguist loading fallback', () => {
   it('does not flash static artwork before the motion preference is known', () => {
     const onReady = vi.fn()
     const html = renderToString(

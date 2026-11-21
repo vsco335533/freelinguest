@@ -33,7 +33,7 @@ async def test_narration_requires_authentication(client, tour_service):
 async def test_client_text_interface_language_and_voice_are_cached(client, test_user, tour_service):
     _, headers = test_user
     url = "/api/tts/tour/fr/step6"
-    body = {"text": "Pratiquez avec Lingu.", "voice": "coral"}
+    body = {"text": "Pratiquez avec Linguist.", "voice": "coral"}
     first = await client.post(url, headers=headers, json=body)
     second = await client.post(url, headers=headers, json=body)
     assert first.status_code == second.status_code == 200

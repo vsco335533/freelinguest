@@ -336,7 +336,7 @@ non-uppercase presentation. Optional reading and translation lines use the small
 
 ## Prompts, native-language help, and speech
 
-Prompts for Lingu, lessons, flashcards, assessment, level tests, Listening, Reading, and voice
+Prompts for Linguist, lessons, flashcards, assessment, level tests, Listening, Reading, and voice
 conversation receive the target language explicitly. They must not assume English merely because
 both English variants are supported.
 

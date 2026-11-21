@@ -105,7 +105,7 @@ def main() -> None:
     document["accessors"] = kept_accessors
     document["bufferViews"] = kept_views
     document["buffers"] = [{"byteLength": len(packed)}]
-    document["asset"]["generator"] = "FreeLingo Lingu web export"
+    document["asset"]["generator"] = "FreeLingo Linguist web export"
     encoded = json.dumps(document, separators=(",", ":"), ensure_ascii=False).encode()
     encoded += b" " * (-len(encoded) % 4)
     packed.extend(b"\0" * (-len(packed) % 4))
@@ -119,7 +119,7 @@ def main() -> None:
     destination = ROOT / "frontend/public/models/lingu.glb"
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(result)
-    print(f"Lingu GLB: {len(source):,} → {len(result):,} bytes; {len(animations)} clips")
+    print(f"Linguist GLB: {len(source):,} → {len(result):,} bytes; {len(animations)} clips")
 
 
 if __name__ == "__main__":

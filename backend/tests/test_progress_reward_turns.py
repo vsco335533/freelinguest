@@ -54,7 +54,7 @@ async def test_text_continuation_of_voice_uses_chat_threshold_and_cap(
 
     async def chat(*args, **kwargs):
         async def stream():
-            yield "This is Lingu's reply."
+            yield "This is Linguist's reply."
 
         return stream()
 
@@ -267,7 +267,7 @@ async def test_voice_completion_day_survives_background_task_starting_after_midn
         yield db_session
 
     async def stream():
-        yield "Lingu's third response."
+        yield "Linguist's third response."
 
     monkeypatch.setattr(conversation_pipeline, "datetime", Clock)
     monkeypatch.setattr(conversation_pipeline, "db_session", session)
@@ -336,7 +336,7 @@ async def test_voice_turn_rolls_back_both_messages_when_reward_write_fails(
         target_language="en-US",
     )
     await pipeline._save_turn(
-        "My answer", "Lingu's reply", completed_at=datetime.now(UTC).replace(tzinfo=None)
+        "My answer", "Linguist's reply", completed_at=datetime.now(UTC).replace(tzinfo=None)
     )
     assert (await db_session.scalars(select(ChatHistory))).all() == []
     assert (await db_session.scalars(select(Progress))).all() == []

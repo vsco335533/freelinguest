@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
 
-export const SITE_URL = 'https://freelingo.app'
+// Public address of this installation, from the SITE_URL environment variable
+// (set at image build time and at runtime); no trailing slash.
+export const SITE_URL = (process.env.SITE_URL || 'http://localhost:3000').replace(/\/+$/, '')
+
+// Where users of this service can get its source code (required by the AGPL-3.0 licence).
+export const SOURCE_CODE_URL = 'https://github.com/vsco335533/freelinguest'
 
 // Only canonical, public content belongs here. Account and app pages inherit noindex.
 export const INDEXABLE_PATHS = ['/', '/privacy', '/terms'] as const

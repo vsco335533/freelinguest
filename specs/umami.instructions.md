@@ -82,7 +82,7 @@ Product flows use fixed paths and no custom event properties, except the global 
   and successful nonempty deterministic evaluation. The beginner shortcut and level test do not count.
 - Plans: `study_plan_created`, `/plan`, after creation commits through either creation endpoint.
 - Lessons: `lesson_completed`, `/lesson`, on first committed completion, excluding retries and reviews.
-- Lingu: `lingu_chat_practiced` or `lingu_voice_practiced`, `/chat` or `/conversation`, for the first
+- Linguist: `lingu_chat_practiced` or `lingu_voice_practiced`, `/chat` or `/conversation`, for the first
   persisted nonempty paired exchange per conversation. Greetings, failures and resumptions do not count;
   chat and voice share first-exchange eligibility. Existing conversations are not backfilled.
 - Listening: `listening_started`, `listening_completed`, `listening_replayed`, `/listening`.

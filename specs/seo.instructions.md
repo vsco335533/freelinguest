@@ -30,9 +30,9 @@ describes maintainer checks and Search Console procedures, not evidence of deplo
 
 The only indexable HTML pages and sitemap entries are:
 
-- `https://freelingo.app/`: the product landing.
-- `https://freelingo.app/privacy`: the privacy policy.
-- `https://freelingo.app/terms`: the terms of service.
+- `{SITE_URL}/`: the product landing.
+- `{SITE_URL}/privacy`: the privacy policy.
+- `{SITE_URL}/terms`: the terms of service.
 
 These pages explicitly emit `index, follow`. The root defaults to `noindex, follow`, with no shared
 canonical or landing-specific social metadata for other pages. Indexability is opt-in, including
@@ -77,7 +77,7 @@ Each indexable page emits:
 - The existing `/og-image-v2.png` social image, 1200 × 630, with a brand alternative description.
 
 Landing metadata describes structured A1–C2 learning, personalized plans, exercises, games, and
-conversation with Lingu. It must not promise guaranteed outcomes or features that are unavailable.
+conversation with Linguist. It must not promise guaranteed outcomes or features that are unavailable.
 Meta keywords are not used.
 
 Canonical URLs omit all query strings and fragments. For example, `/privacy?from=landing` and
@@ -163,7 +163,7 @@ It is not an additional route in the application's sitemap.
 
 Geist Sans and Geist Mono retain their existing Next.js font handling. Noto Sans JP/KR/SC remain
 available with the existing typography rules, without global preloads of their Latin subsets.
-Three.js and Lingu's scene remain dynamically imported with the existing reduced-motion, visibility,
+Three.js and Linguist's scene remain dynamically imported with the existing reduced-motion, visibility,
 and cleanup behavior. No analytics dependency is needed for SEO.
 
 Performance work should use measured evidence:
@@ -206,7 +206,7 @@ The deployment maintainer must complete production build and deployed checks:
    not-found response. `/reading` is included in the middleware's preliminary protected-route list;
    the authenticated shell and backend remain responsible for validating the session and access.
 7. Compare responsive light/dark landing presentation and existing registration, invitation,
-   legal-return, pricing, FAQ, and Lingu flows. Retain existing behavior when optimizing SEO.
+   legal-return, pricing, FAQ, and Linguist flows. Retain existing behavior when optimizing SEO.
 
 ### Google Search Console
 

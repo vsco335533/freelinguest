@@ -36,6 +36,7 @@ from app.services.llm_adapter import LLMResponseError, LLMTimeoutError, llm_adap
 from app.services.progress_rewards import award_progress_reward
 from app.services.progress_service import lock_progress_plan, update_daily_progress
 from app.services.prompts.games import (
+    detective_draft_prompt,
     detective_prompt,
     detective_review_prompt,
     sentence_order_prompt,
@@ -47,6 +48,10 @@ from app.services.subscription_service import is_subscribed
 from app.utils.db import db_session
 
 logger = logging.getLogger(__name__)
+
+
+# Candidates per game; each is reviewed. Smaller local models need more than one attempt.
+GENERATION_ATTEMPTS = 3
 
 
 def now_utc() -> datetime:
@@ -400,19 +405,32 @@ async def generate_content(
         prompt_builder = vocabulary_pairs_prompt
         review_builder = vocabulary_pairs_review_prompt
         schema = VocabularyPairsContent
-    prompt = prompt_builder(
+    args = (
         session.target_language,
         session.native_language,
         session.level,
         session.mode,
         session.context,
     )
+    # The review audits the full game specification.
+    prompt = prompt_builder(*args)
+    # Error Detective is generated from a simpler draft (sentence, answer, mistake) that the
+    # schema turns into fragments and options, so smaller models produce a valid structure.
+    generation_prompt = detective_draft_prompt(*args) if prompt_builder is detective_prompt else prompt
     permitted = {s["source_id"] for s in session.context["sources"]}
     rejection = ""
-    for _ in range(2):
-        content = await llm_adapter.structured_output(
-            [{"role": "system", "content": prompt + rejection}], schema, deadline=deadline
-        )
+    for _ in range(GENERATION_ATTEMPTS):
+        try:
+            content = await llm_adapter.structured_output(
+                [{"role": "system", "content": generation_prompt + rejection}],
+                schema,
+                deadline=deadline,
+            )
+        except LLMResponseError as exc:
+            # A candidate that cannot be read or validated counts as one rejected attempt.
+            logger.warning("Game candidate could not be used: %s", str(exc)[:300])
+            rejection = "\nPrevious candidate rejected: follow the JSON format and every rule."
+            continue
         if any(c.source_id not in permitted for c in content.challenges):
             rejection = "\nPrevious candidate rejected: use only supplied source IDs."
             continue
@@ -421,11 +439,17 @@ async def generate_content(
         ):
             rejection = "\nPrevious candidate rejected: do not repeat recent sentences."
             continue
-        review = await llm_adapter.structured_output(
-            [{"role": "system", "content": review_builder(prompt, content.model_dump())}],
-            DetectiveReview,
-            deadline=deadline,
-        )
+        try:
+            review = await llm_adapter.structured_output(
+                [{"role": "system", "content": review_builder(prompt, content.model_dump())}],
+                DetectiveReview,
+                deadline=deadline,
+            )
+        except LLMResponseError as exc:
+            # An unreadable verdict is not an approval: generate a new candidate instead.
+            logger.warning("Game review could not be read: %s", str(exc)[:300])
+            rejection = "\nPrevious candidate rejected; create a new one."
+            continue
         if review.valid:
             if ordering:
                 return SentenceOrderContent(

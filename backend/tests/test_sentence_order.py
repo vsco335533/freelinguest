@@ -381,11 +381,11 @@ async def test_order_generation_reviews_before_consuming_quota(
     )
     candidate = order_content(source)
     review = DetectiveReview(valid=outcome == "valid", reason="missing valid alternative")
-    effects = [candidate, review, candidate, review]
+    effects = [candidate, review] * games.GENERATION_ATTEMPTS
     if outcome == "timeout":
         effects = [TimeoutError()]
     elif outcome == "wrong_source":
-        effects = [candidate, candidate]
+        effects = [candidate] * games.GENERATION_ATTEMPTS
     mock = AsyncMock(side_effect=effects)
     monkeypatch.setattr(games.llm_adapter, "structured_output", mock)
 

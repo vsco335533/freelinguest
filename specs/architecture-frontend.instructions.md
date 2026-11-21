@@ -145,9 +145,9 @@ expire the cache window so a later visit can retry.
 Session-scoped quota caching, unknown balances, and paywall presentation are defined in
 `subscriptions-freemium.instructions.md`.
 
-## Lingu avatar
+## Linguist avatar
 
-Voice conversations show the animated Lingu avatar between the transcript and controls, at 65 × 65
+Voice conversations show the animated Linguist avatar between the transcript and controls, at 65 × 65
 px on mobile and 200 × 200 px on desktop. Its animation follows assistant speech, user speech, and
 response preparation; listening is the idle fallback. Written chat shows a 55 × 55 px avatar in the
 conversation header, switching between thinking while a response is generated and resting otherwise.
@@ -191,7 +191,7 @@ Resource errors, retries, cancellation, and request deadlines belong to their co
 the viewport never declares a pending operation successful or starts a request.
 
 Reading and Listening share `components/ui/exercise-generation-loading.tsx` for their generation
-screens, using static Lingu artwork. Each page supplies localized status, description, and delay
+screens, using static Linguist artwork. Each page supplies localized status, description, and delay
 warning text. Generation participates in the same presentation cycle and mounted loading-counter
 lifecycle as `PageLoading`. See `reading.instructions.md` and `listening.instructions.md` for
 generation behavior.
@@ -384,11 +384,11 @@ names alphabetically using the active UI locale's collation. The translation edi
 incomplete translations with a localized pending suffix, without adding completion checkmarks to
 options; the overall completion counter remains visible.
 
-Product copy names Lingu when describing the tutor's actions, conversations, and exercise preparation.
+Product copy names Linguist when describing the tutor's actions, conversations, and exercise preparation.
 References to AI remain appropriate for technology, providers, and usage; this editorial convention
 does not replace disclosures in privacy policies or terms. Apply wording consistently by meaning
 across all fifteen UI catalogs, preserving translation keys, interpolation variables, and rich-text
-tags. Reading and Listening generation descriptions name Lingu without promising a fixed wait time.
+tags. Reading and Listening generation descriptions name Linguist without promising a fixed wait time.
 
 Authenticated FAQ copy in `faq` describes the selected study language, optional beginner entry at A1,
 the adaptive static-bank placement quiz and plan creation on level/duration confirmation. Flashcards
@@ -407,7 +407,7 @@ It keeps one `components/lingu/LinguAvatar.tsx` mounted across steps. The avatar
 `LinguScene.tsx` and Three.js only when visible and motion is allowed. The fixed-camera scene frames
 sampled animation bounds, cross-fades clips, caps pixel ratio, pauses animation updates in hidden tabs,
 and disposes its renderer, geometry, materials, and requests on unmount. A loading indicator remains
-visible until the first rendered frame; static Lingu artwork is used for reduced motion and
+visible until the first rendered frame; static Linguist artwork is used for reduced motion and
 renderer/model failures. The optional `onReady` callback signals the first rendered animation frame or
 the resolved static fallback, after the browser's motion preference is known.
 
@@ -444,7 +444,7 @@ The reserved space, surrounding language positions, and container dimensions rem
 Flag images use fixed 14 × 10 px boxes matching their declared image dimensions, with flex shrinking
 disabled and centered `object-cover` cropping to keep a uniform size without stretching the artwork.
 Bubble floating starts when the group is ready. Reduced motion disables the entrance transition
-and floating; reduced motion and loading failures reveal the group with static Lingu artwork.
+and floating; reduced motion and loading failures reveal the group with static Linguist artwork.
 An optional `className` overrides the avatar's default responsive dimensions so other surfaces
 can size it to their own container.
 

@@ -9,7 +9,7 @@ import { ContactButton } from '@/components/ui/contact-button'
 import { LanguageBubbles } from '@/components/LanguageBubbles'
 import { LandingReviewsCarousel } from '@/components/reviews/LandingReviewsCarousel'
 import type { ReviewPublic, ReviewPublicSummary } from '@/types/api'
-import { createPublicMetadata, SITE_URL } from '@/lib/seo'
+import { createPublicMetadata, SITE_URL, SOURCE_CODE_URL } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('landing')
@@ -30,9 +30,8 @@ const jsonLd = {
   browserRequirements: 'Requires a modern web browser with JavaScript enabled.',
   url: `${SITE_URL}/`,
   author: {
-    '@type': 'Person',
-    name: 'Arturo Carretero Calvo',
-    url: 'https://www.arturocarreterocalvo.com',
+    '@type': 'Organization',
+    name: 'Linguist',
   },
 }
 
@@ -198,7 +197,7 @@ export default async function Home() {
             </h2>
             <div className="flex flex-col gap-2">
               <a
-                href="https://github.com/artcc/freelingo"
+                href={SOURCE_CODE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
@@ -231,14 +230,6 @@ export default async function Home() {
               {t('contact')}
             </h2>
             <div className="flex flex-col gap-2">
-              <a
-                href="https://www.arturocarreterocalvo.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-fl-hint text-fl-muted-3 hover:text-fl-muted-1 font-mono tracking-widest uppercase transition-colors"
-              >
-                {t('aboutMe')}
-              </a>
               <ContactButton />
             </div>
           </div>

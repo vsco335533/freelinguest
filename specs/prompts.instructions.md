@@ -18,7 +18,7 @@ considered when changing prompt-safety assumptions.
 ## Package responsibilities
 
 - `common.py`: plain-text output policy, JSON-only/retry fragments, Anthropic system-only trigger,
-  Lingu name, memory-tool policy, and language overlays.
+  Linguist name, memory-tool policy, and language overlays.
 - `tutor.py`: text and voice tutor system prompts, including the written-chat formatting policy.
 - `speech.py`: native-pronunciation instructions for all `gpt-4o-mini-tts` synthesis, including its
   snapshots. The TTS adapter gates support; legacy/unknown models receive no instructions. Supplied
@@ -83,7 +83,7 @@ escaped memory context but must not instruct the model to call an unavailable to
 
 ## Tutor prompts
 
-Text and voice prompts lock the Lingu persona, learning scope, safety behavior, target language, native
+Text and voice prompts lock the Linguist persona, learning scope, safety behavior, target language, native
 support, learner context, and optional memories.
 
 Text tutoring responds primarily in the target language and may briefly explain corrections in the
@@ -102,8 +102,8 @@ persistence, access, and streaming behavior belongs to Platform and Voice Conver
 Lesson-linked voice sessions additionally receive `lesson_practice_context`. The service loads this
 bounded, escaped JSON reference from an owned completed lesson and its answered exercises; the client
 supplies only the lesson ID. The prompt treats it as non-authoritative data inside `lesson_practice`
-delimiters. It asks Lingu to open with a relevant question, provide hints and gentle corrections, and
-revisit difficult structures. Lingu may acknowledge sufficient practice and offer to finish or
+delimiters. It asks Linguist to open with a relevant question, provide hints and gentle corrections, and
+revisit difficult structures. Linguist may acknowledge sufficient practice and offer to finish or
 continue, but cannot end the session or impose a new duration. The context remains in prompt arguments
 through greeting, memory refresh, and tool-free fallback, independently of the bounded turn history.
 

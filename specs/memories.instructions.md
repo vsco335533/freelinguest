@@ -7,7 +7,7 @@ applyTo: "backend/app/models/memory.py, backend/app/schemas/memory.py, backend/a
 
 ## Purpose and scope
 
-Memories are durable personal context owned globally by a user. Lingu can save a concise fact through
+Memories are durable personal context owned globally by a user. Linguist can save a concise fact through
 the native `save_user_memory` tool in text or voice conversation. Users can list, add, delete, and
 clear memories manually in Settings.
 

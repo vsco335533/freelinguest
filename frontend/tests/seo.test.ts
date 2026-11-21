@@ -83,7 +83,7 @@ describe('public SEO contract', () => {
   )
 
   it('excludes account pages and avoids fabricated sitemap freshness', async () => {
-    expect(String(rootMetadata.metadataBase)).toBe('https://freelingo.app/')
+    expect(String(rootMetadata.metadataBase)).toBe('http://localhost:3000/')
     expect(rootMetadata.robots).toEqual({ index: false, follow: true })
     expect(rootMetadata.alternates).toBeUndefined()
     expect(rootMetadata.openGraph).toBeUndefined()
@@ -140,7 +140,7 @@ describe('public SEO contract', () => {
         disallowed.some((prefix) => prefix && path.startsWith(prefix))
       ).toBe(false)
     }
-    expect(robots().sitemap).toBe('https://freelingo.app/sitemap.xml')
+    expect(robots().sitemap).toBe('http://localhost:3000/sitemap.xml')
     expect(disallowed).toContain('/api/')
     const files = readdirSync(app, {
       recursive: true,

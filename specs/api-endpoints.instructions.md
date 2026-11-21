@@ -366,7 +366,7 @@ Chat endpoints require authentication and maintenance/access policy. Conversatio
 - **POST `/conversations`** — Rate limit: 60/min. Creates a new conversation.
 - **DELETE `/conversations/{id}`** — Rate limit: 60/min. Deletes a conversation and its messages (CASCADE).
 - **GET `/conversations/{id}/messages`** — Rate limit: 60/min. Returns messages for a conversation.
-- **POST `/api/chat`** — Rate limit: 30/min. Sends a message and streams Lingu's response as SSE. Events can contain `conversation_id`, `token`, `memory_updated`, `response_reset`, `done`, or `error`. `response_reset=true` instructs the client to discard text already emitted for the current assistant turn before consuming a complete no-tools fallback. A confirmed committed memory can emit `memory_updated=true` before a later reset or terminal error. Only non-empty completed responses are persisted as assistant history.
+- **POST `/api/chat`** — Rate limit: 30/min. Sends a message and streams Linguist's response as SSE. Events can contain `conversation_id`, `token`, `memory_updated`, `response_reset`, `done`, or `error`. `response_reset=true` instructs the client to discard text already emitted for the current assistant turn before consuming a complete no-tools fallback. A confirmed committed memory can emit `memory_updated=true` before a later reset or terminal error. Only non-empty completed responses are persisted as assistant history.
 - **GET `/history`** — Rate limit: 60/min. Returns the authenticated user's chat history.
 
 Written assistant responses may contain optional Markdown bold, italics, bullet/numbered lists and

@@ -531,7 +531,7 @@ Global cache for native-language study help generated for static learning resour
 
 ## Memory (`memories`)
 
-Global user-specific context persisted by Lingu or manually by the user. Memories are shared across learning languages. `study_plan_id` is nullable creation provenance only and never scopes retrieval; deleting its study plan preserves the row through `SET NULL`.
+Global user-specific context persisted by Linguist or manually by the user. Memories are shared across learning languages. `study_plan_id` is nullable creation provenance only and never scopes retrieval; deleting its study plan preserves the row through `SET NULL`.
 
 - id — Type: integer; Notes: Primary key
 - user_id — Type: integer; Notes: FK → users (CASCADE DELETE)

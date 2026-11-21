@@ -172,7 +172,7 @@ named speaker per language: Lalitha (Telugu), Divya (Hindi), Anu (Kannada), Jaya
 - Exists only for OpenAI TTS; local-provider requests return `404`.
 - Accepts `alloy`, `ash`, `coral`, `echo`, `fable`, `nova`, `onyx`, `sage`, or `shimmer`.
 - Invalid voices return `400`; a missing service object returns `503`.
-- Generates the Lingu preview and atomically caches it under `/app/tts_previews/`.
+- Generates the Linguist preview and atomically caches it under `/app/tts_previews/`.
   Instruction-capable OpenAI models use `{voice}-{sha256}.mp3`, with text, model, voice, speed, format,
   language context, and instructions in the identity; other models retain `{voice}.mp3`.
 - Returns `Cache-Control: no-store`; Settings requests previews with `cache: 'no-store'` so browser
@@ -270,7 +270,7 @@ cancels its wait/retry without canceling renewal shared by other requests. Chang
 cancels playback and discards late audio; token rotation within the same session does not interrupt it.
 
 The dashboard tour posts its displayed i18n text and voice to its locale/step audio URL with this
-player. Optional playback-state notifications coordinate Lingu's speaking animation; they do not
+player. Optional playback-state notifications coordinate Linguist's speaking animation; they do not
 provide phoneme-level lip sync.
 Stopping, replacing content, and unmounting abort requests, stop playback, remove audio handlers, and
 release Blob URLs and timers. Each tour screen requires its own manual playback action.

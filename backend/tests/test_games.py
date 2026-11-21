@@ -469,12 +469,8 @@ async def test_background_review_charges_only_valid_persisted_content(
     )
     candidate = content(session.context["sources"][0]["source_id"])
     mocked = AsyncMock(
-        side_effect=[
-            candidate,
-            DetectiveReview(valid=allowed, reason="ambiguous"),
-            candidate,
-            DetectiveReview(valid=allowed, reason="ambiguous"),
-        ]
+        side_effect=[candidate, DetectiveReview(valid=allowed, reason="ambiguous")]
+        * games.GENERATION_ATTEMPTS
     )
     monkeypatch.setattr(games.llm_adapter, "structured_output", mocked)
 
@@ -489,7 +485,7 @@ async def test_background_review_charges_only_valid_persisted_content(
     assert (await db_session.get(GameAdmission, session.id)).status == (
         "consumed" if allowed else "released"
     )
-    assert mocked.await_count == (2 if allowed else 4)
+    assert mocked.await_count == (2 if allowed else 2 * games.GENERATION_ATTEMPTS)
     assert "deadline" in mocked.call_args.kwargs
 
 

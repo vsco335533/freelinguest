@@ -52,13 +52,8 @@ export const metadata: Metadata = {
   },
   // Public content opts in at its own route; private and account pages stay out.
   robots: { index: false, follow: true },
-  authors: [
-    {
-      name: 'Arturo Carretero Calvo',
-      url: 'https://www.arturocarreterocalvo.com',
-    },
-  ],
-  creator: 'Arturo Carretero Calvo',
+  authors: [{ name: 'Linguist' }],
+  creator: 'Linguist',
   icons: {
     icon: [{ url: '/linguist-mark.svg', type: 'image/svg+xml' }],
     apple: [{ url: '/linguist-mark.svg', type: 'image/svg+xml' }],

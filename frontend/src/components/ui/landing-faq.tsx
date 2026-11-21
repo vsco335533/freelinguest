@@ -6,7 +6,7 @@ import { trackBrowserEvent } from '@/lib/analytics'
 import { useConfigStore } from '@/store/config'
 import { useTargetLanguageList } from '@/hooks/useTargetLanguageList'
 
-const FAQ_KEYS = ['modes', 'free', 'hosting', 'data', 'languages', 'start']
+const FAQ_KEYS = ['free', 'data', 'languages', 'start']
 
 export function LandingFAQ() {
   const t = useTranslations('landing.faq')

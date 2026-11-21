@@ -32,7 +32,7 @@ function setup() {
   return { model, mixer, actions, playback, advance }
 }
 
-describe('Lingu playback transitions', () => {
+describe('Linguist playback transitions', () => {
   it('preserves the pose and clip times when reversing an unfinished fade', () => {
     const { model, actions, playback, advance } = setup()
     playback.play('hablando')

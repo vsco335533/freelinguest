@@ -6,7 +6,7 @@
 
 - Monorepo: `backend/` (Python 3.14, FastAPI) and `frontend/` (Next.js 16 App Router), with PostgreSQL 16 and Redis 7.
 - The backend owns business logic and proxies every external service; the frontend must not call LLM, TTS, or STT providers directly.
-- The AI tutor persona is Lingu.
+- The AI tutor persona is Linguist.
 - Specifications describe current behavior. Release history belongs only in `CHANGELOG.md`.
 
 ## Non-negotiable invariants

@@ -8,7 +8,7 @@ applyTo: "backend/app/routers/conversation.py, backend/app/services/conversation
 ## Purpose
 
 Voice conversation lets the learner speak through browser Voice Activity Detection (VAD) and receive
-spoken responses from Lingu over one WebSocket connection. The backend orchestrates STT, LLM, memory,
+spoken responses from Linguist over one WebSocket connection. The backend orchestrates STT, LLM, memory,
 TTS, quota tracking, timeout enforcement, and transcript persistence.
 
 The browser sends one complete WAV frame per accepted utterance. Audio is not streamed continuously
@@ -127,7 +127,7 @@ scheduled objectives, vocabulary, grammar references, and up to eight answered e
 score then ID. Exercise questions and explanations use the same read-time legacy fill-blank
 normalization as lesson detail, without mutating stored exercises; both fields are bounded in the
 context. This snapshot is included in the system prompt for the greeting, normal turns, memory
-refreshes, and no-tools fallbacks; trimming turn history cannot remove it. Lingu guides questions and
+refreshes, and no-tools fallbacks; trimming turn history cannot remove it. Linguist guides questions and
 help around the lesson and can suggest that the main objectives have been practised. This is ordinary
 conversational text, not a session-end event or a persisted completion flag. The learner can continue
 or stop, subject to the existing voice limits.
@@ -260,7 +260,7 @@ turn through transcription, generation, and assistant playback. `listening`, `tu
 recoverable turn error releases the backend-work guard, while the speaking indicator remains tied to
 the real audio queue.
 
-The status indicator and Lingu animation prioritize assistant playback, then pending backend work,
+The status indicator and Linguist animation prioritize assistant playback, then pending backend work,
 over microphone detections. The localized preparing-response label covers the wait after sending an
 utterance, transcription, generation, and gaps between audio fragments while backend work is pending.
 The interface returns to listening only after both backend work and playback have finished.

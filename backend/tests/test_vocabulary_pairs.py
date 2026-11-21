@@ -255,11 +255,11 @@ async def test_pairs_generation_and_consumption(
         session.context["sources"][0]["source_id"] if outcome != "wrong_source" else "foreign"
     )
     review = DetectiveReview(valid=outcome == "valid", reason="ambiguous meanings")
-    effects = [candidate, review, candidate, review]
+    effects = [candidate, review] * games.GENERATION_ATTEMPTS
     if outcome == "timeout":
         effects = [TimeoutError()]
     if outcome == "wrong_source":
-        effects = [candidate, candidate]
+        effects = [candidate] * games.GENERATION_ATTEMPTS
     mock = AsyncMock(side_effect=effects)
     monkeypatch.setattr(games.llm_adapter, "structured_output", mock)
 

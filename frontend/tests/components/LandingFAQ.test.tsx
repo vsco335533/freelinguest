@@ -103,7 +103,7 @@ describe('Landing FAQ', () => {
     const document = new DOMParser().parseFromString(html, 'text/html')
     const answer = document.querySelector('[role="region"]')
 
-    expect(answer?.textContent).toContain(messages.landing.faq.modes.answer)
+    expect(answer?.textContent).toContain(messages.landing.faq.free.answer)
     expect(answer?.hasAttribute('hidden')).toBe(true)
     expect(document.body.textContent).toContain(
       messages.landing.faq.data.answer
@@ -113,32 +113,32 @@ describe('Landing FAQ', () => {
   it('loads public configuration and sends anonymous events for opens, not closes', async () => {
     render(<FAQ />)
     await waitFor(() => expect(useConfigStore.getState().loaded).toBe(true))
-    const modes = screen.getByRole('button', {
-      name: messages.landing.faq.modes.question,
-    })
     const free = screen.getByRole('button', {
       name: messages.landing.faq.free.question,
     })
+    const data = screen.getByRole('button', {
+      name: messages.landing.faq.data.question,
+    })
 
     expect(screen.queryByRole('region')).toBeNull()
-    fireEvent.click(modes)
+    fireEvent.click(free)
     const firstAnswer = screen.getByRole('region', {
-      name: messages.landing.faq.modes.question,
+      name: messages.landing.faq.free.question,
     })
-    expect(modes).toHaveAttribute('aria-expanded', 'true')
-    expect(modes).toHaveAttribute('aria-controls', firstAnswer.id)
+    expect(free).toHaveAttribute('aria-expanded', 'true')
+    expect(free).toHaveAttribute('aria-controls', firstAnswer.id)
     expect(firstAnswer).toBeVisible()
 
-    fireEvent.click(free)
-    expect(modes).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(data)
+    expect(free).toHaveAttribute('aria-expanded', 'false')
     expect(firstAnswer).not.toBeVisible()
-    expect(free).toHaveAttribute('aria-expanded', 'true')
+    expect(data).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByRole('region')).toHaveTextContent(
-      messages.landing.faq.free.answer
+      messages.landing.faq.data.answer
     )
 
-    fireEvent.click(free)
-    expect(free).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(data)
+    expect(data).toHaveAttribute('aria-expanded', 'false')
     expect(screen.queryByRole('region')).toBeNull()
     const events = vi.mocked(fetch).mock.calls.filter(
       ([url]) => url === '/api/analytics/public'
@@ -163,12 +163,12 @@ describe('Landing FAQ', () => {
 
     fireEvent.click(
       screen.getByRole('button', {
-        name: messages.landing.faq.modes.question,
+        name: messages.landing.faq.free.question,
       })
     )
 
     expect(screen.getByRole('region')).toHaveTextContent(
-      messages.landing.faq.modes.answer
+      messages.landing.faq.free.answer
     )
     expect(fetch).toHaveBeenCalledTimes(1)
     expect(fetch).toHaveBeenCalledWith('/api/config')

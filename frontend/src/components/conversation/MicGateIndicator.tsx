@@ -7,7 +7,7 @@ interface Props {
 
 /**
  * Tells the learner when they may speak: green while the mic listens, red while it
- * is muted for Lingu's turn (thinking, answering and playing audio).
+ * is muted for Linguist's turn (thinking, answering and playing audio).
  */
 export default function MicGateIndicator({ open }: Props) {
   const t = useTranslations('conversation')

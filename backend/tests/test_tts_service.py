@@ -111,7 +111,7 @@ async def test_previews_refresh_only_instruction_capable_audio(
     monkeypatch.setattr(settings, "TTS_PROVIDER", "openai")
     monkeypatch.setattr(app.state, "tts_service", service, raising=False)
     monkeypatch.setattr(tts_router, "_PREVIEW_DIR", str(tmp_path))
-    (tmp_path / "nova.mp3").write_bytes(b"ID3legacy")
+    (tmp_path / f"nova-{tts_router._PREVIEW_DIGEST}.mp3").write_bytes(b"ID3legacy")
     _, headers = test_user
 
     first = await client.get("/api/tts/preview/nova", headers=headers)

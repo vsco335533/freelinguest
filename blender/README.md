@@ -1,4 +1,4 @@
-# Lingu Lighting Preview
+# Linguist Lighting Preview
 
 `lingu-lighting-preview.html` lets you preview the model and adjust its lighting locally, without changing the app or deploying anything.
 

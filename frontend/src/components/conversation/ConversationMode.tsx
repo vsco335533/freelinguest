@@ -483,7 +483,7 @@ export default function ConversationMode({
     assistantSpeakingRef.current = assistantSpeaking
   }, [assistantSpeaking])
 
-  // Mic gate: mute the microphone track while Lingu thinks, sends or plays a reply
+  // Mic gate: mute the microphone track while Linguist thinks, sends or plays a reply
   // (barge-in is disabled), and reopen it only after playback has fully finished.
   useEffect(() => {
     if (!sessionActive) return
@@ -610,7 +610,7 @@ export default function ConversationMode({
         !micOpenRef.current ||
         (startedAt !== null && startedAt < micOpenedAtRef.current)
       ) {
-        // The utterance overlapped a muted tutor turn: it can contain Lingu's own
+        // The utterance overlapped a muted tutor turn: it can contain Linguist's own
         // voice or its echo, never only the learner's speech.
         convLogger.warn('discarded audio recorded around a muted tutor turn')
         speechStartedAtRef.current = null

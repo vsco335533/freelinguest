@@ -13,7 +13,7 @@ sudo systemctl start ollama
 ollama show gemma4:e2b-ctx8k
 
 # 5. Start all project services
-sudo docker compose --env-file .env.dev -f docker-compose.dev.yml up -d --build
+ dev.yml up -d --build
 
 # 6. Check containers
 sudo docker compose --env-file .env.dev -f docker-compose.dev.yml ps
@@ -39,9 +39,9 @@ sudo docker compose --env-file .env.dev -f docker-compose.dev.yml logs --tail=50
 [![Self-hosted](https://img.shields.io/badge/self--hosted-yes-orange?style=flat-square)](#quick-start)
 ![Version](https://img.shields.io/badge/version-1.12.5-brightgreen?style=flat-square)
 
-<img src="assets/logo_large.png" alt="FreeLingo — language learning with Lingu, your voice conversation partner" width="900" />
+<img src="assets/logo_large.png" alt="FreeLingo — language learning with Linguist, your voice conversation partner" width="900" />
 
-**Structured learning. Everyday practice. Conversations with Lingu.**
+**Structured learning. Everyday practice. Conversations with Linguist.**
 
 [Try FreeLingo Cloud](https://freelingo.app) · [Self-host](#quick-start) · [Development](DEVELOPMENT.md) · [Sponsor](https://github.com/sponsors/artcc)
 
@@ -50,7 +50,7 @@ sudo docker compose --env-file .env.dev -f docker-compose.dev.yml logs --tail=50
 ## Overview
 
 FreeLingo is an open-source language learning platform with a structured A1–C2 curriculum and an AI
-tutor, **Lingu**. Use the managed service or run the application on your own infrastructure.
+tutor, **Linguist**. Use the managed service or run the application on your own infrastructure.
 
 1. **Find your starting point.** Take the adaptive placement quiz or start at A1 as a beginner.
    Quiz scoring and study-plan scheduling are deterministic; the plan follows the selected language's
@@ -58,12 +58,12 @@ tutor, **Lingu**. Use the managed service or run the application on your own inf
 2. **Follow your plan.** Work through curriculum units with clear competencies and prerequisites.
    Lesson content is AI-generated within those boundaries, with native-language explanations and
    practice across grammar, vocabulary, comprehension, and writing.
-3. **Practise with Lingu.** Use text and voice tutoring with user-controlled memories. Completed
+3. **Practise with Linguist.** Use text and voice tutoring with user-controlled memories. Completed
    lessons also offer voice practice: confirm a topic preview, then discuss the lesson with help
    informed by your exercise answers. These conversations retain the existing voice limits and
    appear in chat history under the lesson topic.
    - **Adaptive bilingual voice tutoring:** AUTO/ON/OFF bilingual help (global per user; AUTO
-     covers A1-B2). Lingu recognises speech in your native language, shows exactly what you said in
+     covers A1-B2). Linguist recognises speech in your native language, shows exactly what you said in
      your own script, answers in your language while teaching how to say it in the language you are
      learning, and gradually increases that language as you improve. Telugu, Hindi, Kannada, Tamil,
      Malayalam, and Odia have dedicated examples and a self-hosted native voice
@@ -133,7 +133,7 @@ See [the architecture specification](specs/architecture.instructions.md) for sys
 freelingo/
 ├── assets/                          # Logos and static assets
 ├── backend/                         # FastAPI (Python)
-├── blender/                         # Lingu source model and animations
+├── blender/                         # Linguist source model and animations
 ├── data/                            # Shared data files
 ├── docs/                            # GitHub Pages landing site
 ├── frontend/                        # Next.js (React)

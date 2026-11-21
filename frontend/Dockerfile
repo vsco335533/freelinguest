@@ -14,6 +14,10 @@ COPY messages/ ./messages/
 # (deps stage generates them but COPY frontend/ . above overwrites public/vad from source)
 RUN node scripts/copy-vad-models.js
 ENV NEXT_TELEMETRY_DISABLED=1
+# Public site address for pages prerendered at build time; the runtime SITE_URL
+# environment variable covers pages rendered per request.
+ARG SITE_URL=http://localhost:3000
+ENV SITE_URL=${SITE_URL}
 RUN npm run build
 
 FROM node:26.13.0-alpine AS runner

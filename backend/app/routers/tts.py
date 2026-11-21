@@ -1,3 +1,4 @@
+import hashlib
 import os
 import time
 import uuid
@@ -33,6 +34,7 @@ _PREVIEW_TEXT = (
     f"Hello! I'm {TUTOR_DISPLAY_NAME}, your tutor. This is how I sound — warm, clear, "
     "and ready to help you practise every day. Let's get started!"
 )
+_PREVIEW_DIGEST = hashlib.sha256(_PREVIEW_TEXT.encode("utf-8")).hexdigest()[:12]
 
 
 @router.post("/tts/tour/{locale}/{step}")
@@ -181,7 +183,9 @@ async def voice_preview(
             detail="TTS service is not enabled",
         )
 
-    cache_path = os.path.join(_PREVIEW_DIR, f"{voice}.mp3")
+    # The text digest in the name retires cached previews when the wording (e.g. the tutor's
+    # name) changes.
+    cache_path = os.path.join(_PREVIEW_DIR, f"{voice}-{_PREVIEW_DIGEST}.mp3")
     if isinstance(tts_service, OpenAITTSService) and tts_service.get_instructions():
         key = tts_service.get_cache_key(_PREVIEW_TEXT, voice)
         cache_path = os.path.join(_PREVIEW_DIR, f"{voice}-{key}.mp3")

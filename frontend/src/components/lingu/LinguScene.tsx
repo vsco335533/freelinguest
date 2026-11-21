@@ -84,7 +84,7 @@ export default function LinguScene({
         const response = await fetch('/models/lingu.glb', {
           signal: controller.signal,
         })
-        if (!response.ok) throw new Error('Lingu model unavailable')
+        if (!response.ok) throw new Error('Linguist model unavailable')
         const data = await response.arrayBuffer()
         if (disposed) return
         const gltf = await new GLTFLoader().parseAsync(data, '')
@@ -124,7 +124,7 @@ export default function LinguScene({
 
         const scene = new Scene()
         scene.add(model)
-        // Keep studio-style contrast tailored for Lingu's blue enamel.
+        // Keep studio-style contrast tailored for Linguist's blue enamel.
         scene.add(new HemisphereLight(0xffffff, 0x1e3a5f, 2))
         const key = new DirectionalLight(0xffffff, 4)
         key.position.set(5, 12, 10)

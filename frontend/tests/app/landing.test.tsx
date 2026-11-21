@@ -285,7 +285,6 @@ describe('Landing Home', () => {
     render(await Home())
 
     const table = screen.getByRole('table')
-    expect(screen.getByText('pricingContext')).toBeInTheDocument()
     for (const label of ['freeFeature.lessons', 'freeFeature.games']) {
       const row = within(table).getByRole('row', {
         name: `${label} limitedLabel`,

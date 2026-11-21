@@ -29,7 +29,7 @@ services:
       retries: 5
 
   backend:
-    image: ghcr.io/artcc/freelingo-backend:latest
+    image: ${IMAGE_REGISTRY:-ghcr.io/vsco335533}/linguist-backend:${IMAGE_TAG:-latest}
     pull_policy: always
     container_name: freelingo-backend
     restart: unless-stopped
@@ -78,7 +78,7 @@ services:
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      SMTP_FROM: ${SMTP_FROM:-noreply@freelingo.app}
+      SMTP_FROM: ${SMTP_FROM:-noreply@example.com}
       SMTP_TLS: ${SMTP_TLS:-true}
       SMTP_SSL: ${SMTP_SSL:-false}
       APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
@@ -118,6 +118,10 @@ services:
       PRICE_YEARLY: ${PRICE_YEARLY:-149.50}
       TOTAL_PRICE_MONTHLY: ${TOTAL_PRICE_MONTHLY:-19.95}
       TOTAL_PRICE_YEARLY: ${TOTAL_PRICE_YEARLY:-199.50}
+      # Native-language voice (Telugu, Hindi, Kannada, Tamil, Malayalam, Odia).
+      NATIVE_TTS_BASE_URL: ${NATIVE_TTS_BASE_URL:-http://native-tts:8890}
+      NATIVE_TTS_LANGUAGES: '${NATIVE_TTS_LANGUAGES:-["te","hi","kn","ta","ml","or"]}'
+      NATIVE_TTS_MIXED_SCRIPT: ${NATIVE_TTS_MIXED_SCRIPT:-true}
     depends_on:
       postgres:
         condition: service_healthy
@@ -125,12 +129,14 @@ services:
         condition: service_healthy
 
   frontend:
-    image: ghcr.io/artcc/freelingo-frontend:latest
+    image: ${IMAGE_REGISTRY:-ghcr.io/vsco335533}/linguist-frontend:${IMAGE_TAG:-latest}
     pull_policy: always
     container_name: freelingo-frontend
     restart: unless-stopped
     environment:
       BACKEND_URL: http://backend:8000
+      # Public address of this installation (canonical links, sitemap, structured data).
+      SITE_URL: ${SITE_URL:-http://localhost:3000}
       NEXT_PUBLIC_UMAMI_SCRIPT_URL: ${NEXT_PUBLIC_UMAMI_SCRIPT_URL:-}
       NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${NEXT_PUBLIC_UMAMI_WEBSITE_ID:-}
     ports:
@@ -172,3 +178,31 @@ services:
     environment:
       - ASR_MODEL=${STT_MODEL:-large-v3-turbo}
       - ASR_ENGINE=${STT_ENGINE:-faster_whisper}
+
+  # Native voice (Indic Parler-TTS) ───────────────────────────────
+  # Reads Telugu, Hindi, Kannada, Tamil, Malayalam and Odia for the bilingual tutor.
+  # Built from services/telugu-tts by CI. Needs an NVIDIA GPU (runs very slowly on CPU).
+  native-tts:
+    image: ${IMAGE_REGISTRY:-ghcr.io/vsco335533}/linguist-native-tts:${IMAGE_TAG:-latest}
+    pull_policy: always
+    container_name: freelingo-native-tts
+    restart: unless-stopped
+    environment:
+      - TTS_ENGINE=${NATIVE_TTS_ENGINE:-parler}
+      - TTS_COMPILE=${NATIVE_TTS_COMPILE:-0}
+      - TTS_MODEL_ID=${NATIVE_TTS_MODEL_ID:-}
+      - HF_TOKEN=${HF_TOKEN:-}
+      - HF_HUB_DISABLE_XET=${HF_HUB_DISABLE_XET:-1}
+      - HF_HUB_DOWNLOAD_TIMEOUT=${HF_HUB_DOWNLOAD_TIMEOUT:-60}
+    volumes:
+      - native-tts-models:/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  native-tts-models:
